@@ -1,0 +1,34 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Calibration}
+\label{chap:calib}
+
+\section{Overview}
+
+The Daya Bay DAQ system produces little more than chunks of timestamped and digitized electrical signals: ``We saw a pulse \textit{this} high, and the peak was digitized at \emph{this} instant, and it was part of \emph{this} trigger block.'' In order to carry out any sort of physics analysis with this data, it must first be converted into more meaningful quantities: How much light did the PMT see? When did the light arrive on the photocathode? How much energy was deposited in the scintillator, given the light measurement? This conversion from raw to calibrated data is the subject of this chapter.
+
+To begin with, the calibration process can be broken down into three different domains: Timing, charge (gain), and energy (light yield). Properly-calibrated times are important for time-based vertex reconstruction, while the gain and light yield calibrations are critical for estimating the desposited energy of an event. All analyses employ the same timing and gain calibrations, but there exist multiple independent energy reconstructions, and each uses its own light yield calibration. We now describe these three calibrations in detail.
+
+\section{Timing calibration}
+
+The timing calibration converts each hit's TDC count into the more meaningful quantity of \emph{time since beginning of trigger}. This involves subtracting out a channel-specific offset (corresponding to cable length, etc.) with an additional correction for the so-called \emph{timewalk effect}, in which smaller pulses take longer to cross the discriminator's threshold. In addition to their application to time-based vertex reconstructions, these calibrated times are also used in defining the time window for hit selection (performed during the charge calculation, described later).\footnote{Given that this window is 400~ns wide, and the timewalk correction is on the order of a few~ns, the raw times would actually work fine for hit selection.}
+
+\subsection{Calibration constant preparation}
+
+In order to correct for each channel's offset and timewalk, they must first be measured. This requires a well-defined event vertex and an external source of $T_0$ information.\footnote{There is a natural variance in the timing of readout triggers, smearing the TDC measurements. With knowledge of $T_0$, each event's trigger jitter can be subtracted from the TDCs of all channels, removing this smearing. Measuring the channel-by-channel timing behavior would be impossible without this extra information.} Specifically, Daya Bay uses LED calibration runs in which the LED is positioned at the center of the detector. When a pulse arrives at the LED, a ``hit'' is sent to the FEE from a ``fake'' $T_0$ channel (board 18, connector 16). For each PMT hit, we take the TDC, subtract the TDC of the T0 channel, convert to nanoseconds (using the known TDC frequency), and then finally subtract the time of flight from the detector center. This gives the ``measured time'' of each channel in each event.
+
+In the next step, a 2D histogram is constructed for each channel by taking all of the channel's hits, across all events, and plotting each hit's ``measured time'' $t$ against its ADC count $q$ (on the horizontal axis). This histogram's profile is then fit to the six-parameter functional form
+
+\[ f(q) = a_1 + a_2 \exp (-a_3 q) + a_4 \exp (-a_5 q) + a_6 \log q, \] 
+
+\noindent which was empirically found to produce good fits when the parameters were appropriately restricted. After a manual verification of fit quality, the six parameters for each channel are uploaded to the offline DB, marked with a suitable validity period. This procedure is repeated whenever the electronics have been modified in a way that can affect the timing (such as a cabling change or board replacement).
+
+\begin{comment}
+Show the tof-corrected times; comment on TDC discretization. Also, what about
+the global offset adjustment? (It's in the DB filler script?) And the fact that
+TDC values must be negated.
+\end{comment}
+
+\end{document}
