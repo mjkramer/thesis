@@ -14,5 +14,6 @@
 tmp/
 refs/
 auto/
+chapters/auto
 oldorg/*.pdf
 oldorg/*.tex
