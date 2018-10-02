@@ -11,6 +11,8 @@
 *.run.xml
 *.synctex.gz
 *.toc
+*.lof
+*.lot
 tmp/
 refs/
 auto/
