@@ -20,10 +20,8 @@ The timing calibration converts each hit's TDC count into the more meaningful qu
 In order to correct for each channel's offset and timewalk, they must first be measured. This requires a well-defined event vertex and an external source of $T_0$ information.\footnote{There is a natural variance in the timing of readout triggers, smearing the TDC measurements. With knowledge of $T_0$, each event's trigger jitter can be subtracted from the TDCs of all channels, removing this smearing. Measuring the channel-by-channel timing behavior would be impossible without this extra information.} Specifically, Daya Bay uses LED calibration runs in which the LED is positioned at the center of the detector. When a pulse arrives at the LED, a ``hit'' is sent to the FEE from a ``fake'' $T_0$ channel (board 18, connector 16). For each PMT hit, we take the TDC, subtract the TDC of the T0 channel, convert to nanoseconds (using the known TDC frequency), and then finally subtract the time of flight from the detector center. This gives the ``measured time'' of each channel in each event.
 
 In the next step, a 2D histogram is constructed for each channel by taking all of the channel's hits, across all events, and plotting each hit's ``measured time'' $t$ against its ADC count $q$ (on the horizontal axis). This histogram's profile is then fit to the six-parameter functional form
-
 \[ f(q) = a_1 + a_2 \exp (-a_3 q) + a_4 \exp (-a_5 q) + a_6 \log q, \] 
-
-\noindent which was empirically found to produce good fits when the parameters were appropriately restricted. After a manual verification of fit quality, the six parameters for each channel are uploaded to the offline DB, marked with a suitable validity period. This procedure is repeated whenever the electronics have been modified in a way that can affect the timing (such as a cabling change or board replacement).
+which was empirically found to produce good fits when the parameters were appropriately restricted. After a manual verification of fit quality, the six parameters for each channel are uploaded to the offline DB, marked with a suitable validity period. This procedure is repeated whenever the electronics have been modified in a way that can affect the timing (such as a cabling change or board replacement).
 
 \begin{comment}
 Show the tof-corrected times; comment on TDC discretization. Also, what about
