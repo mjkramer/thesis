@@ -25,6 +25,14 @@
 \def\frontsize{}
 \def\mylarge{\large}            % prevent Emacs highlighting
 
+\def\MyDoubleSpacing{%
+\setSpacing{2}%
+% \makeatletter%
+% \edef\m@m@footnote@spacing{\baselinestretch}%
+% \edef\m@m@float@spacing{\baselinestretch}%
+% \makeatother%
+}
+
 \setlrmarginsandblock{1.25in}{1.25in}{*}
 \setulmarginsandblock{1.5in}{1.5in}{*}
 \checkandfixthelayout%
@@ -122,17 +130,18 @@
   \mylarge
   \textbf{Abstract}
 
-  \vspace{2\baselineskip}
+  \vspace{1.5\baselineskip}
   Precision Measurement of Reactor Neutrino Oscillation with Daya Bay\\
   \vspace{\baselineskip} by\\
   \vspace{\baselineskip} Matthew Jacob Kramer\\
   Doctor of Philosophy in Physics\\
   University of California, Berkeley\\
   Professor Kam-Biu Luk, Chair
+  \vspace{\baselineskip}
 \end{center}
 
-\setSpacing{2}
-
+\normalsize
+\MyDoubleSpacing
 \noindent The Daya Bay reactor neutrino experiment measures reactor
 antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
 antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
@@ -145,6 +154,15 @@ antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
 antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
 antineutrinos. 
 
+\SingleSpacing
+\vspace{2.5\baselineskip}
+\hfill
+\begin{minipage}{0.4\textwidth}
+  \hrule\vspace{0.4\baselineskip}
+  Professor Kam-Biu Luk\\
+  Dissertation committee chair
+\end{minipage}
+
 \frontmatter
 
 % Or use class option `titlepage'
@@ -155,6 +173,7 @@ antineutrinos.
 \tableofcontents*{}
 
 \mainmatter
+\MyDoubleSpacing
 
 \subfile{chapters/Calibration.tex}
 
