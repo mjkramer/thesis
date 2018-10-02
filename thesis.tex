@@ -21,13 +21,17 @@
 \author{Matthew Jacob Kramer}
 \date{Spring 2019}
 
+% \def\frontsize{\fontsize{12}{14.5}\selectfont}
+\def\frontsize{}
+\def\mylarge{\large}
+
 \begin{document}
 
 % Print whole bibliography, cited or not
 \nocite{*}
 
 \thispagestyle{empty}
-{\fontsize{12}{14.5}\selectfont
+{\mylarge
 
 \begin{center}
   \textbf{\csname @title\endcsname}
@@ -42,20 +46,20 @@
   \vspace{2\baselineskip}
 
   A dissertation submitted in partial satisfaction of the\\
-  \OnehalfSpacing\fontsize{12}{14.5}\selectfont
+  \OnehalfSpacing\frontsize
   requirements for the degree of\\
   Doctor of Philosophy
 
-  \SingleSpacing\fontsize{12}{14.5}\selectfont in
+  \SingleSpacing\frontsize in
   \par\vspace{\baselineskip} Physics
   \par\vspace{\baselineskip} in the
   \par\vspace{\baselineskip}
   GRADUATE DIVISION\\
-  \OnehalfSpacing\fontsize{12}{14.5}\selectfont 
+  \OnehalfSpacing\frontsize
   of the\\
   UNIVERSITY OF CALIFORNIA, BERKELEY
 
-  \vfill\SingleSpacing\fontsize{12}{14.5}\selectfont
+  \vfill\SingleSpacing\frontsize
 
   Committee in charge:\\
   Professor Kam-Biu Luk, Chair\\
@@ -64,9 +68,35 @@
 
   \vspace{2\baselineskip} \csname @date\endcsname
 \end{center}
-} % \selectfont
 
+\clearpage
+\thispagestyle{empty}
 \DoubleSpacing
+
+\begin{minipage}{0.85\linewidth}
+  \begin{center}
+    The dissertation of Matthew Jacob Kramer is approved:
+
+    \vspace{3.5\baselineskip}
+    \hrule\vspace{0.25\baselineskip}
+    {\small\ \ \ \ \ Chair \hfill Date}
+    \vspace{3\baselineskip}
+    \hrule\vspace{0.25\baselineskip}
+    {\small\hfill Date}
+    \vspace{3\baselineskip}
+    \hrule\vspace{0.25\baselineskip}
+    {\small\hfill Date}
+    \vspace{2.5\baselineskip}   % otherwise `Date' moves to the right :/
+
+    Univerity of California, Berkeley\\
+    \vspace{1.5\baselineskip}
+    Spring 2019
+  \end{center}
+\end{minipage}
+
+\clearpage
+
+} % \selectfont
 
 \frontmatter
 
