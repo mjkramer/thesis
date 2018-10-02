@@ -23,7 +23,12 @@
 
 % \def\frontsize{\fontsize{12}{14.5}\selectfont}
 \def\frontsize{}
-\def\mylarge{\large}
+\def\mylarge{\large}            % prevent Emacs highlighting
+
+\setlrmarginsandblock{1.25in}{1.25in}{*}
+\setulmarginsandblock{1.5in}{1.5in}{*}
+\checkandfixthelayout%
+% \setlength{\evensidemargin}{\oddsidemargin}
 
 \begin{document}
 
@@ -95,8 +100,50 @@
 \end{minipage}
 
 \clearpage
+\thispagestyle{empty}
 
-} % \selectfont
+\begin{center}
+  \SingleSpacing
+  \textbf{\csname @title\endcsname}
+
+  \vspace{5\baselineskip}
+  Copyright 2019
+  \par\vspace{\baselineskip} by
+  \par\vspace{\baselineskip} Matthew Jacob Kramer
+\end{center}
+
+\clearpage
+} % \mylarge
+
+\thispagestyle{empty}
+\DoubleSpacing
+
+\begin{center}
+  \mylarge
+  \textbf{Abstract}
+
+  \vspace{2\baselineskip}
+  Precision Measurement of Reactor Neutrino Oscillation with Daya Bay\\
+  \vspace{\baselineskip} by\\
+  \vspace{\baselineskip} Matthew Jacob Kramer\\
+  Doctor of Philosophy in Physics\\
+  University of California, Berkeley\\
+  Professor Kam-Biu Luk, Chair
+\end{center}
+
+\setSpacing{2}
+
+\noindent The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. The Daya Bay reactor neutrino experiment measures reactor
+antineutrinos. 
 
 \frontmatter
 
