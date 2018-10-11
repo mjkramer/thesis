@@ -1,0 +1,44 @@
+* Extra packages
+- latexsym
+- See RevTeX docs
+- textcomp
+- manyfoot
+- hyphenat
+- array
+
+* BibLaTeX
+- addbibresource
+- parencite(s)?
+- multicite
+- autocite; \let\cite\autocite
+- textcite, smartcite
+- parencite: no effect unless citestyle=authoryear
+- JUST USE cite!!! (or autocite)
+- natbib=true: citep, citet
+- address -> location
+- journal -> journaltitle
+- date
+- https://tex.stackexchange.com/questions/5091/what-to-do-to-switch-to-biblatex
+- blockcquote
+
+* Emacs stuff
+#+BEGIN_SRC emacs-lisp
+  (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
+  (setq bibtex-completion-bibliography reftex-default-bibliography)
+  (setq org-ref-default-bibliography reftex-default-bibliography)
+  (setq bibtex-completion-library-path '("/home/mkramer/physics/thesis/refs"))
+  (setq org-ref-pdf-directory (car bibtex-completion-library-path))
+  (setq helm-bibtex-full-frame nil)
+  (add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
+#+END_SRC
+
+cite:An_2017
+,An_2017
+label:sdf
+
+label:foo
+
+ref:sdf
+
+cite:An_2017
+

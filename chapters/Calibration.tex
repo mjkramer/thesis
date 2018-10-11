@@ -1,3 +1,4 @@
+% -****- reftex-default-bibliography: ("/home/mkramer/physics/thesis/biblio.bib") -*-
 \documentclass[../thesis.tex]{subfiles}
 
 \begin{document}
@@ -11,7 +12,7 @@
 
 \section{Overview}
 
-For the antineutrino detectors and water pools, the Daya Bay DAQ system outputs little more than timestamped PMT hits, grouped into readout windows and tagged with trigger information. These hits take the form of ADC readings from the peak-finding electronics, along with the TDC count at the time that each (shaped) PMT waveform crossed the disciminator's threshold. In order to carry out any sort of physics analysis, it is necessary to first convert this raw ADC and TDC data into the higher-level quantities of photoelectron count and photon arrival time, and then to combine individual channels into event parameters such as energy and position.
+For the antineutrino detectors \cite{SideBySide} and water pools, the Daya Bay \cite{An_2017} DAQ system outputs little more than timestamped PMT hits, grouped into readout windows and tagged with trigger information. These hits take the form of ADC readings from the peak-finding electronics, along with the TDC count at the time that each (shaped) PMT waveform crossed the disciminator's threshold. In order to carry out any sort of physics analysis, it is necessary to first convert this raw ADC and TDC data into the higher-level quantities of photoelectron count and photon arrival time, and then to combine individual channels into event parameters such as energy and position.
 
 This chapter describes the first half of that process; namely, the detector calibration and data processing involved in the channel-by-channel calculation of hit time and charge. These calibrated quantities are fundamental in that they are used in all further analysis stages and by all reconstruction algorithms. Accuracy is vital, as any bias in the channel charge will be reflected in the total event energy and in any (charge-based) vertex reconstruction; likewise, accurate times are important for time-based vertex reconstructions. Furthermore, it is necessary to identify and exclude any misbehaving channels, a process that will also be discussed here.
 
@@ -47,6 +48,11 @@ After this is done, we have a calibrated time, in ns, for each hit, which can be
 
 \section{Gain calibration}
 
+At a given operating voltage, every PMT will produce a unique amount of charge per photoelectron, even among other PMTs of the same model. Furthermore, this response tends to vary with time and environmental conditions, demanding a periodic recalibration of the gain. In Daya Bay, the HV for each channel was initially fixed in order to provide a nominal gain of $1 \times 10^7 \pm 5\%$. During the gain calibration, the true gain is measured and stored in the database. This is expressed as the number of ADC counts (i.e., the FEE's charge measurement) per photoelectron.
+
+To measure the gain, Daya Bay uses ``dark noise'', the thermal emission of electrons from the photocathode. 
+
 \section{Channel quality}
 
+\subfilebackmatter
 \end{document}
