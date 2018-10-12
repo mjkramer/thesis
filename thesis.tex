@@ -8,7 +8,8 @@
 \usepackage{siunitx}
 % \usepackage{caption}            % see memoir doc p. 206
 \usepackage{graphicx}
-\usepackage[backend=biber,citestyle=numeric-comp,firstinits=true]{biblatex}
+% \usepackage[backend=biber,citestyle=numeric-comp,firstinits=true]{biblatex}
+\usepackage[backend=biber,citestyle=numeric-comp]{biblatex}
 % \usepackage{hyperref}           % temporarily disable; ugly boxes
 % \hypersetup{colorlinks=true,}
 \usepackage{csquotes}           % [autostyle]? enable if needed
@@ -214,4 +215,4 @@ I would like to thank a bunch of people. I would like to thank a bunch of people
 
 \SingleSpacing
 \addbibresource{../biblio.bib}  % need to test
-\def\subfilebackmatter{\printbibliography[heading=subbibliography]}
+\def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
