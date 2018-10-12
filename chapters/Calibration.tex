@@ -53,13 +53,24 @@ At a given operating voltage, every PMT will produce a unique amount of charge p
 To measure the gain, Daya Bay uses ``dark noise'', the thermal emission of electrons from the photocathode\footnote{Each dynode can of course also emit electrons, but the collected charge is attenuated by $\mathcal{O}(5^n)$ for emission from the $n$th dynode. This effect can therefore be safely neglected for our purposes.}. Due to the $\sim\mu$s width of the readout window, it is possible to collect dark noise by looking for isolated hits in the few hundred ns preceding each detector-wide trigger. This can be done using ordinary physics data, eliminating the need for special gain calibration runs\footnote{In the past, Daya Bay has in fact employed a separate, redundant gain calibration using LED runs, which gave results consistent with this ``rolling gain'' method.}. In order to acquire enough statistics, roughly six hours of data are needed, limiting the frequency of calibration updates to 4 per day. Fortunately, this is far shorter than the timescale of gain variations; most channels drift by no more than a few percent per year. % CHECKME, add stability plot
 
 Thermal emission is a Poisson process, and the collected charge per primary electron is normally distributed. Convolving the two gives a model of the charge distribution for dark noise hits,
-\[ P(Q) = \sum_{n^=1}{\infty} \frac{\mu^n e^{-\mu}}{n!} \frac{1}{\sigma_{\mathrm{SPE}}\sqrt{2n\pi}}
-  \exp\left(-\frac{(Q - n\bar Q^{\mathrm{SPE}})^2}{2n\sigma_{\mathrm{SPE}}^2}\right) \]
-where $\mu$ is the mean number of photoelectrons, $\bar Q^{\mathrm{SPE}}$ is the average charge per p.e., and $\sigma_{\mathrm{SPE}}^2$ is the corresponding variance. Due to the extremely low probability of observing multiple thermal electrons in a single hit, the sum was restricted to $n \le 2$ in practice.
+\[ P(Q) = \sum_{n^=1}^{\infty} \frac{\mu^n e^{-\mu}}{n!} \frac{1}{\sigma_{\mathrm{SPE}}\sqrt{2n\pi}}
+  \exp\left(-\frac{(Q - n\overline Q^{\mathrm{SPE}})^2}{2n\sigma_{\mathrm{SPE}}^2}\right) \]
+where $\mu$ is the mean number of photoelectrons, $\overline Q^{\mathrm{SPE}}$ is the average charge per p.e., and $\sigma_{\mathrm{SPE}}$ is the corresponding spread. Due to the extremely low probability of observing multiple thermal electrons in a single hit, the sum was restricted to $n \le 2$ in practice.
 
-Using this model, the dark noise ADC distribution\footnote{The fit is restricted to ADC values above 10, as noise in the low-ADC region was found to impair the stability of the fit} can be fit for each channel, yielding the channel's characteristic values of $\mu$, $\bar Q^{\mathrm{SPE}}$, and $\sigma_{\mathrm{SPE}}^2$. In particular, $\bar Q^{\mathrm{SPE}}$ corresponds to the channel's gain. These parameters are stored in the database and used during data processing to calculate the calibrated charge for each channel, providing the basis of the energy reconstruction, described in the next chapter.
+Using this model, the dark noise ADC distribution\footnote{The fit is restricted to ADC values above 10, as noise in the low-ADC region was found to impair the stability of the fit} can be fit for each channel, yielding the channel's characteristic values of $\mu$, $\overline Q^{\mathrm{SPE}}$, and $\sigma_{\mathrm{SPE}}$. In particular, $\overline Q^{\mathrm{SPE}}$ corresponds to the channel's gain. These parameters are stored in the database and used during data processing to calculate the calibrated charge for each channel, providing the basis of the energy reconstruction, described in the next chapter.
 
 \section{Channel quality}
+
+In order to prevent any biases from being introduced by misbehaving channels, a channel quality database is consulted during data production, and any tagged channels are excluded from the total event charge (see next chapter). Bad channels are identified and tagged during the regular ``keep-up'' processing of each new data file. Four quantities are used for each data file:
+
+\begin{enumerate}
+\item Channel occupancy, i.e., the percentage of events in which the channel recorded at least one hit (must be within range);
+\item HV average (must be above minimum);
+\item HV RMS (must be below maximum);
+\item Average baseline-subtracted ADC count (must be within range).
+\end{enumerate}
+
+Physics and calibration runs use distinct, empirically tuned cuts on these four values. If a channel fails any of these cuts, it is marked bad for the duration of the file's runtime. In most cases, bad channels have been found to result from HV instability. Fortunately, this has generally been an isolated issue; on average, there have been around a half-dozen bad channels at any given time, usually with no more than one per AD.
 
 \subfilebackmatter
 \end{document}
