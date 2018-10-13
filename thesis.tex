@@ -14,7 +14,6 @@
 % \hypersetup{colorlinks=true,}
 \usepackage{csquotes}           % [autostyle]? enable if needed
 
-\graphicspath{{images/}{../images/}} % for the sub-files
 \addbibresource{biblio.bib}
 
 \usepackage{subfiles}
@@ -43,6 +42,11 @@
 
 \settocdepth{subsection}
 \setsecnumdepth{subsection}
+
+\setfloatadjustment{figure}{\centering}
+\setfloatadjustment{table}{\centering}
+
+\graphicspath{{images/}}
 
 \begin{document}
 
@@ -218,5 +222,6 @@ I would like to thank a bunch of people. I would like to thank a bunch of people
 % The following are applied only when a chapter is processed solo
 
 \SingleSpacing
-\addbibresource{../biblio.bib}  % need to test
+\addbibresource{../biblio.bib}
 \def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
+\graphicspath{{../images/}}
