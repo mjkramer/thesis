@@ -4,7 +4,27 @@
 - textcomp
 - manyfoot
 - hyphenat
-- array
+- array/tabularx/supertabular/tabu: [[https://tex.stackexchange.com/questions/341205/what-is-the-difference-between-tabular-tabular-and-tabularx-environments][tabular*]]
+- ragged2e
+- changepage
+- sidenotes/marginnote
+- enumitem/paralist
+- titlesec/fancyhdr
+  
+* Other classes
+- tufte
+
+* Answers
+- [[https://tex.stackexchange.com/questions/50352/inserting-a-small-vertical-space-in-a-table][Table vertical spacing]]
+- [[https://tex.stackexchange.com/questions/50332/vertical-spacing-of-a-table-cell][More table vertical spacing]] (google: latex table add vertical spacing)
+- [[https://tex.stackexchange.com/questions/101553/margin-notes-on-both-left-and-right][Margin notes]]
+- [[https://tex.stackexchange.com/questions/185957/place-text-on-left-margin][More margin notes]], [[http://www.cse.iitd.ernet.in/~anup/homepage/UNIX/latex.html#marginparwoflow][also this]]
+- [[https://tex.stackexchange.com/questions/16337/can-i-get-a-widebar-without-using-the-mathabx-package/60253#60253][Widebar]] and [[https://tex.stackexchange.com/questions/22100/the-bar-and-overline-commands][etc.]]
+- [[http://everythingyouforgetaboutlatex.blogspot.com/2008/10/formatting-tables.html][Basic table spacing]]
+- [[https://latex.org/forum/viewtopic.php?t=30580][Paragraphs in tabular(x)]] (google: latex paragraphs in tabular)
+  
+* References
+- [[http://texdoc.net/texmf-dist/doc/plain/texbytopic/TeXbyTopic.pdf][TeX by Topic]]
 
 * BibLaTeX
 - addbibresource
@@ -42,3 +62,7 @@ ref:sdf
 
 cite:An_2017
 
+* DocDB references
+** Backgrounds
+*** Fast neutrons
+- http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
