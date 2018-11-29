@@ -20,10 +20,6 @@
 \usepackage{subfiles}
 \def\subfilebackmatter{}          % empty when subfiles are inluded; redefined at bottom
 
-\title{Precision Measurement of Reactor Neutrino Oscillation\\ with Daya Bay}
-\author{Matthew Jacob Kramer}
-\date{Spring 2019}
-
 % \def\frontsize{\fontsize{12}{14.5}\selectfont}
 \def\frontsize{}
 \def\mylarge{\large}            % prevent Emacs highlighting
@@ -49,151 +45,28 @@
 
 \graphicspath{{images/}}
 
+\title{Precision Measurement of Reactor Neutrino Oscillation\\ with Daya Bay}
+\author{Matthew Jacob Kramer}
+\date{Spring 2019}
+
 \begin{document}
 
 % Print whole bibliography, cited or not
 \nocite{*}
 
-\thispagestyle{empty}
-{\mylarge
-
-\begin{center}
-  \textbf{\csname @title\endcsname}
-  
-  \vspace{\baselineskip} by % \csname f@size\endcsname\ \csname f@baselineskip\endcsname
-
-  \vspace{\baselineskip} \csname @author\endcsname
-
-  \vspace{2\baselineskip}
-  B.A. (University of California, Berkeley) 2011\\
-  M.A. (University of California, Berkeley) 2015
-  \vspace{2\baselineskip}
-
-  A dissertation submitted in partial satisfaction of the\\
-  \OnehalfSpacing\frontsize
-  requirements for the degree of\\
-  Doctor of Philosophy
-
-  \SingleSpacing\frontsize in
-  \par\vspace{\baselineskip} Physics
-  \par\vspace{\baselineskip} in the
-  \par\vspace{\baselineskip}
-  GRADUATE DIVISION\\
-  \OnehalfSpacing\frontsize
-  of the\\
-  UNIVERSITY OF CALIFORNIA, BERKELEY
-
-  \vfill\SingleSpacing\frontsize
-
-  Committee in charge:\\
-  Professor Kam-Biu Luk, Chair\\
-  Professor Yury Kolomensky\\
-  Professor Karl van Bibber
-
-  \vspace{2\baselineskip} \csname @date\endcsname
-\end{center}
-
-\clearpage
-\thispagestyle{empty}
-\DoubleSpacing
-
-\begin{minipage}{0.85\linewidth}
-  \begin{center}
-    The dissertation of Matthew Jacob Kramer is approved:
-
-    \vspace{3.5\baselineskip}
-    \hrule\vspace{0.25\baselineskip}
-    {\small\ \ \ \ \ Chair \hfill Date}
-    \vspace{3\baselineskip}
-    \hrule\vspace{0.25\baselineskip}
-    {\small\hfill Date}
-    \vspace{3\baselineskip}
-    \hrule\vspace{0.25\baselineskip}
-    {\small\hfill Date}
-    \vspace{2.5\baselineskip}   % otherwise `Date' moves to the right :/
-
-    Univerity of California, Berkeley\\
-    \vspace{1.5\baselineskip}
-    Spring 2019
-  \end{center}
-\end{minipage}
-
-\clearpage
-\thispagestyle{empty}
-
-\begin{center}
-  \SingleSpacing
-  \textbf{\csname @title\endcsname}
-
-  \vspace{5\baselineskip}
-  Copyright 2019
-  \par\vspace{\baselineskip} by
-  \par\vspace{\baselineskip} Matthew Jacob Kramer
-
-  \vspace{5\baselineskip} This work is licensed under a Creative Commons Attribution 4.0 International License.
-\end{center}
-
-\clearpage
-} % \mylarge
-
 \pagestyle{empty}
-\DoubleSpacing
 
-\begin{center}
-  \mylarge
-  \textbf{Abstract}
+\input{front/cover.tex}
+\input{front/approval.tex}
+\input{front/copyright.tex}
+\input{front/abstract.tex}
+\input{front/dedication.tex}
+\input{front/acknowledgments.tex}
 
-  \vspace{1.5\baselineskip}
-  Precision Measurement of Reactor Neutrino Oscillation with Daya Bay\\
-  \vspace{\baselineskip} by\\
-  \vspace{\baselineskip} Matthew Jacob Kramer\\
-  Doctor of Philosophy in Physics\\
-  University of California, Berkeley\\
-  Professor Kam-Biu Luk, Chair
-  \vspace{\baselineskip}
-\end{center}
-
-\normalsize
-\MyDoubleSpacing
-\noindent \input{front/abstract.tex} % The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos. The Daya Bay reactor neutrino experiment measures reactor antineutrinos.
-
-\SingleSpacing
-\vspace{2.5\baselineskip}
-\hfill
-\begin{minipage}{0.4\textwidth}
-  \hrule\vspace{0.4\baselineskip}
-  Professor Kam-Biu Luk\\
-  Dissertation committee chair
-\end{minipage}
-
-\clearpage
 \pagestyle{headings}
-
-\thispagestyle{empty}
-\vfill
-\begin{vplace}
-  \begin{center}
-    {\large To my parents}
-  \end{center}
-\end{vplace}
-\clearpage
-
-\MyDoubleSpacing
-\thispagestyle{empty}
-\begin{center}
-  {\large\textbf{Acknowledgments}} 
-\end{center}
-
-\noindent \normalsize
-I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. I would like to thank a bunch of people. 
 
 \frontmatter
 \SingleSpacing
-
-% Or use class option `titlepage'
-% \begin{titlingpage}
-%   \maketitle
-% \end{titlingpage}
 
 \tableofcontents*{}
 \clearpage
