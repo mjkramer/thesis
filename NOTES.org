@@ -90,3 +90,10 @@ cite:An_2017
 ** Backgrounds
 *** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
+* Analysis notes
+** Background histogram
+Total height of stack has natural interpretation. Within each bin, the total
+height is divided up between components, such that equal contributors will have
+equal heights after unstacking and placing side-by-side. For unequal
+contributors, the heights (after unstacking) will reflect their logarithmic
+difference, i.e., each major axis increment corresponds to a factor of ten.
