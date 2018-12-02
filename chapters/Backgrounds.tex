@@ -5,7 +5,19 @@
 \chapter{Background subtraction}
 \label{chap:bkg}
 
+While Daya Bay's design ensures a fairly pure sample of antineutrino events, a small contamination of backgrounds (at the percent level) is unavoidable. These backgrounds can be subdivided into \emph{correlated} and \emph{uncorrelated} backgrounds. The uncorrelated backgrounds consist entirely of accidental coincidences between singles events, and the rate and spectrum can be easily estimated from those of the singles. On the other hand, the correlated backgrounds are so named because the prompt and delayed pulses are correlated in time, as they both originate from a single underlying process. The correlated background in Daya Bay correspond to four distinct processes, and each one requires its own technique for measuring the rate and spectrum.
+
+In this chapter, we discuss the measurement of each of these backgrounds. Once they have been measured, their scaled prompt spectra can be subtracted from that of IBD candidates, allowing the oscillation fit to proceed with an uncontaminated prompt spectrum, albeit one with an additional uncertainty stemming from the imprecise nature of the background measurements.
+
 \section{Accidental coincidences}
+
+As previously stated, the accidental background can be straightforwardly measured based on the characteristics of singles events. The singles spectrum is first measured by searching for prompt-like events that satisfy the usual muon vetos but are separated from other prompt-like events by at least 400~$\mu$s. The total integral of this spectrum gives the prompt-like rate $R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The accidental background rate is then simply
+\[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \]
+where the factor in parentheses is the probability for a prompt-like single to fall within the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final factor is the probability that the event is \emph{not} rejected by the decoupled multiplicity cut, which disallows any additional prompt-like single in the 400~$\mu$s preceding the delayed event. Once the rate has been determined this way, the spectrum is trivial: It is simply the singles spectrum itself.
+
+\begin{comment}
+  Mention IHEP's cross-check, and the additional uncertainty stemming from the difference between it and the nominal result?
+\end{comment}
 
 \section{Cosmogenic $^9$Li/$^8$He}
 
