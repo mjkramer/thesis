@@ -86,10 +86,6 @@ ref:sdf
 
 cite:An_2017
 
-* DocDB references
-** Backgrounds
-*** Fast neutrons
-- http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
 * Analysis notes
 ** Background histogram
 Total height of stack has natural interpretation. Within each bin, the total
@@ -97,3 +93,16 @@ height is divided up between components, such that equal contributors will have
 equal heights after unstacking and placing side-by-side. For unequal
 contributors, the heights (after unstacking) will reflect their logarithmic
 difference, i.e., each major axis increment corresponds to a factor of ten.
+* Sources of images
+- [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
+* References
+** Jan 29, 2019
+- [[http://www0.mi.infn.it/~sleoni/TEACHING/Nuc-Phys-Det/PDF/Lezione-partI-3-neutrons.pdf][Interaction of neutrons with matter]]
+- [[https://nukephysik101.wordpress.com/2016/02/29/fermi-and-gamow-teller-transition/][Fermi and Gamow-Teller transitions]]
+- [[https://jyx.jyu.fi/bitstream/handle/123456789/55927/URN:NBN:fi:jyu-201711204300.pdf?sequence=1][Theoretical study of forbidden unique and non-unique beta decays of medium-heavy nuclei]]
+- [[https://arxiv.org/pdf/1812.06739.pdf][Future opportunities in accelerator-based neutrino physics]]
+- [[https://arxiv.org/pdf/1609.03268.pdf][Beta spectrum of unique first-forbidden decays as a novel test for fundamental symmetries]]
+** DocDB references
+*** Backgrounds
+**** Fast neutrons
+- http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
