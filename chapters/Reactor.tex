@@ -5,6 +5,18 @@
 \chapter{Reactor prediction}
 \label{chap:bkg}
 
+In principle, a reactor-based near/far experiment can measure the oscillation parameters without any recourse to reactor physics: Simply measure the spectrum at the near site, ``unoscillate'' it back to the reactor, and then oscillate it out to the far site. The oscillation parameters are then those that give the best fit to the far-site data. No information is needed on reactor power, isotope fractions, or theoretical antineutrino spectra.
+
+In practice, the situation is complicated by the fact that Daya Bay features two reactor complexes and two near sites. Instead of two baselines, there are effectively six, and the reactors can differ from each other in terms of power and burnup. These factors must be accounted for when predicting the far site spectra from the near ones.
+
+In the simplest approach, one can just use the known power and baseline information to split each near spectrum into components from each reactor, and then unoscillate/oscillate each component separately to the far site. This can be done separately for each near site, and the two far site predictions can then be averaged. This is sufficient for getting a good measurement of $\theta_{13}$.
+
+However, measuring $\Delta m^2$ involves examining the detailed shapes of the near and far spectra. In the simple approach just described, it is assumed that all reactors are producing the same spectral shape (and ratio of flux to power). This is not necessarily accurate, as the reactors may be in different stages of their fuel cycles. Therefore, to get the most out of a rate+shape analysis, we must perform a full prediction of the spectrum from each reactor separately. This will, naturally, introduce uncertainties from the imperfect nature of the predictions. As long as the predictions are applied consistently, their uncertainties will be largely (but not completely) cancelled in the near/far ratios, so this primary benefit of a near/far measurement is not lost.
+
+Unfortunately, the multi-reactor/site layout does mean that we lose the ability to completely disregard the question of predicting the antineutrino spectrum from a nuclear reactor. This chapter describes this prediction and how it fits into the overall oscillation analysis.
+
+This chapter describes the reactor prediction, beginning with the question of predicting the antineutrino spectrum from a single fission of a given isotope, and then proceeding to discuss how these are combined in the Daya Bay reactors, using information on power and burnup (i.e., fission fractions) to form a full spectrum prediction.
+
 \section{Spectrum prediction}
 \label{sec:specpred}
 
