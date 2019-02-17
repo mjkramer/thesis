@@ -56,23 +56,29 @@ In 2011, the ``French'' collaboration of Mueller \emph{et al.} revisited the pro
 \subsection{Conversion method}
 \label{sec:conversion}
 
-In contrast to the \emph{ab initio} method, which depends on thousands of measurements of individual fission daughters and beta branches, the conversion procedure relies on just one measurement: The total beta spectrum from fissions of a given isotope. The total beta spectrum provides a powerful constraint, but it cannot be directly converted to an antineutrino spectrum the way that a single branch can. The traditional solution to this problem is to fit the total spectrum with a series of fictional \emph{virtual} branches, which are then inverted separately and summed to give the total antineutrino prediction.
+In contrast to the \emph{ab initio} method, which depends on thousands of measurements of individual fission daughters and beta branches, the conversion procedure relies on just one measurement: The total beta spectrum from fissions of a given isotope. The total beta spectrum provides a powerful constraint, but it cannot be directly converted to an antineutrino spectrum the way that a single branch can. The traditional solution to this problem is to fit the total spectrum with a series of fictional \emph{virtual} branches, which are then inverted separately and summed to give the total antineutrino prediction. Typically, one starts at the endpoint of the total spectrum, positing a virtual branch (an allowed GT decay, generally) of the same endpoint. This virtual branch is normalized by fitting the end of the total spectrum, and then subtracted out. The procedure is repeated at the new endpoint of the subtracted total spectrum, until one finally ends up with a few dozen virtual branches that together fit the entire spectrum.
 
 While this approach avoids the uncertainties caused by the incompleteness of nuclear databases, it gains uncertainty from the arbitrary nature of the virtual branch technique. Fortunately, this uncertainty can be characterized fairly well by varying the procedure and observing the changes in the result. It should be noted that, in spite of their relative independence, both approaches suffer from some of the same theoretical uncertainties involved in inverting single beta branches (whether real or virtual), particularly from weak magnetism. In the end, however, the total uncertainty of the conversion approach is found to be less than that of the \emph{ab initio} approach [XXX by how much?].
 
 \subsubsection{ILL $\beta$ spectra measurements}
 \label{sec:illmeas}
 
-For \urfive
+For \urfive, \punine, and \puone, all conversion predictions make use of the same measurements of the total beta spectra. These were taken at ILL in 1980s by Schrekenbach \emph{et al.}. Thin foils of each isotope were subjected to a thermal neutron flux from the ILL research reactor, and a small, extremely pure sample of beta decay electrons escaped through a narrow vacuum pipe for measurement by a high-resolution magnetic spectrometer, BILL. For normalization, the total number of fissions was later measured by performing gamma counting on the foils. These measurements remain the most precise total spectra in the literature.
 
 \subsubsection{Schreckenbach ILL conversion}
 \label{sec:schreck}
 
+After these beta spectra were measured, Schreckenbach \emph{et al.} proceeded to convert them into antineutrino spectra. Their method was a ``pure'' conversion, based only on virtual branches with no input from nuclear databases. As with Vogel's \ureight \emph{ab initio} prediction, certain corrections (finite size, weak magnetism) were applied in a simplified manner to the total spectrum, providing the dominant uncertainty on the final result. Until 2011, the Schreckenbach conversion was considered canonical.
+
 \subsubsection{French ILL conversion}
 \label{sec:frenchconv}
 
+The situation changed in 2011 with the work of Mueller \emph{et al.}. The French team took the attitude that, while nuclear databases are indeed somewhat incomplete, the data they \emph{do} include is still a precious constraint that deserves to be considered in the conversion procedure. Accordingly, they began with an \emph{ab initio} calculation for all four isotopes. For \ureight, as described above, they had to stop at that point. But for the other three isotopes, they proceeded to subtract the \emph{ab initio} spectra (for the electron, not the antineutrino) from the ILL measurements, leaving a $\sim$10\% residual, which was then fit with virtual branches. This ``hybrid'' approach, by making use of \emph{all} available data, with its redundant constraints, resulted in a substantially reduced uncertainty. In addition, Mueller \emph{et al.} applied a more accurate, branch-by-branch correction for weak magnetism and other higher-order effects. Their final result predicted a 3\% total increase in the IBD rate relative to the Schreckenbach/Vogel predictions.
+
 \subsubsection{Huber ILL conversion}
 \label{sec:huberconv}
+
+Shortly after the publication of the French prediction, P.~Huber undertook an independent calculation of the antinuetrino spectra from \urfive, \punine, and \puone. Unlike Mueller \emph{et al.}, he avoided using nuclear databases and converted each spectrum using only virtual beta branches, as Schrekenbach had. His analysis included careful studies of the variance introduced by the details of the conversion procedure; based on these studies, the procedure as tuned to minimize any introduced bias [XXX check???]. Like the French team, Huber carefully treated the WM and other corrections on each individual virtual branch. With these improvements, Huber obtained a result that was largely consistent with the French one. In this oscillation analysis, we use an equally-weighted average of the Huber and Mueller predictions for these three isotopes [XXX or do we? and how are uncertainties combined?].
 
 \subsubsection{FRM II U238 measurement and conversion}
 \label{sec:u238conv}
