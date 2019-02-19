@@ -22,6 +22,7 @@ This chapter describes the reactor prediction, beginning with the question of pr
 \def\punine{$^{239}$Pu\xspace}
 \def\puone{$^{241}$Pu\xspace}
 \def\ureight{$^{238}$U\xspace}
+\def\nubar{$\bar\nu$\xspace}
 
 In a conventional nuclear reactor, virtually all of the power originates from the fission of four isotopes: \urfive, \punine, \puone, and \ureight. In a fresh fuel assembly of low-enriched uranium, initially some 92\% of fissions will be of \urfive, while the remaining 8\% will be fast-neutron fissions of \ureight. This \ureight fraction remains nearly constant throughout a fuel cycle. At the same time, some of the \ureight will undergo neutron capture and subsequent beta decay to \punine, whose fission rate rapidly reaches 10-20\% of the total, eventually catching up to the (decreasing) \urfive rate by the end of the cycle ($\sim$450 days). A fraction of \punine will produce \puone after a pair of neutron captures, and by the end of the cycle this isotope will contribute a fission fraction comparable to that of \ureight.
 
@@ -119,7 +120,16 @@ The fission fractions of a core can be expressed as a function of \emph{burnup}.
 \section{AD spectrum prediction}
 \label{sec:adspectra}
 
+Putting it all together, the predicted IBD spectrum at a given detector, from a single core, is
 
+\begin{samepage}
+\[ \frac{dN}{dE}(E, t) = \frac{N_p(t)}{4\pi L^2} \, \epsilon(E, t) \, \sigma(E)
+  \left( \sum_i \left( \frac{W(t) \, f_i(t)}{\sum_i f_i(t) \, e_i}
+    S_i(E) \, c_{\mathrm{ne},i}(E, t) \right) + S_{\mathrm{snf}}(E, t)
+  \right). \]
+
+Here, $E$ is the antineutrino energy, not the IBD prompt energy; $N_p(t)$ is the number of target protons; $L$ is the baseline; $\epsilon(E, t)$ is the detection efficiency; $\sigma(E)$ is the IBD cross section; $W(t)$ is the thermal power; $f_i(t)$ is the fission fraction of isotope $i$, $e_i$ is its energy per fission, $S_i(E)$ is its per-fission spectrum, and $c_{\mathrm{ne},i}(E, t)$ is its non-equilibrium correction; and finally, $S_\mathrm{snf}(E, t)$ is the spectrum from spent fuel. The full prediction at each detector is obtained by adding the contributions from each core.
+\end{samepage}
 
 \section{Uncertainties and correlations}
 \label{sec:reacunccorr}
