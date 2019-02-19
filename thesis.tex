@@ -15,6 +15,7 @@
 % \hypersetup{colorlinks=true,}
 \usepackage{csquotes}           % [autostyle]? enable if needed
 \usepackage{xspace}
+\usepackage{changepage}
 
 \addbibresource{biblio.bib}
 
@@ -40,6 +41,9 @@
 
 \settocdepth{subsection}
 \setsecnumdepth{subsection}
+\def\conts{}                    % toc for subfiles
+
+\def\chap{\chapter}
 
 \setfloatadjustment{figure}{\centering}
 \setfloatadjustment{table}{\centering}
@@ -101,3 +105,19 @@
 \addbibresource{../biblio.bib}
 \def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
 \graphicspath{{../images/}}
+
+\def\conts{%
+\begingroup%
+\let\clearpage\relax%
+\let\contentsname\relax%
+\vspace{-10em}%
+\begin{adjustwidth}{-\parindent}{}%
+\item \tableofcontents*%
+\end{adjustwidth}%
+\vspace{2\baselineskip}%
+\endgroup%
+}
+
+\def\chap#1{\chapter*{\vspace{-3em}#1}}
+
+% \AtBeginDocument{\tableofcontents*{}}
