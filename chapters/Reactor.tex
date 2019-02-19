@@ -83,10 +83,16 @@ Shortly after the publication of the French prediction, P.~Huber undertook an in
 \subsubsection{FRM II U238 measurement and conversion}
 \label{sec:u238conv}
 
-It is worth noting that in 2013, the \ureight total beta spectrum was finally measured by N.~Haag \emph{et al.} at the FRM~II neutron source in Germany. They subjected foils of natural uranium to both thermal and fast neutrons, measuring the beta spectra with a gamma-suppressing electron telescope, whose efficiency was accurately determined by comparing their \urnine data to the results from ILL. This is an extremely valuable measurement, but conversion results remain preliminary [XXX are they even published?], so for this oscillation analysis we will instead employ the pure \emph{ab initio} result of Mueller \emph{et al.}
+It is worth noting that in 2013, the \ureight total beta spectrum was finally measured by N.~Haag \emph{et al.} at the FRM~II neutron source in Germany. They subjected foils of natural uranium to both thermal and fast neutrons, measuring the beta spectra with a gamma-suppressing electron telescope, whose efficiency was accurately determined by comparing their \urfive data to the results from ILL. This is an extremely valuable measurement, but conversion results remain preliminary [XXX are they even published?], so for this oscillation analysis we will instead employ the pure \emph{ab initio} result of Mueller \emph{et al.}
 
 \subsection{Off-equilibrium correction}
 \label{sec:offeqcorr}
+
+When a reactor is at equilibrium, each unstable isotope is held at a constant concentration (modulo evolution of the fuel fractions), decaying at the same rate as it is generated from its parent nucleus. At reactor startup, these concentrations are all effectively zero, and each isotope accumulates until its total decay rate equals its production rate. The longer an isotope's lifetime (or those of its ancestors), the longer this takes.
+
+At ILL, the target foils were irradiated for about a day. However, reactor fuel typically lives in the core for more than a year. As such, the ILL beta spectra do not properly account for isotopes that take more than a day to reach equilibrium. Around 10\% of fission products meet this criterion, so the effect cannot be neglected. As longer-lived isotopes are the ones affected, the spectral distortion is restricted to low energies, up to about 4~MeV. Any correction must obviously be time-dependent, spanning the range from initial irradiation up to the end of a fuel cycle.
+
+Mueller \emph{et al.} provide correction factors for \urfive, \punine, and \puone in five energy bins from 2 to 4~MeV, calculated at irradiation times of 100~d, 10$^7$~s ($\sim$115~d), 300~d, and 450~d. The ILL reference spectra provide an anchor at 36~h (except for \urfive, which was measured at 12~h; a 36~h correction is thus provided by the authors). These corrections, at 450~d, are at most 2\% (5\% for \urfive). They also account another, subdominant difference between the reactor environment and the ILL apparatus, namely, the presence of epithermal and fast neutrons, altering the distribution of fission fractions.
 
 \subsection{Spent nuclear fuel}
 \label{sec:snfcorr}
