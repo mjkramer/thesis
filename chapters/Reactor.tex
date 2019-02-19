@@ -101,15 +101,25 @@ For our purposes, we assign a 30\% uncertainty to the Mueller correction factors
 \subsection{Spent nuclear fuel}
 \label{sec:snfcorr}
 
-During refueling, spent fuel is added to water-filled storage pools on site. Long lived fission products in the spent fuel will continue to decay for some time [XXX how long? Check data files], producing an additional low-energy antineutrino flux whose spectrum can be calculated from nuclear data assuming that the fuel's irradiation history (and time since removal) is known. 
+During refueling, spent fuel is added to water-filled storage pools on site. Long lived fission products in the spent fuel will continue to decay for some time [XXX how long? Check data files], producing an additional low-energy antineutrino flux whose spectrum can be calculated from nuclear data, assuming that the fuel's irradiation history (and time since removal) is known. 
 
 As virtually all of the relevant decay activity from a spent fuel batch will have subsided by one year, it is reasonable to only consider the most recent spent batches at each core. Using public information on irradiation time and fuel quantity, P.~Jaffke has produced reference spectra for one spent fuel batch at 1~d, 100~d, and 521~d (326~d) after fuel removal at Daya Bay (Ling Ao). By combining these spectra with the refueling history of each core, the spent fuel contribution can be calculated. In total, spent fuel is predicted to account for around 0.3\% of the IBD rate, with an assigned uncertainty of 100\%.
 
-\section{Power, burnup, and isotope fractions}
+\section{Power, burnup, and fission fractions}
 \label{sec:reacpow}
+
+In order to combine the various ingredients above into a final reactor prediction, we must know the thermal power of each core, its fission fractions, and its refueling history. This information is provided by the power company in a number of forms.
+
+Each core's average daily thermal power is provided as a fraction of the full nominal power (2895~MW). This information is crucial for calculating fuel fractions (discussed below), but the Daya Bay detectors often do not manage to produce a full 24~hours of ``good'' data each day. As such, the collaboration periodically supplies the power company with a ``good hour'' list, from which the company produces a livetime-averaged daily power. Combined with the daily livetime, this provides a normalization for the daily predicted spectrum at each detector.
+
+The fission fractions of a core can be expressed as a function of \emph{burnup}. Burnup is defined as the total energy extracted from each unit mass of fuel, typically given in units of MWd/(megaton uranium). The power company has performed simulations to determine the fission fractions versus burnup of each core\footnote{Data is provided for a full fuel cycle; for cycles that haven't yet run their course, nominal projections of thermal power are used for the ``future'' fractions.}, and this information is provided to the collaboration in intervals of $\sim$1000~MWd/MTU. The company also provides the burnup of each core at two-week intervals; using daily thermal power to interpolate between the desired points, the daily burnup, and hence fission fractions, can then be calculated.
+
+[XXX How do we deal with the fact that each core contains three batches at different burnups? See Christine's code.]
 
 \section{AD spectrum prediction}
 \label{sec:adspectra}
+
+
 
 \section{Uncertainties and correlations}
 \label{sec:reacunccorr}
