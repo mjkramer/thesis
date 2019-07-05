@@ -5,4 +5,22 @@
 \chapter{Fitting}
 \label{chap:fitting}
 
+\section{Overview}
+\label{sec:fitoverview}
+
+In order to extract neutrino oscillation parameters from Daya Bay data, the data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor flux, detector response, and backgrounds, it is conceptually straightforward to generate a set of predictions. However, incorporating systematic and statistical uncertainties, and then assigning error bars to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms, and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in what follows.
+
+\subsubsection{Method of pull terms}
+\label{sec:pullterms}
+
+In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the underlying models (reactor, detector, background, etc.) and knows how their predictions vary under different assumptions regarding systematic uncertainties. In this approach, each systematic is parameterized by a \emph{pull} (or \emph{penalty}) term, which is in turn given an uncertainty of its own. An example of such a pull term might be the relative energy response of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions transform accordingly. The total $\chi^2$ then takes a form similar to
+\[ \chi^2 = \sum_i \frac{(x_i - \overline x_i)^2}{\sigma_i^2}
+  + \sum_j \frac{(\eta_j - \overline \eta_j)^2}{\varsigma_j^2}, \]
+where $x_i$ are the measured data (e.g., AD spectra), $\overline x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\overline \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls. Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$.
+
+\section{Toy Monte Carlo}
+\label{sec:toymc}
+
+
+
 \end{document}
