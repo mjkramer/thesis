@@ -96,6 +96,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
+** Big presentation on reactor neutrinos etc.
+- [[http://www.awa.tohoku.ac.jp/geoscience2013/wp-content/uploads/2012/08/NGS2013_Mar21_Lasserre.pdf][NGS2013_Mar21_Lasserre.pdf]]
 ** Jan 29, 2019
 - [[http://www0.mi.infn.it/~sleoni/TEACHING/Nuc-Phys-Det/PDF/Lezione-partI-3-neutrons.pdf][Interaction of neutrons with matter]]
 - [[https://nukephysik101.wordpress.com/2016/02/29/fermi-and-gamow-teller-transition/][Fermi and Gamow-Teller transitions]]
