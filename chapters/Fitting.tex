@@ -34,13 +34,18 @@ In practice, the full NuWa-based Monte Carlo is not used for generating the cova
 \section{Preparation of nominal reactor spectra}
 \label{sec:nomspecprep}
 
-An important input to both the fitter and the toy MC is the nominal prediction of the spectrum from each of the six reactors. To produce this prediction, a number of basic inputs are required:
+An important input to both the fitter and the toy MC is the nominal prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. To produce this prediction, a number of basic inputs are required:
 
 \begin{itemize}
 \item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in Chapter XXX.
 \item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
-\item Nominal fission spectra, in 10~keV increments of true neutrino energy from 1.8 to 13~MeV, and in units of
+\item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of
   $\overline\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U.
+\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. Five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV.
+\item A nominal spectrum for spent nuclear fuel (SNF).
+\item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
 \end{itemize}
+
+
 
 \end{document}
