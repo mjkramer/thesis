@@ -17,6 +17,14 @@
 \usepackage{xspace}
 \usepackage{changepage}
 
+\usepackage{xstring}
+\IfStrEq*{\jobname}{thesis}{}{
+  \makeatletter
+  \providecommand*{\input@path}{{../}}
+  \makeatother
+}
+\input{macros.tex}
+
 \addbibresource{biblio.bib}
 
 \usepackage{subfiles}

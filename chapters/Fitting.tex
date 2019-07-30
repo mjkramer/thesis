@@ -13,7 +13,7 @@ In order to extract neutrino oscillation parameters, Daya Bay data is compared t
 \subsection{Method of pull terms}
 \label{sec:pullterms}
 
-In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the underlying models (reactor, detector, background, etc.) and knows how their predictions will vary under different assumptions regarding systematic uncertainties. In this approach, each systematic is parameterized by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn given an uncertainty of its own. An example of such a pull term might be the relative energy response of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions transform accordingly. The total $\chi^2$ then takes a form similar to
+In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the underlying models (reactor, detector, background, etc.) and knows how their predictions will vary under different assumptions regarding systematic uncertainties. In this approach, each systematic is parameterized by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy response of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
 \[ \chi^2 = \sum_i \frac{(x_i - \overline x_i)^2}{\sigma_i^2}
   + \sum_j \frac{(\eta_j - \overline \eta_j)^2}{\varsigma_j^2}, \]
 where $x_i$ are the measured data (e.g., AD spectra), $\overline x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\overline \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls.
@@ -23,7 +23,7 @@ Fitting is complete when the fitter has found the values of the oscillation para
 \subsection{Covariance matrix approach}
 \label{sec:covmatapproach}
 
-As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will vary under changing systematics. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\overline x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
+As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\overline x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
 \[ \chi^2 = (x_i - \overline x_i) V_{ij}^{-1} (x_j - \overline x_j). \]
 
 In practice, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in the next section, was developed for this purpose. 
@@ -34,18 +34,32 @@ In practice, the full NuWa-based Monte Carlo is not used for generating the cova
 \section{Preparation of nominal reactor spectra}
 \label{sec:nomspecprep}
 
-An important input to both the fitter and the toy MC is the nominal prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. To produce this prediction, a number of basic inputs are required:
+An important input to both the fitter and the toy MC is the nominal prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section.
+% The result is stored separately for each isotope.
+To produce this prediction, a number of basic inputs are required:
 
 \begin{itemize}
-\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in Chapter XXX.
+\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in Chapter \ref{chap:reactor}. 
 \item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
 \item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of
   $\overline\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U.
-\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. Five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV.
+\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV.
 \item A nominal spectrum for spent nuclear fuel (SNF).
 \item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
 \end{itemize}
 
-
+For each core, the first step is to sum over each week $w$ and calculate the time-averaged nominal flux $F_{ie}$ in energy bin $e$ from isotope $i$. By convention, this quantity is specified in units of 10$^{18}$~$\overline\nu$~MeV$^{-1}$~s$^{-1}$:
+\[ F_{ie} = \frac{S_{ie} \sum_w \frac{\overline P P_w}{q\overline E_w} f_{iw}T_w}{N \sum_w T_w}, \]
+\begin{flalign*}
+  \text{where } S_{ie} & \text{ is the theoretical spectrum in $\overline\nu_e$~MeV$^{-1}$~fission$^{-1}$,} & \\
+  T_{w} & \text{ is the weekly livetime, in days,} \\
+  \widebar P & \text{ is the nominal core power, 2895~MW, } \\
+  P_w & \text{ is the actual core power, as a fraction of $\overline P$,} \\
+  q & \text{ is 1.602$\times10^{-19}$ J/eV,} \\
+  f_{iw} & \text{ is the weekly fission fraction of isotope $i$, } \\
+  E_i & \text{ is the average energy per fission of isotope $i$} \\
+  \widebar E_w & \equiv \sum_i f_{iw} E_i \text{ is the weekly average energy per fission, over all isotopes,} \\
+  N & \equiv 10^{18} \text{ is a normalization factor}
+\end{flalign*}
 
 \end{document}

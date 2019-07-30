@@ -66,6 +66,10 @@
 - blockcquote
 
 * Emacs stuff
+** [[https://lists.gnu.org/archive/html/auctex/2016-12/msg00030.html][{AUCTeX} Subfiles package and reftex]]
+NB: Looks like it's not necessary to explicitly set TeX-master. AUCTeX and
+RefTeX are clever enough to figure things out.
+** Bibliography setup
 #+BEGIN_SRC emacs-lisp
   (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
   (setq bibtex-completion-bibliography reftex-default-bibliography)
@@ -108,3 +112,33 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 *** Backgrounds
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
+* More bibliography management
+** External tools
+- Zotero / zotxt / zotero-better-bibtex / pandoc-citeproc
+	- https://nickjudd.com/blog/2016/02/13/emacs-notes/
+  - https://whk.name/cookbook/zoteroPandoc/
+- JabRef
+** org-ref/helm-bibtex hacks
+*** Finding the bibliography
+Instead of the below, could just set org-ref-default-bibliography
+#+begin_src emacs-lisp :results none
+(defun my//ad/thesis-find-bib (orig-fun &rest args)
+  (if (and (buffer-file-name)
+           (s-prefix? "/home/mkramer/physics/thesis" (buffer-file-name)))
+      '("/home/mkramer/physics/thesis/biblio.bib")
+    (apply orig-fun args)))
+
+(advice-add #'org-ref-find-bibliography :around #'my//ad/thesis-find-bib)
+#+end_src
+*** TODO Formatting collaboration name in helm-bibtex
+Should properly fix helm-bibtex and submit a PR (see #266, #267)
+#+begin_src emacs-lisp :results none
+(defun my//ad/fix-bibtex-completion-author-abbrev (orig-fun &rest args)
+  (-let* (((old-field entry default) args)
+          (new-field (if (equal old-field "author-abbrev")
+                         "author"
+                       old-field)))
+    (apply orig-fun (list new-field entry default))))
+
+(advice-add #'bibtex-completion-get-value :around #'my//ad/fix-bibtex-completion-author-abbrev)
+#+end_src
