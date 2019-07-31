@@ -36,7 +36,7 @@ In practice, the full NuWa-based Monte Carlo is not used for generating the cova
 
 (Note: Merge these details into reactor chapter?)
 
-An important input to both the fitter and the toy MC is the nominal prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85 to 12.8~MeV.
+An important input to both the fitter and the toy MC is the prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85 to 12.8~MeV.
 % The result is stored separately for each isotope.
 To produce this prediction, a number of basic inputs are required:
 
@@ -44,8 +44,8 @@ To produce this prediction, a number of basic inputs are required:
 \item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in Chapter \ref{chap:reactor}. 
 \item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
 \item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of
-  $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U.
-\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV.
+  $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U. We rebin these into 50~keV bins by sampling the midpoints.
+\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see Table~\ref{tab:noneqcorr}).
 \item A nominal spectrum for spent nuclear fuel (SNF).
 \item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
 \end{itemize}
@@ -53,12 +53,12 @@ To produce this prediction, a number of basic inputs are required:
 \subsection{Nominal spectra}
 \label{sec:nomspectra}
 
-For each core $c$, the first step is to sum over each week $w$ and calculate the time-averaged nominal flux $F^{\mathrm{nom}}_{ci}(e)$ from isotope $i$ in energy bin $e$. By convention, this quantity is specified in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, and calculated as:
+For each core $c$, the first step is to sum over each week $w$ and calculate the time-averaged nominal flux $F^{\mathrm{nom}}_{ci}(E)$ from isotope $i$ at energy $E$. By convention, this quantity is specified in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, and calculated as:
 % \[ F_{ie} = \frac{S_{ie} \sum_w \frac{\widebar P P_w}{q\widebar E_w} f_{iw}T_w}{N \sum_w T_w}, \]
 % \[ F_{ie} = \frac{1}{N} S_{ie} \frac{1}{\sum_wT_w} \sum_w \frac{\widebar P P_w}{q \widebar E_w} f_{iw} T_w, \]
 % \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w \frac{\widebar P P_w}{q \widebar E_w} f_{iw} T_w, \]
 % \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w T_w f_{iw} \frac{\widebar P P_w}{q \widebar E_w}, \]
-\[ F^\mathrm{nom}_{ci}(E) \equiv \frac{S_{i}(E)}{N\sum_wT_w} \sum_w T_w f_{wci} R_{wc}, \]
+\[ F^\mathrm{nom}_{ci}(E) = \frac{S_{i}(E)}{N\sum_wT_w} \sum_w T_w f_{wci} R_{wc}, \]
 \begin{flalign*}
   \text{where } S_{i}(E) & \text{ is the theoretical spectrum, in $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$,} & \\
   N & \equiv 10^{18} \text{ is a normalization factor,} \\
@@ -68,7 +68,7 @@ For each core $c$, the first step is to sum over each week $w$ and calculate the
 \end{flalign*}
 
 In turn, the weekly fission rate $R_{wc}$ is
-\[ R_{wc} \equiv \frac{\widebar P P_{wc}}{q \widebar E_{wc}}, \]
+\[ R_{wc} = \frac{\widebar P P_{wc}}{q \widebar E_{wc}}, \]
 \begin{flalign*}
   \text{where } \widebar P & \text{ is the nominal core power, 2895~MW, } & \\
   P_{wc} & \text{ is the actual core power, as a fraction of $\widebar P$,} \\
@@ -106,8 +106,13 @@ As discussed in \ref{chap:reactor}, the nominal spectra are derived from measure
 \subsubsection{Spent nuclear fuel}
 \label{sec:snfcorrspectra}
 
-An additional term must be added to the reactor prediction due to the presence of spent nuclear fuel in storage pools near the reactor cores. Based on studies described in \cite{Lewis}, it was determined that a fraction $R^\mathrm{snf}$ of 0.3\% of the \emph{total, cross-section weighted} antineutrino flux must come from spent nuclear fuel. The uncertainty on this percentage is unspecified (FIXME?), but the oscillation analysis is largely insensitive even to large errors in the reactor prediction, so the impact of the SNF uncertainty is essentially negligible. A core-dependent SNF spectrum $S^\mathrm{snf}_c(E)$ (also described in \cite{Lewis}), with arbitrary normalization, is added to $S^\mathrm{ne}(E)$ (after non-equilibrium correction), subject to the aforementioned constraint on the measured rate. This constraint determines the normalization factor $A^\mathrm{snf}_c$,
-\[ A^\mathrm{snf}_c =  \frac{\frac{1}{6}\sum_c \int F^\mathrm{ne}_c(E)\,\sigma(E)\, dE}{\int S^\mathrm{snf}_c(E)\,\sigma(E)\, dE} \; R^\mathrm{snf}
+An additional term must be added to the reactor prediction due to the presence of spent nuclear fuel in storage pools near the reactor cores. Based on studies described in \cite{Lewis}, it was determined that a fraction $R^\mathrm{snf}$ of 0.3\% of the \emph{total, cross-section weighted} antineutrino flux must come from spent nuclear fuel. The uncertainty on this percentage is unspecified (FIXME?), but the oscillation analysis is largely insensitive even to large errors in the reactor prediction, so the impact of the SNF uncertainty is essentially negligible. A core-dependent SNF spectrum $S^\mathrm{snf}_c(E)$ (also described in \cite{Lewis}), with arbitrary normalization, is added to $F^\mathrm{ne}(E)$ (after non-equilibrium correction), subject to the aforementioned constraint on the measured rate. This constraint determines the normalization factor $A^\mathrm{snf}_c$,
+\[ A^\mathrm{snf}_c =  \frac{\frac{1}{6}\sum_c \int F^\mathrm{ne}_c(E)\,\sigma(E)\, dE}{\int S^\mathrm{snf}_c(E)\,\sigma(E)\, dE} \; R^\mathrm{snf},
 \]
+where $\sigma(E)$ is the IBD cross section and the integrals are understood to represent sums over binned spectra. The factor of 1/6 is included because $R^\mathrm{snf}$ is defined with respect to the \emph{total} flux, while $A^\mathrm{snf}_c$ is specific to the core $c$. Essentially, this procedure divides the total integrated SNF flux evenly among the six cores, while still allowing for a different shape in each core. In the current implementation, the same shape is actually used for all six cores.
+
+At this point, the final, fully-corrected reactor prediction can be written simply as
+\[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E). \]
+It is $F_c(E)$ that is fed into the fitter and toy MC framework. 
 
 \end{document}
