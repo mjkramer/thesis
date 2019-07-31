@@ -142,3 +142,6 @@ Should properly fix helm-bibtex and submit a PR (see #266, #267)
 
 (advice-add #'bibtex-completion-get-value :around #'my//ad/fix-bibtex-completion-author-abbrev)
 #+end_src
+* Things to investigate
+** make_combined_spectra.C
+- line 176: why do we use [0] instead of [j]
