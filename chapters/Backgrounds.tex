@@ -9,7 +9,15 @@ While Daya Bay's design ensures a fairly pure sample of antineutrino events, a s
 
 In this chapter, we discuss the measurement of each of these backgrounds. Once they have been measured, their scaled prompt spectra can be subtracted from that of IBD candidates, allowing the oscillation fit to proceed with an uncontaminated prompt spectrum, albeit one with an additional uncertainty stemming from the imprecise nature of the background measurements.
 
+\section{PMT light emission (``flashers'')}
+\label{sec:flashers}
+
+During detector commissioning, some PMTs were found to occasionally emit light due to arcing in their bases. At any given time, a few percent of the PMTs will have the tendency to flash brightly enough to trigger the detector. These ``flashers'' can produce as much as 100~MeV of visible energy. Within the delayed energy region of 6-12~MeV, the flasher rate has averaged at around 0.7~Hz for each AD. These ``delayed-like'' flashers, if included in the analysis, would significantly increase the rate of accidental backgrounds (as the rate of non-flasher delayed-like singles ranges from around 0.05~Hz at EH3 to 1~Hz at EH1.)
+
+Fortunately, flashers are easily distinguished from ``true'' singles due to a very characteristic pattern of light emission. When a PMT emits light, that same PMT will naturally see a large portion of the total charge. Furthermore, the radial magnetic shield around each PMT collimates the light into a narrow cone which primarily illuminates the PMTs directly across from the emitter.
+
 \section{Accidental coincidences}
+\label{chap:accbkg}
 
 As previously stated, the accidental background can be straightforwardly measured based on the characteristics of singles events. The singles spectrum is first measured by searching for prompt-like events that satisfy the usual muon vetos but are separated from other prompt-like events by at least 400~$\mu$s. The total integral of this spectrum gives the prompt-like rate $R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The accidental background rate is then simply
 \[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \]
