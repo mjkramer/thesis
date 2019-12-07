@@ -125,7 +125,7 @@ and so on.
 
 In order for an IBD candidate to satisfy the decoupled multiplicity cut, there must be no delayed-like triggers in the 200~$\mu$s following the delayed event, and no extra plus-like events\footnote{Formerly, in the LBNL analysis, only extra \emph{prompt}-like events would lead to a DMC rejection. In order to eliminate the double neutron background, ``prompt-like'' was later changed to ``plus-like''.} in the 400~$\mu$s prior to the delayed event. More formally,
 \begin{align}
-  \edmc &= P(0; \Rplu t_<)\;P(0; \Rdel t_>) \nonumber \\
+  \edmc &= P(0; \Rplu \cdot 2\tau)\;P(0; \Rdel \cdot \tau) \nonumber \\
         &= \exp [-(2\Rplu\tau + \Rdel\tau)],
 \end{align}
 where $\tau$ = 200~$\mu$s.
@@ -143,5 +143,23 @@ Given an uncorrelated delayed-like trigger, we can calculate the probability tha
 \item That no plus-like (prompt-like or sub-muon) events occur in [-400, -200]~$\mu$s.
 \item That no delayed-like events occur in [0, 200]~$\mu$s.
 \end{enumerate}
+
+\def\Racc{\ensuremath{R_\mathrm{acc}}}
+
+The accidentals rate is then simply the product of these probabilities with the delayed-like singles rate:
+\begin{align}
+  \Racc &= \Rdel P(1; \Rpro \cdot \tau)\;P(0; \Rsub \cdot \tau)\;P(0; \Rplu \cdot \tau);P(0; \Rdel \cdot \tau) \nonumber \\
+        &= \Rdel\,\Rpro\tau e^{-\Rpro\tau}\,e^{-\Rsub\tau}\,e^{-\Rplu\tau}\,e^{-\Rdel\tau}
+\end{align}
+
+Note that this calculation incorporates the inefficiency of the DMC (but not of the muon veto cut). By convention, the oscillation fitter expects background rates to be provided as ``theoretical'' rates, that is, the rate expected if all cuts were perfectly efficient. Internally, the fitter multiplies these rates by the DMC and veto efficiencies. Therefore, we must divide out the DMC efficiency when providing the accidentals rate to the fitter:
+\begin{equation}
+  \Racc' = \frac{\Racc}{\edmc}.
+\end{equation}
+
+\section{Conclusions}
+\label{sec:accdmcconcl}
+
+The most difficult and subtle part of this calculation is the efficiency of the isolation cut. I'm still not convinced that some circular logic isn't lurking in my derivation.
 
 \end{document}
