@@ -29,14 +29,15 @@ We begin with a sample of singles, consisting of events that meet the following 
 \item No other events passing cuts 1-3 within time window $\pm t$.
 \item Not in a muon veto window.
 \end{enumerate}
-Below is what it should be. Why the difference? XXX Gotta correct for the lack-of-muon-vetoing-of-other in dmcEffSingles??? Or enhance the SinglesSelector to also pull events from ClusterTree, in case the ``extra'' is vetoed (YES, THIS)? Then our cuts look like:
+Below is what it should be. Why the difference? XXX Gotta correct for the lack-of-muon-vetoing-of-other in dmcEffSingles??? Or enhance the SinglesSelector to also pull events from ClusterTree, in case the ``extra'' is vetoed (YES, THIS)? We really need to think about whether the events we're ``isolating from'' are in the same class as ``this event''. If so thend our cuts look like(?):
 \end{comment}
 
 \begin{enumerate}
 \item Not a flasher or forced trigger.
-\item Not a muon, and not in a muon veto window.
+\item Not in a muon veto window.
 \item AdSimple energy of at least 0.7~MeV.
-\item No other events passing cuts 1-3 within time window $\pm t$.
+\item Charge of less than 3000 p.e. (i.e., not a ``pre-muon'')
+\item No other events passing cuts 1-4 within time window $\pm t$.
 \end{enumerate}
 
 The muon veto cuts need not be the same as those used in the IBD selection, as long as they are sufficiently stringent so as to remove muon-correlated backgrounds. (In practice, we use the nominal LBNL muon veto.) Likewise, $t$ can be chosen arbitrarily, provided that it is long enough to remove correlated triggers and short enough to provide sufficient statistics. As currently implemented, a value of $t = 1$ms is used. This is a conservative choice; other analysis groups have successfully used values more than 50\% shorter.
@@ -44,6 +45,7 @@ The muon veto cuts need not be the same as those used in the IBD selection, as l
 \def\Rplu{\ensuremath{R_\mathrm{+}}}
 \def\Rpro{\ensuremath{R_\mathrm{p}}}
 \def\Rdel{\ensuremath{R_\mathrm{d}}}
+\def\Rsub{\ensuremath{R_\mathrm{\lambda}}}
 \def\Nplu{\ensuremath{N_\mathrm{+}}}
 \def\Npro{\ensuremath{N_\mathrm{p}}}
 \def\Ndel{\ensuremath{N_\mathrm{d}}}
@@ -53,9 +55,19 @@ The muon veto cuts need not be the same as those used in the IBD selection, as l
 \section{Isolation cut efficiency}
 \label{sec:isolcuteff}
 
-Let us define a \emph{prompt-plus} single as an uncorrelated trigger with a reconstructed energy of at least 0.7~MeV, but not enough charge/energy to be considered an AD muon. The sample described in the preceding section consists of prompt-plus singles. Similarly, a \emph{prompt-like} single has an energy of between 0.7 and 12~MeV, while a \emph{delayed-like} single has an energy of 6--12~MeV.
+Let us define a \emph{muon-like} event as an AD trigger with charge of at least
+3000 p.e. (about 18~MeV).\footnote{It would be simpler to define a muon-like
+  event directly in terms of energy instead of charge, but we use 3,000 p.e. for
+  consistency with the historical LBNL analysis. Also, we don't call these
+  events ``muons'', as 3,000 p.e. is not necessarily the definition of an AD
+  muon used in the IBD selection.} Then a \emph{sub-muon} event is one with
+reconstructed energy of at least 12~MeV, but not enough charge to be muon-like.
+A \emph{prompt-like} event has energy of 0.7--12~MeV, a \emph{delayed-like}
+event 6-12~MeV, and, finally, we define a \emph{prompt-plus} event as one that
+is has either prompt-like or a sub-muon The sample described in the preceding
+section consists of prompt-plus singles.
 
-For convenience, we define the \emph{plus-like rate} \Rplu\ as $\Rs(0.7,\infty)$ (again, excluding muons), and likewise the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$ and the \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$. Similarly, the raw event counts in our sample are \Nplu, \Npro, and \Ndel. To complete this round of definitions, let \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the singles selection), and $T$ be the raw DAQ livetime of the sample.
+Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon rate} \Rsub\ as $\Rs(12, \infty)$ (up to the muon-like charge threshold), and the \emph{plus-like rate} \Rplu\ as $\Rpro + \Rsub$. Similarly, the raw event counts in our sample are \Npro, etc. To complete this round of definitions, let \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the singles selection), and $T$ be the raw DAQ livetime of the sample.
 
 As a starting point, we have the following identity:
 \begin{equation}
@@ -95,5 +107,41 @@ Finally, inserting this into Eq.~\ref{eq:ident0}, we obtain the isolation cut ef
 \begin{equation}
   \eisol = \exp W_0 \left( -\frac{2\Nplu t}{\emu T} \right).
 \end{equation}
+
+\section{Singles rates}
+\label{sec:singratescalc}
+
+Once the isolation cut efficiency is known, it is trivial to calculate the prompt- and delayed-like singles rates:
+\begin{equation}
+  \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
+  \Rdel = \frac{\Ndel}{\eisol \emu T},
+\end{equation}
+and so on.
+
+\section{DMC efficiency}
+\label{sec:dmceffcalc}
+
+\def\edmc{\ensuremath{\epsilon_\mathrm{m}}}
+
+In order for an IBD candidate to satisfy the decoupled multiplicity cut, there must be no delayed-like triggers in the 200~$\mu$s following the delayed event, and no extra plus-like events\footnote{Formerly, in the LBNL analysis, only extra \emph{prompt}-like events would lead to a DMC rejection. In order to eliminate the double neutron background, ``prompt-like'' was later changed to ``plus-like''.} in the 400~$\mu$s prior to the delayed event. More formally,
+\begin{align}
+  \edmc &= P(0; \Rplu t_<)\;P(0; \Rdel t_>) \nonumber \\
+        &= \exp [-(2\Rplu\tau + \Rdel\tau)],
+\end{align}
+where $\tau$ = 200~$\mu$s.
+
+\section{Accidentals rate}
+\label{sec:accratecalc}
+
+An accidental event, in order to enter the IBD selection, must pass the DMC, as with any other IBD candidate. Since the DMC is ``centered'' on the delayed event of the pair, it is simplest to calculate the accidentals rate by similarly ``centering'' the calculation on the delayed event.
+
+Given an uncorrelated delayed-like trigger, we can calculate the probability that it forms an accidental IBD candidate. This is the product of four probabilities, where the specified time intervals are defined relative to the delayed event:
+
+\begin{enumerate}
+\item That exactly one prompt-like event occurs in [-200, 0]~$\mu$s.
+\item That no sub-muon events occurs in [-200, 0]~$\mu$s.
+\item That no plus-like (prompt-like or sub-muon) events occur in [-400, -200]~$\mu$s.
+\item That no delayed-like events occur in [0, 200]~$\mu$s.
+\end{enumerate}
 
 \end{document}
