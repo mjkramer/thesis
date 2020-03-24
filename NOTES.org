@@ -112,6 +112,59 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 *** Backgrounds
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
+** Statistics
+- [[https://arxiv.org/abs/1007.1727][{1007.1727} Asymptotic formulae for likelihood-based tests of new physics]] (Cowan et al.)
+- [[https://arxiv.org/abs/1407.5052][{1407.5052} The Gaussian CL_s Method for Searches of New Physics]] (Qian et al.)
+- [[https://arxiv.org/abs/1503.07622][{1503.07622} Practical Statistics for the LHC]] (Cranmer)
+*** From Henoch
+- https://indico.cern.ch/event/117033/contributions/1327622/attachments/55727/80176/Cranmer_L3_4pp_smaller.pdf
+- https://www.physi.uni-heidelberg.de/Forschung/he/LHCb/documents/WorkshopNeckarzMar14/neckarimmern2014-schumacher.pdf
+- https://arxiv.org/pdf/physics/0310108.pdf
+** SLURM
+- http://www.cism.ucl.ac.be/Services/Formations/slurm/2016/slurm.pdf
+* Software
+** Uncertainty propagation
+- https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software
+- https://github.com/lebigot/uncertainties/
+- https://mc-stan.org/
+- https://pypi.org/project/soerp/
+- https://github.com/BreakingBytes/UncertaintyWrapper
+- http://openturns.github.io/openturns/master/index.html
+- https://github.com/gplepage/gvar
+- https://github.com/symengine/symengine
+- https://github.com/vgvassilev/clad
+** Julia
+*** Tab-completion in the REPL
+- [[https://github.com/JuliaLang/julia/issues/30052][JuliaLang/julia#30052 list of available methods in REPL]]
+- [[https://github.com/JunoLab/Juno.jl/issues/199][JunoLab/Juno.jl#199 Method autocompletion for given argument type]]
+- [[https://discourse.julialang.org/t/my-mental-load-using-julia-is-much-higher-than-e-g-in-python-how-to-reduce-it/18902/13][My mental load using Julia is much higher than, e.g., in Python. How to reduc...]]
+- [[https://discourse.julialang.org/t/ann-interactivecodesearch-jl-interactively-search-julia-code/17657][ANN: InteractiveCodeSearch.jl --- Interactively search Julia code - Package a...]]
+- [[https://discourse.julialang.org/t/how-to-discover-functions-which-apply-to-a-given-object/21087/31][How to discover functions which apply to a given object? - First steps - Juli...]]
+- [[https://github.com/JuliaLang/julia/pull/24990][JuliaLang/julia#24990 RFC: curry underscore arguments to create anonymous fun...]]
+*** Printing the whole thing
+- display(Base.Multimedia.displays[1], goodcols)
+- Base.Multimedia.displays[2].repl.options.iocontext[:displaysize] = (100, 80)
+- Try using Base.active_repl to simplify ^ (Base.active_repl.options.iocontext...)
+- show(IOContext(stdout, :limit => true, :displaysize => (100, 80)), MIME"text/plain"(), thing)
+- [[https://stackoverflow.com/questions/57898253/julia-which-environment-variable-setting-controls-the-number-of-elements-printe][display - Julia: which environment variable/setting controls the number of el...]]
+*** Plotting
+- [[https://discourse.julialang.org/t/histogram-bars-become-line-when-many-observations/32639/8][Histogram bars become line when many observations? - Visualization - JuliaLang]]
+- [[https://github.com/JuliaPlots/Plots.jl/issues/141][JuliaPlots/Plots.jl#141 Specify text labels for xticks and yticks]]
+- [[https://github.com/JuliaPlots/Plots.jl/issues/833][JuliaPlots/Plots.jl#833 Axis failure with log `xscale`]]
+*** DataFrames
+- [[https://github.com/bkamins/Julia-DataFrames-Tutorial][GitHub - bkamins/Julia-DataFrames-Tutorial: A tutorial on Julia DataFrames pa...]]
+- [[https://github.com/JuliaData/DataFrames.jl/issues/123][JuliaData/DataFrames.jl#123 pairwise functions]] (OLD)
+- [[https://discourse.julialang.org/t/datatables-or-dataframes/3160/31][DataTables or DataFrames? - Data - JuliaLang]]
+- [[https://discourse.julialang.org/t/window-like-functions-in-dataframes/7891][Window like functions in DataFrames - Data - JuliaLang]]
+*** UpROOT
+- [[https://github.com/JuliaHEP/UpROOT.jl/issues/5][JuliaHEP/UpROOT.jl#5 Recognition of TTree breaks when matrices are in branches]] (FIXED?)
+** LibreOffice from Python
+- [[https://github.com/mila/pyoo][GitHub - mila/pyoo: PyOO allows you to control a running OpenOffice or LibreO...]]
+- [[https://github.com/stummjr/impress-code-highlighter][GitHub - stummjr/impress-code-highlighter: A simple tool to highlight source ...]]
+- [[https://stackoverflow.com/questions/33092424/control-libreoffice-impress-from-python][Control Libreoffice Impress from Python - Stack Overflow]]
+- [[https://github.com/sonofeft/ODPSlides][GitHub - sonofeft/ODPSlides: Creates Opendocument Presentations For Microsoft...]]
+- [[https://github.com/eea/odfpy][GitHub - eea/odfpy: API for OpenDocument in Python]]
+- [[https://github.com/T0ha/ezodf][GitHub - T0ha/ezodf: ezodf is a Python package to create new or open existing...]]
 * More bibliography management
 ** External tools
 - Zotero / zotxt / zotero-better-bibtex / pandoc-citeproc
