@@ -113,15 +113,38 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
 ** Statistics
-- [[https://arxiv.org/abs/1007.1727][{1007.1727} Asymptotic formulae for likelihood-based tests of new physics]] (Cowan et al.)
-- [[https://arxiv.org/abs/1407.5052][{1407.5052} The Gaussian CL_s Method for Searches of New Physics]] (Qian et al.)
-- [[https://arxiv.org/abs/1503.07622][{1503.07622} Practical Statistics for the LHC]] (Cranmer)
+- [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
+- [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
+- [[https://indico.cern.ch/event/398949/attachments/799330/1095613/The_CLs_Technique.pdf][Presentation of search results: The CLs technique]] (Read, 2002)
+- [[https://cds.cern.ch/record/1099994][LHC Statistics for Pedestrians]] (Gross, 2008)
+- [[https://arxiv.org/abs/1007.1727][Asymptotic formulae for likelihood-based tests of new...]] (Cowan+, 2010)
+- [[https://arxiv.org/abs/1407.5052][The Gaussian CL_s Method for Searches of New Physics]] (Qian+, 2014)
+- [[https://arxiv.org/abs/1503.07622][Practical Statistics for the LHC]] (Cranmer, 2015)
 *** From Henoch
-- https://indico.cern.ch/event/117033/contributions/1327622/attachments/55727/80176/Cranmer_L3_4pp_smaller.pdf
-- https://www.physi.uni-heidelberg.de/Forschung/he/LHCb/documents/WorkshopNeckarzMar14/neckarimmern2014-schumacher.pdf
-- https://arxiv.org/pdf/physics/0310108.pdf
+- [[https://indico.cern.ch/event/117033/contributions/1327622/attachments/55727/80176/Cranmer_L3_4pp_smaller.pdf][Practical Statistics for Particle Physics]] (Cranmer lecture, 2011)
+- [[https://www.physi.uni-heidelberg.de/Forschung/he/LHCb/documents/WorkshopNeckarzMar14/neckarimmern2014-schumacher.pdf][Hypothesis Testing and Confidence Intervals/Limits (Frequentist: Classical, FC, PCL ; Bayesian ; CLS)]] (Schumacher lecture, 2014)
+- [[https://arxiv.org/abs/physics/0310108][Frequentist Hypothesis Testing with Background Uncertainty]] (Cranmer, 2003)
+*** Misc
+- [[http://bactra.org/weblog/630.html][Intuitive explanation of Neyman-Pearson Lemma]]
+- [[http://dbpubs.stanford.edu:8091/~klein/lagrange-multipliers.pdf][Lagrange Multipliers Without Permanent Scarring]]
+- [[https://math.stackexchange.com/questions/63238/why-do-we-use-a-least-squares-fit][statistics - Why do we use a Least Squares fit? - Mathematics SO]]
+- Raster scan? See Feldman-Cousins paper.
+**** Supermisc
+- [[https://www.mcs.anl.gov/~tpeterka/papers/2018/sousa-chep18-paper.pdf][Implementation of Feldman-Cousins in HPC for NOvA]]
+** (Parallel?) fitting
+- [[https://inspirehep.net/literature/860112][MINUIT package parallelization and applications using the RooFit package]] ([[http://dybdq.work:1337/jpconf10_219_042044.pdf][mirror]])
+- [[https://arxiv.org/abs/1909.03885][{1909.03885} A new Monte Carlo-based fitting method]]
 ** SLURM
 - http://www.cism.ucl.ac.be/Services/Formations/slurm/2016/slurm.pdf
+** Neutrino history
+- [[https://neutrino-history.in2p3.fr/neutrino-oscillation/][Neutrino Oscillation]]
+- [[http://pdg.lbl.gov/2019/reviews/rpp2019-rev-neutrino-mixing.pdf]]
+- [[https://warwick.ac.uk/fac/sci/physics/staff/academic/boyd/stuff/neutrinolectures/lec_oscillations.pdf]]
+- [[https://arxiv.org/abs/1802.05781][{1802.05781} The formalism of neutrino oscillations: an introduction]]
+- [[https://arxiv.org/abs/1710.00715][{1710.00715} Neutrino oscillations: the rise of the PMNS paradigm]]
+- [[http://www.phys.virginia.edu/Files/fetch.asp?EXT=Seminars:3420:SlideShow]] (de Gouvea)
+- [[http://indico.ictp.it/event/7968/session/74/contribution/284/material/slides/0.pdf]]
+- https://www.ias.ac.in/article/fulltext/reso/021/10/0911-0924
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software
