@@ -2,12 +2,15 @@
 
 \begin{document}
 
+\chapter{Introduction}
+\label{chap:intro}
+
 \section{Neutrinos and the Standard Model}
 \label{sec:neuAndSM}
 
 The Standard Model (SM) of particle physics has proven to be an enormous success. From a handful of ingredients---three gauge groups, three generations of quarks and leptons, the Higgs field, and 18 free parameters---the SM provides a succinct and precise description of Nature that agrees incredibly well with the bulk of experimental observations.
 
-However, even if we ignore the glaring absence of gravity in the theory (a general problem for the whole class of QFTs), there are clear and exciting signs that new physics must lie beyond the Standard Model. For instance, the SM fails to explain dark matter, dark energy, cosmic inflation, the lightness of the electroweak scale, and the matter/antimatter asymmetry of the Universe, among other puzzles.
+However, even if we ignore the glaring absence of gravity in the theory (a difficulty inherent to quantum field theory itself), there are clear and exciting signs that new physics must lie beyond the Standard Model. For instance, the SM fails to explain dark matter, dark energy, cosmic inflation, the lightness of the electroweak scale, and the matter/antimatter asymmetry of the Universe, among other puzzles.
 
 These are difficult problems which may take decades to resolve, and in most cases there is little clarity on how the SM will need to be extended along the way. On the other hand, the last half-century has produced overwhelming evidence of another Beyond the Standard Model (BSM) effect, one that admits a relatively successful quantitative description: neutrino oscillations. Before discussing this phenomenon, it is worthwhile to review the story of the neutrino itself. 
 
@@ -41,10 +44,52 @@ In order to mitigate this uncertainty, the subsequent generation of reactor expe
 \section{Neutrino oscillation physics}
 \label{sec:oscPhysics}
 
+Neutrino oscillation is the consequence of two phenomena: First, the flavor eigenstates are not the same as the mass eigenstates (\emph{mixing}), and second, the mass eigenvalues aren't fully degenerate (implying that at least one is nonzero). As a result, a flavor eigenstate is a superposition of mass eigenstates which undergo phase rotation at different rates; the mass components thus interfere to produce different flavor compositions with time, leading to the observation of oscillations.
+
+\newcommand\upmns{\ensuremath{%
+    U_\mathrm{PMNS}}}
+\newcommand\flavcol{\ensuremath{%
+    \begin{pmatrix} {\nu_e} \\ {\nu_\mu} \\ {\nu_\tau} \end{pmatrix}}}
+\newcommand\masscol{\ensuremath{%
+    \begin{pmatrix} \nu_1 \\ \nu_2 \\ \nu_3 \end{pmatrix}}}
+\newcommand\upmnsSimple{\ensuremath{%
+    \begin{pmatrix} U_{e 1} & U_{e 2} & U_{e 3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{pmatrix}}}
+% \newcommand\cee[1]{\ensuremath{%
+%      \cos\theta_{#1}}}
+% \newcommand\ess[1]{\ensuremath{%
+%      \sin\theta_{#1}}}
+\newcommand\cee[1]{\ensuremath{%
+     c_{#1}}}
+\newcommand\ess[1]{\ensuremath{%
+     s_{#1}}}
+\newcommand\upmnsFactored{\ensuremath{%
+    \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cee{23} & \ess{23} \\ 0 & -\ess{23} & \cee{23} \end{pmatrix}%
+    \begin{pmatrix} \cee{13} & 0 & \ess{13}e^{-i\delta_\text{CP}} \\ 0 & 1 & 0 \\ -\ess{13}e^{i\delta_\text{CP}} & 0 & \cee{13} \end{pmatrix}%
+    \begin{pmatrix} \cee{12} & \ess{12} & 0 \\ -\ess{12} & \cee{12} & 0 \\ 0 & 0 & 1 \end{pmatrix}}}
+\newcommand\upmnsFull{\ensuremath{%
+    \begin{pmatrix} c_{12}c_{13} & s_{12} c_{13} & s_{13}e^{-i\delta_\text{CP}} \\%
+      -s_{12}c_{23} - c_{12}s_{23}s_{13}e^{i\delta_\text{CP}} & c_{12}c_{23} - s_{12}s_{23}s_{13}e^{i\delta_\text{CP}} & s_{23}c_{13}\\%
+      s_{12}s_{23} - c_{12}c_{23}s_{13}e^{i\delta_\text{CP}} & -c_{12}s_{23} - s_{12}c_{23}s_{13}e^{i\delta_\text{CP}} & c_{23}c_{13} \end{pmatrix}}}
+\newcommand*\mathcmd[2]{\newcommand#1{\ensuremath{#2}}}
+\mathcmd{\tAB}{\theta_{12}}
+\mathcmd{\tBC}{\theta_{23}}
+\mathcmd{\tAC}{\theta_{13}}
+\mathcmd{\dcp}{\delta_{CP}}
+
+The flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, \upmns:
+\[ \flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol. \]
+
+This matrix can be parameterized in terms of the three mixing angles, \tAB, \tBC, and \tAC, along with a CP-violating complex phase \dcp:
+\begin{align*}
+  \label{eq:upmnsParam}
+  \upmns &= \upmnsFactored \\\\
+         &= \upmnsFull.
+\end{align*}
+
 \section{Reactor neutrinos}
 \label{sec:introReactor}
 
-\section{Relevance of $\theta13$ to future research}
+\section{Relevance of $\theta_{13}$ to future research}
 \label{sec:futureRelevance}
 
 \end{document}
