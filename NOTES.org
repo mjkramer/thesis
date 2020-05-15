@@ -145,6 +145,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[http://www.phys.virginia.edu/Files/fetch.asp?EXT=Seminars:3420:SlideShow]] (de Gouvea)
 - [[http://indico.ictp.it/event/7968/session/74/contribution/284/material/slides/0.pdf]]
 - https://www.ias.ac.in/article/fulltext/reso/021/10/0911-0924
+** Neutrino oscillation
+- http://theor.jinr.ru/~vnaumov/Eng/JINR_Lectures/books/Giunti2007.pdf
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software

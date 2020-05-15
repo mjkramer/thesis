@@ -76,14 +76,47 @@ Neutrino oscillation is the consequence of two phenomena: First, the flavor eige
 \mathcmd{\tAC}{\theta_{13}}
 \mathcmd{\dcp}{\delta_{CP}}
 
-The flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, \upmns:
+The neutrino fields in the flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, \upmns\ (or simply $U$):
+\[\nu_\alpha = U_{\alpha i} \nu_i,\]
+that is,
 \[ \flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol. \]
+It can then be shown that the \emph{states} (as opposed to the fields) are related by the complex conjugate of $U$:
+\[\ket{\nu_\alpha} = U^*_{\alpha i}\ket{\nu_i}.\]
 
-This matrix can be parameterized in terms of the three mixing angles, \tAB, \tBC, and \tAC, along with a CP-violating complex phase \dcp:
+\upmns\ can be parameterized in terms of the three mixing angles, \tAB, \tBC, and \tAC, along with a CP-violating complex phase \dcp:
 \begin{align*}
   \label{eq:upmnsParam}
-  \upmns &= \upmnsFactored \\\\
-         &= \upmnsFull.
+  U &= \upmnsFactored \\\\
+    &= \upmnsFull.
+\end{align*}
+where $c_{12} \equiv \cos\theta_{12}$, etc. It is these mixing angles (or some trigonometric function thereof), and not the matrix elements themselves, that are directly measured by experiments.
+
+Physically speaking, neutrinos are produced in processes that are localized in space and time. A fully microscopic treatment of neutrino oscillation would therefore involve modeling each neutrino as a wave packet of definite initial flavor. However, given a bulk flux of neutrinos from a spatially extensive source, the oscillation probability for neutrinos of energy $E$ can be calculated by simply considering a spacetime-filling plane wave. This approach ignores effects caused by interference and decoherence of wave packet components; however, these effects were shown to be completely insignificant under the experimental conditions at Daya Bay [XXX wave packet paper].
+
+\newcommand\nuF{\nu^{\mathrm{F}}}
+\newcommand\nuM{\nu^{\mathrm{M}}}
+
+To calculate the oscillation probability over baseline $L$ for a neutrino of energy $E$ and initial flavor $\alpha$, we first redefine the problem slightly and consider a neutrino plane wave $\ket{\nu(t)}$ of initial flavor $\alpha$ and well-defined \emph{momentum} $\vec{p}$, such that $E = |\vec{p}|$.\footnote{One could instead assume a well-defined \emph{energy}, or even \emph{velocity}, and the end result would be the same to leading order. The advantage of fixing the momentum is that it provides a spatially uniform flavor composition, so we need only worry about the time evolution.} This state contains components of three very slightly different energies, one for each mass eigenstate. For clarity, flavor and mass eigenstates will be labeled with the superscripts F and M, respectively. Following [XXX Giunti], we have
+\[\ket{\nu(0)} = \ket{\nuF_\alpha} = U^*_{\alpha i} \ket{\nuM_i}. \]
+This state evolves in time like
+\[\ket{\nu(t)} = e^{-i E_i t} U^*_{\alpha i} \ket{\nuM_i}.\]
+Given that we've fixed the momentum $\vec{p}$, the energy $E_i$ of the $i$th mass eigenstate component of $\ket{\nu}$ is
+\[E_i = \sqrt{p^2 + m_i^2} \approx p + \frac{m_i^2}{2p} \equiv E + \frac{m_i^2}{2E}.\]
+This gives, after we discard the global phase evolution $e^{-iEt}$,
+% \[\ket{\nu(t)} = e^{-i\frac{m^2}{2E} t} U_{\alpha i} \nuM_i\]
+% \[\ket{\nu(t)} = e^{-i(m^2/2E) t} U_{\alpha i} \nuM_i\]
+% \[\ket{\nu(t)} = e^{-itm^2/2E} U_{\alpha i} \nuM_i\]
+\begin{align*}
+  \ket{\nu(t)} &= \exp\left(-i\frac{m^2t}{2E}\right) U^*_{\alpha i} \ket{\nuM_i} \\
+               &\approx \exp\left(-i\frac{m^2L}{2E}\right) U^*_{\alpha i} \ket{\nuM_i},
+\end{align*}
+since, for a relativistic neutrino, $t \approx L$. The probability of measuring this state to be of flavor $\beta$ is then
+\begin{align*}
+  P(\alpha \rightarrow \beta)
+  &= \left|\Braket{\nuF_\beta|\nu(t)}\right|^2
+    = \left| \Bra{\nuM_j} U_{\beta j} \exp\left( -i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nuM_i}\right|^2 \\
+  &=  \left| U_{\beta i} U^*_{\alpha i} \exp\left( -i \frac{m_i^2L}{2E} \right)\right|^2 \\
+  &= U^*_{\beta j} U_{\alpha j} U_{\beta i} U^*_{\alpha i} \exp\left( -i \frac{(m_j^2 - m_i^2)L}{2E} \right)
 \end{align*}
 
 \section{Reactor neutrinos}
