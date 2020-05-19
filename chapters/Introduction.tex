@@ -189,7 +189,7 @@ Alternatively, we can recast (\ref{eq:survProbDybFull}) in a form that refers on
 \end{equation}
 where
 \[ \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. \]
-It must be noted that (\ref{eq:survProbDybEE}) is not an exact reparameterization of (\ref{eq:survProbDybFull}), since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to $\Delta m^2{21}$.
+It must be noted that (\ref{eq:survProbDybEE}) is not an exact reparameterization of (\ref{eq:survProbDybFull}), since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to $\Delta m^2_{21}$.
 
 $\Delta m^2_{ee}$, as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into (\ref{eq:survProbDybEE}), gives the best fit to the data. Note that, if Daya Bay only measured antineutrinos at a single $L/E$, we could instead have made a truly physical definition of $\Delta m^2_{ee}$ by declaring that
 \[ \sin^2 \Delta_{ee} \equiv \cos^2\theta_{12} \sin^2 \Delta_{31}
@@ -199,7 +199,7 @@ However, the righthand side of this definition depends on $L/E$, so it cannot be
 Returning to (\ref{eq:survProbDybFull}), it can be shown [XXX docDB 10497] that, in Daya Bay's range of $L/E$,
 \begin{equation}
   \label{eq:dmPhi}
-cos^2\theta_{12} \sin^2\Delta_{31} + \sin^2\theta_{12}\sin^2\Delta_{32}
+\cos^2\theta_{12} \sin^2\Delta_{31} + \sin^2\theta_{12}\sin^2\Delta_{32}
 \approx \sin^2 (\Delta_{32} \pm \phi),
 \end{equation}
 where
@@ -207,18 +207,16 @@ where
 and ``+'' (``-'') corresponds to the normal (inverted) hierarchy. Inserting (\ref{eq:dmPhi}) into (\ref{eq:survProbDybFull}) and comparing to (\ref{eq:survProbDybEE}) gives the approximate relation
 \begin{equation}
   \label{eq:dmPhiApprox}
-  \Delta m^2_{ee} \approx \abs{\Delta m^2{32}} \pm \Delta m^2_\phi/2,
+  \Delta m^2_{ee} \approx \abs{\Delta m^2_{32}} \pm \Delta m^2_\phi/2,
 \end{equation}
 where
 \[\Delta m^2_\phi = \frac{4\phi E}{L}.\]
-Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to $\cos^2\theta_{12}\Delta m^2+{21}$. Inserting that into (\ref{eq:dmPhiApprox}), we find that
+Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to $\cos^2\theta_{12}\Delta m^2_{21}$. Inserting that into (\ref{eq:dmPhiApprox}), we find that
 \begin{equation}
   \label{eq:dmPhysical}
   \Delta m^2_{ee} \approx \cos^2\theta_{12}\abs{\Delta m^2_{31}} + \sin^2\theta_{12}\abs{\Delta m^2_{32}}.
 \end{equation}
-For all intents and purposes, this approximation is exact at Daya Bay. Hence (\ref{eq:dmPhysical}) can be used to relate Daya Bay's measured $\Delta m^2_{ee}$, as operationally defined by (\ref{eq:survProbDybEE}), to the physical mass splittings. Of course, in doing so, one must still specify the mass hierarchy and $\Delta m^2_{21}.$
-
-
+For all intents and purposes, this approximation is exact at Daya Bay. Hence (\ref{eq:dmPhysical}) can be used to relate Daya Bay's measured $\Delta m^2_{ee}$, as operationally defined by (\ref{eq:survProbDybEE}), to the physical mass splittings. Of course, in doing so, one must still specify the mass hierarchy and $\Delta m^2_{21}.$ As a sanity check, Daya Bay has compared the results of fitting (\ref{eq:survProbDybFull}) and (\ref{eq:survProbDybEE}), finding that, in the end, both techniques give the same values of $\abs{\Delta m^2_{32}}$ and $\abs{\Delta m^2_{31}}$. For the sake of simplicity, this thesis's analysis will use (\ref{eq:survProbDybEE}) and fit $\Delta m^2_{ee}$.
 
 \section{Reactor neutrinos}
 \label{sec:introReactor}
