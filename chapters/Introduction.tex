@@ -132,7 +132,7 @@ P(\alpha \rightarrow \beta) = \sum_{j} |U_{\alpha j}|^2 |U_{\beta j}|^2
   + 2 \Re \sum_{j>i} U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}
   \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{equation}
-where, for clarity, we are explicitly indicating the summations. Going further, we can employ the unitary relation
+where, for clarity, we are explicitly indicating the summations. Going further, we can employ the unitarity relation
 \[U_{\alpha j} U^*_{\beta j} = \delta_{\alpha \beta}\]
 which, upon squaring, gives
 \[ \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta} -
@@ -166,11 +166,37 @@ The matrix elements from (\ref{eq:upmnsParam}) can then be inserted in order to 
   \end{split}
 \end{align}
 where we've introduced the notation
-\begin{align}
+\begin{align*}
   \Delta_{ji} &\equiv \frac{\Delta m^2_{ji}L}{4E}
                 \approx \frac{1.267\, \Delta m^2_{ji}\,\mathrm{[eV^2]}\;
                 L\,\mathrm{[m]}}{E\,\mathrm{[MeV]}}.
-\end{align}
+\end{align*}
+
+At Daya Bay, $\sin^2 \Delta_{21}$ is so small that the experiment has no ability to constrain $\theta_{12}$ or $\abs{\Delta m^2_{21}}$. In this analysis, then, their values are fixed to those measured by KamLAND (XXX global?). This leaves $\theta_{13}$, $\abs{\Delta m^2_{31}}$, and $\abs{\Delta m^2_{32}}$. However, given that the difference between $\abs{\Delta m^2_{31}}$ and $|\Delta m^2_{32}|$ is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient for resolving the difference. Therefore, Daya Bay cannot measure the two splittings jointly. On the other hand, since $\Delta m^2_{21}$ is well constrained and known to be positive, we can tightly relate $\abs{\Delta m^2_{31}}$ and $\abs{\Delta m^2_{32}}$:
+\[ \abs{\Delta m^2_{32}} =
+  \begin{cases*}
+    \abs{\Delta m^2_{31}} - \Delta m^2_{21} & normal hierarchy ($\Delta m^2_{31} > 0$), \\
+    \abs{\Delta m^2_{31}} + \Delta m^2_{21} & inverted hierarchy ($\Delta m^2_{31} < 0$), \\
+  \end{cases*}
+\]
+Thus, by using this relation to eliminate one parameter, it is possible to to perform a two-parameter fit of (\ref{eq:survProbDybFull}) directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported, and they are subject to change if an improved determination of $\Delta m^2_{21}$ is ever published.
+
+Alternatively, we can recast (\ref{eq:survProbDybFull}) in a form that refers only to an empirical \emph{effective} mass splitting $\Delta m^2_{ee}$:
+\begin{equation}
+  \label{eq:survProbDybEE}
+  P(\nubar_e \rightarrow \nubar_e) \approx 1 - \cos^4\theta_{13}\sin^2 2\theta_{12} \sin^2 \Delta_{21}
+  - \sin^2 2\theta_{13}\sin^2\Delta_{ee},
+\end{equation}
+where
+\[ \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. \]
+It must be noted that (\ref{eq:survProbDybEE}) is not an exact reparameterization of (\ref{eq:survProbDybFull}), since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivty with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to $\Delta m^2{21}$.
+
+$\Delta m^2_{ee}$, as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into (\ref{eq:survProbDybEE}), gives the best fit to the data. Note that, if Daya Bay only measured antineutrinos at a single $L/E$, we could instead have made a truly physical definition of $\Delta m^2_{ee}$ by declaring that
+\[ \sin^2 \Delta_{ee} \equiv \cos^2\theta_{12} \sin^2 \Delta_{31}
+  + \sin^2\theta_{12} \sin^2 \Delta_{32}. \]
+However, the righthand side of this definition depends on $L/E$, so it cannot be used in broadband analyses such as Daya Bay's.
+
+
 
 \section{Reactor neutrinos}
 \label{sec:introReactor}
