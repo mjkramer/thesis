@@ -173,13 +173,13 @@ where we've introduced the notation
 \end{align*}
 
 At Daya Bay, $\sin^2 \Delta_{21}$ is so small that the experiment has no ability to constrain $\theta_{12}$ or $\abs{\Delta m^2_{21}}$. In this analysis, then, their values are fixed to those measured by KamLAND (XXX global?). This leaves $\theta_{13}$, $\abs{\Delta m^2_{31}}$, and $\abs{\Delta m^2_{32}}$. However, given that the difference between $\abs{\Delta m^2_{31}}$ and $|\Delta m^2_{32}|$ is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient for resolving the difference. Therefore, Daya Bay cannot measure the two splittings jointly. On the other hand, since $\Delta m^2_{21}$ is well constrained and known to be positive, we can tightly relate $\abs{\Delta m^2_{31}}$ and $\abs{\Delta m^2_{32}}$:
-\[ \abs{\Delta m^2_{32}} =
+\[ \abs{\Delta m^2_{31}} =
   \begin{cases*}
-    \abs{\Delta m^2_{31}} - \Delta m^2_{21} & normal hierarchy ($\Delta m^2_{31} > 0$), \\
-    \abs{\Delta m^2_{31}} + \Delta m^2_{21} & inverted hierarchy ($\Delta m^2_{31} < 0$), \\
+    \abs{\Delta m^2_{32}} + \Delta m^2_{21}, & normal hierarchy ($\Delta m^2_{32} > 0$), \\
+    \abs{\Delta m^2_{32}} - \Delta m^2_{21}, & inverted hierarchy ($\Delta m^2_{32} < 0$), \\
   \end{cases*}
 \]
-Thus, by using this relation to eliminate one parameter, it is possible to to perform a two-parameter fit of (\ref{eq:survProbDybFull}) directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported, and they are subject to change if an improved determination of $\Delta m^2_{21}$ is ever published.
+Thus, by using this relation to eliminate one parameter, it is possible to to perform a two-parameter fit of (\ref{eq:survProbDybFull}) directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported; furthermore, they are subject to change if an improved determination of $\Delta m^2_{21}$ is ever published.
 
 Alternatively, we can recast (\ref{eq:survProbDybFull}) in a form that refers only to an empirical \emph{effective} mass splitting $\Delta m^2_{ee}$:
 \begin{equation}
@@ -189,12 +189,34 @@ Alternatively, we can recast (\ref{eq:survProbDybFull}) in a form that refers on
 \end{equation}
 where
 \[ \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. \]
-It must be noted that (\ref{eq:survProbDybEE}) is not an exact reparameterization of (\ref{eq:survProbDybFull}), since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivty with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to $\Delta m^2{21}$.
+It must be noted that (\ref{eq:survProbDybEE}) is not an exact reparameterization of (\ref{eq:survProbDybFull}), since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to $\Delta m^2{21}$.
 
 $\Delta m^2_{ee}$, as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into (\ref{eq:survProbDybEE}), gives the best fit to the data. Note that, if Daya Bay only measured antineutrinos at a single $L/E$, we could instead have made a truly physical definition of $\Delta m^2_{ee}$ by declaring that
 \[ \sin^2 \Delta_{ee} \equiv \cos^2\theta_{12} \sin^2 \Delta_{31}
   + \sin^2\theta_{12} \sin^2 \Delta_{32}. \]
 However, the righthand side of this definition depends on $L/E$, so it cannot be used in broadband analyses such as Daya Bay's.
+
+Returning to (\ref{eq:survProbDybFull}), it can be shown [XXX docDB 10497] that, in Daya Bay's range of $L/E$,
+\begin{equation}
+  \label{eq:dmPhi}
+cos^2\theta_{12} \sin^2\Delta_{31} + \sin^2\theta_{12}\sin^2\Delta_{32}
+\approx \sin^2 (\Delta_{32} \pm \phi),
+\end{equation}
+where
+\[\phi \equiv \arctan\left( \frac{\sin2\Delta_{21}}{\cos2\Delta_{21}+ \tan^2 \theta_{12}} \right),\]
+and ``+'' (``-'') corresponds to the normal (inverted) hierarchy. Inserting (\ref{eq:dmPhi}) into (\ref{eq:survProbDybFull}) and comparing to (\ref{eq:survProbDybEE}) gives the approximate relation
+\begin{equation}
+  \label{eq:dmPhiApprox}
+  \Delta m^2_{ee} \approx \abs{\Delta m^2{32}} \pm \Delta m^2_\phi/2,
+\end{equation}
+where
+\[\Delta m^2_\phi = \frac{4\phi E}{L}.\]
+Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to $\cos^2\theta_{12}\Delta m^2+{21}$. Inserting that into (\ref{eq:dmPhiApprox}), we find that
+\begin{equation}
+  \label{eq:dmPhysical}
+  \Delta m^2_{ee} \approx \cos^2\theta_{12}\abs{\Delta m^2_{31}} + \sin^2\theta_{12}\abs{\Delta m^2_{32}}.
+\end{equation}
+For all intents and purposes, this approximation is exact at Daya Bay. Hence (\ref{eq:dmPhysical}) can be used to relate Daya Bay's measured $\Delta m^2_{ee}$, as operationally defined by (\ref{eq:survProbDybEE}), to the physical mass splittings. Of course, in doing so, one must still specify the mass hierarchy and $\Delta m^2_{21}.$
 
 
 
