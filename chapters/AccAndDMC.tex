@@ -6,26 +6,38 @@
 \stepcounter{chapter}
 \label{chap:accDMC}
 
-\def\Emin{\ensuremath{E_\mathrm{min}}}
-\def\Emax{\ensuremath{E_\mathrm{max}}}
-\def\Rs{\ensuremath{R_\mathrm{s}}}
-\def\Rplu{\ensuremath{R_\mathrm{+}}}
-\def\Rpro{\ensuremath{R_\mathrm{p}}}
-\def\Rdel{\ensuremath{R_\mathrm{d}}}
-\def\Rsub{\ensuremath{R_\mathrm{\lambda}}}
-\def\Nplu{\ensuremath{N_\mathrm{+}}}
-\def\Npro{\ensuremath{N_\mathrm{p}}}
-\def\Ndel{\ensuremath{N_\mathrm{d}}}
+\def\Emin{\ensuremath{E_\mathrm{min}}} \def\Emax{\ensuremath{E_\mathrm{max}}}
+\def\Rs{\ensuremath{R_\mathrm{s}}} \def\Rplu{\ensuremath{R_\mathrm{+}}}
+\def\Rpro{\ensuremath{R_\mathrm{p}}} \def\Rdel{\ensuremath{R_\mathrm{d}}}
+\def\Rsub{\ensuremath{R_\mathrm{\lambda}}} \def\Nplu{\ensuremath{N_\mathrm{+}}}
+\def\Npro{\ensuremath{N_\mathrm{p}}} \def\Ndel{\ensuremath{N_\mathrm{d}}}
 \def\eisol{\ensuremath{\epsilon_\mathrm{i}}}
 \def\emu{\ensuremath{\epsilon_\mathrm{\mu}}}
 \def\etot{\ensuremath{\epsilon_\mathrm{tot}}}
 \def\Racc{\ensuremath{R_\mathrm{acc}}}
 
-These two quantities depend on the rate of uncorrelated physics events, or \emph{singles.} The accidentals rate is determined by the probability of two singles occurring in the same coincidence window, while the efficiency of the decoupled multiplicy cut (DMC) is similarly based on the chance of one or more singles occurring within a certain distance in time from the delayed event.\footnote{IBDs and correlated backgrounds also contribute to the inefficiency of the DMC, but the effect is negligible given the vast disparity in rates between singles and correlated events.}
+These two quantities depend on the rate of uncorrelated physics events, or
+\emph{singles.} The accidentals rate is determined by the probability of two
+singles occurring in the same coincidence window, while the efficiency of the
+decoupled multiplicy cut (DMC) is similarly based on the chance of one or more
+singles occurring within a certain distance in time from the delayed
+event.\footnote{IBDs and correlated backgrounds also contribute to the
+  inefficiency of the DMC, but the effect is negligible given the vast disparity
+  in rates between singles and correlated events.}
 
-Let $\Rs(\Emin, \Emax)$ be the rate of singles whose reconstructed energy lies between \Emin\ and \Emax. To be precise, \Rs\ is the \emph{true physical rate} of all \emph{muon-uncorrelated} processes that produce such singles. Naively, one could attempt to calculate \Rs\ by counting all non-muon-vetoed triggers in $(\Emin, \Emax)$ and dividing by the veto-corrected DAQ livetime. However, the rate will then be overestimated due to the inclusion of triggers from correlated events, and, likewise, the predicted accidentals spectrum will be distorted.
+Let $\Rs(\Emin, \Emax)$ be the rate of singles whose reconstructed energy lies
+between \Emin\ and \Emax. To be precise, \Rs\ is the \emph{true physical rate}
+of all \emph{muon-uncorrelated} processes that produce such singles. Naively,
+one could attempt to calculate \Rs\ by counting all non-muon-vetoed triggers in
+$(\Emin, \Emax)$ and dividing by the veto-corrected DAQ livetime. However, the
+rate will then be overestimated due to the inclusion of triggers from correlated
+events, and, likewise, the predicted accidentals spectrum will be distorted.
 
-Instead, the correct approach is to apply an isolation cut (in time) to ensure a clean sample of true singles. A correction must then be applied for the efficiency of this cut. Once \Rs\ has been obtained in this way, calculation of the accidentals rate and DMC efficiency is a straightforward application of Poisson statistics. We now describe the calculation from end to end.
+Instead, the correct approach is to apply an isolation cut (in time) to ensure a
+clean sample of true singles. A correction must then be applied for the
+efficiency of this cut. Once \Rs\ has been obtained in this way, calculation of
+the accidentals rate and DMC efficiency is a straightforward application of
+Poisson statistics. We now describe the calculation from end to end.
 
 \section{Event classes}
 \label{sec:accdmcevtcls}
@@ -42,23 +54,36 @@ not enough charge to be muon-like. A \emph{prompt-like} event has energy of
 \emph{prompt-plus} event is one that is either prompt-like or a sub-muon. The
 sample described in Sec.~\ref{sec:singsel} consists of prompt-plus events.
 
-Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon rate}\footnote{$\lambda$ precedes $\mu$ in the Greek alphabet... I think.} \Rsub\ as $\Rs(12, \mu)$ (i.e., up to the muon-like charge threshold), and the \emph{prompt-plus rate} \Rplu\ as $\Rpro + \Rsub$. Likewise, the raw event counts in our sample are \Npro, etc. To complete this round of definitions, let \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the singles selection), and $T$ be the raw DAQ livetime of the sample.
+Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the
+\emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon
+  rate}\footnote{$\lambda$ precedes $\mu$ in the Greek alphabet... I think.}
+\Rsub\ as $\Rs(12, \mu)$ (i.e., up to the muon-like charge threshold), and the
+\emph{prompt-plus rate} \Rplu\ as $\Rpro + \Rsub$. Likewise, the raw event
+counts in our sample are \Npro, etc. To complete this round of definitions, let
+\eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the
+singles selection), and $T$ be the raw DAQ livetime of the sample.
 
 \section{Singles selection}
 \label{sec:singsel}
 
-We begin with a sample of singles, consisting of events that meet the following cuts:
+We begin with a sample of singles, consisting of events that meet the following
+cuts:
 
 \begin{comment}
   This is the current state of the code:
-\begin{enumerate}
-\item Not a flasher or forced trigger.
-\item Not a muon.
-\item AdSimple energy of at least 0.7~MeV.
-\item No other events passing cuts 1-3 within time window $\pm t$.
-\item Not in a muon veto window.
-\end{enumerate}
-Below is what it should be. Why the difference? XXX Gotta correct for the lack-of-muon-vetoing-of-other in dmcEffSingles??? Or enhance the SinglesSelector to also pull events from ClusterTree, in case the ``extra'' is vetoed (YES, THIS)? We really need to think about whether the events we're ``isolating from'' are in the same class as ``this event''. If so thend our cuts look like(?):
+  \begin{enumerate}
+  \item Not a flasher or forced trigger.
+  \item Not a muon.
+  \item AdSimple energy of at least 0.7~MeV.
+  \item No other events passing cuts 1-3 within time window $\pm t$.
+  \item Not in a muon veto window.
+  \end{enumerate}
+  Below is what it should be. Why the difference? XXX Gotta correct for the
+  lack-of-muon-vetoing-of-other in dmcEffSingles??? Or enhance the
+  SinglesSelector to also pull events from ClusterTree, in case the ``extra'' is
+  vetoed (YES, THIS)? We really need to think about whether the events we're
+  ``isolating from'' are in the same class as ``this event''. If so thend our
+  cuts look like(?):
 \end{comment}
 
 \begin{enumerate}
@@ -69,7 +94,13 @@ Below is what it should be. Why the difference? XXX Gotta correct for the lack-o
 \item No other events passing the above cuts within time window $\pm t$.
 \end{enumerate}
 
-The muon veto conditions need not be the same as those used in the IBD selection, as long as they are sufficiently stringent (as explained in Sec.~\ref{sec:avoidmuoncorr}).  Likewise, $t$ can be chosen arbitrarily, provided that the window is large enough to remove correlated triggers and short enough to provide sufficient statistics. As currently implemented, a value of $t = 1$~ms is used. This is a conservative choice; other analysis groups have successfully used values more than 50\% shorter.
+The muon veto conditions need not be the same as those used in the IBD
+selection, as long as they are sufficiently stringent (as explained in
+Sec.~\ref{sec:avoidmuoncorr}). Likewise, $t$ can be chosen arbitrarily, provided
+that the window is large enough to remove correlated triggers and short enough
+to provide sufficient statistics. As currently implemented, a value of $t =
+1$~ms is used. This is a conservative choice; other analysis groups have
+successfully used values more than 50\% shorter.
 
 \section{Muon veto considerations}
 \label{sec:muonventoconsider}
@@ -77,19 +108,37 @@ The muon veto conditions need not be the same as those used in the IBD selection
 \subsection{Avoiding muon-correlated events}
 \label{sec:avoidmuoncorr}
 
-In the selection criteria described in Sec.~\ref{sec:singsel}, the final one  (the isolation cut) requires ``no other events passing the above cuts within time window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto window'', this implies that an extra \emph{muon-correlated} trigger will \emph{not} lead to event rejection by the isolation cut.
+In the selection criteria described in Sec.~\ref{sec:singsel}, the final one
+(the isolation cut) requires ``no other events passing the above cuts within
+time window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto
+window'', this implies that an extra \emph{muon-correlated} trigger will
+\emph{not} lead to event rejection by the isolation cut.
 
-This formulation of the isolation cut is necessary for the mathematical consistency of the calculation of its efficiency: We will be assuming that the events we are measuring---muon-uncorrelated singles---belong to the exact same class as the ``extra'' events that enter the definition of the isolation cut.
+This formulation of the isolation cut is necessary for the mathematical
+consistency of the calculation of its efficiency: We will be assuming that the
+events we are measuring---muon-uncorrelated singles---belong to the exact same
+class as the ``extra'' events that enter the definition of the isolation cut.
 
-However, at first glance this poses a problem: Our goal is to measure muon-uncorrelated events, but if we allow a potential ``single'' to be preceded by a muon-correlated trigger, then the ``single'' may itself be the product of muon activity. 
+However, at first glance this poses a problem: Our goal is to measure
+muon-uncorrelated events, but if we allow a potential ``single'' to be preceded
+by a muon-correlated trigger, then the ``single'' may itself be the product of
+muon activity.
 
-Fortunately, this problem can be easily eliminated by an appropriate choice of the muon veto window. In particular, we need to ensure that, if there is a muon-correlated event lying inside the isolation window preceding a singles candidate, the same muon \emph{will veto our candidate}. Previous studies have shown that the majority of muon-induced activity occurs within 400~$\mu$s of the muon. Therefore, if we veto at least $t$ + 400~$\mu$s after a muon (where $t$ is the length of the isolation cut window), the presence of a muon-correlated trigger guarantees that the candidate will get rejected, albeit by the muon veto, not by the isolation cut. During singles selection, therefore, we are careful to use muon veto windows that are sufficiently long.
+Fortunately, this problem can be easily eliminated by an appropriate choice of
+the muon veto window. In particular, we need to ensure that, if there is a
+muon-correlated event lying inside the isolation window preceding a singles
+candidate, the same muon \emph{will veto our candidate}. Previous studies have
+shown that the majority of muon-induced activity occurs within 400~$\mu$s of the
+muon. Therefore, if we veto at least $t$ + 400~$\mu$s after a muon (where $t$ is
+the length of the isolation cut window), the presence of a muon-correlated
+trigger guarantees that the candidate will get rejected, albeit by the muon
+veto, not by the isolation cut. During singles selection, therefore, we are
+careful to use muon veto windows that are sufficiently long.
 
 \subsection{Decoupling of efficiencies}
 \label{sec:effdecoup}
 
-\def\Pa{\ensuremath{P_\mathrm{a}}}
-\def\Pb{\ensuremath{P_\mathrm{b}}}
+\def\Pa{\ensuremath{P_\mathrm{a}}} \def\Pb{\ensuremath{P_\mathrm{b}}}
 \def\Pab{\ensuremath{P_\mathrm{ab}}}
 
 In the calculations that follow, we assume that
@@ -97,15 +146,28 @@ In the calculations that follow, we assume that
   \label{eq:effdecoup}
   \etot = \emu \eisol,
 \end{equation}
-that is, that we can calculate the muon veto and isolation cut efficiencies independently, and get the total efficiency by multiplying the two. This assumption is valid only if the two occurrences---either a muon, or an ``extra'' single---are statistically independent. As was explained above, extra muon-correlated triggers are \emph{not} considered when applying the isolation cut. Therefore, the presence of a muon has no effect on the probability of passing the isolation cut, and, conversely, the presence of an extra uncorrelated single has no effect on the probability of being inside a muon veto window. The requirements for statistical independence are thus satisfied.
+that is, that we can calculate the muon veto and isolation cut efficiencies
+independently, and get the total efficiency by multiplying the two. This
+assumption is valid only if the two occurrences---either a muon, or an ``extra''
+single---are statistically independent. As was explained above, extra
+muon-correlated triggers are \emph{not} considered when applying the isolation
+cut. Therefore, the presence of a muon has no effect on the probability of
+passing the isolation cut, and, conversely, the presence of an extra
+uncorrelated single has no effect on the probability of being inside a muon veto
+window. The requirements for statistical independence are thus satisfied.
 
-As a final verification of Eq.~\ref{eq:effdecoup}, let us divide rejected events into three non-overlapping categories: (a), events rejected only by the muon veto, (b), events rejected by the isolation cut, and (ab), events rejected by both. Since the two cuts are independent, $\Pab = \Pa\Pb$. We have:
+As a final verification of Eq.~\ref{eq:effdecoup}, let us divide rejected events
+into three non-overlapping categories: (a), events rejected only by the muon
+veto, (b), events rejected by the isolation cut, and (ab), events rejected by
+both. Since the two cuts are independent, $\Pab = \Pa\Pb$. We have:
 \begin{align*}
   \etot &= 1 - \Pa - \Pb - \Pab \\
         &= 1 - (1-\emu)\,\eisol - \emu\,(1-\eisol) - (1-\emu)(1-\eisol) \\
         &= \emu \eisol
 \end{align*}
-Clearly, Eq.~\ref{eq:effdecoup} indeed applies. The muon veto efficiency is determined simply by keeping track of the total vetoed livetime, while the isolation cut efficiency is described next.
+Clearly, Eq.~\ref{eq:effdecoup} indeed applies. The muon veto efficiency is
+determined simply by keeping track of the total vetoed livetime, while the
+isolation cut efficiency is described next.
 
 % XXX 200 us or 400 us or...?
 
@@ -117,12 +179,15 @@ As a starting point, we have the following identity:
   \label{eq:ident0}
   \Nplu = \emu \eisol \Rplu T,
 \end{equation}
-in which \Nplu, \emu, and $T$ are known, and \eisol\ and \Rplu\ are not. In addition, the Poisson distribution implies that
+in which \Nplu, \emu, and $T$ are known, and \eisol\ and \Rplu\ are not. In
+addition, the Poisson distribution implies that
 \begin{equation}
   \label{eq:ident1}
   \eisol = e^{-2\Rplu t}.
 \end{equation}
-This is simply the probability of observing zero prompt-plus events in two time windows (one preceding, one following) each of length $t$. Combining these two equations and eliminating \eisol, we have:
+This is simply the probability of observing zero prompt-plus events in two time
+windows (one preceding, one following) each of length $t$. Combining these two
+equations and eliminating \eisol, we have:
 \begin{equation}
   \Nplu = \emu e^{-2\Rplu t} \Rplu T,
 \end{equation}
@@ -130,20 +195,27 @@ which, after some rearrangement, gives:
 \begin{equation}
   (-2 \Rplu t) e^{-2 \Rplu t} = - \frac{2 \Nplu t}{\emu T}.
 \end{equation}
-This equation takes the form $we^w = z$, which cannot be solved for $w$ (or, in our case, \Rplu) using elementary functions. Instead we employ the Lambert $W$ function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w) = w$). As shown in Fig.~\ref{fig:lambertW}, the $W$ function has two branches. We know that, for a 1~ms isolation window, $\Rplu t \ll 1$, implying that the correct choice is the upper branch $W_0$. Then
+This equation takes the form $we^w = z$, which cannot be solved for $w$ (or, in
+our case, \Rplu) using elementary functions. Instead we employ the Lambert $W$
+function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w)
+= w$). As shown in Fig.~\ref{fig:lambertW}, the $W$ function has two branches.
+We know that, for a 1~ms isolation window, $\Rplu t \ll 1$, implying that the
+correct choice is the upper branch $W_0$. Then
 \begin{equation}
   \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
 \end{equation}
-Finally, inserting this into Eq.~\ref{eq:ident1}, we obtain the isolation cut efficiency:
+Finally, inserting this into Eq.~\ref{eq:ident1}, we obtain the isolation cut
+efficiency:
 \begin{equation}
   \eisol = \exp \, W_0 \left( -\frac{2\Nplu t}{\emu T} \right).
 \end{equation}
 
-TODO: Describe generalization to case where different time periods and/or energy ranges are used before/after the event. Hint: Take the two coupled equations, move all exponentials to the left side, add the two equations.
+TODO: Describe generalization to case where different time periods and/or energy
+ranges are used before/after the event. Hint: Take the two coupled equations,
+move all exponentials to the left side, add the two equations.
 
 \begin{figure}
-  \centering
-  \includegraphics[scale=0.7]{../images/lambertW.png}
+  \centering \includegraphics[scale=0.7]{../images/lambertW.png}
   \caption{The two branches of the Lambert $W$ function}
   \label{fig:lambertW}
 \end{figure}
@@ -151,7 +223,8 @@ TODO: Describe generalization to case where different time periods and/or energy
 \section{Singles rates}
 \label{sec:singratescalc}
 
-Once the isolation cut efficiency is known, it is trivial to calculate the prompt- and delayed-like singles rates:
+Once the isolation cut efficiency is known, it is trivial to calculate the
+prompt- and delayed-like singles rates:
 \begin{equation}
   \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
   \Rdel = \frac{\Ndel}{\eisol \emu T},
@@ -163,7 +236,12 @@ and so on.
 
 \def\edmc{\ensuremath{\epsilon_\mathrm{m}}}
 
-In order for an IBD candidate to satisfy the decoupled multiplicity cut, there must be no delayed-like triggers in the 200~$\mu$s following the delayed event, and no extra prompt-plus events\footnote{Formerly, in the LBNL analysis, only extra \emph{prompt}-like events would lead to a DMC rejection. In order to eliminate the double neutron background, ``prompt-like'' was later changed to ``prompt-plus''.} in the 400~$\mu$s prior to the delayed event. More formally,
+In order for an IBD candidate to satisfy the decoupled multiplicity cut, there
+must be no delayed-like triggers in the 200~$\mu$s following the delayed event,
+and no extra prompt-plus events\footnote{Formerly, in the LBNL analysis, only
+  extra \emph{prompt}-like events would lead to a DMC rejection. In order to
+  eliminate the double neutron background, ``prompt-like'' was later changed to
+  ``prompt-plus''.} in the 400~$\mu$s prior to the delayed event. More formally,
 \begin{align}
   \edmc &= P(0; \Rplu \cdot 2\tau)\;P(0; \Rdel \cdot \tau) \nonumber \\
         &= \exp [-(2\Rplu\tau + \Rdel\tau)],
@@ -173,22 +251,36 @@ where $\tau$ = 200~$\mu$s.
 \section{Accidentals rate}
 \label{sec:accratecalc}
 
-An accidental event, in order to enter the IBD selection, must pass the DMC, as with any other IBD candidate. Since the DMC is ``centered'' on the delayed event of the pair, it is simplest to calculate the accidentals rate by similarly centering the calculation on the delayed event.
+An accidental event, in order to enter the IBD selection, must pass the DMC, as
+with any other IBD candidate. Since the DMC is ``centered'' on the delayed event
+of the pair, it is simplest to calculate the accidentals rate by similarly
+centering the calculation on the delayed event.
 
-Given an uncorrelated delayed-like trigger, we can calculate the probability that it forms the delayed half of an accidental IBD candidate. Letting all time intervals be defined in relation to the delayed-like trigger, there are four conditions:
+Given an uncorrelated delayed-like trigger, we can calculate the probability
+that it forms the delayed half of an accidental IBD candidate. Letting all time
+intervals be defined in relation to the delayed-like trigger, there are four
+conditions:
 \begin{enumerate}
 \item Exactly one prompt-like event in [-200, 0]~$\mu$s.
 \item No sub-muon events in [-200, 0]~$\mu$s.
 \item No prompt-plus (prompt-like or sub-muon) events in [-400, -200]~$\mu$s.
 \item No delayed-like events in [0, 200]~$\mu$s.
 \end{enumerate}
-The accidentals rate is then simply the product of these probabilities with the delayed-like singles rate:
+The accidentals rate is then simply the product of these probabilities with the
+delayed-like singles rate:
 \begin{align}
-  \Racc &= \Rdel \cdot P(1; \Rpro \tau)\cdot P(0; \Rsub \tau)\cdot P(0; \Rplu \tau)\cdot P(0; \Rdel \tau) \nonumber \\
-        &= \Rdel\cdot\Rpro\tau e^{-\Rpro\tau}\cdot e^{-\Rsub\tau}\cdot e^{-\Rplu\tau} \cdot e^{-\Rdel\tau}
+  \Racc &= \Rdel \cdot P(1; \Rpro \tau)\cdot P(0; \Rsub \tau)
+           \cdot P(0; \Rplu \tau)\cdot P(0; \Rdel \tau) \nonumber \\
+        &= \Rdel\cdot\Rpro\tau e^{-\Rpro\tau}\cdot e^{-\Rsub\tau}
+           \cdot e^{-\Rplu\tau} \cdot e^{-\Rdel\tau}
 \end{align}
 
-Note that this calculation incorporates the inefficiency of the DMC (but not of the muon veto cut). By convention, the oscillation fitter expects background rates to be provided as ``theoretical'' rates, that is, the rate expected if all cuts were perfectly efficient. Internally, the fitter multiplies these rates by the DMC and veto efficiencies. Therefore, we must divide out the DMC efficiency when providing the accidentals rate to the fitter:
+Note that this calculation incorporates the inefficiency of the DMC (but not of
+the muon veto cut). By convention, the oscillation fitter expects background
+rates to be provided as ``theoretical'' rates, that is, the rate expected if all
+cuts were perfectly efficient. Internally, the fitter multiplies these rates by
+the DMC and veto efficiencies. Therefore, we must divide out the DMC efficiency
+when providing the accidentals rate to the fitter:
 \begin{equation}
   \Racc' = \frac{\Racc}{\edmc}.
 \end{equation}
@@ -196,6 +288,7 @@ Note that this calculation incorporates the inefficiency of the DMC (but not of 
 \section{Conclusions}
 \label{sec:accdmcconcl}
 
-The most subtle part of this calculation is the efficiency of the isolation cut. I hope that there isn't any circular logic lurking in my derivation.
+The most subtle part of this calculation is the efficiency of the isolation cut.
+I hope that there isn't any circular logic lurking in my derivation.
 
 \end{document}
