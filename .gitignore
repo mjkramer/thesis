@@ -20,3 +20,4 @@ chapters/auto
 oldorg/*.pdf
 oldorg/*.tex
 !images/*.pdf
+_region_.*

@@ -1,0 +1,40 @@
+\newcommand\upmns{U_\mathrm{PMNS}}
+\newcommand\flavcol{\begin{pmatrix} \nu_e \\ \nu_\mu \\ \nu_\tau \end{pmatrix}}
+\newcommand\masscol{\begin{pmatrix} \nu_1 \\ \nu_2 \\ \nu_3 \end{pmatrix}}
+\newcommand\upmnsSimple{
+  \begin{pmatrix}
+    U_{e 1} & U_{e 2} & U_{e 3} \\
+    U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\
+    U_{\tau 1} & U_{\tau 2} & U_{\tau 3}
+  \end{pmatrix}}
+%\newcommand\cee[1]{\cos\theta_{#1}}
+%\newcommand\ess[1]{\sin\theta_{#1}}
+\newcommand\cee[1]{c_{#1}}
+\newcommand\ess[1]{s_{#1}}
+\newcommand\upmnsFactored{
+  \begin{pmatrix}
+    1 & 0         & 0        \\
+    0 & \cee{23}  & \ess{23} \\
+    0 & -\ess{23} & \cee{23}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \cee{13}           & 0 & \ess{13}e^{-i\dcp} \\
+    0                  & 1 & 0                  \\
+    -\ess{13}e^{i\dcp} & 0 & \cee{13}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \cee{12}  & \ess{12} & 0 \\
+    -\ess{12} & \cee{12} & 0 \\
+    0         & 0        & 1
+  \end{pmatrix}}
+\newcommand\upmnsFull{
+  \begin{pmatrix}
+    c_{12}c_{13} & s_{12} c_{13} & s_{13}e^{-i\dcp} \\
+    -s_{12}c_{23} - c_{12}s_{23}s_{13}e^{i\dcp}
+    & c_{12}c_{23} - s_{12}s_{23}s_{13}e^{i\dcp}
+    & s_{23}c_{13}\\%
+    s_{12}s_{23} - c_{12}c_{23}s_{13}e^{i\dcp}
+    & -c_{12}s_{23} - s_{12}c_{23}s_{13}e^{i\dcp} &
+    c_{23}c_{13}
+  \end{pmatrix}}
+

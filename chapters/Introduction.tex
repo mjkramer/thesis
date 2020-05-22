@@ -92,9 +92,9 @@ as 1962, after the discovery that neutrinos come in separate electron and muon
 flavors. That year, an obscure and then-unacknowledged paper by Maki, Nakagawa,
 and Sakata (MNS) introduced the idea. Some five years before MNS, in 1957,
 Pontecorvo had been the first to propose the idea of neutrino oscillations, but
-in the form of neutrino-antineutrino oscillations, in analogy with the recently
-discovered phenomenon of neutral kaon mixing. It was a decade later, in 1967,
-that Pontecorvo independently raised the prospect of flavor oscillations, going
+in the form of neutrino-antineutrino oscillations, in analogy with the
+(then---)recently discovered phenomenon of neutral kaon mixing. A decade later, in
+1967, Pontecorvo independently raised the prospect of flavor oscillations, going
 so far as to suggest that solar neutrinos could oscillate, well before the first
 experimental hints of such by the Davis experiment. Still, it would take decades
 of further obervations to prove that these four theorists were correct.
@@ -170,40 +170,8 @@ mass eigenstates which each undergo phase rotation at their own rates; the mass
 components thus interfere to produce different flavor compositions over time,
 leading to the observation of oscillations.
 
-\newcommand\upmns{\ensuremath{%
-    U_\mathrm{PMNS}}} \newcommand\flavcol{\ensuremath{%
-    \begin{pmatrix} {\nu_e} \\ {\nu_\mu} \\ {\nu_\tau} \end{pmatrix}}}
-\newcommand\masscol{\ensuremath{%
-    \begin{pmatrix} \nu_1 \\ \nu_2 \\ \nu_3 \end{pmatrix}}}
-\newcommand\upmnsSimple{\ensuremath{%
-    \begin{pmatrix} U_{e 1} & U_{e 2} & U_{e 3} \\ U_{\mu 1} & U_{\mu 2} &
-      U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{pmatrix}}}
-% \newcommand\cee[1]{\ensuremath{%
-% \cos\theta_{#1}}} \newcommand\ess[1]{\ensuremath{%
-% \sin\theta_{#1}}}
-\newcommand\cee[1]{\ensuremath{%
-    c_{#1}}} \newcommand\ess[1]{\ensuremath{%
-    s_{#1}}} \newcommand\upmnsFactored{\ensuremath{%
-    \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cee{23} & \ess{23} \\ 0 & -\ess{23} &
-      \cee{23} \end{pmatrix}%
-    \begin{pmatrix} \cee{13} & 0 & \ess{13}e^{-i\delta_\text{CP}} \\ 0 & 1 & 0
-      \\ -\ess{13}e^{i\delta_\text{CP}} & 0 & \cee{13} \end{pmatrix}%
-    \begin{pmatrix} \cee{12} & \ess{12} & 0 \\ -\ess{12} & \cee{12} & 0 \\ 0 & 0
-      & 1 \end{pmatrix}}} \newcommand\upmnsFull{\ensuremath{%
-    \begin{pmatrix} c_{12}c_{13} & s_{12} c_{13} & s_{13}e^{-i\delta_\text{CP}}
-      \\%
-      -s_{12}c_{23} - c_{12}s_{23}s_{13}e^{i\delta_\text{CP}} & c_{12}c_{23} -
-      s_{12}s_{23}s_{13}e^{i\delta_\text{CP}} & s_{23}c_{13}\\%
-      s_{12}s_{23} - c_{12}c_{23}s_{13}e^{i\delta_\text{CP}} & -c_{12}s_{23} -
-      s_{12}c_{23}s_{13}e^{i\delta_\text{CP}} & c_{23}c_{13} \end{pmatrix}}}
-\newcommand*\mathcmd[2]{\newcommand#1{\ensuremath{#2}}}
-\mathcmd{\tAB}{\theta_{12}}
-\mathcmd{\tBC}{\theta_{23}}
-\mathcmd{\tAC}{\theta_{13}}
-\mathcmd{\dcp}{\delta_\text{CP}}
-
 The neutrino fields in the flavor and mass bases are related by the
-Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, \upmns\ (or simply $U$):
+Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, $\upmns$ (or simply $U$):
 \begin{equation*}
 \nu_\alpha = U_{\alpha i} \nu_i,
 \end{equation*}
@@ -217,13 +185,13 @@ related by the complex conjugate of $U$:
   \label{eq:nuStateRel}
   \ket{\nu_\alpha} = U^*_{\alpha i}\ket{\nu_i}.
 \end{equation}
-\upmns\ can be parameterized in terms of the three mixing angles, \tAB, \tBC,
-and \tAC, along with a CP-violating complex phase \dcp:\footnote{Although a
-  general 3x3 unitary matrix includes six complex phases, in this case five of
-  them can be absorbed into the definitions of the neutrino and charged lepton
-  fields, leaving only one remaining. It could be inserted anywhere in the
-  factorization of $U$ as long as unitary is preserved, but by convention the
-  definition in (\ref{eq:upmnsParam}) is what is used.}
+$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$,
+$\tBC$, and $\tAC$, along with a CP-violating complex phase
+$\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex
+  phases, in this case five of them can be absorbed into the definitions of the
+  neutrino and charged lepton fields, leaving only one remaining. It could be
+  inserted anywhere in the factorization of $U$ as long as unitary is preserved,
+  but by convention the definition in (\ref{eq:upmnsParam}) is what is used.}
 \begin{align}
   \label{eq:upmnsParam}
   \begin{split}
@@ -245,7 +213,6 @@ ignores effects caused by interference and decoherence of wave packet
 components; however, these effects were shown to be completely insignificant
 under the experimental conditions at Daya Bay [XXX wave packet paper].
 
-\newcommand\nuF{\nu^{\mathrm{F}}} \newcommand\nuM{\nu^{\mathrm{M}}}
 
 To calculate the oscillation probability over baseline $L$ for a neutrino of
 energy $E$ and initial flavor $\alpha$, we first redefine the problem slightly
@@ -458,7 +425,7 @@ arises simply from the fact that the MH and $\dcp$ both influence oscillation
 probabilities via higher-order terms that are controlled by e.g.
 $\sin^2\theta_{13}$ or $\sin^2 2\theta_{13}$; thus, a larger $\theta_{13}$
 implies a greater experimental sensitivity to these subtle effects. In turn, the
-MH and \dcp\ are pivotal in relation to two of the biggest questions in
+MH and $\dcp$ are pivotal in relation to two of the biggest questions in
 particle physics: The Majorana nature (or lack thereof) of the neutrino, and the
 origin of the the matter-antimatter asymmetry of the Universe, respectively.
 
@@ -503,7 +470,7 @@ mass matrix contains three small and three large eigenvalues, with the small
 ones being of the order $m^2_{\text{EW}} / m_{\text{GUT}}$. The corresponding
 eigenstates behave as Majorana particles: They are self-conjugate, and they have
 a Majorana mass term (leading to $L$ violation). This model thus naturally
-generates small neutrino masses. Furthermore, such heavy sterile neutrinos are a
+generates small neutrino masses. Furthermore, the heavy sterile neutrinos are a
 fairly generic prediction of GUT and other BSM theories. Finally, even more
 generic higher dimensional operators can also be shown to generate Majorana mass
 terms in the effective low-energy theory. For these reasons, the theory
@@ -511,7 +478,7 @@ community regards Majorana neutrinos as a likely fact of nature. The
 experimental challenge is then to find experimental evidence of the Majorana
 neutrino.
 
-The hypothetical process of neutrinoless double beta decay (\ndbd\) holds the
+The hypothetical process of neutrinoless double beta decay ($\ndbd$) holds the
 key to potentially observing evidence of Majorana neutrinos. In ordinary double
 beta decay, an isotope emits two electrons and two antineutrinos. A Majorana
 mass would allow the two antineutrinos to ``annihiliate'', leading to a small
@@ -519,14 +486,20 @@ peak at the endpoint of the double beta spectrum. If this peak is observed, it
 would constitute definitive evidence of the Majorana nature of the neutrino,
 with profound implications for BSM model building.
 
-The Sakharov conditions state the requirements for producing such an asymmetry:
+The amplitude(XXX?) for $\ndbd$
+
+\subsection{Baryon asymmetry and $\dcp$}
+\label{sec:baryonAsym}
+
+The Sakharov conditions state the requirements for producing a matter-antimatter
+asymmetry (equivalently, a baryon asymmetry):
 \begin{enumerate}
 \item Processes that violate baryon number symmetry $B$; otherwise, every baryon
   would be created in concert with an antibaryon
 \item Processes that violate C and CP symmetry; otherwise the C and
   CP-conjugates of $B$-violating interactions would cancel out the asymmetry
 \item Lack of thermal equilibrium; otherwise, every process would be
-  counterbalanced by its T-conjugate
+  counterbalanced by its CPT-conjugate
 \end{enumerate}
 Within the SM, an asymmetry can be produced via the mechanism of electroweak
 baryogenesis. However, the only source of CP violation in the SM is the complex
