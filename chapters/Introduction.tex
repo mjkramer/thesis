@@ -173,11 +173,11 @@ leading to the observation of oscillations.
 The neutrino fields in the flavor and mass bases are related by the
 Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, $\upmns$ (or simply $U$):
 \begin{equation*}
-\nu_\alpha = U_{\alpha i} \nu_i,
+  \nu_\alpha = U_{\alpha i} \nu_i,
 \end{equation*}
 that is,
 \begin{equation*}
-\flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol.
+  \flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol.
 \end{equation*}
 It can then be shown that the \emph{states} (as opposed to the fields) are
 related by the complex conjugate of $U$:
@@ -226,22 +226,19 @@ components of three very slightly different energies, one for each mass
 eigenstate. For clarity, flavor and mass eigenstates will be labeled with the
 superscripts F and M, respectively. Following [XXX Giunti], we have
 \begin{equation*}
-\ket{\nu(0)} = \ket{\nuF_\alpha} = U^*_{\alpha i} \ket{\nuM_i}. 
+  \ket{\nu(0)} = \ket{\nuF_\alpha} = U^*_{\alpha i} \ket{\nuM_i}. 
 \end{equation*}
 This state evolves in time like
 \begin{equation*}
-\ket{\nu(t)} = e^{-i E_i t} U^*_{\alpha i} \ket{\nuM_i}.
+  \ket{\nu(t)} = e^{-i E_i t} U^*_{\alpha i} \ket{\nuM_i}.
 \end{equation*}
 Given that we've fixed the momentum $\vec{p}$, the energy $E_i$ of the $i$th
 mass eigenstate component of $\ket{\nu}$ is
 \begin{equation*}
-E_i = \sqrt{p^2 + m_i^2} \approx p + \frac{m_i^2}{2p} \equiv E +
+  E_i = \sqrt{p^2 + m_i^2} \approx p + \frac{m_i^2}{2p} \equiv E +
   \frac{m_i^2}{2E}.
 \end{equation*}
 This gives, after we discard the global phase evolution $e^{-iEt}$,
-% \[\ket{\nu(t)} = e^{-i\frac{m^2}{2E} t} U_{\alpha i} \nuM_i\]
-% \[\ket{\nu(t)} = e^{-i(m^2/2E) t} U_{\alpha i} \nuM_i\]
-% \[\ket{\nu(t)} = e^{-itm^2/2E} U_{\alpha i} \nuM_i\]
 \begin{align*}
   \ket{\nu(t)} &= \exp\left(-i\frac{m^2t}{2E}\right) U^*_{\alpha i} \ket{\nuM_i} \\
                &\approx \exp\left(-i\frac{m^2L}{2E}\right) U^*_{\alpha i} \ket{\nuM_i},
@@ -253,8 +250,6 @@ this state to be of flavor $\beta$ is then
   &= \left|\Braket{\nuF_\beta|\nu(t)}\right|^2
     = \left| \Bra{\nuM_j} U_{\beta j} \exp\left( -i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nuM_i}\right|^2 \\
   &=  \left| U^*_{\alpha i} U_{\beta i} \exp\left( -i \frac{m_i^2L}{2E} \right)\right|^2 \\
-  % &= U^*_{\beta j} U_{\alpha j} U_{\beta i} U^*_{\alpha i} \exp\left( -i
-  %   \frac{(m_j^2 - m_i^2)L}{2E} \right)
   &= U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i} \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{align*}
 where $\Delta m^2_{ji} \equiv m^2_j - m^2_i$. This can be rewritten by
@@ -267,10 +262,14 @@ separating the terms for $i = j$ and $i \neq j$, giving
 \end{equation}
 where, for clarity, we are explicitly indicating the summations. Going further,
 we can employ the unitarity relation
-\[U_{\alpha j} U^*_{\beta j} = \delta_{\alpha \beta}\] which, upon squaring,
-gives
-\[ \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta} - 2 \sum_{j >
-    i} \Re(U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}).\]
+\begin{equation*}
+  U_{\alpha j} U^*_{\beta j} = \delta_{\alpha \beta}
+\end{equation*}
+which, upon squaring, gives
+\begin{equation*}
+  \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta}
+  - 2 \sum_{j > i} \Re(U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}).
+\end{equation*}
 Substituting this into (\ref{eq:oscSepSums}), and using Euler's identity, along
 with the trigonometric identity $1 - \cos 2\varphi = 2\sin^2 \varphi$, we
 finally get
@@ -286,7 +285,9 @@ finally get
 \end{align}
 Note that this result applies to \emph{neutrinos,} not antineutrinos. For the
 latter, we have, analogously to (\ref{eq:nuStateRel}),
-\[\ket{\nubar_\alpha} = U_{\alpha i}\ket{\nubar_i}\]
+\begin{equation*}
+  \ket{\nubar_\alpha} = U_{\alpha i}\ket{\nubar_i}
+\end{equation*}
 (note the lack of complex conjugation on the matrix element). The preceding
 derivation then produces (\ref{eq:oscReIm}) with the complex conjugations
 swappped.
@@ -295,11 +296,13 @@ In an experiment like Daya Bay, where we are looking for the
 \emph{disappearance} of (anti)neutrinos of a given flavor, our interest is in
 $P(\alpha \rightarrow \alpha)$. In this case, the behavior of neutrinos and
 antineutrinos is the same, and (\ref{eq:oscReIm}) simplifies to
-\[P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
-    i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). \] The matrix
-elements from (\ref{eq:upmnsParam}) can then be inserted in order to derive the
-disappearance probability for a particular flavor. For electron antineutrinos,
-as at Daya Bay, the survival probability is
+\begin{equation*}
+  P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
+    i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). 
+\end{equation*}
+The matrix elements from (\ref{eq:upmnsParam}) can then be inserted in order to
+derive the disappearance probability for a particular flavor. For electron
+antineutrinos, as at Daya Bay, the survival probability is
 \begin{align}
   \label{eq:survProbDybFull}
   \begin{split}
@@ -329,12 +332,13 @@ the detector resolution is insufficient for resolving the difference. Therefore,
 Daya Bay cannot measure the two splittings jointly. On the other hand, since
 $\Delta m^2_{21}$ is well constrained and known to be positive, we can tightly
 relate $\abs{\Delta m^2_{31}}$ and $\abs{\Delta m^2_{32}}$:
-\[ \abs{\Delta m^2_{31}} =
+\begin{equation*}
+  \abs{\Delta m^2_{31}} =
   \begin{cases*}
     \abs{\Delta m^2_{32}} + \Delta m^2_{21}, & normal hierarchy ($\Delta m^2_{32} > 0$), \\
     \abs{\Delta m^2_{32}} - \Delta m^2_{21}, & inverted hierarchy ($\Delta m^2_{32} < 0$), \\
   \end{cases*}
-\]
+\end{equation*}
 Thus, by using this relation to eliminate one parameter, it is possible to to
 perform a two-parameter fit of (\ref{eq:survProbDybFull}) directly,
 \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy
@@ -350,14 +354,16 @@ only to an empirical \emph{effective} mass splitting $\Delta m^2_{ee}$:
   - \sin^2 2\theta_{13}\sin^2\Delta_{ee},
 \end{equation}
 where
-\[ \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. \] It must be noted that
-(\ref{eq:survProbDybEE}) is not an exact reparameterization of
-(\ref{eq:survProbDybFull}), since the former contains only two frequencies
-rather than three. Again, however, Daya Bay cannot resolve between $\Delta_{31}$
-and $\Delta_{32}$, so there is no practical loss in sensitivity with this
-approach. The advantage of it is that it produces a single value that is
-independent of the mass hierarchy and immune to changes wrought by updates to
-$\Delta m^2_{21}$.
+\begin{equation*}
+  \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. 
+\end{equation*}
+It must be noted that (\ref{eq:survProbDybEE}) is not an exact
+reparameterization of (\ref{eq:survProbDybFull}), since the former contains only
+two frequencies rather than three. Again, however, Daya Bay cannot resolve
+between $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with
+this approach. The advantage of it is that it produces a single value that is
+independent of the mass hierarchy and immune to changes wrought by updates to $\Delta
+m^2_{21}$.
 
 $\Delta m^2_{ee}$, as used here, has an \emph{operational,} rather than a
 physical, definition: It is simply the value that, when inserted into
@@ -383,16 +389,21 @@ Bay's range of $L/E$,
   \approx \sin^2 (\Delta_{32} \pm \phi),
 \end{equation}
 where
-\[\phi \equiv \arctan\left( \frac{\sin2\Delta_{21}}{\cos2\Delta_{21}+ \tan^2
-      \theta_{12}} \right),\] and ``+'' (``-'') corresponds to the normal
-(inverted) hierarchy. Inserting (\ref{eq:dmPhi}) into (\ref{eq:survProbDybFull})
-and comparing to (\ref{eq:survProbDybEE}) gives the approximate relation
+\begin{equation*}
+  \phi \equiv \arctan\left( \frac{\sin2\Delta_{21}}{\cos2\Delta_{21}+ \tan^2
+      \theta_{12}} \right),
+\end{equation*}
+and ``+'' (``-'') corresponds to the normal (inverted) hierarchy. Inserting
+(\ref{eq:dmPhi}) into (\ref{eq:survProbDybFull}) and comparing to
+(\ref{eq:survProbDybEE}) gives the approximate relation
 \begin{equation}
   \label{eq:dmPhiApprox}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{32}} \pm \Delta m^2_\phi/2,
 \end{equation}
 where
-\[\Delta m^2_\phi = \frac{4\phi E}{L}.\]
+\begin{equation*}
+  \Delta m^2_\phi = \frac{4\phi E}{L}.
+\end{equation*}
 Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially
 constant and equal to $\cos^2\theta_{12}\Delta m^2_{21}$. Inserting that into
 (\ref{eq:dmPhiApprox}), we find that, for both mass hierarchies,
