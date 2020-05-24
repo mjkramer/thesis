@@ -21,3 +21,5 @@ spare_dirs='( -path ./refs -o -path ./images ) -prune'
 find $spare_dirs -o -regex '.*\.\('$(echo $exts | sed 's/ /\\|/g')'\)' -print | xargs -t rm -f
 find $spare_dirs -o -regex '.*/_region_\.tex' -print | xargs -t rm -f
 find $spare_dirs -o -regex '.*/_region_\.prv' -print | xargs -t rm -rf
+find . -name auto | xargs -t rm -rf
+
