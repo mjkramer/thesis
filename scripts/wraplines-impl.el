@@ -1,7 +1,6 @@
 (require 'latex)
 
 (setq TeX-auto-local "auto_wraplines")
-(setq fill-column 80)
 
 (let* ((basedir (file-name-directory
                  (directory-file-name (file-name-directory load-file-name))))
@@ -9,7 +8,7 @@
   (dolist (file files)
     (print (format "Formatting %s" file) #'external-debugging-output)
     (find-file file)
-    (LaTeX-fill-buffer nil)
-    (save-buffer))
-  (delete-directory (concat basedir "chapters/" TeX-auto-local)
-                    t))
+    (let ((fill-column 80)
+          (LaTeX-fill-break-at-separators nil))
+      (LaTeX-fill-buffer nil))
+    (save-buffer)))
