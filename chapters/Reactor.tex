@@ -30,14 +30,14 @@ need for reactor modeling.
 
 However, measuring $\Delta m^2$ involves examining the detailed shapes of the
 near and far spectra. In the simple approach just described, it is assumed that
-all reactors are producing the same spectral shape (and ratio of flux to power).
-This is not necessarily accurate, as the reactors may be in different stages of
-their fuel cycles. Therefore, to get the most out of a rate/shape analysis, we
-must perform a full prediction of the spectrum from each reactor separately.
-This will, naturally, introduce uncertainties from the imperfect nature of the
-predictions. As long as the predictions are applied consistently, their
-uncertainties will be largely (but not completely) cancelled in the near/far
-ratios, so this primary benefit of a near/far measurement is not lost.
+all reactors are producing the same spectral shape (and ratio of flux to
+power). This is not necessarily accurate, as the reactors may be in different
+stages of their fuel cycles. Therefore, to get the most out of a rate/shape
+analysis, we must perform a full prediction of the spectrum from each reactor
+separately. This will, naturally, introduce uncertainties from the imperfect
+nature of the predictions. As long as the predictions are applied consistently,
+their uncertainties will be largely (but not completely) cancelled in the
+near/far ratios, so this primary benefit of a near/far measurement is not lost.
 
 This chapter describes the reactor prediction, beginning with the question of
 predicting the antineutrino spectrum from a single fission of a given isotope,
@@ -54,14 +54,14 @@ spectrum prediction.
 In a conventional nuclear reactor, virtually all of the power originates from
 the fission of four isotopes: \urfive, \punine, \puone, and \ureight. In a fresh
 fuel assembly of low-enriched uranium, initially some 92\% of fissions will be
-of \urfive, while the remaining 8\% will be fast-neutron fissions of \ureight.
-This \ureight fraction remains nearly constant throughout a fuel cycle. At the
-same time, some of the \ureight will undergo neutron capture and subsequent beta
-decay to \punine, whose fission rate rapidly reaches 10-20\% of the total,
-eventually catching up to the (decreasing) \urfive rate by the end of the cycle
-($\sim$450 days). A fraction of \punine will produce \puone after a pair of
-neutron captures, and by the end of the cycle this isotope will contribute a
-fission fraction comparable to that of \ureight.
+of \urfive, while the remaining 8\% will be fast-neutron fissions of
+\ureight. This \ureight fraction remains nearly constant throughout a fuel
+cycle. At the same time, some of the \ureight will undergo neutron capture and
+subsequent beta decay to \punine, whose fission rate rapidly reaches 10-20\% of
+the total, eventually catching up to the (decreasing) \urfive rate by the end of
+the cycle ($\sim$450 days). A fraction of \punine will produce \puone after a
+pair of neutron captures, and by the end of the cycle this isotope will
+contribute a fission fraction comparable to that of \ureight.
 
 Clearly, all four isotopes contribute a non-neglible fraction of the total
 thermal power, and since their antineutrino spectra are fairly similar, they all
@@ -87,12 +87,13 @@ endpoint energy $E_0$,
 \[ E_\nu = E_0 - E_e. \]
 
 Hence, if we know the spectrum of every beta branch of every fission product, we
-can invert them all and sum them up to derive the total antineutrino spectrum.
-Unfortunately, this procedure is hampered by two significant issues. First of
-all, nuclear databases contain the beta decay \emph{endpoints}, not the spectra,
-and there are theoretical uncertainties involved in calculating the spectra.
-Secondly, existing databases are known to be missing some 10\% of beta branches,
-and errors exist in the listed branching ratios for the known branches.
+can invert them all and sum them up to derive the total antineutrino
+spectrum. Unfortunately, this procedure is hampered by two significant
+issues. First of all, nuclear databases contain the beta decay \emph{endpoints},
+not the spectra, and there are theoretical uncertainties involved in calculating
+the spectra. Secondly, existing databases are known to be missing some 10\% of
+beta branches, and errors exist in the listed branching ratios for the known
+branches.
 
 The theoretical difficulties arise because, to properly model the spectrum for a
 single beta branch, it is not enough to merely know the endpoint energy. One
@@ -182,13 +183,13 @@ of a given isotope. The total beta spectrum provides a powerful constraint, but
 it cannot be directly converted to an antineutrino spectrum the way that a
 single branch can. The traditional solution to this problem is to fit the total
 spectrum with a series of fictional \emph{virtual} branches, which are then
-inverted separately and summed to give the total antineutrino prediction.
-Typically, one starts at the endpoint of the total spectrum, positing a virtual
-branch (an allowed GT decay, generally) of the same endpoint. This virtual
-branch is normalized by fitting it to the end of the total spectrum, and then
-subtracted out. The procedure is repeated at the new endpoint of the subtracted
-total spectrum, until one finally ends up with a few dozen virtual branches that
-together fit the entire spectrum.
+inverted separately and summed to give the total antineutrino
+prediction. Typically, one starts at the endpoint of the total spectrum,
+positing a virtual branch (an allowed GT decay, generally) of the same
+endpoint. This virtual branch is normalized by fitting it to the end of the
+total spectrum, and then subtracted out. The procedure is repeated at the new
+endpoint of the subtracted total spectrum, until one finally ends up with a few
+dozen virtual branches that together fit the entire spectrum.
 
 While this approach avoids the uncertainties caused by the incompleteness of
 nuclear databases, it gains uncertainty from the arbitrary nature of the virtual
@@ -302,15 +303,15 @@ fission products. The reactor simulation code MURE was used to determine the
 correction, which was validated against the FISACT code.
 
 In this oscillation analysis, we use Mueller's corrections verbatim,
-collectively referring to them as the ``off-equilibrium correction''.
-Interpolation in time is performed between the provided points, and the
-appropriate value of $t$ is determined from data provided by the power company
-(discussed in Sec.~\ref{sec:reacpow}). In the Daya Bay cores, one third of the
-fuel is replaced during each refueling, so each core contains three fuel batches
-at different levels of burnup. Accordingly, a weighted sum of off-equilibrium
-corrections is applied. Conveniently, the batched fueling tends to wash out the
-differences between cores as well as the overall time dependence of the
-correction.
+collectively referring to them as the ``off-equilibrium
+correction''. Interpolation in time is performed between the provided points,
+and the appropriate value of $t$ is determined from data provided by the power
+company (discussed in Sec.~\ref{sec:reacpow}). In the Daya Bay cores, one third
+of the fuel is replaced during each refueling, so each core contains three fuel
+batches at different levels of burnup. Accordingly, a weighted sum of
+off-equilibrium corrections is applied. Conveniently, the batched fueling tends
+to wash out the differences between cores as well as the overall time dependence
+of the correction.
 
 For our purposes, we assign a 30\% uncertainty to the Mueller correction
 factors. The correction increases the predicted flux by some 0.5\%, so the
@@ -319,9 +320,9 @@ ensuing uncertainty on the absolute rate is around 0.2\%.
 \subsection{Spent nuclear fuel}
 \label{sec:snfcorr}
 
-During refueling, spent fuel is added to water-filled storage pools on site.
-Long lived fission products in the spent fuel will continue to decay for some
-time [XXX how long? Check data files], producing an additional low-energy
+During refueling, spent fuel is added to water-filled storage pools on
+site. Long lived fission products in the spent fuel will continue to decay for
+some time [XXX how long? Check data files], producing an additional low-energy
 antineutrino flux whose spectrum can be calculated from nuclear data, assuming
 that the fuel's irradiation history (and time since removal) is known.
 
@@ -351,17 +352,17 @@ the company produces a livetime-averaged daily power. Combined with the daily
 livetime, this provides a normalization for the daily predicted spectrum at each
 detector.
 
-The fission fractions of a core can be expressed as a function of \emph{burnup}.
-Burnup is defined as the total energy extracted from each unit mass of fuel,
-typically given in units of MWd/(megaton uranium). The power company has
-performed simulations to determine the fission fractions versus burnup of each
-core\footnote{Data is provided for a full fuel cycle; for cycles that haven't
-  yet run their course, nominal projections of thermal power are used for the
-  ``future'' fractions.}, and this information is provided to the collaboration
-in intervals of $\sim$1000~MWd/MTU. The company also provides the burnup of each
-core at two-week intervals; using daily thermal power to interpolate between the
-provided points, the daily burnup, and hence fission fractions, can be
-calculated.
+The fission fractions of a core can be expressed as a function of
+\emph{burnup}. Burnup is defined as the total energy extracted from each unit
+mass of fuel, typically given in units of MWd/(megaton uranium). The power
+company has performed simulations to determine the fission fractions versus
+burnup of each core\footnote{Data is provided for a full fuel cycle; for cycles
+  that haven't yet run their course, nominal projections of thermal power are
+  used for the ``future'' fractions.}, and this information is provided to the
+collaboration in intervals of $\sim$1000~MWd/MTU. The company also provides the
+burnup of each core at two-week intervals; using daily thermal power to
+interpolate between the provided points, the daily burnup, and hence fission
+fractions, can be calculated.
 
 [XXX How do we deal with the fact that each core contains three batches at
 different burnups? See Christine's code.]

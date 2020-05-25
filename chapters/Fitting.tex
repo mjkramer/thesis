@@ -16,9 +16,10 @@ conceptually straightforward to generate a set of predictions. However,
 incorporating systematic and statistical uncertainties, and then assigning error
 bars to the extracted parameters, is where the procedure becomes more subtle and
 complex. In Daya Bay, separate analysis groups have historically employed two
-different approaches, theoretically equivalent but implemented very differently.
-These are the method of pull terms, and the covariance matrix approach. In this
-analysis, we use the latter, but both will be briefly described in what follows.
+different approaches, theoretically equivalent but implemented very
+differently. These are the method of pull terms, and the covariance matrix
+approach. In this analysis, we use the latter, but both will be briefly
+described in what follows.
 
 \subsection{Method of pull terms}
 \label{sec:pullterms}
@@ -80,9 +81,9 @@ covariance matrix, due to its complexity and computational cost. Instead, a
 
 An important input to both the fitter and the toy MC is the prediction of the
 flux from each of the six reactors. By convention, we define these spectra in
-terms of true neutrino energy, and omit any weighting by the IBD cross section.
-The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85 to
-12.8~MeV.
+terms of true neutrino energy, and omit any weighting by the IBD cross
+section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85
+to 12.8~MeV.
 % The result is stored separately for each isotope.
 To produce this prediction, a number of basic inputs are required:
 
@@ -163,12 +164,13 @@ their equilibrium concentrations, the measured spectra deviate slightly from
 those emitted by long-running nuclear reactors. Table \ref{tab:noneqcorr} shows
 the percentage corrections to the spectra of the three fissile isotopes, which
 were tabulated by C. Lewis \cite{Lewis} based on \cite{French}. At energies
-between the five tabulated points, the corrections are linearly interpolated.
-Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the corrections at 2.0
-and 2.5~MeV are linearly extrapolated. This procedure results in a continuous,
-piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for each isotope $i$.
-For U-238, the function is identically zero. Applying the correction and summing
-over isotopes then gives the intermediate result $F^\mathrm{ne}_c(E)$,
+between the five tabulated points, the corrections are linearly
+interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the
+corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results
+in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for
+each isotope $i$. For U-238, the function is identically zero. Applying the
+correction and summing over isotopes then gives the intermediate result
+$F^\mathrm{ne}_c(E)$,
 \[ F^\mathrm{ne}_c(E) = \sum_i \Bigl(1 + 0.01\, C^\mathrm{ne}_i(E)\Bigr)\,
   F^\mathrm{nom}_{ci}(E). \]
 
@@ -217,9 +219,9 @@ allowing for a different shape in each core. In the current implementation, a
 single shape is used for all six cores.
 
 At this point, the final, fully-corrected reactor prediction can be written
-simply as
-\[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E). \] It
-is this $F_c(E)$ that is fed into the fitter and toy MC framework. Again, its
-units are 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$.
+simply as \[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \,
+  S^\mathrm{snf}_c(E). \] It is this $F_c(E)$ that is fed into the fitter and
+toy MC framework. Again, its units are
+10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$.
 
 \end{document}

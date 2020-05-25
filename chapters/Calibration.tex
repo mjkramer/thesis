@@ -1,4 +1,5 @@
-% -****- reftex-default-bibliography: ("/home/mkramer/physics/thesis/biblio.bib") -*-
+% -****- reftex-default-bibliography:
+% ("/home/mkramer/physics/thesis/biblio.bib") -*-
 \documentclass[../thesis.tex]{subfiles}
 
 \begin{document}
@@ -25,12 +26,12 @@ channels into event parameters such as energy and position.
 This chapter describes the first half of that process; namely, the detector
 calibration and data processing involved in the channel-by-channel calculation
 of hit time and charge. These calibrated quantities are fundamental in that they
-are used in all further analysis stages and by all reconstruction algorithms.
-Accuracy is vital, as any bias in the channel charge will be reflected in the
-total event energy and in any (charge-based) vertex reconstruction; likewise,
-accurate times are important for time-based vertex reconstructions. Furthermore,
-it is necessary to identify and exclude any misbehaving channels, a process that
-will also be discussed here.
+are used in all further analysis stages and by all reconstruction
+algorithms. Accuracy is vital, as any bias in the channel charge will be
+reflected in the total event energy and in any (charge-based) vertex
+reconstruction; likewise, accurate times are important for time-based vertex
+reconstructions. Furthermore, it is necessary to identify and exclude any
+misbehaving channels, a process that will also be discussed here.
 
 \section{Timing calibration}
 
@@ -63,10 +64,10 @@ information.\footnote{There is a natural variance in the timing of readout
   $T_0$ effectively provides knowledge of the trigger ``jitter'' for each event,
   allowing it to be subtracted out. Without this information, it is impossible
   to obtain a useful timewalk curve.} Toward that end, Daya Bay uses LED
-calibration runs in which the LED is positioned at the center of the detector.
-When a pulse is sent to the LED, a ``hit'' is also sent to the FEE from a
-``fake'' $T_0$ channel. For each PMT hit on channel $i$, we take its TDC count
-$N$ and calculate a corrected time
+calibration runs in which the LED is positioned at the center of the
+detector. When a pulse is sent to the LED, a ``hit'' is also sent to the FEE
+from a ``fake'' $T_0$ channel. For each PMT hit on channel $i$, we take its TDC
+count $N$ and calculate a corrected time
 \[ t = \frac{N_0 - N}{f_\mathrm{TDC}} - \frac{n r_i}{c}, \] where $N_0$ is the
 TDC count of the $T_0$ channel, $f_\mathrm{TDC}$ is the TDC frequency, and
 $nr_i/c$ gives the time of flight to channel $i$. The t.o.f. subtraction ensures
@@ -82,10 +83,10 @@ empirically found to produce good fits under appropriate restrictions on the
 parameters. Fig.~\ref{fig:timewalk}~ shows an example of a timewalk fit.
 
 After a manual verification of fit quality, the six parameters for each channel
-are uploaded to the database and marked with a suitable validity period.
-Whenever the electronics have been modified in a way that could affect the
-timing (such as a cabling change or board replacement), a new set of constants
-is prepared for the affected AD, using this same procedure.
+are uploaded to the database and marked with a suitable validity
+period. Whenever the electronics have been modified in a way that could affect
+the timing (such as a cabling change or board replacement), a new set of
+constants is prepared for the affected AD, using this same procedure.
 
 % Because $t(q)$ gives the \emph{time since trigger}, which is on the order of a
 % microsecond, a single global $\mu$s-scale offset (the average of all the
@@ -122,8 +123,8 @@ At a given operating voltage, every PMT will produce a unique amount of charge
 per photoelectron, even among other PMTs of the same model. Furthermore, this
 response tends to vary with time and environmental conditions, demanding a
 periodic recalibration of the gain. In Daya Bay, the HV for each channel was
-initially fixed in order to provide a nominal gain of $1 \times 10^7 \pm 5\%$.
-During the gain calibration, the true gain is measured and stored in the
+initially fixed in order to provide a nominal gain of $1 \times 10^7 \pm
+5\%$. During the gain calibration, the true gain is measured and stored in the
 database. This is expressed as the number of ADC counts (i.e., the FEE's charge
 measurement) per photoelectron.
 

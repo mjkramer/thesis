@@ -47,10 +47,10 @@ which primarily illuminates the PMTs directly across from the emitter.
 As previously stated, the accidental background can be straightforwardly
 measured based on the characteristics of singles events. The singles spectrum is
 first measured by searching for prompt-like events that satisfy the usual muon
-vetos but are separated from other prompt-like events by at least 400~$\mu$s.
-The total integral of this spectrum gives the prompt-like rate $R_p$, while the
-integral above 6~MeV gives the delayed-like rate $R_d$. The accidental
-background rate is then simply
+vetos but are separated from other prompt-like events by at least
+400~$\mu$s. The total integral of this spectrum gives the prompt-like rate
+$R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The
+accidental background rate is then simply
 \[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the
 factor in parentheses is the probability for a prompt-like single to fall within
 the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final
@@ -171,10 +171,10 @@ as HJT), in further detail.
 Two event samples are used in the fast neutron analysis. The first, which we
 shall refer to as the ``untagged'' sample is obtained using the standard IBD
 selection, as described in \ref{chap:selection}, with the modification that the
-upper limit on prompt energy is extended to 300~MeV instead of the usual 12~MeV.
-In this sample, the prompt spectrum below 12~MeV is essentially the same as the
-one used in the oscillation fit (i.e., dominated by true IBDs), whereas the
-high-energy region almost exclusively contains fast neutrons.
+upper limit on prompt energy is extended to 300~MeV instead of the usual
+12~MeV. In this sample, the prompt spectrum below 12~MeV is essentially the same
+as the one used in the oscillation fit (i.e., dominated by true IBDs), whereas
+the high-energy region almost exclusively contains fast neutrons.
 
 The other, ``tagged,'' sample contains IBD-like events that occur right after a
 muon that triggers \emph{only} the outer water pool. When a muon only strikes
@@ -204,15 +204,15 @@ within the collaboration have supported the validity of this assumption.
 \def\emax{\ensuremath{E_\mathrm{max}}} \def\ntag{\ensuremath{N_\mathrm{tag}}}
 \def\nuntag{\ensuremath{N_\mathrm{untag}}}
 
-We define the scaling factor $F$ as
-\[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of
-the integral of the two samples between 12~MeV and \emax. Essentially, $F$
-represents the efficiency of the OWS-tagging procedure. The dependence on \emax\
-reflects the arbitrary choice of the upper energy limit, which contributes to
-the uncertainty on the result (primarily due to stastical fluctuations in the
-small sample of tagged neutrons). HJT quantify this uncertainty by comparing the
-results for \emax\ of 80, 100, 120, and 150~MeV. In addition, for a \emph{fixed}
-\emax, there is a purely statistical uncertainty,
+We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12,
+    \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two
+samples between 12~MeV and \emax. Essentially, $F$ represents the efficiency of
+the OWS-tagging procedure. The dependence on \emax\ reflects the arbitrary
+choice of the upper energy limit, which contributes to the uncertainty on the
+result (primarily due to stastical fluctuations in the small sample of tagged
+neutrons). HJT quantify this uncertainty by comparing the results for \emax\ of
+80, 100, 120, and 150~MeV. In addition, for a \emph{fixed} \emax, there is a
+purely statistical uncertainty,
 \[ \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
     \emax]},
 \]
@@ -234,9 +234,9 @@ Finally, the normalized daily fast neutron rate is
   \rfn = \frac{\nfn}{T_\mathrm{DAQ} \cdot \epsilon_\mu \cdot \epsilon_m},
 \end{equation}
 where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime,
-muon veto efficiency, and multiplicy cut efficiency for the untagged sample.
-This value is then combined with the extrapolation result, described next, and a
-total uncertainty is assigned to the combination.
+muon veto efficiency, and multiplicy cut efficiency for the untagged
+sample. This value is then combined with the extrapolation result, described
+next, and a total uncertainty is assigned to the combination.
 
 \subsection{Extrapolation method}
 \label{sec:fastn_extrap}
