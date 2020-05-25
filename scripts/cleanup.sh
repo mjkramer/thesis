@@ -22,4 +22,4 @@ find $spare_dirs -o -regex '.*\.\('$(echo $exts | sed 's/ /\\|/g')'\)' -print | 
 find $spare_dirs -o -regex '.*/_region_\.tex' -print | xargs -t rm -f
 find $spare_dirs -o -regex '.*/_region_\.prv' -print | xargs -t rm -rf
 find . -name auto | xargs -t rm -rf
-
+find . -name auto_wraplines | xargs -t rm -rf
