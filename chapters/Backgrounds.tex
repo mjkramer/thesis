@@ -5,214 +5,73 @@
 \chapter{Background subtraction}
 \label{chap:bkg}
 
-While Daya Bay's design ensures a fairly pure sample of antineutrino events, a
-small contamination of backgrounds (at the percent level) is unavoidable. These
-backgrounds can be subdivided into \emph{correlated} and \emph{uncorrelated}
-backgrounds. The uncorrelated backgrounds consist entirely of accidental
-coincidences between singles events, and the rate and spectrum can be easily
-estimated from those of the singles. On the other hand, the correlated
-backgrounds are so named because the prompt and delayed pulses are correlated in
-time, as they both originate from a single underlying process. The correlated
-background in Daya Bay correspond to four distinct processes, and each one
-requires its own technique for measuring the rate and spectrum.
+While Daya Bay's design ensures a fairly pure sample of antineutrino events, a small contamination of backgrounds (at the percent level) is unavoidable. These backgrounds can be subdivided into \emph{correlated} and \emph{uncorrelated} backgrounds. The uncorrelated backgrounds consist entirely of accidental coincidences between singles events, and the rate and spectrum can be easily estimated from those of the singles. On the other hand, the correlated backgrounds are so named because the prompt and delayed pulses are correlated in time, as they both originate from a single underlying process. The correlated background in Daya Bay correspond to four distinct processes, and each one requires its own technique for measuring the rate and spectrum.
 
-In this chapter, we discuss the measurement of each of these backgrounds. Once
-they have been measured, their scaled prompt spectra can be subtracted from that
-of IBD candidates, allowing the oscillation fit to proceed with an
-uncontaminated prompt spectrum, albeit one with an additional uncertainty
-stemming from the imprecise nature of the background measurements.
+In this chapter, we discuss the measurement of each of these backgrounds. Once they have been measured, their scaled prompt spectra can be subtracted from that of IBD candidates, allowing the oscillation fit to proceed with an uncontaminated prompt spectrum, albeit one with an additional uncertainty stemming from the imprecise nature of the background measurements.
 
 \section{PMT light emission (``flashers'')}
 \label{sec:flashers}
 
-During detector commissioning, some PMTs were found to occasionally emit light
-due to arcing in their bases. At any given time, a few percent of the PMTs will
-have the tendency to flash brightly enough to trigger the detector. These
-``flashers'' can produce as much as 100~MeV of visible energy. Within the
-delayed energy region of 6-12~MeV, the flasher rate has averaged at around
-0.7~Hz for each AD. These ``delayed-like'' flashers, if included in the
-analysis, would significantly increase the rate of accidental backgrounds (as
-the rate of non-flasher delayed-like singles ranges from around 0.05~Hz at EH3
-to 1~Hz at EH1.)
+During detector commissioning, some PMTs were found to occasionally emit light due to arcing in their bases. At any given time, a few percent of the PMTs will have the tendency to flash brightly enough to trigger the detector. These ``flashers'' can produce as much as 100~MeV of visible energy. Within the delayed energy region of 6-12~MeV, the flasher rate has averaged at around 0.7~Hz for each AD. These ``delayed-like'' flashers, if included in the analysis, would significantly increase the rate of accidental backgrounds (as the rate of non-flasher delayed-like singles ranges from around 0.05~Hz at EH3 to 1~Hz at EH1.)
 
-Fortunately, flashers are easily distinguished from ``true'' singles due to a
-very characteristic pattern of light emission. When a PMT emits light, that same
-PMT will naturally see a large portion of the total charge. Furthermore, the
-radial magnetic shield around each PMT collimates the light into a narrow cone
-which primarily illuminates the PMTs directly across from the emitter.
+Fortunately, flashers are easily distinguished from ``true'' singles due to a very characteristic pattern of light emission. When a PMT emits light, that same PMT will naturally see a large portion of the total charge. Furthermore, the radial magnetic shield around each PMT collimates the light into a narrow cone which primarily illuminates the PMTs directly across from the emitter.
 
 \section{Accidental coincidences}
 \label{chap:accbkg}
 
-As previously stated, the accidental background can be straightforwardly
-measured based on the characteristics of singles events. The singles spectrum is
-first measured by searching for prompt-like events that satisfy the usual muon
-vetos but are separated from other prompt-like events by at least 400~$\mu$s.
-The total integral of this spectrum gives the prompt-like rate $R_p$, while the
-integral above 6~MeV gives the delayed-like rate $R_d$. The accidental
-background rate is then simply
-\[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the
-factor in parentheses is the probability for a prompt-like single to fall within
-the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final
-factor is the probability that the event is \emph{not} rejected by the decoupled
-multiplicity cut, which disallows any additional prompt-like single in the
-400~$\mu$s preceding the delayed event. Once the rate has been determined this
-way, the spectrum is trivial: It is simply the singles spectrum itself.
+As previously stated, the accidental background can be straightforwardly measured based on the characteristics of singles events. The singles spectrum is first measured by searching for prompt-like events that satisfy the usual muon vetos but are separated from other prompt-like events by at least 400~$\mu$s. The total integral of this spectrum gives the prompt-like rate $R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The accidental background rate is then simply
+\[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the factor in parentheses is the probability for a prompt-like single to fall within the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final factor is the probability that the event is \emph{not} rejected by the decoupled multiplicity cut, which disallows any additional prompt-like single in the 400~$\mu$s preceding the delayed event. Once the rate has been determined this way, the spectrum is trivial: It is simply the singles spectrum itself.
 
 \begin{comment}
-  Mention IHEP's cross-check, and the additional uncertainty stemming from the
-  difference between it and the nominal result?
+  Mention IHEP's cross-check, and the additional uncertainty stemming from the difference between it and the nominal result?
 \end{comment}
 
 \section{Cosmogenic $^9$Li/$^8$He}
 
 \newcommand\linine{$^9$Li}
 
-The dominant correlated background in Daya Bay comes from the short-lived
-isotopes $^9$Li and $^8$He, which are produced as spallation products of carbon
-when muons traverse the AD. These two isotopes\footnote{For the sake of brevity,
-  we will henceforth collectively refer to the two isotopes as \linine; this is
-  by far the dominant of the two, as will be shown later.} have livetimes on the
-order of hundreds of milliseconds; thus, while the majority of them will decay
-within the $\sim$1~s veto window that follows AD muons, a non-negligible
-fraction will survive past it. When they undergo beta decay, the daughter nuclei
-break apart, and neutrons are contained among the debris. The combination of the
-beta decay and the subsequent nGd capture produce the characteristic
-double-coincidence signature of an IBD event.
+The dominant correlated background in Daya Bay comes from the short-lived isotopes $^9$Li and $^8$He, which are produced as spallation products of carbon when muons traverse the AD. These two isotopes\footnote{For the sake of brevity, we will henceforth collectively refer to the two isotopes as \linine; this is by far the dominant of the two, as will be shown later.} have livetimes on the order of hundreds of milliseconds; thus, while the majority of them will decay within the $\sim$1~s veto window that follows AD muons, a non-negligible fraction will survive past it. When they undergo beta decay, the daughter nuclei break apart, and neutrons are contained among the debris. The combination of the beta decay and the subsequent nGd capture produce the characteristic double-coincidence signature of an IBD event.
 
-At the statistical level, the key difference between IBDs and \linine\ decays is
-that the latter are correlated in time with AD muons. This correlation can be
-exploited to measure the total rate of \linine\ decays. To do so, the IBD
-candidate sample is used to construct a histogram of the time since the last AD
-muon. In this histogram, true IBDs will exhibit an exponential distribution with
-a characteristic time $\tau$ corresponding to the muon rate, while \linine\
-decays will be similarly distributed but with a much shorter $\tau$
-corresponding to the \linine\ lifetime. By fitting the histogram with a sum of
-these exponential distributions, it is possible to extract the \linine\ rate.
+At the statistical level, the key difference between IBDs and \linine\ decays is that the latter are correlated in time with AD muons. This correlation can be exploited to measure the total rate of \linine\ decays. To do so, the IBD candidate sample is used to construct a histogram of the time since the last AD muon. In this histogram, true IBDs will exhibit an exponential distribution with a characteristic time $\tau$ corresponding to the muon rate, while \linine\ decays will be similarly distributed but with a much shorter $\tau$ corresponding to the \linine\ lifetime. By fitting the histogram with a sum of these exponential distributions, it is possible to extract the \linine\ rate.
 
-Although this method is simple in theory, a significant challenge arises from
-the fact that a minimum muon energy must be defined when calculating the time
-between each event and its most recent preceding muon. If this cut is too low,
-then the time between muons will be comparable to the \linine\ livetime, and
-with finite statistics, it will be difficult to reliably distringuish between
-the two components in the fit. Conversely, if the muon cut is too high, then
-some fraction of \linine-producing muons will be discarded, and those \linine\
-events will not appear to be muon-correlated, leading to an underestimation of
-the rate.
+Although this method is simple in theory, a significant challenge arises from the fact that a minimum muon energy must be defined when calculating the time between each event and its most recent preceding muon. If this cut is too low, then the time between muons will be comparable to the \linine\ livetime, and with finite statistics, it will be difficult to reliably distringuish between the two components in the fit. Conversely, if the muon cut is too high, then some fraction of \linine-producing muons will be discarded, and those \linine\ events will not appear to be muon-correlated, leading to an underestimation of the rate.
 
-To resolve this issue, one can repeat the \linine\ fit for a variety of muon
-cuts, and then attempt to extrapolate the results down to a muon cut of (nearly)
-zero. More concretely, one can obtain good fits at muon cuts of above $\sim
-2\times10^5$~p.e., and marginal fits down to $1\times10^5$ p.e., and then
-perform this extrapolation. Due to the absence of data points below
-$1\times10^5$~p.e., and the lack of knowledge regarding the manner in which the
-\linine-production rate scales with muon energy, this extrapolation dominates
-the final systematic uncertainty of the result.
+To resolve this issue, one can repeat the \linine\ fit for a variety of muon cuts, and then attempt to extrapolate the results down to a muon cut of (nearly) zero. More concretely, one can obtain good fits at muon cuts of above $\sim 2\times10^5$~p.e., and marginal fits down to $1\times10^5$ p.e., and then perform this extrapolation. Due to the absence of data points below $1\times10^5$~p.e., and the lack of knowledge regarding the manner in which the \linine-production rate scales with muon energy, this extrapolation dominates the final systematic uncertainty of the result.
 
-Improving this extrapolation requires the addition of data points at lower muon
-cuts. This can be accomplished by modifying the IBD selection in order to enrich
-it in \linine, resulting in an improved ability to distinguish the components in
-the time-since-last-muon fit. Two methods have been developed to achieve this:
-Neutron tagging, and restriction of the prompt energy cut. The first method
-takes advantage of the fact that \linine\ decays are more likely than true IBDs
-to occur in association with an additional neutron (from spallation), and the
-second uses the fact that the \linine\ spectrum is significantly harder than the
-IBD spectrum. By applying these cuts, performing the fits, and scaling the
-results by the additional efficiency of these extra criteria, data points can be
-obtained at lower muon cut energies.
+Improving this extrapolation requires the addition of data points at lower muon cuts. This can be accomplished by modifying the IBD selection in order to enrich it in \linine, resulting in an improved ability to distinguish the components in the time-since-last-muon fit. Two methods have been developed to achieve this: Neutron tagging, and restriction of the prompt energy cut. The first method takes advantage of the fact that \linine\ decays are more likely than true IBDs to occur in association with an additional neutron (from spallation), and the second uses the fact that the \linine\ spectrum is significantly harder than the IBD spectrum. By applying these cuts, performing the fits, and scaling the results by the additional efficiency of these extra criteria, data points can be obtained at lower muon cut energies.
 
-Neutron tagging allows greater enrichment of \linine, at the cost of increased
-uncertainty in the additional efficiency. Hence, it is better suited for the
-lowest of muon cuts, where the prompt energy cut technique provides insufficient
-enrichment, whereas the latter approach is preferable at higher muon cuts, due
-to the avoidance of the neutron tagging efficiency. Below, we describe a
-measurement that uses both techniques, applied where each is the optimal choice.
+Neutron tagging allows greater enrichment of \linine, at the cost of increased uncertainty in the additional efficiency. Hence, it is better suited for the lowest of muon cuts, where the prompt energy cut technique provides insufficient enrichment, whereas the latter approach is preferable at higher muon cuts, due to the avoidance of the neutron tagging efficiency. Below, we describe a measurement that uses both techniques, applied where each is the optimal choice.
 
 \section{Cosmogenic fast neutrons}
 
 XXX ref doc-10948. Fig. 25 from long paper.
 
-As cosmic muons travel through the rock and other materials surrounding the ADs,
-they can eject fast neutrons from the medium. If a fast neutron of the
-appropriate energy thermalizes and stops inside the AD, it will produce an
-IBD-like coincidence pair, in which the prompt signal consists largely of
-scintillation from scattered protons, and the delayed signal results from nGd
-capture. This process leads to a significant correlated background, amounting to
-some 20-30\% of that produced by cosmogenic isotopes. Two methods have been
-developed for estimating this background, the so-called \emph{extrapolation} and
-\emph{scaling} methods.
+As cosmic muons travel through the rock and other materials surrounding the ADs, they can eject fast neutrons from the medium. If a fast neutron of the appropriate energy thermalizes and stops inside the AD, it will produce an IBD-like coincidence pair, in which the prompt signal consists largely of scintillation from scattered protons, and the delayed signal results from nGd capture. This process leads to a significant correlated background, amounting to some 20-30\% of that produced by cosmogenic isotopes. Two methods have been developed for estimating this background, the so-called \emph{extrapolation} and \emph{scaling} methods.
 
-In the extrapolation method, the prompt energy cut of the IBD selection is
-extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent
-and the (largely flat) spectrum consists almost entirely of fast neutrons. This
-spectrum is then extrapolated below 12~MeV to estimate the fast neutron
-component of the IBD sample, using a fit to a well-motivated model of the fast-n
-spectrum.
+In the extrapolation method, the prompt energy cut of the IBD selection is extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent and the (largely flat) spectrum consists almost entirely of fast neutrons. This spectrum is then extrapolated below 12~MeV to estimate the fast neutron component of the IBD sample, using a fit to a well-motivated model of the fast-n spectrum.
 
-In the scaling method, a search is performed for ``muon-tagged'' IBD-like events
-in the immediate aftermath of ``peripheral'' muons that only trigger the outer
-water pool and/or RPC. As with the extrapolation method, the prompt energy cut
-is significantly extended. In the region above 12 MeV, where true IBDs are
-absent, the muon-tagging efficiency can be determined from the ratio of
-muon-tagged to untagged events. Then, below 12 MeV, the tagged spectrum (which
-contains very few true IBDs due to the short post-muon time window searched) is
-rescaled according to the tagging efficiency, yielding an estimate of the fast
-neutron spectrum within in the sub-12~MeV region.
+In the scaling method, a search is performed for ``muon-tagged'' IBD-like events in the immediate aftermath of ``peripheral'' muons that only trigger the outer water pool and/or RPC. As with the extrapolation method, the prompt energy cut is significantly extended. In the region above 12 MeV, where true IBDs are absent, the muon-tagging efficiency can be determined from the ratio of muon-tagged to untagged events. Then, below 12 MeV, the tagged spectrum (which contains very few true IBDs due to the short post-muon time window searched) is rescaled according to the tagging efficiency, yielding an estimate of the fast neutron spectrum within in the sub-12~MeV region.
 
-The two methods are consistent to within 1--3\% (an order of magnitude smaller
-than the estimated uncertainty of each method), providing a high level of
-confidence in the estimation. In the following sections, we describe these
-methods, and their results (obtained by Hu, Ji, and Treskov, whom we abbreviate
-as HJT), in further detail.
+The two methods are consistent to within 1--3\% (an order of magnitude smaller than the estimated uncertainty of each method), providing a high level of confidence in the estimation. In the following sections, we describe these methods, and their results (obtained by Hu, Ji, and Treskov, whom we abbreviate as HJT), in further detail.
 
 \subsection{Event selection}
 \label{sec:fastn_sel}
 
-Two event samples are used in the fast neutron analysis. The first, which we
-shall refer to as the ``untagged'' sample is obtained using the standard IBD
-selection, as described in \ref{chap:selection}, with the modification that the
-upper limit on prompt energy is extended to 300~MeV instead of the usual 12~MeV.
-In this sample, the prompt spectrum below 12~MeV is essentially the same as the
-one used in the oscillation fit (i.e., dominated by true IBDs), whereas the
-high-energy region almost exclusively contains fast neutrons.
+Two event samples are used in the fast neutron analysis. The first, which we shall refer to as the ``untagged'' sample is obtained using the standard IBD selection, as described in \ref{chap:selection}, with the modification that the upper limit on prompt energy is extended to 300~MeV instead of the usual 12~MeV. In this sample, the prompt spectrum below 12~MeV is essentially the same as the one used in the oscillation fit (i.e., dominated by true IBDs), whereas the high-energy region almost exclusively contains fast neutrons.
 
-The other, ``tagged,'' sample contains IBD-like events that occur right after a
-muon that triggers \emph{only} the outer water pool. When a muon only strikes
-the OWS, as opposed to the IWS or AD, most of the muon-generated debris is
-unable to penetrate into the GdLS, but fast neutrons are an exception. This
-tagging therefore provides a highly pure sample of fast neutrons for analysis.
+The other, ``tagged,'' sample contains IBD-like events that occur right after a muon that triggers \emph{only} the outer water pool. When a muon only strikes the OWS, as opposed to the IWS or AD, most of the muon-generated debris is unable to penetrate into the GdLS, but fast neutrons are an exception. This tagging therefore provides a highly pure sample of fast neutrons for analysis.
 
-The tagged sample is obtained by extending the upper cut to 300~MeV (as in the
-untagged sample) while disabling the standard muon veto. An additional
-requirement is that the prompt signal be timestamped within (-300, 600)~ns of an
-OWS trigger (defined by NHit > 15, in this case). Furthermore, the delayed
-signal must occur at least 15 $\mu$s after the muon (to eliminate Michel
-electrons), and there must be no AD or IWS muons within 600 $\mu$s of the OWS
-muon. This selection results in fairly low statistics (amounting to a few
-hundred events in the near halls), but the size of the sample is still
-sufficient to provide strong constraints on the fast-neutron background.
+The tagged sample is obtained by extending the upper cut to 300~MeV (as in the untagged sample) while disabling the standard muon veto. An additional requirement is that the prompt signal be timestamped within (-300, 600)~ns of an OWS trigger (defined by NHit > 15, in this case). Furthermore, the delayed signal must occur at least 15 $\mu$s after the muon (to eliminate Michel electrons), and there must be no AD or IWS muons within 600 $\mu$s of the OWS muon. This selection results in fairly low statistics (amounting to a few hundred events in the near halls), but the size of the sample is still sufficient to provide strong constraints on the fast-neutron background.
 
 \subsection{Scaling method}
 \label{sec:fastn_scaling}
 
-In the scaling method, we assume that the shape of the tagged spectrum is an
-accurate representation of the shape of the fast-neutron background. In other
-words, we assume that, for any given fast neutron, the probability of an
-associated OWS trigger is independent of the neutron's energy. Previous studies
-within the collaboration have supported the validity of this assumption.
+In the scaling method, we assume that the shape of the tagged spectrum is an accurate representation of the shape of the fast-neutron background. In other words, we assume that, for any given fast neutron, the probability of an associated OWS trigger is independent of the neutron's energy. Previous studies within the collaboration have supported the validity of this assumption.
 
 \def\emax{\ensuremath{E_\mathrm{max}}} \def\ntag{\ensuremath{N_\mathrm{tag}}}
 \def\nuntag{\ensuremath{N_\mathrm{untag}}}
 
-We define the scaling factor $F$ as
-\[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of
-the integral of the two samples between 12~MeV and \emax. Essentially, $F$
-represents the efficiency of the OWS-tagging procedure. The dependence on \emax\
-reflects the arbitrary choice of the upper energy limit, which contributes to
-the uncertainty on the result (primarily due to stastical fluctuations in the
-small sample of tagged neutrons). HJT quantify this uncertainty by comparing the
-results for \emax\ of 80, 100, 120, and 150~MeV. In addition, for a \emph{fixed}
-\emax, there is a purely statistical uncertainty,
+We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. Essentially, $F$ represents the efficiency of the OWS-tagging procedure. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). HJT quantify this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty,
 \[ \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
     \emax]},
 \]
@@ -220,8 +79,7 @@ which also contributes to the final uncertainty.
 
 \def\nfn{\ensuremath{N_\mathrm{fid}}} \def\rfn{\ensuremath{R_\mathrm{FN}}}
 
-In the untagged spectrum, the number of fast neutrons within the fiducial energy
-range of [0.7, 12]~MeV is determined simply as
+In the untagged spectrum, the number of fast neutrons within the fiducial energy range of [0.7, 12]~MeV is determined simply as
 \[ \nfn = F \cdot \ntag[0.7, 12]. \] Its statistical uncertainty, in turn, is
 \begin{equation}
   \label{eq:eq:fastn_scal_unc}
@@ -233,91 +91,37 @@ Finally, the normalized daily fast neutron rate is
   \label{eq:fastn_rate}
   \rfn = \frac{\nfn}{T_\mathrm{DAQ} \cdot \epsilon_\mu \cdot \epsilon_m},
 \end{equation}
-where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime,
-muon veto efficiency, and multiplicy cut efficiency for the untagged sample.
-This value is then combined with the extrapolation result, described next, and a
-total uncertainty is assigned to the combination.
+where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime, muon veto efficiency, and multiplicy cut efficiency for the untagged sample. This value is then combined with the extrapolation result, described next, and a total uncertainty is assigned to the combination.
 
 \subsection{Extrapolation method}
 \label{sec:fastn_extrap}
 
-Previous simulation studies have found that the fast neutron spectrum can be
-accurately described by the p.d.f.
-\[ f(E) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0}, \] where $E_0$ and
-$a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the p.d.f. When we
-float an additional normalization factor $N$ and perform a fit to some portion
-of the fast neutron spectrum, the best-fit $N$ represents the number of events
-``under the curve'' from 0 to $\infty$~MeV.
+Previous simulation studies have found that the fast neutron spectrum can be accurately described by the p.d.f.
+\[ f(E) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0}, \] where $E_0$ and $a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the p.d.f. When we float an additional normalization factor $N$ and perform a fit to some portion of the fast neutron spectrum, the best-fit $N$ represents the number of events ``under the curve'' from 0 to $\infty$~MeV.
 
-In turn, if we have a (hypothetical) pure fast-neutron spectrum containing
-$N_\mathrm{fid}$ events in the fiducial region of [0.7, 12]~MeV, then the full
-spectrum ([0, $\infty$]~MeV) should contain an event count equal to
-\[ N_\mathrm{tot} = \frac{N_\mathrm{fid}}{\int_{0.7}^{12} f(E; E_0, a)\,dE }. \]
-This $N_\mathrm{tot}$ is, by definition, the same as the $N$ introduced in the
-previous paragraph. Therefore, when we fit a portion of the fast neutron
-spectrum to the form
+In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $N_\mathrm{fid}$ events in the fiducial region of [0.7, 12]~MeV, then the full spectrum ([0, $\infty$]~MeV) should contain an event count equal to
+\[ N_\mathrm{tot} = \frac{N_\mathrm{fid}}{\int_{0.7}^{12} f(E; E_0, a)\,dE }. \] This $N_\mathrm{tot}$ is, by definition, the same as the $N$ introduced in the previous paragraph. Therefore, when we fit a portion of the fast neutron spectrum to the form
 \begin{equation}
   \label{eq:fastn_extrap_form}
   S(E) = \frac{N_\mathrm{fid} \left( \frac{E}{E_0} \right)^{-a-E/E_0}}
   {\int_{0.7}^{12} \left( \frac{E}{E_0} \right)^{-a-E/E_0} },
 \end{equation}
-(in which $A$ cancels out) the best fit $N_\mathrm{fid}$ indicates the number of
-events in the fiducial region. The key to the extrapolation method is that this
-fit is performed outside the fidicial region, where the fast-n sample is
-uncontaminated.
+(in which $A$ cancels out) the best fit $N_\mathrm{fid}$ indicates the number of events in the fiducial region. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-n sample is uncontaminated.
 
-Prior to carrying out the extrapolation procedure, HJT verified the validity and
-robustness of Eq.~\ref{eq:fastn_extrap_form} by fitting it to their WP-tagged
-samples. They used four fitting ranges, all starting at 0.7~MeV, and ending at
-80, 100, 120, and 150~MeV. In all cases, they obtained satisfactory
-goodness-of-fit and consistent values of $E_0$. The disabling of the $a$
-parameter was found to introduce negligible differences.
+Prior to carrying out the extrapolation procedure, HJT verified the validity and robustness of Eq.~\ref{eq:fastn_extrap_form} by fitting it to their WP-tagged samples. They used four fitting ranges, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. In all cases, they obtained satisfactory goodness-of-fit and consistent values of $E_0$. The disabling of the $a$ parameter was found to introduce negligible differences.
 
-Finally, the fit was performed on the untagged sample, using the same four upper
-limits as before, but with the lower limit set to 12~MeV. The spread between the
-resulting four values was incorporated into the total uncertainty, as described
-in the next section. As with the scaling method, each value of $\nfn$ was
-converted to a livetime- and efficiency-normalized daily rate according to
-Eq.~\ref{eq:fastn_rate}.
+Finally, the fit was performed on the untagged sample, using the same four upper limits as before, but with the lower limit set to 12~MeV. The spread between the resulting four values was incorporated into the total uncertainty, as described in the next section. As with the scaling method, each value of $\nfn$ was converted to a livetime- and efficiency-normalized daily rate according to Eq.~\ref{eq:fastn_rate}.
 
 \subsection{Final result and total uncertainty}
 \label{sec:fastn_comb}
 
-In total, Hu, Ji, and Treskov each obtained a total of eight estimates of \rfn\
-for each hall, derived from four scaling ranges in the scaling method, and four
-fitting ranges in the extrapolation method. We use Hu's results, as her
-selection cuts were essentially identical to ours. She arbitrarily chose the
-12-100~MeV scaling method as the source her nominal fast neutron rates, and it
-is those numbers that we employ in our own analysis.
+In total, Hu, Ji, and Treskov each obtained a total of eight estimates of \rfn\ for each hall, derived from four scaling ranges in the scaling method, and four fitting ranges in the extrapolation method. We use Hu's results, as her selection cuts were essentially identical to ours. She arbitrarily chose the 12-100~MeV scaling method as the source her nominal fast neutron rates, and it is those numbers that we employ in our own analysis.
 
-Six uncertainties were added in quadrature to obtain the total. The first is the
-statistical uncertainty on the scaling factor $F$, described by
-Eq.~\ref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of
-scaling range, which was determined from the difference between the highest and
-lowest fast-n rates across the four ranges used. The third is the analogue for
-the choice of fitting range. The fourth is the statistical uncertainty in the
-fitted value of $N_\mathrm{fid}$. The fifth is the systematic uncertainty
-resulting from the dependence of fit results on the choice of binning, which was
-determined by varying the bin widths and repeating the fits. Finally, the sixth
-component was obtained from the difference in results between the scaling and
-extrapolation methods. These uncertainties are summarized in Table~XXX, and the
-final results given in Table~XXX.
+Six uncertainties were added in quadrature to obtain the total. The first is the statistical uncertainty on the scaling factor $F$, described by Eq.~\ref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-n rates across the four ranges used. The third is the analogue for the choice of fitting range. The fourth is the statistical uncertainty in the fitted value of $N_\mathrm{fid}$. The fifth is the systematic uncertainty resulting from the dependence of fit results on the choice of binning, which was determined by varying the bin widths and repeating the fits. Finally, the sixth component was obtained from the difference in results between the scaling and extrapolation methods. These uncertainties are summarized in Table~XXX, and the final results given in Table~XXX.
 
 \section{AmC source}
 
-The three automated calibration units (ACUs) on the lid of each AD were each
-outfitted with a low-intensity $^{241}$Am-$^{13}$C neutron source for the
-purpose of studying the response of each detector to neutrons. When not in use,
-the location and shielding of the sources ensured that neutrons would not
-infiltrate the GdLS region, protecting against the introduction of correlated
-backgrounds. However, in analyzing the early data from the experiment, a small
-excess of correlated backgrounds was discovered in the upper region of the GdLS
-volume. Detailed studies indicated that this background arose from AmC neutrons
-which scattered in the stainless steel of the outer detector, producing prompt
-deexcitation gamma rays, before being captured either by Fe/Cr/Ni nuclei in the
-stainless steel or by Gd nuclei in the GdLS overflow tank. The gamma rays from
-the scatters and captures would occasionally reach the GdLS region, producing a
-correlated signal.
+The three automated calibration units (ACUs) on the lid of each AD were each outfitted with a low-intensity $^{241}$Am-$^{13}$C neutron source for the purpose of studying the response of each detector to neutrons. When not in use, the location and shielding of the sources ensured that neutrons would not infiltrate the GdLS region, protecting against the introduction of correlated backgrounds. However, in analyzing the early data from the experiment, a small excess of correlated backgrounds was discovered in the upper region of the GdLS volume. Detailed studies indicated that this background arose from AmC neutrons which scattered in the stainless steel of the outer detector, producing prompt deexcitation gamma rays, before being captured either by Fe/Cr/Ni nuclei in the stainless steel or by Gd nuclei in the GdLS overflow tank. The gamma rays from the scatters and captures would occasionally reach the GdLS region, producing a correlated signal.
 
 \section{$^{13}\mathrm{C}(\alpha, \mathrm{n})^{16}\mathrm{O}^*$}
 
