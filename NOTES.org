@@ -190,6 +190,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[https://github.com/sonofeft/ODPSlides][GitHub - sonofeft/ODPSlides: Creates Opendocument Presentations For Microsoft...]]
 - [[https://github.com/eea/odfpy][GitHub - eea/odfpy: API for OpenDocument in Python]]
 - [[https://github.com/T0ha/ezodf][GitHub - T0ha/ezodf: ezodf is a Python package to create new or open existing...]]
+** Emacs
+- [[https://people.umass.edu/weikaichen/post/emacs-academic-tools/][Emacs Academic Tools | Weikai Chen]]
 * More bibliography management
 ** External tools
 - Zotero / zotxt / zotero-better-bibtex / pandoc-citeproc
