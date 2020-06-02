@@ -137,16 +137,44 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 ** SLURM
 - http://www.cism.ucl.ac.be/Services/Formations/slurm/2016/slurm.pdf
 ** Neutrino history
-- [[https://neutrino-history.in2p3.fr/neutrino-oscillation/][Neutrino Oscillation]]
+- [[https://neutrino-history.in2p3.fr/neutrino-oscillation/][Neutrino Oscillation - History of the Neutrino]]
 - [[http://pdg.lbl.gov/2019/reviews/rpp2019-rev-neutrino-mixing.pdf]]
 - [[https://warwick.ac.uk/fac/sci/physics/staff/academic/boyd/stuff/neutrinolectures/lec_oscillations.pdf]]
-- [[https://arxiv.org/abs/1802.05781][{1802.05781} The formalism of neutrino oscillations: an introduction]]
-- [[https://arxiv.org/abs/1710.00715][{1710.00715} Neutrino oscillations: the rise of the PMNS paradigm]]
-- [[http://www.phys.virginia.edu/Files/fetch.asp?EXT=Seminars:3420:SlideShow]] (de Gouvea)
-- [[http://indico.ictp.it/event/7968/session/74/contribution/284/material/slides/0.pdf]]
-- https://www.ias.ac.in/article/fulltext/reso/021/10/0911-0924
+- [[https://www.ias.ac.in/article/fulltext/reso/021/10/0911-0924][Neutrino Oscillation - RESONANCE Magazine]] (S. Beri) [g neutrino oscillation history/timeline]
+- [[http://kamland.stanford.edu/Timeline/][A Neutrino Timeline (KamLAND)]] + [[https://www.phys.hawaii.edu/~jgl/Neutrino%20Timeline.pdf][U Hawaii update]] [g reactor neutrino timeline]
 ** Neutrino oscillation
 - http://theor.jinr.ru/~vnaumov/Eng/JINR_Lectures/books/Giunti2007.pdf
+- [[https://arxiv.org/abs/1802.05781][{1802.05781} The formalism of neutrino oscillations: an introduction]] (p6 Majorana figure)
+- [[https://arxiv.org/abs/1710.00715][{1710.00715} Neutrino oscillations: the rise of the PMNS paradigm]]
+- [[http://www.phys.virginia.edu/Files/fetch.asp?EXT=Seminars:3420:SlideShow][Brave nu World]] (de Gouvea slides)
+- [[http://indico.ictp.it/event/7968/session/74/contribution/284/material/slides/0.pdf][Slides on theory/pheno]] (Pascoli) [g history of neutrino oscillations slides]
+** Other experiments
+- [[https://arxiv.org/abs/hep-ex/0301017][{hep-ex/0301017} Search for neutrino oscillations on a long base-line at the CHOOZ nuclear power station]]
+- [[https://arxiv.org/abs/hep-ex/0003022][{hep-ex/0003022} Results from the Palo Verde Neutrino Oscillation Experiment]]
+- [[https://arxiv.org/abs/2005.08745][{2005.08745} TAO Conceptual Design Report]]
+- [[https://arxiv.org/abs/1507.05613][{1507.05613} Neutrino Physics with JUNO]] [g juno neutrino experiment]
+** June 1, 2020
+*** Non-DocDB
+- [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3417797/][Atmospheric neutrinos and discovery of neutrino oscillations]] [g atmospheric neutrino anomaly]
+- 2019/2018 PDG reviews of neutrino mixing (different authors)
+- [[https://arxiv.org/abs/hep-ph/0202058][{hep-ph/0202058} Neutrino Masses and Mixing: Evidence and Implications]] (Gonzales-Garcia)
+- [[https://arxiv.org/abs/0704.1800][{0704.1800} Phenomenology with Massive Neutrinos]] (Gonzales-Garcia)
+- [[https://arxiv.org/abs/1303.4667][{1303.4667} Reactor On-Off Antineutrino Measurement with KamLAND]]
+- [[https://onlinelibrary.wiley.com/doi/pdf/10.1002/andp.201600097][The discovery of neutrino oscillations]] (Zuber) [g history of neutrino oscillation experiments]
+- [[https://physics.stackexchange.com/questions/412096/if-u-determines-the-mixing-between-fields-and-u-determines-the-mixing-betw][If $U$ determines the mixing between fields and $U^*$ detetermines the mixing between states - Why?]] [g pmns matrix complex conjugate]
+- [[https://arxiv.org/abs/hep-ph/0107277][{hep-ph/0107277} Reactor-based Neutrino Oscillation Experiments]]
+- [[https://arxiv.org/abs/1212.1305][{1212.1305} Determining the Neutrino Mass Hierarchy with INO, T2K, NOvA and Reactor Experiments]]
+*** DocDB
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=8769][DYB-doc-8769-v5: A Toy Monte-Carlo for the Oscillation Analysis]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=8774][DYB-doc-8774-v10: A Measurement of sin2(2theta13) and Delta-m2 at Daya Bay Using Rate and Shape Information]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=7709][DYB-doc-7709-v8: A Measurement of the Mixing Parameter sin2(2theta13) at Daya Bay (tech note)]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=10843][DYB-doc-10843-v1: LBNL Oscillation analysis (P15A)]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=8134][DYB-doc-8134-v3: Updates on Berkeley Oscillation Analysis]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=10956][DYB-doc-10956-v2: Inputs for P15A oscillation analysis]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=7621][DYB-doc-7621-v11: BCW Theta13 Oscillation Analysis (TechNote)]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=7616][DYB-doc-7616-v2: Anti-neutrinos detection for theta13 analysis (TechNote)]] (IHEP)
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=8925][DYB-doc-8925-v2: IHEP rate plus shape analysis technote]]
+- [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=7508][DYB-doc-7508-v2: IBD analysis (TechNote)]] (IHEP)
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software
