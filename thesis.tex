@@ -1,5 +1,6 @@
 \documentclass[11pt,oneside]{memoir}
 
+\usepackage{etoolbox}
 \usepackage{microtype}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -116,12 +117,13 @@
 \SingleSpacing
 \addbibresource{../biblio.bib}
 \def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
-\graphicspath{{../images/}}
 
-\def\conts{%
+\newcommand\myconts{%
 \begingroup%
 \let\clearpage\relax%
 \let\contentsname\relax%
+% prevent putting CONTENTS instead of chapter name in the heading:
+\let\tocmark\relax%
 \vspace{-10em}%
 \begin{adjustwidth}{-\parindent}{}%
 \item \tableofcontents*%
@@ -130,6 +132,26 @@
 \endgroup%
 }
 
-\def\chap#1{\chapter*{\vspace{-3em}#1}}
+% https://tex.stackexchange.com/questions/341027/how-to-add-some-negative-vertical-space-before-a-chapter-title
+\newcommand\mybeforechap{
+  \begingroup%
+  \clearpage%
+  \let\clearpage\relax%
+  \vspace*{-10em}%
+}
+\newcommand\myafterchap{\endgroup\myconts}
 
-% \AtBeginDocument{\tableofcontents*{}}
+\makeatletter
+\pretocmd\@chapter\mybeforechap{}{}
+\pretocmd\@schapter\mybeforechap{}{}
+\apptocmd\@chapter\myafterchap{}{}
+\apptocmd\@schapter\myafterchap{}{}
+\makeatother
+
+% Make standalone \chapter equivalent to \chapter* (i.e. "Chapter 0")
+% \makeatletter\let\@m@mchapter\@m@mschapter\makeatother
+
+% Not sure why this doesn't work:
+% \graphicspath{{../images/}}
+% But this does:
+\AtBeginDocument{\graphicspath{{../images/}}}

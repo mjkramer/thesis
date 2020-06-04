@@ -338,6 +338,7 @@ the two splittings jointly. On the other hand, since \(\Delta m^2_{21}\) is well
 constrained and known to be positive, we can tightly relate \(\abs{\Delta
   m^2_{31}}\) and \(\abs{\Delta m^2_{32}}\):
 \begin{equation*}
+  \label{eq:hierarchy}
   \abs{\Delta m^2_{31}} =
   \begin{cases*}
     \abs{\Delta m^2_{32}} + \Delta m^2_{21}, & normal hierarchy ($\Delta m^2_{32} > 0$), \\
@@ -417,15 +418,24 @@ constant and equal to \(\cos^2\theta_{12}\Delta m^2_{21}\). Inserting that into
   \Delta m^2_{ee} \approx \cos^2\theta_{12}\abs{\Delta m^2_{31}} + \sin^2\theta_{12}\abs{\Delta m^2_{32}}.
 \end{equation}
 For all intents and purposes, this approximation is exact at Daya Bay. Hence
-(\ref{eq:dmPhysical}) can be used to relate Daya Bay's measured \(\Delta
-m^2_{ee}\), as operationally defined by (\ref{eq:survProbDybEE}), to the
-physical mass splittings (XXX show how). Of course, in doing so, one must still
-specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay
-has compared the results of fitting (\ref{eq:survProbDybFull}) and
-(\ref{eq:survProbDybEE}), finding that, in the end, both techniques give the
-same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the
-sake of simplicity, this thesis's analysis will use (\ref{eq:survProbDybEE}) and
-fit \(\Delta m^2_{ee}\).
+Eqs. (\ref{eq:dmPhysical}) and (\ref{eq:hierarchy}) can be used to relate Daya
+Bay's measured \(\Delta m^2_{ee}\), as operationally defined by
+(\ref{eq:survProbDybEE}), to the physical mass splittings:
+\begin{align*}
+  \abs{\Delta m^2_{31}} = \Delta m^2_{ee} + \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
+  & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} - \cos^2 \theta_{12} \Delta m^2_{21} \qquad
+  & \text{(NH)}\\
+  % 
+  \abs{\Delta m^2_{31}} = \Delta m^2_{ee} - \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
+  & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} + \cos^2 \theta_{12} \Delta m^2_{21} \qquad
+  & \text{(IH)}
+\end{align*}
+Of course, in doing so, one must still specify the mass hierarchy and \(\Delta
+m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting
+(\ref{eq:survProbDybFull}) and (\ref{eq:survProbDybEE}), finding that, in the
+end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and
+\(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this thesis's analysis
+will use (\ref{eq:survProbDybEE}) and fit \(\Delta m^2_{ee}\).
 
 \section{History of reactor neutrino experiments}
 \label{sec:introReactor}
