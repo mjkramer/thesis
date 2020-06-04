@@ -117,7 +117,6 @@
 \SingleSpacing
 \addbibresource{../biblio.bib}
 \def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
-\graphicspath{{../images/}}
 
 \newcommand\myconts{%
 \begingroup%
@@ -149,7 +148,10 @@
 \apptocmd\@schapter\myafterchap{}{}
 \makeatother
 
-% Make standalone \chapter equivalent to \chapter*
+% Make standalone \chapter equivalent to \chapter* (i.e. "Chapter 0")
 % \makeatletter\let\@m@mchapter\@m@mschapter\makeatother
 
-% \AtBeginDocument{\tableofcontents*{}}
+% Not sure why this doesn't work:
+% \graphicspath{{../images/}}
+% But this does:
+\AtBeginDocument{\graphicspath{{../images/}}}
