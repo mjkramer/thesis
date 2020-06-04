@@ -157,6 +157,7 @@ where we've introduced the notation
 
 At Daya Bay, \(\sin^2 \Delta_{21}\) is so small that the experiment has no ability to constrain $\theta_{12}$ or \(\abs{\Delta m^2_{21}}\). In this analysis, then, their values are fixed to those measured by KamLAND (XXX global?). This leaves $\theta_{13}$, \(\abs{\Delta m^2_{31}}\), and \(\abs{\Delta m^2_{32}}\). However, given that the difference between \(\abs{\Delta m^2_{31}}\) and \(|\Delta m^2_{32}|\) is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient for resolving the difference. Therefore, Daya Bay cannot measure the two splittings jointly. On the other hand, since \(\Delta m^2_{21}\) is well constrained and known to be positive, we can tightly relate \(\abs{\Delta m^2_{31}}\) and \(\abs{\Delta m^2_{32}}\):
 \begin{equation*}
+  \label{eq:hierarchy}
   \abs{\Delta m^2_{31}} =
   \begin{cases*}
     \abs{\Delta m^2_{32}} + \Delta m^2_{21}, & normal hierarchy ($\Delta m^2_{32} > 0$), \\
@@ -208,7 +209,16 @@ Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially cons
   \label{eq:dmPhysical}
   \Delta m^2_{ee} \approx \cos^2\theta_{12}\abs{\Delta m^2_{31}} + \sin^2\theta_{12}\abs{\Delta m^2_{32}}.
 \end{equation}
-For all intents and purposes, this approximation is exact at Daya Bay. Hence (\ref{eq:dmPhysical}) can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by (\ref{eq:survProbDybEE}), to the physical mass splittings (XXX show how). Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting (\ref{eq:survProbDybFull}) and (\ref{eq:survProbDybEE}), finding that, in the end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this thesis's analysis will use (\ref{eq:survProbDybEE}) and fit \(\Delta m^2_{ee}\).
+For all intents and purposes, this approximation is exact at Daya Bay. Hence Eqs. (\ref{eq:dmPhysical}) and (\ref{eq:hierarchy}) can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by (\ref{eq:survProbDybEE}), to the physical mass splittings:
+\begin{align*}
+  \Delta m^2_{31} = \Delta m^2_{ee} + \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
+  & \Delta m^2_{32} = \Delta m^2_{ee} - \cos^2 \theta_{12} \Delta m^2_{21} \qquad
+  & \text{(NH)}\\
+  \Delta m^2_{31} = \Delta m^2_{ee} - \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
+  & \Delta m^2_{32} = \Delta m^2_{ee} + \cos^2 \theta_{12} \Delta m^2_{21} \qquad
+  & \text{(IH)}
+\end{align*}
+Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting (\ref{eq:survProbDybFull}) and (\ref{eq:survProbDybEE}), finding that, in the end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this thesis's analysis will use (\ref{eq:survProbDybEE}) and fit \(\Delta m^2_{ee}\).
 
 \section{History of reactor neutrino experiments}
 \label{sec:introReactor}
