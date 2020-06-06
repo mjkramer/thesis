@@ -254,6 +254,9 @@ Should properly fix helm-bibtex and submit a PR (see #266, #267)
 
 (advice-add #'bibtex-completion-get-value :around #'my//ad/fix-bibtex-completion-author-abbrev)
 #+end_src
+* DYB misc
+** Coordinates and baselines
+The caption of Table 1 in the long paper is wrong. It says that X is due north. Actually, X is due "west" and Y is due "south" (right-handed coordinates), and the axes are rotated an additional ~8.5deg clockwise from "true" (i.e. Google Maps) north, so that D1 and D2 have the same Y coordinate (i.e., we get these axes by rotating the "standard" axes by 188.5deg clockwise). Also, every published diagram I've seen of the site layout is totally not to scale. The only trusted source is Table 1 (mislabeled axes notwithstanding). I've (partially) verified that the coordinates in that table give the proper baselines.
 * Things to investigate
 ** make_combined_spectra.C
 - line 176: why do we use [0] instead of [j]
