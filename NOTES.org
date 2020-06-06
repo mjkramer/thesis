@@ -71,13 +71,14 @@ NB: Looks like it's not necessary to explicitly set TeX-master. AUCTeX and
 RefTeX are clever enough to figure things out.
 ** Bibliography setup
 #+BEGIN_SRC emacs-lisp
-  (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
-  (setq bibtex-completion-bibliography reftex-default-bibliography)
-  (setq org-ref-default-bibliography reftex-default-bibliography)
-  (setq bibtex-completion-library-path '("/home/mkramer/physics/thesis/refs"))
-  (setq org-ref-pdf-directory (car bibtex-completion-library-path))
-  (setq helm-bibtex-full-frame nil)
-  (add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
+;; (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
+;; (setq org-ref-default-bibliography reftex-default-bibliography)
+(dolist (v '(org-ref-default-bibliography bibtex-completion-bibliography))
+  (set v (cdr (assq 'bib (symbol-value reftex-docstruct-symbol)))))
+(setq bibtex-completion-library-path '("/home/mkramer/physics/thesis/refs"))
+(setq org-ref-pdf-directory (car bibtex-completion-library-path))
+;; (setq helm-bibtex-full-frame nil)
+(add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
 #+END_SRC
 
 cite:An_2017
@@ -100,6 +101,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
+** Example theses
+- [[https://www.researchgate.net/publication/315458901_Neutrino_Physics_in_Present_and_Future_Kamioka_Water-Cherenkov_Detectors_with_Neutron_Tagging][Pablo Fernandez (Kamioka)]]
 ** Big presentation on reactor neutrinos etc.
 - [[http://www.awa.tohoku.ac.jp/geoscience2013/wp-content/uploads/2012/08/NGS2013_Mar21_Lasserre.pdf][NGS2013_Mar21_Lasserre.pdf]]
 ** Jan 29, 2019

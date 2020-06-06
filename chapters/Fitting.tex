@@ -39,10 +39,10 @@ An important input to both the fitter and the toy MC is the prediction of the fl
 To produce this prediction, a number of basic inputs are required:
 
 \begin{itemize}
-\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in Chapter \ref{chap:reactor}.
+\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in \autoref{chap:reactor}.
 \item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
 \item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U. We rebin these into 50~keV bins by sampling the midpoints.
-\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see Table~\ref{tab:noneqcorr}).
+\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see \autoref{tab:noneqcorr}).
 \item A nominal spectrum for spent nuclear fuel (SNF).
 \item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
 \end{itemize}
@@ -76,7 +76,7 @@ In turn, the weekly fission rate $R_{wc}$ is
   P_{wc} & \text{ is the actual core power, as a fraction of $\widebar P$,} \\
   q & \text{ is 1.602$\times10^{-19}$ J/eV,} \\
   \widebar E_{wc} & \equiv \textstyle{\sum_i} f_{wci} E_i
-  \text{ is the weekly average energy per fission, over all isotopes, in MeV, and} \\
+  \text{ is the weekly average energy per fission, in MeV, and} \\
   E_i & \text{ is the average energy per fission of isotope $i$, in MeV.}
 \end{flalign*}
 
@@ -88,7 +88,7 @@ Thus, from data files containing $T_w$, $P_{wc}$, and $f_{wci}$, along with stat
 \subsubsection{Non-equilibrium correction}
 \label{sec:noneqcorrspectra}
 
-As discussed in \ref{chap:reactor}, the nominal spectra are derived from measurements taken with foils irradiated for a few dozen hours. Since, in such experiments, longer-lived fission fractions are not given enough time to reach their equilibrium concentrations, the measured spectra deviate slightly from those emitted by long-running nuclear reactors. Table \ref{tab:noneqcorr} shows the percentage corrections to the spectra of the three fissile isotopes, which were tabulated by C. Lewis \cite{Lewis} based on \cite{French}. At energies between the five tabulated points, the corrections are linearly interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for each isotope $i$. For U-238, the function is identically zero. Applying the correction and summing over isotopes then gives the intermediate result $F^\mathrm{ne}_c(E)$,
+As discussed in \autoref{chap:reactor}, the nominal spectra are derived from measurements taken with foils irradiated for a few dozen hours. Since, in such experiments, longer-lived fission fractions are not given enough time to reach their equilibrium concentrations, the measured spectra deviate slightly from those emitted by long-running nuclear reactors. \autoref{tab:noneqcorr} shows the percentage corrections to the spectra of the three fissile isotopes, which were tabulated by C. Lewis \cite{Lewis} based on \cite{Mueller_2011}. At energies between the five tabulated points, the corrections are linearly interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for each isotope $i$. For U-238, the function is identically zero. Applying the correction and summing over isotopes then gives the intermediate result $F^\mathrm{ne}_c(E)$,
 \[ F^\mathrm{ne}_c(E) = \sum_i \Bigl(1 + 0.01\, C^\mathrm{ne}_i(E)\Bigr)\,
   F^\mathrm{nom}_{ci}(E). \]
 

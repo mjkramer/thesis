@@ -28,7 +28,7 @@ To measure each channel's offset and timewalk profile, we require a well-defined
 \[ t = \frac{N_0 - N}{f_\mathrm{TDC}} - \frac{n r_i}{c}, \] where $N_0$ is the TDC count of the $T_0$ channel, $f_\mathrm{TDC}$ is the TDC frequency, and $nr_i/c$ gives the time of flight to channel $i$. The t.o.f. subtraction ensures that we can directly compare channels from different rings without any further geometric considerations.
 
 In the next step, a 2D histogram is constructed for each channel by taking all of the channel's hits (within a reasonable time window) across all events, and plotting each hit's corrected time $t$ against its ADC count $q$. This histogram's profile is then fit to the six-parameter functional form
-\[ t(q) = a_1 + a_2 \exp (-a_3 q) + a_4 \exp (-a_5 q) + a_6 \log q, \] which was empirically found to produce good fits under appropriate restrictions on the parameters. Fig.~\ref{fig:timewalk}~ shows an example of a timewalk fit.
+\[ t(q) = a_1 + a_2 \exp (-a_3 q) + a_4 \exp (-a_5 q) + a_6 \log q, \] which was empirically found to produce good fits under appropriate restrictions on the parameters. \autoref{fig:timewalk}~ shows an example of a timewalk fit.
 
 After a manual verification of fit quality, the six parameters for each channel are uploaded to the database and marked with a suitable validity period. Whenever the electronics have been modified in a way that could affect the timing (such as a cabling change or board replacement), a new set of constants is prepared for the affected AD, using this same procedure.
 
