@@ -170,8 +170,8 @@ as HJT), in further detail.
 
 Two event samples are used in the fast neutron analysis. The first, which we
 shall refer to as the ``untagged'' sample is obtained using the standard IBD
-selection, as described in \ref{chap:selection}, with the modification that the
-upper limit on prompt energy is extended to 300~MeV instead of the usual
+selection, as described in \autoref{chap:selection}, with the modification that
+the upper limit on prompt energy is extended to 300~MeV instead of the usual
 12~MeV. In this sample, the prompt spectrum below 12~MeV is essentially the same
 as the one used in the oscillation fit (i.e., dominated by true IBDs), whereas
 the high-energy region almost exclusively contains fast neutrons.
@@ -224,7 +224,7 @@ In the untagged spectrum, the number of fast neutrons within the fiducial energy
 range of [0.7, 12]~MeV is determined simply as
 \[ \nfn = F \cdot \ntag[0.7, 12]. \] Its statistical uncertainty, in turn, is
 \begin{equation}
-  \label{eq:eq:fastn_scal_unc}
+  \label{eq:fastn_scal_unc}
   \sigma_\mathrm{FN} = \sqrt{\ntag^2[0.7, 12]
     \cdot \sigma_F^2 + F^2 \cdot \ntag[0.7, 12]}.
 \end{equation}
@@ -267,7 +267,7 @@ fit is performed outside the fidicial region, where the fast-n sample is
 uncontaminated.
 
 Prior to carrying out the extrapolation procedure, HJT verified the validity and
-robustness of Eq.~\ref{eq:fastn_extrap_form} by fitting it to their WP-tagged
+robustness of \eqref{eq:fastn_extrap_form} by fitting it to their WP-tagged
 samples. They used four fitting ranges, all starting at 0.7~MeV, and ending at
 80, 100, 120, and 150~MeV. In all cases, they obtained satisfactory
 goodness-of-fit and consistent values of $E_0$. The disabling of the $a$
@@ -278,7 +278,7 @@ limits as before, but with the lower limit set to 12~MeV. The spread between the
 resulting four values was incorporated into the total uncertainty, as described
 in the next section. As with the scaling method, each value of $\nfn$ was
 converted to a livetime- and efficiency-normalized daily rate according to
-Eq.~\ref{eq:fastn_rate}.
+\eqref{eq:fastn_rate}.
 
 \subsection{Final result and total uncertainty}
 \label{sec:fastn_comb}
@@ -292,7 +292,7 @@ is those numbers that we employ in our own analysis.
 
 Six uncertainties were added in quadrature to obtain the total. The first is the
 statistical uncertainty on the scaling factor $F$, described by
-Eq.~\ref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of
+\eqref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of
 scaling range, which was determined from the difference between the highest and
 lowest fast-n rates across the four ranges used. The third is the analogue for
 the choice of fitting range. The fourth is the statistical uncertainty in the

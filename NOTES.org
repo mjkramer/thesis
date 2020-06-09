@@ -71,13 +71,14 @@ NB: Looks like it's not necessary to explicitly set TeX-master. AUCTeX and
 RefTeX are clever enough to figure things out.
 ** Bibliography setup
 #+BEGIN_SRC emacs-lisp
-  (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
-  (setq bibtex-completion-bibliography reftex-default-bibliography)
-  (setq org-ref-default-bibliography reftex-default-bibliography)
-  (setq bibtex-completion-library-path '("/home/mkramer/physics/thesis/refs"))
-  (setq org-ref-pdf-directory (car bibtex-completion-library-path))
-  (setq helm-bibtex-full-frame nil)
-  (add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
+;; (setq reftex-default-bibliography '("/home/mkramer/physics/thesis/biblio.bib"))
+;; (setq org-ref-default-bibliography reftex-default-bibliography)
+(dolist (v '(org-ref-default-bibliography bibtex-completion-bibliography))
+  (set v (cdr (assq 'bib (symbol-value reftex-docstruct-symbol)))))
+(setq bibtex-completion-library-path '("/home/mkramer/physics/thesis/refs"))
+(setq org-ref-pdf-directory (car bibtex-completion-library-path))
+;; (setq helm-bibtex-full-frame nil)
+(add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
 #+END_SRC
 
 cite:An_2017
@@ -100,6 +101,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
+** Example theses
+- [[https://www.researchgate.net/publication/315458901_Neutrino_Physics_in_Present_and_Future_Kamioka_Water-Cherenkov_Detectors_with_Neutron_Tagging][Pablo Fernandez (Kamioka)]]
 ** Big presentation on reactor neutrinos etc.
 - [[http://www.awa.tohoku.ac.jp/geoscience2013/wp-content/uploads/2012/08/NGS2013_Mar21_Lasserre.pdf][NGS2013_Mar21_Lasserre.pdf]]
 ** Jan 29, 2019
@@ -251,6 +254,9 @@ Should properly fix helm-bibtex and submit a PR (see #266, #267)
 
 (advice-add #'bibtex-completion-get-value :around #'my//ad/fix-bibtex-completion-author-abbrev)
 #+end_src
+* DYB misc
+** Coordinates and baselines
+The caption of Table 1 in the long paper is wrong. It says that X is due north. Actually, X is due "west" and Y is due "south" (right-handed coordinates), and the axes are rotated an additional ~8.5deg clockwise from "true" (i.e. Google Maps) north, so that D1 and D2 have the same Y coordinate (i.e., we get these axes by rotating the "standard" axes by 188.5deg clockwise). Also, every published diagram I've seen of the site layout is totally not to scale. The only trusted source is Table 1 (mislabeled axes notwithstanding). I've (partially) verified that the coordinates in that table give the proper baselines.
 * Things to investigate
 ** make_combined_spectra.C
 - line 176: why do we use [0] instead of [j]

@@ -52,7 +52,7 @@ Let us define a \emph{muon-like} event as an AD trigger with charge of at least
 not enough charge to be muon-like. A \emph{prompt-like} event has energy of
 0.7--12~MeV, a \emph{delayed-like} event 6--12~MeV, and, finally, a
 \emph{prompt-plus} event is one that is either prompt-like or a sub-muon. The
-sample described in Sec.~\ref{sec:singsel} consists of prompt-plus events.
+sample described in \autoref{sec:singsel} consists of prompt-plus events.
 
 Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the
 \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon
@@ -96,7 +96,7 @@ cuts:
 
 The muon veto conditions need not be the same as those used in the IBD
 selection, as long as they are sufficiently stringent (as explained in
-Sec.~\ref{sec:avoidmuoncorr}). Likewise, $t$ can be chosen arbitrarily, provided
+\autoref{sec:avoidmuoncorr}). Likewise, $t$ can be chosen arbitrarily, provided
 that the window is large enough to remove correlated triggers and short enough
 to provide sufficient statistics. As currently implemented, a value of $t =
 1$~ms is used. This is a conservative choice; other analysis groups have
@@ -108,9 +108,9 @@ successfully used values more than 50\% shorter.
 \subsection{Avoiding muon-correlated events}
 \label{sec:avoidmuoncorr}
 
-In the selection criteria described in Sec.~\ref{sec:singsel}, the final one
-(the isolation cut) requires ``no other events passing the above cuts within
-time window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto
+In the selection criteria described in \autoref{sec:singsel}, the final one (the
+isolation cut) requires ``no other events passing the above cuts within time
+window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto
 window'', this implies that an extra \emph{muon-correlated} trigger will
 \emph{not} lead to event rejection by the isolation cut.
 
@@ -156,7 +156,7 @@ passing the isolation cut, and, conversely, the presence of an extra
 uncorrelated single has no effect on the probability of being inside a muon veto
 window. The requirements for statistical independence are thus satisfied.
 
-As a final verification of Eq.~\ref{eq:effdecoup}, let us divide rejected events
+As a final verification of \eqref{eq:effdecoup}, let us divide rejected events
 into three non-overlapping categories: (a), events rejected only by the muon
 veto, (b), events rejected by the isolation cut, and (ab), events rejected by
 both. Since the two cuts are independent, $\Pab = \Pa\Pb$. We have:
@@ -165,7 +165,7 @@ both. Since the two cuts are independent, $\Pab = \Pa\Pb$. We have:
         &= 1 - (1-\emu)\,\eisol - \emu\,(1-\eisol) - (1-\emu)(1-\eisol) \\
         &= \emu \eisol
 \end{align*}
-Clearly, Eq.~\ref{eq:effdecoup} indeed applies. The muon veto efficiency is
+Clearly, \eqref{eq:effdecoup} indeed applies. The muon veto efficiency is
 determined simply by keeping track of the total vetoed livetime, while the
 isolation cut efficiency is described next.
 
@@ -198,13 +198,13 @@ which, after some rearrangement, gives:
 This equation takes the form $we^w = z$, which cannot be solved for $w$ (or, in
 our case, \Rplu) using elementary functions. Instead we employ the Lambert $W$
 function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w)
-= w$). As shown in Fig.~\ref{fig:lambertW}, the $W$ function has two branches.
+= w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches.
 We know that, for a 1~ms isolation window, $\Rplu t \ll 1$, implying that the
 correct choice is the upper branch $W_0$. Then
 \begin{equation}
   \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
 \end{equation}
-Finally, inserting this into Eq.~\ref{eq:ident1}, we obtain the isolation cut
+Finally, inserting this into \eqref{eq:ident1}, we obtain the isolation cut
 efficiency:
 \begin{equation}
   \eisol = \exp \, W_0 \left( -\frac{2\Nplu t}{\emu T} \right).

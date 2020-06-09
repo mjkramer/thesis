@@ -195,7 +195,7 @@ $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex
   phases, in this case five of them can be absorbed into the definitions of the
   neutrino and charged lepton fields, leaving only one remaining. It could be
   inserted anywhere in the factorization of $U$ as long as unitary is preserved,
-  but by convention the definition in (\ref{eq:upmnsParam}) is what is used.}
+  but by convention the definition in \eqref{eq:upmnsParam} is what is used.}
 \begin{align}
   \label{eq:upmnsParam}
   \begin{split}
@@ -274,7 +274,7 @@ which, upon squaring, gives
   \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta}
   - 2 \sum_{j > i} \Re(U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}).
 \end{equation*}
-Substituting this into (\ref{eq:oscSepSums}), and using Euler's identity, along
+Substituting this into \eqref{eq:oscSepSums}, and using Euler's identity, along
 with the trigonometric identity \(1 - \cos 2\varphi = 2\sin^2 \varphi\), we
 finally get
 \begin{align}
@@ -288,23 +288,23 @@ finally get
   \end{split}
 \end{align}
 Note that this result applies to \emph{neutrinos,} not antineutrinos. For the
-latter, we have, analogously to (\ref{eq:nuStateRel}),
+latter, we have, analogously to \eqref{eq:nuStateRel},
 \begin{equation*}
   \ket{\nubar_\alpha} = U_{\alpha i}\ket{\nubar_i}
 \end{equation*}
 (note the lack of complex conjugation on the matrix element). The preceding
-derivation then produces (\ref{eq:oscReIm}) with the complex conjugations
+derivation then produces \eqref{eq:oscReIm} with the complex conjugations
 swappped.
 
 In an experiment like Daya Bay, where we are looking for the
-\emph{disappearance} of (anti)neutrinos of a given flavor, our interest is in
-\(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and
-antineutrinos is the same, and (\ref{eq:oscReIm}) simplifies to
+\emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is
+in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and
+antineutrinos is the same, and \eqref{eq:oscReIm} simplifies to
 \begin{equation*}
   P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
     i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). 
 \end{equation*}
-The matrix elements from (\ref{eq:upmnsParam}) can then be inserted in order to
+The matrix elements from \eqref{eq:upmnsParam} can then be inserted in order to
 derive the disappearance probability for a particular flavor. For electron
 antineutrinos, as at Daya Bay, the survival probability is
 \begin{align}
@@ -346,13 +346,13 @@ constrained and known to be positive, we can tightly relate \(\abs{\Delta
   \end{cases*}
 \end{equation*}
 Thus, by using this relation to eliminate one parameter, it is possible to to
-perform a two-parameter fit of (\ref{eq:survProbDybFull}) directly,
+perform a two-parameter fit of \eqref{eq:survProbDybFull} directly,
 \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy
 is currently unknown, two sets of results must be reported; furthermore, they
 are subject to change if an improved determination of \(\Delta m^2_{21}\) is
 ever published.
 
-Alternatively, we can recast (\ref{eq:survProbDybFull}) in a form that refers
+Alternatively, we can recast \eqref{eq:survProbDybFull} in a form that refers
 only to an empirical \emph{effective} mass splitting \(\Delta m^2_{ee}\):
 \begin{equation}
   \label{eq:survProbDybEE}
@@ -363,8 +363,8 @@ where
 \begin{equation*}
   \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. 
 \end{equation*}
-It must be noted that (\ref{eq:survProbDybEE}) is not an exact
-reparameterization of (\ref{eq:survProbDybFull}), since the former contains only
+It must be noted that \eqref{eq:survProbDybEE} is not an exact
+reparameterization of \eqref{eq:survProbDybFull}, since the former contains only
 two frequencies rather than three. Again, however, Daya Bay cannot resolve
 between $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in
 sensitivity with this approach. The advantage of it is that it produces a single
@@ -373,7 +373,7 @@ updates to \(\Delta m^2_{21}\).
 
 \(\Delta m^2_{ee}\), as used here, has an \emph{operational,} rather than a
 physical, definition: It is simply the value that, when inserted into
-(\ref{eq:survProbDybEE}), gives the best fit to the data.
+\eqref{eq:survProbDybEE}, gives the best fit to the data.
 %
 \begin{comment}
   Note that, if Daya Bay only measured antineutrinos at a single $L/E$, we could
@@ -387,7 +387,7 @@ physical, definition: It is simply the value that, when inserted into
 %
 In Daya Bay's case, however, \(\Delta m^2_{ee}\) can be related to physical
 quantities to a very good degree of approximation. Returning to
-(\ref{eq:survProbDybFull}), it can be shown [XXX docDB 10497] that, in Daya
+\eqref{eq:survProbDybFull}, it can be shown [XXX docDB 10497] that, in Daya
 Bay's range of $L/E$,
 \begin{equation}
   \label{eq:dmPhi}
@@ -400,8 +400,8 @@ where
       \theta_{12}} \right),
 \end{equation*}
 and ``+'' (``--'') corresponds to the normal (inverted) hierarchy. Inserting
-(\ref{eq:dmPhi}) into (\ref{eq:survProbDybFull}) and comparing to
-(\ref{eq:survProbDybEE}) gives the approximate relation
+\eqref{eq:dmPhi} into \eqref{eq:survProbDybFull} and comparing to
+\eqref{eq:survProbDybEE} gives the approximate relation
 \begin{equation}
   \label{eq:dmPhiApprox}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{32}} \pm \Delta m^2_\phi/2,
@@ -412,15 +412,15 @@ where
 \end{equation*}
 Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially
 constant and equal to \(\cos^2\theta_{12}\Delta m^2_{21}\). Inserting that into
-(\ref{eq:dmPhiApprox}), we find that, for both mass hierarchies,
+\eqref{eq:dmPhiApprox}, we find that, for both mass hierarchies,
 \begin{equation}
   \label{eq:dmPhysical}
   \Delta m^2_{ee} \approx \cos^2\theta_{12}\abs{\Delta m^2_{31}} + \sin^2\theta_{12}\abs{\Delta m^2_{32}}.
 \end{equation}
 For all intents and purposes, this approximation is exact at Daya Bay. Hence
-Eqs. (\ref{eq:dmPhysical}) and (\ref{eq:hierarchy}) can be used to relate Daya
+Eqs. \eqref{eq:dmPhysical} and \eqref{eq:hierarchy} can be used to relate Daya
 Bay's measured \(\Delta m^2_{ee}\), as operationally defined by
-(\ref{eq:survProbDybEE}), to the physical mass splittings:
+\eqref{eq:survProbDybEE}, to the physical mass splittings:
 \begin{align*}
   \abs{\Delta m^2_{31}} = \Delta m^2_{ee} + \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
   & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} - \cos^2 \theta_{12} \Delta m^2_{21} \qquad
@@ -432,10 +432,10 @@ Bay's measured \(\Delta m^2_{ee}\), as operationally defined by
 \end{align*}
 Of course, in doing so, one must still specify the mass hierarchy and \(\Delta
 m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting
-(\ref{eq:survProbDybFull}) and (\ref{eq:survProbDybEE}), finding that, in the
+\eqref{eq:survProbDybFull} and \eqref{eq:survProbDybEE}, finding that, in the
 end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and
 \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this thesis's analysis
-will use (\ref{eq:survProbDybEE}) and fit \(\Delta m^2_{ee}\).
+will use \eqref{eq:survProbDybEE} and fit \(\Delta m^2_{ee}\).
 
 \section{History of reactor neutrino experiments}
 \label{sec:introReactor}
@@ -449,7 +449,7 @@ continued to provide key insights into the nature of the neutrino.
 Essentially all reactor neutrino experiments are based on detecting
 charged-current inverse beta decay (IBD) interactions in a volume of liquid
 scintillator, observed by photomultipler tubes. The details of this measurement
-principle are discussed in Chap.\ref{chap:experim}. Among its advantages are (a)
+principle are discussed in \autoref{chap:experim}. Among its advantages are (a)
 the fact that the double-pulse signature allows efficient background rejection
 without the need to go deep underground (especially important at km and shorter
 baselines), (b) the threshold energy is lower compared to a water Cerenkov
@@ -468,7 +468,7 @@ were relatively small, with target masses of a few hundred kg (versus Daya Bay's
 order to obtain sufficient statistics. The fluxes measured by these experiments
 were in good agreement with the predictions of the ILL-Vogel model, which was
 developed around the same time. Much later, as discussed in
-Chap.~\ref{chap:reactor}, these measurements would provide evidence of the
+\autoref{chap:reactor}, these measurements would provide evidence of the
 so-called reactor antineutrino anomaly associated with the Huber-Mueller
 reevaluation of the predicted flux. In addition, the data from one of these
 experiments (Bugey-3) would later be combined with Daya Bay's in order to set
@@ -553,7 +553,7 @@ claimed a $4.6\sigma$ discovery of sterile neutrino mixing at a $\Delta m^2$ of
 Finally, looking to the future, the 20~kt JUNO detector (in southern China) will
 be by far the largest reactor neutrino detector ever constructed. The driving
 goal of the JUNO experiment is the determination of the mass hierarchy (see
-Sec.~\ref{sec:majorana}) without susceptibility to the degeneracies and
+\autoref{sec:majorana}) without susceptibility to the degeneracies and
 correlations that complicate the hierarchy determination in accelerator
 experiments. JUNO will observe $\nubar_e$ interactions using highly efficient
 PMTs in order to achieve an unprecedented level of energy resolution. At this

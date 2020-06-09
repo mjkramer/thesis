@@ -15,11 +15,12 @@
 \usepackage{graphicx}
 % \usepackage[backend=biber,citestyle=numeric-comp,firstinits=true]{biblatex}
 \usepackage[backend=biber,citestyle=numeric-comp]{biblatex}
-% \usepackage{hyperref}           % temporarily disable; ugly boxes
-% \hypersetup{colorlinks=true,}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=blue,bookmarksnumbered=true}
 \usepackage{xspace}
 \usepackage{changepage}
 \usepackage{braket}
+% \usepackage{multirow}
 
 \usepackage{xstring}
 \IfStrEq*{\jobname}{thesis}{}{
@@ -40,10 +41,10 @@
 
 \def\MyDoubleSpacing{%
 \setSpacing{2}%
-% \makeatletter%
-% \edef\m@m@footnote@spacing{\baselinestretch}%
-% \edef\m@m@float@spacing{\baselinestretch}%
-% \makeatother%
+\makeatletter%
+\edef\m@m@footnote@spacing{\baselinestretch}%
+\edef\m@m@float@spacing{\baselinestretch}%
+\makeatother%
 }
 
 \setlrmarginsandblock{1.25in}{1.25in}{*}
@@ -61,6 +62,12 @@
 \setfloatadjustment{table}{\centering}
 
 \graphicspath{{images/}}
+
+\addto\extrasUSenglish{%
+  \def\chapterautorefname{Chapter}%
+  \def\sectionautorefname{Section}%
+  \def\subsectionautorefname{Section}%
+}
 
 \title{Precision Measurement of $\theta_{13}$\\ from Reactor Antineutrino
   Oscillation\\ at Daya Bay}
@@ -108,6 +115,7 @@
 
 \backmatter
 
+\SingleSpacing
 \printbibliography
 
 \end{document}
@@ -141,10 +149,18 @@
 }
 \newcommand\myafterchap{\endgroup\myconts}
 
+% This doesn't work when hyperref is enabled
 \makeatletter
 \pretocmd\@chapter\mybeforechap{}{}
 \pretocmd\@schapter\mybeforechap{}{}
-\apptocmd\@chapter\myafterchap{}{}
+% \apptocmd\@chapter\myafterchap{}{}
+\@ifpackageloaded{hyperref}{%
+  % don't ask me why (but see hluatex.def)
+  % hyperref's redefined \@chapter will try to consume \myafterchap as argument?
+  \apptocmd\Hy@org@chapter\myafterchap{}{}%
+}{%
+  \apptocmd\@chapter\myafterchap{}{}%
+}
 \apptocmd\@schapter\myafterchap{}{}
 \makeatother
 
