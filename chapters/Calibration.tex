@@ -80,16 +80,16 @@ The results of this fitting procedure were stored in the offline database for us
 \section{Channel quality}
 \label{sec:calibCQ}
 
-In order to prevent any biases from being introduced by misbehaving channels, a channel quality database is consulted during data production, and any tagged channels are excluded from the total event charge (see next chapter). Bad channels are identified and tagged during the regular ``keep-up'' processing of each new data file. Four quantities are used for each data file:
+In order to prevent any biases from being introduced by problematic channels, a channel quality database is consulted during data production, and any tagged channels are excluded from the total event charge (see \autoref{sec:reconEnergyCharge}). Bad channels are identified and tagged during the regular ``keep-up'' processing of each new data file. Four criteria are used for each channel. For ordinary physics runs\footnote{Given that calibration runs feature a different population of events compared to physics runs, these runs use alternative acceptible ranges of occupancy and ADC, determined by observation. In all other respects, channel quality determination is the same for these runs.}, these conditions are as follows (evaluated once for each data file, corresponding to $\sim$10 (30) minutes of DAQ time in a near (far) hall AD):
 
 \begin{enumerate}
-\item Channel occupancy, i.e., the percentage of events in which the channel recorded at least one hit (must be within range);
-\item HV average (must be above minimum);
-\item HV RMS (must be below maximum);
-\item Average baseline-subtracted ADC count (must be within range).
+\item The occupancy (i.e., the percentage of events in which the channel recorded at least one hit) must be between 0.1 and 0.65/0.5 (near/far). Too low of an occupancy would imply a dead or dying channel, and too high would indicate a noisy channel.
+\item The high voltage must be at least 1200~V. A low HV would indicate a problem with the HV supply, requiring the exclusion of the channel from the charge sum.
+\item The RMS variation of the HV, during the time span of the data file, must be less than 0.5 V. Anything higher would indicate an unstable HV supply and hence an unstable gain.
+\item The baseline-subtracted ADC count, on average, must be between 10 and 45~ADC. This range is based on observations, and its relatively large spread is due to the differences in the average amount of light seen by PMTs near the top and bottom, relative to those near the center.
 \end{enumerate}
 
-Physics and calibration runs use distinct, empirically tuned cuts on these four values. If a channel fails any of these cuts, it is marked bad for the duration of the file's runtime. In most cases, bad channels have been found to result from HV instability. Fortunately, this has generally been an isolated issue; on average, there have been around a half-dozen bad channels at any given time, usually with no more than one per AD.
+These four ``ingredients'', as well as the ``good or bad'' verdict, are stored in a dedicated channel quality (CQ) database during keep-up production. In turn, an automated batch job takes the verdicts, compresses them into bitfields, and inserts them into the main offline database, from which they are taken during event charge calculation. If, at a later date, a decision is made to revise the cuts used in the channel quality determination, the ``ingredients'' can be taken from the CQ DB and a new verdict can be made, without any need to revisit the underlying data file. In practice, however, the Daya Bay CQ cuts have proven to be robust enough not to require revision (XXX check).
 
 \subfilebackmatter
 \end{document}
