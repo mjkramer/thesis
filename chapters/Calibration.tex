@@ -5,10 +5,6 @@
 \chapter{Channel calibration}
 \label{chap:calib}
 
-\begin{comment}
-  Add channel quality to this chapter!
-\end{comment}
-
 \section{Overview}
 
 For the antineutrino detectors and water pools, the Daya Bay DAQ system outputs little more than timestamped PMT hits, grouped into readout windows and tagged with trigger information. As discussed in \autoref{sec:expADs}, these hits take the form of ADC readings from the peak-finding electronics, along with the TDC count at the time that each (shaped) PMT waveform crossed the disciminator's threshold. In order to carry out any sort of physics analysis, it is necessary to first convert this raw ADC and TDC data into the higher-level quantities of photoelectron count and photon arrival time, and then to combine individual channels into overall event parameters such as energy and position.
@@ -37,6 +33,10 @@ which was empirically found to produce good fits under appropriate restrictions 
 
 After a manual verification of fit quality, the six parameters for each channel were uploaded to the database and marked with a suitable validity period. Whenever the electronics had been modified in a way that could affect the channel timing (for example, a cabling change or a board replacement), a new set of constants was prepared for the affected AD, using this same procedure.
 
+It is worth noting that the $a_1$ parameter can be expressed as $\overline a_1 + \delta a_1$, where $\overline a_1$ is the average value of $a_1$ across all channels, and $\delta a_1$ is the channel-specific deviation. In this case, $\delta a_1$ represents intrinsic (and significant, for such purposes of vertex reconstruction) differences in timing offsets between channels, due to such factors as cable length. Meanwhile, $\overline a_1$ (which arises from, e.g., differences in cable length) has no effect on vertex reconstruction and thus can be removed, meaning that we apply the transformation $a_1 \mapsto a_1 - \overline a_1$. Doing so ensures that, for ordinary physical triggers, the physical hits always fall within the same well-defined band of timewalk-corrected times. If $\overline a_1$ were not removed in this way, then this band would shift as $a_1$ does, which could bias the calculation of the total charge, since this calculation indeed relies on a constant window for hit selection. Removing $\overline a_1$ also ensured that each stored timewalk curve is ``nearly'' zero for large charges (modulo the $a_6$ term), with the deviations from ``nearly'' reflecting the differences in timing offsets between channels.
+
+Due to this last property, the expected timewalk-corrected time for a ``large'' pulse, with TDC count $N$, is simply $-N/f_{mathrm{TDC}}$, where $f_{\mathrm{TDC}} = 1/(1.625\;\text{ns})$. As shown in Fig.~XXX, typical physical hits have TDC counts of 950--1000, corresponding to times of -1545---1625. The details of selecting physical hits, including the exact range of times used, are discussed in \autoref{sec:reconEnergyChage}.
+
 % Because $t(q)$ gives the \emph{time since trigger}, which is on the order of a microsecond, a single global $\mu$s-scale offset (the average of all the $a_1$'s, to be precise) is subtracted from each $a_1$. This ensures that when we later use $t(q)$ as a \emph{correction}, we don't apply a large offset to the times we are correcting.
 
 \begin{figure}
@@ -52,9 +52,10 @@ After a manual verification of fit quality, the six parameters for each channel 
 \subsection{Calculation of corrected times}
 
 Once the calibration parameters are in the database, applying them to the raw data is straightforward. For each hit, we take the ADC count $q$ and plug it into the function $t(q)$, with the parameters taken from the database. Then, using the channel's raw TDC count $N$, the calibrated time $t_c$ is calculated as
-\begin{equation*}
+\begin{equation}
+  \label{eq:corrTime}
   t_c = -\frac{N}{f_\mathrm{TDC}} - t(q),
-\end{equation*}
+\end{equation}
 After this is done, we have a calibrated time, in nanoseconds (instead of TDC counts), for each hit, which can be directly and accurately compared to other hits in other channels, regardless of how much charge each channel saw and regardless of intrinsic differences between channels. This meets the requirements for time-based vertex and track reconstruction.
 
 \section{Gain calibration}
@@ -75,7 +76,14 @@ Once the dark noise histogram has accumulated a sufficient number of statistics 
 \end{equation*}
 where $Q$ is the observed ADC count, $\mu$ (always close to 1) is the mean number of photoelectrons per thermal emission event, $\overline Q^{\mathrm{SPE}}$ is the total gain, and $\sigma_{\mathrm{SPE}}$ is the width of the Gaussian. Due to the extremely low probability of observing multiple thermal electrons in a single hit, the sum was restricted to $n \le 2$ in practice, to negligible effect. This model was found to fit the data stably and precisely as long the fit region was restricted to lie above 10~ADC, below which noise fluctuations had the ability to destabilize the fit.
 
-The results of this fitting procedure were stored in the offline database for use in calculating the total number of photoelectrons collected in each event, as described in \autoref{sec:reconEnergyCharge}. This ``event charge'' then serves as the main input in estimating the actual ionization energy deposited in the scintillator. In cases where a poor fit quality was obtained, a nominal ``default'' value (XXX give number) was stored in the database, making it possible to flag problematic channels by scanning for those that have exactly this value in the database. Similarly, excessively small or large fit gains are used in the determination of channel quality, as discussed in \autoref{sec:calibCQ}.
+The results of this fitting procedure were stored in the offline database for use during data production, In cases where a poor fit quality was obtained, a nominal ``default'' value (XXX give number) was stored in the database, making it possible to flag problematic channels by scanning for those that have exactly this value in the database. Similarly, excessively small or large fit gains are used in the determination of channel quality, as discussed in \autoref{sec:calibCQ}.
+
+For a normal, functioning channel, the calibrated charge $q_c$ (in PE) of a hit is simply related to the raw charge $Q$ (in ADC counts) as
+\begin{equation}
+  \label{eq:corrChg}
+  q_c = \frac{Q}{\overline Q^{\mathrm{SPE}}}.
+\end{equation}
+Here, $\overline Q^{\mathrm{SPE}}$ is retrieved from the offline database for the particular PMT and time period in question. These corrected charges are then summed to calculate the total number of photoelectrons collected in the event, as described in \autoref{sec:reconEnergyCharge}. This ``event charge'' serves as the main input in estimating the actual ionization energy deposited in the scintillator. 
 
 \section{Channel quality}
 \label{sec:calibCQ}
