@@ -2,23 +2,67 @@
 
 \begin{document}
 
-\chapter{Reconstruction}
+\chapter{Event reconstruction}
 \label{chap:recon}
 
-\section{Overview}
+\section{Introduction}
+
+\autoref{chap:calib} discussed the process of taking the raw ADC and TDC values
+of PMT hits, as measured by the front-end electronics, and converting those
+values, channel-by-channel into the more useful quantities of hit charge (in
+photoelectrons) and hit time (in, e.g., nanoseconds). The next step is to
+combine information from all of the channels in order to derive properties of
+the event as a whole, such as the amount of deposited energy and the approximate
+location of the vertex. This is the purpose of \emph{reconstruction.}
+
+Reconstruction begins with the calculation of the total observed charge
+(i.e. photoelectron count) by summing all (XXX?) relevant hits across all
+channels, with a correction for the presence of any inactive channels. This
+\emph{nominal charge} is then converted into \emph{visible energy}, in MeV,
+according to an energy scale determined using regular (weekly or more)
+calibrations. At the same time, the distribution of charge across PMTs is used
+to estimate the location within the AD of the event. The position is used to
+apply a \emph{nonuniformity} adjustment to the visible energy, to correct for
+the position-dependent response of the detector. This gives the
+\emph{reconstructed energy}.
+
+The reconstructed energy should not be regarded as a best estimate of the true
+energy deposited by the event, given the complexities involved in the
+nonlinearity of the scintillator and its varying reponses to different particle
+types. Rather, reconstructed energy should be considered a
+\emph{position-corrected measure of the total observed amount of light}. Due to
+the calibration methods used, however, reconstructed energy agrees (by
+construction) with deposited energy for the 8~MeV gamma cascade from nGd
+capture., which is used in most subsequent analysis stages.
+
+Daya Bay has developed multiple independent reconstruction algorithms. The two
+that have been widely used in published results are known as AdSimple and
+AdScaled. They differ primarily in their calibration procedures, their vertex
+reconstruction algorithms, and their methods of correcting for
+nonuniformity. Both will be detailed in this chapter, but only AdSimple will be
+used in our analysis.
 
 \section{Energy reconstruction}
+\label{sec:reconEnergy}
 
 \subsection{Event charge determination}
+\label{sec:reconEnergyChage}
+
+Active PMT correction, etc.
 
 \subsection{Energy scale calibration}
+\label{sec:reconEnergyScale}
 
 \subsection{Nonuniformity correction}
+\label{sec:reconEnergyNU}
 
 \subsubsection{Time-dependent nonuniformity}
+\label{sec:reconEnergyTDNU}
 
 \subsection{Nonlinearity correction}
+\label{sec:reconEnergyNL}
 
-\section{Position reconstruction}
+\section{Vertex reconstruction}
+\label{sec:reconVertex}
 
 \end{document}

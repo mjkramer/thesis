@@ -114,36 +114,41 @@ each PMT is outfitted with a FINEMET conical magnetic shield to minimize
 azimuthal variations in PMT response caused by the Earth's magentic field.
 
 Each PMT is positively biased via a single coaxial cable in order to achieve a
-gain within 5\% of 10$^7$. Due to intrinsic differences between PMTs, the
-necessary high voltage varies between some 1300 to 1700~kV. Collected charge is
-passed through a passive decoupling circuit which removes the HV offset; this
-fast ($\sim$20~ns), unbiased pulse is then passed to the front-end electronics
-(FEE), where it is split and sent to two separate circuits. One of the circuits
-contains a $\sim$0.25-photoelectron (pe) discriminator, which initiates a TDC
-counter (of 1.6~ns resolution) to record the presence and time of the
-``hit''. The other circuit is a CR-(RC)$^4$ shaper which stretches each pulse to
-a length of $\sim$200~ns; the shaped pulse is then split and sent to both a x10
-``high-gain'' amplifier and a x0.5 ``low-gain'' attenuator (for neutrino-like
-and muon-like events, respectively) and, finally, the two shaped and rescaled
-pulses are sampled by a 40~MHz 12-bit ADC. The output of a hardware-based
-peak-finding algorithm is then recorded as the amplitude (i.e. collected charge)
-of the pulse, for both the high-gain and low-gain circuits.
+gain within 5\% of 10$^7$ (corresponding to $\sim$20 ADC counts per PE). Due to
+intrinsic differences between PMTs, the necessary high voltage varies between
+some 1300 to 1700~kV. Collected charge is passed through a passive decoupling
+circuit which removes the HV offset; this fast ($\sim$20~ns), unbiased pulse is
+then passed to the front-end electronics (FEE), where it is split and sent to
+two separate circuits. One of the circuits contains a $\sim$0.25-photoelectron
+(PE) discriminator, which initiates a TDC counter (of 1.6~ns resolution) to
+record the presence and time of the ``hit''. The other circuit is a CR-(RC)$^4$
+shaper which stretches each pulse to a length of $\sim$200~ns; the shaped pulse
+is then split and sent to both a x10 ``high-gain'' amplifier and a x0.5
+``low-gain'' attenuator (for neutrino-like and muon-like events, respectively)
+and, finally, the two shaped and rescaled pulses are sampled by a 40~MHz 12-bit
+ADC. The output of a hardware-based peak-finding algorithm is then recorded as
+the amplitude (i.e. collected charge) of the pulse, for both the high-gain and
+low-gain circuits.
 
 Although every hit is initially observed in this manner by the hardware, it is
 only recorded in the DAQ's output stream if a trigger is issued for the AD as a
 whole. An AD can be triggered both when the total observed charge is above a
 software-specified threshold, as well as when the number of ``hit'' channels is
-above threshold. Each FEE board, which reads up to 16 channels, sends two
-signals to the AD's \emph{local trigger board} (LTB): a digital count of
-recently-hit channels (NHIT) and an analog sum of the charge across all channels
-(ESUM). The LTB combines the inputs from all of the FEEs and issues a trigger
-when either NHIT or ESUM are above threshold; for ordinary physics data-taking,
-the thresholds are NHIT $\geq$ 45 or ESUM $\geq$ 65 pe ($\sim$0.4~MeV). When a
-trigger is issued, a GPS-synchronized clock (25 ns resolution) records the
-overall event timestamp, each hit's TDC is stopped (indicating the offset of
-each hit relative to the event timestamp), and the readout (including the TDC,
-high-gain ADC, and low-gain ADC for each hit within 1.2~$\mu$s of the trigger)
-is sent to the DAQ system.
+above threshold\footnote{Additional trigger types include \emph{random}
+  triggers, issued at $\sim$10~Hz for monitoring of low-level activity;
+  \emph{calibration} triggers, issued in sync with LED pulses during weekly
+  calibrations; and \emph{cross} triggers, issued under certain conditions when
+  another detector is triggered.}. Each FEE board, which reads up to 16
+channels, sends two signals to the AD's \emph{local trigger board} (LTB): a
+digital count of recently-hit channels (NHIT) and an analog sum of the charge
+across all channels (ESUM). The LTB combines the inputs from all of the FEEs and
+issues a trigger when either NHIT or ESUM are above threshold; for ordinary
+physics data-taking, the thresholds are NHIT $\geq$ 45 or ESUM $\geq$ 65 pe
+($\sim$0.4~MeV). When a trigger is issued, a GPS-synchronized clock (25 ns
+resolution) records the overall event timestamp, each hit's TDC is stopped
+(indicating the offset of each hit relative to the event timestamp), and the
+readout (including the TDC, high-gain ADC, and low-gain ADC for each hit within
+1.2~$\mu$s of the trigger) is sent to the DAQ system.
 
 Thus, the raw information collected from each AD consists of a set of
 triggers. Each trigger, in turn, contains a timestamp and a collection of
@@ -206,7 +211,7 @@ subtraction can be found in \autoref{chap:bkg}.
   \label{fig:expIBD}
 \end{figure}
 
-\section{Shielding/vetoing system}
+\section{Water pools and muon system}
 \label{sec:expShieldVeto}
 
 \begin{figure}[ht]
@@ -215,6 +220,52 @@ subtraction can be found in \autoref{chap:bkg}.
     hall is similar, with four ADs instead of two. From \cite{An_2017}.}
   \label{fig:expPool}
 \end{figure}
+
+Within each experimental hall, the ADs are immersed together inside an
+instrumented pool of ultra-pure water. The water pools serve two purposes:
+First, to shield the ADs against both ambient $\gamma$ radioactivity and
+muon-induced rock neutrons, and second, to detect atmospheric muons that pass
+within the vicinity of the ADs. With respect to shielding, the $\sim$2.5~m-thick
+layer of water surrounding the ADs (in all directions) reduced the $\gamma$ and
+neutron event rate by a factor of $10^6$; without this suppression, antineutrino
+detection would be impossible.
+
+Meanwhile, muon detection was accomplished by using PMTs\footnote{The water pool
+  PMTs consisted of 619 Hamamatsu R5912 PMTs, as used in the ADs, as well as 341
+  EMI 9350KA and D642KB PMTs recycled from the MACRO experiment. The MACRO PMTs
+  ultimately proved to be somewhat failure-prone, but not to the point of
+  degrading the overall muon detection efficiency.} to observe the Cerenkov
+light produced when muons traverse the water. In order to allow for
+cross-checking of the muon system \cite{Hack_2014}, the water pools were divided
+by Tyvek sheets into two optically isolated zones, the \emph{inner} and
+\emph{outer water pools} (IWP/OWP). The IWP is instrumented by inward-facing
+PMTs protruding from the Tyvek, while the OWP is instrumented by both
+outward-facing PMTs on the Tyvek and inward-facing PMTs on the walls. The EH1
+and EH2 water pools are essentially identical, while the EH3 pool was twice as
+wide in order to accommodate four detectors (in a 2x2 arrangement) instead of
+two. The FEE and trigger systems for the water pools are the same as those for
+the ADs, but the trigger configuration is different: ESUM is not used, and the
+NHIT thresholds are $\geq$6 for the IWP and $\ge$7 (8) for the near (far) hall
+OWP. Offline, in software, more stringent cuts (e.g., NHIT $\geq$ 12) were used
+as the definition of a muon event; AD events were then ignored in the immediate
+aftermath of such muons, greatly reducing muon-induced IBD-like backgrounds
+(especially neutrons).
+
+Additional muon detection was provided by an assembly of modular resistive plate
+chambers (RPCs) mounted on a rolling frame on top of each water pool. Each
+module, approximately 2.2~m square and 8~cm thick, contained four layers of
+Bakelite sheets instrumented by eight readout strips, oriented alternatingly
+(between layers) in the x and y directions. The RPCs thus provide the 2D
+coordinate, at around 10~cm resolution, of each muon track that intersects the
+RPC plane. Two additional \emph{telescope} modules were installed in each hall
+along the center of opposing edges of the water pool, to allow for
+high-angular-resolution tracking of a subset of muons in muon-related
+studies. The RPCs used HV, FEE, and trigger electronics distinct from those used
+by the AD and WP RPCs, with a trigger being issued whenever three out of four
+layers in a module are above threshold. Although the RPCs proved to be extremely
+useful in studies of muons and muon-induced backgrounds, they are not used in
+the analysis described in this thesis, as the water pools alone were sufficient
+to detect muons with effectively 100\% efficiency.
 
 \subfilebackmatter
 
