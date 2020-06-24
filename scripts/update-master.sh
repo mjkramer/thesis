@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Take the longlines branch, run wraplines.sh, commit to master.
 
