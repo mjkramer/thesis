@@ -19,7 +19,7 @@ Daya Bay has developed multiple independent reconstruction algorithms. The two t
 \label{sec:reconEnergy}
 
 \subsection{Event charge determination}
-\label{sec:reconEnergyChage}
+\label{sec:reconEnergyCharge}
 
 The first step in the energy reconstruction is to determine the total \emph{charge}, i.e., number of photoelectrons, observed from the underlying interaction. Given that each readout window is about 1.3~$\mu$s wide, and light from an interaction will only take a few dozen ns to propagate across the detector, the readout may contain hits that are uncorrelated with the physical event. (Indeed, this behavior is what is exploited in order to measure the gain, as discussed in \autoref{sec:calibCQ}.) Furthermore, the readout may also contain extra \emph{correlated} hits caused by a number of effects, including reflected light, delayed scintillation (XXX really?), ringing in the FEEs, and afterpulsing in the PMTs (XXX check all these; doc-8319, 8732, 8356, 6710, 5612). As such, there are subtleties to consider in choosing which hits to include in the charge sum.
 
