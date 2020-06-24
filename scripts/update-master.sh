@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Take the longlines branch, run wraplines.sh, commit to master.
 
@@ -6,6 +7,10 @@
 # master branch.
 
 msg=$@
+
+if [ -z "$msg" ]; then
+    msg="Update $(date +%Y/%m/%d)"
+fi
 
 cd $(dirname $0)/..
 
@@ -15,4 +20,5 @@ git checkout master
 git checkout longlines -- .
 scripts/wraplines.sh
 git commit -a -m "$msg"
+git push
 git checkout $curbranch

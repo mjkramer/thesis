@@ -179,6 +179,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=8925][DYB-doc-8925-v2: IHEP rate plus shape analysis technote]]
 - [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=7508][DYB-doc-7508-v2: IBD analysis (TechNote)]] (IHEP)
 - [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=10497][DYB-doc-10497-v1: Why Delta m^2_ee is used by Daya Bay]]
+** Daya Bay DAQ
+- https://indico.ihep.ac.cn/event/6655/contribution/62/material/slides/0.pdf
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software

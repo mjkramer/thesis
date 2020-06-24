@@ -113,6 +113,9 @@ light collection versus event position. To further reduce nonuniformity effects,
 each PMT is outfitted with a FINEMET conical magnetic shield to minimize
 azimuthal variations in PMT response caused by the Earth's magentic field.
 
+\subsection{PMT electronics}
+\label{sec:expPmtElec}
+
 Each PMT is positively biased via a single coaxial cable in order to achieve a
 gain within 5\% of 10$^7$ (corresponding to $\sim$20 ADC counts per PE). Due to
 intrinsic differences between PMTs, the necessary high voltage varies between
@@ -127,8 +130,20 @@ is then split and sent to both a x10 ``high-gain'' amplifier and a x0.5
 ``low-gain'' attenuator (for neutrino-like and muon-like events, respectively)
 and, finally, the two shaped and rescaled pulses are sampled by a 40~MHz 12-bit
 ADC. The output of a hardware-based peak-finding algorithm is then recorded as
-the amplitude (i.e. collected charge) of the pulse, for both the high-gain and
-low-gain circuits.
+the raw amplitude of the pulse, for both the high-gain and low-gain
+circuits. Meanwhile, the average of the four ADC samples immediately preceding
+the over-threshold condition is recorded as the \emph{pre-ADC} or
+\emph{pedestal} value of the hit, from which the peak ADC value is subtracted in
+determining the charge, as discussed in \autoref{sec:calibGain}\footnote{The
+  pre-ADC, in general, is \emph{not} taken from the four samples immediately
+  preceding the \emph{peak} sample, because the peak of the shaped curve occurs
+  some 100~ns after the over-threshold condition, as dictated by the time
+  constant of the shaping circuit. Given the sample period of 25~ns, this
+  implies a 4-5 sample lag between the over-threshold condition and the
+  peak. Thus, the pre-ADC is typically taken from the average of the 5th through
+  9th samples preceding the peak, give or take. This, however, changes when
+  there are multiple closely-spaced hits, as illustrated later in
+  \autoref{fig:closeHitsExamples}.}.
 
 Although every hit is initially observed in this manner by the hardware, it is
 only recorded in the DAQ's output stream if a trigger is issued for the AD as a
@@ -159,15 +174,15 @@ photoelectron counts for each PMT, as described in \autoref{chap:calib}, and
 then the individual PMTs must be combined and corrected to produce the amount of
 energy deposited in the scintillator, as elaborated in \autoref{chap:recon}.
 
+\subsection{Detection principle}
+\label{sec:expDetPrinc}
+
 The vast majority of events recorded by the ADs are unrelated to neutrinos. Most
 events come from natural radioactivity in the detector and scintillator
 materials, as well as from cosmic muons and the byproducts of muon-nucleon
 reactions. Fortunately, it is possible to exploit the double-trigger nature of
-neutrino events in order to effectively extract them from the data, as discussed
-in the section that follows.
-
-\subsection{Detection principle}
-\label{sec:expDetPrinc}
+neutrino events in order to effectively extract them from the data, as we
+explain here.
 
 Antineutrinos can interact with the GdLS target in a number of ways. Their
 interactions can be mediated either by the $W^-$ boson (corresponding to a
