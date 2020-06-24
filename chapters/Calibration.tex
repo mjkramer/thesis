@@ -35,7 +35,13 @@ After a manual verification of fit quality, the six parameters for each channel 
 
 It is worth noting that the $a_1$ parameter can be expressed as $\overline a_1 + \delta a_1$, where $\overline a_1$ is the average value of $a_1$ across all channels, and $\delta a_1$ is the channel-specific deviation. In this case, $\delta a_1$ represents intrinsic (and significant, for such purposes of vertex reconstruction) differences in timing offsets between channels, due to such factors as cable length. Meanwhile, $\overline a_1$ (which arises from, e.g., differences in cable length) has no effect on vertex reconstruction and thus can be removed, meaning that we apply the transformation $a_1 \mapsto a_1 - \overline a_1$. Doing so ensures that, for ordinary physical triggers, the physical hits always fall within the same well-defined band of timewalk-corrected times. If $\overline a_1$ were not removed in this way, then this band would shift as $a_1$ does, which could bias the calculation of the total charge, since this calculation indeed relies on a constant window for hit selection. Removing $\overline a_1$ also ensured that each stored timewalk curve is ``nearly'' zero for large charges (modulo the $a_6$ term), with the deviations from ``nearly'' reflecting the differences in timing offsets between channels.
 
-Due to this last property, the expected timewalk-corrected time for a ``large'' pulse, with TDC count $N$, is simply $-N/f_{mathrm{TDC}}$, where $f_{\mathrm{TDC}} = 1/(1.625\;\text{ns})$. As shown in Fig.~XXX, typical physical hits have TDC counts of 950--1000, corresponding (respectively) to times of -1545 to -1625~ns. The details of selecting physical hits, including the exact range of times used, are discussed in \autoref{sec:reconEnergyChage}.
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{tdc.png}
+  \caption{A typical distribution of TDC values for hits in a single PMT during a physics run.}
+  \label{fig:tdcDist}
+\end{figure}
+
+Due to this last property, the expected time for a ``large'' pulse (for which the timewalk correction is nearly zero), with TDC count $N$, is approximately $-N/f_{mathrm{TDC}}$, where $f_{\mathrm{TDC}} = 1/(1.625\;\text{ns})$. As shown in \autoref{fig:tdcDist}, typical physical hits have TDC counts of 950--1000, corresponding (respectively) to times of -1545 to -1625~ns. The details of selecting physical hits, including the exact range of times used, are discussed in \autoref{sec:reconEnergyChage}.
 
 % Because $t(q)$ gives the \emph{time since trigger}, which is on the order of a microsecond, a single global $\mu$s-scale offset (the average of all the $a_1$'s, to be precise) is subtracted from each $a_1$. This ensures that when we later use $t(q)$ as a \emph{correction}, we don't apply a large offset to the times we are correcting.
 
@@ -58,7 +64,8 @@ Once the calibration parameters are in the database, applying them to the raw da
 \end{equation}
 After this is done, we have a calibrated time, in nanoseconds (instead of TDC counts), for each hit, which can be directly and accurately compared to other hits in other channels, regardless of how much charge each channel saw and regardless of intrinsic differences between channels. This meets the requirements for time-based vertex and track reconstruction.
 
-\section{Gain calibration}
+\section{Charge calibration}
+\label{sec:calibGain}
 
 At a given operating voltage, every PMT will produce a unique amount of charge per photoelectron, even among other PMTs of the same model. Furthermore, the Daya Bay FEE channels have an intrinsic 3\% variation in the number of ADC counts output per unit of charge. As such, the total response of each channel to a single photoelectron, that is, the \emph{total gain}\footnote{Herein, the term \emph{gain} will refer to the total gain (in ADC/PE), and we will use \emph{PMT gain} to refer to the (unitless) gain of the PMT itself.} (in ADC/PE), cannot be precisely predicted based on operating voltage, but instead must be measured \emph{in situ}. Since environmental conditions and the passage of time can alter this response, the gain measurement must be repeated regularly. Once the gain is known, it is possible to determine the total number of photoelectrons observed in an event, regardless (within reason) of any time variation of PMT gains. The gain measurement is described in this section.
 
@@ -78,12 +85,34 @@ where $Q$ is the observed ADC count, $\mu$ (always close to 1) is the mean numbe
 
 The results of this fitting procedure were stored in the offline database for use during data production, In cases where a poor fit quality was obtained, a nominal ``default'' value (XXX give number) was stored in the database, making it possible to flag problematic channels by scanning for those that have exactly this value in the database. Similarly, excessively small or large fit gains are used in the determination of channel quality, as discussed in \autoref{sec:calibCQ}.
 
-For a normal, functioning channel, the calibrated charge $q_c$ (in PE) of a hit is simply related to the raw charge $Q$ (in ADC counts) as
+\subsection{Hit charge calculation}
+\label{sec:calibHitCharge}
+
+In the simplest case, the calibrated charge $q_c$ (in PE) of a hit is related to the raw charge $Q$ (in ADC counts) as
 \begin{equation}
   \label{eq:corrChg}
-  q_c = \frac{Q}{\overline Q^{\mathrm{SPE}}}.
+  q_c = \frac{Q - Q_{\mathrm{pre}}}{\overline Q^{\mathrm{SPE}}}.
 \end{equation}
-Here, $\overline Q^{\mathrm{SPE}}$ is retrieved from the offline database for the particular PMT and time period in question. These corrected charges are then summed to calculate the total number of photoelectrons collected in the event, as described in \autoref{sec:reconEnergyCharge}. This ``event charge'' serves as the main input in estimating the actual ionization energy deposited in the scintillator. 
+Here, $Q_{\mathrm{pre}}$ is the pre-ADC value described in \autoref{sec:expPmtElec} (i.e. the average of the four ADC samples preceding the over-threshold instant of the discriminator), and $\overline Q^{\mathrm{SPE}}$ is the calibration constant retrieved from the offline database for the particular PMT and time period in question. This calculation is reliable when a hit is not preceded by any other hits within $\sim$300~ns.
+
+When hits are more closely spaced in time, however, the calculation is made more complicated by the peculiar behavior of the electronics, as illustrated in \autoref{fig:closeHitsExamples}. This peculiarity can be boiled down to two facts. First of all, the peak-finding algorithm always takes the largest sample within a continuous series of above-baseline samples, even when this causes the same peak to be reported for more than one hit (see the first three columns of \autoref{fig:closeHitsExamples}). And secondly, the pre-ADC of a hit can be biased by the preceding hit (see the last two columns of \autoref{fig:closeHitsExamples}). 
+
+\begin{figure}[ht]
+  \includegraphics[scale=1.2]{closeHitsExamples.pdf}
+  \caption{An illustration of the different scenarios that can occur when dealing with closely spaced hits. In this case, each hit is one photoelectron. The red dashed lines are the pre-ADC values \emph{for the second hit}. From XXX doc-6710}
+  \label{fig:closeHitsExamples}
+\end{figure}
+
+Simply using \eqref{eq:corrChg} for all hits will result in over or underestimating the total charge, depending on the time separation between hits, as illustrated by the green/gray dots in \autoref{fig:closeHits}. For separations of less than $\sim$100~ns, the peak finder will approximately report the correct \emph{total} charge, but this charge will be assigned to two hits and will thus be double counted. This is shown in the first two columns of \autoref{fig:closeHitsExamples}. For separations of $\sim$100-250~ns, the samples will not reach baseline and thus a single peak value will still be reported twice, but in this case the peak's amplitude is low enough that double-counting it will more closely approximate the total charge than single-counting it. However, the pre-ADC for the second hit is biased by the samples from the first hit, and so this pre-ADC should be discarded in favor of the one from the first hit. Finally, for separations greater than $\sim$250~ns, the samples will hit the baseline in between the peaks, so two different peak values will be reported, and both should be used, but once again, the pre-ADC for the second hit may be biased by the first hit (whose shaped pulse includes an undershoot that extends for several hundred ns beyond the positive pulse).
+
+These corrected charges are then summed to calculate the total number of photoelectrons collected in the event, as described in \autoref{sec:reconEnergyCharge}. This ``event charge'' serves as the main input in estimating the actual ionization energy deposited in the scintillator. 
+
+\begin{figure}[ht]
+  \includegraphics[scale=1.35]{closeHits.pdf}
+  \caption{Biases induced by different methods of handling closely spaced hits. From XXX doc-6710. The ``charge-corrected'' method, developed by the author, provided a modest improvement in bias for }
+  \label{fig:closeHits}
+\end{figure}
+
 
 \section{Channel quality}
 \label{sec:calibCQ}
