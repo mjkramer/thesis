@@ -109,18 +109,18 @@ On account of this behavior, an algorithm was designed (XXX doc 6710) with the g
 
 \begin{enumerate}
 \item If the hit is the first one in the readout, treat it simply using \eqref{eq:corrChg}.
-\item If $\Delta t < \SI{100}{ns}$, discard the hit. In this case the aim is to avoid double-counting the total charge, as illustrated in the first two columns of \autoref{fig:closeHitsExamples}.
-\item If $\Delta t \ge \SI{100}{ns}$, and the peak value is the same as that of the previous hit, keep the hit, but use the pre-ADC from the previous hit. This avoids the bias on the second pre-ADC value, as shown in the third column of \autoref{fig:closeHitsExamples}.
-\item If $\Delta t \ge \SI{100}{ns}$ and a \emph{different} peak values is reported, use the hit, but instead of its pre-ADC, subtract the parameterized tail shape of the previous pulse (as this tail is essentially the ``true'' pedestal of the hit). This method, dubbed \emph{charge correction}, was developed by the author.
+\item If $\Delta t < \SI{100}{ns}$, set the hit's calibrated charge to zero. In this case the aim is to avoid double-counting the total charge, as illustrated in the first two columns of \autoref{fig:closeHitsExamples}.
+\item If $\Delta t \ge \SI{100}{ns}$, and the peak value is the same as that of the previous hit, use the pre-ADC of the \emph{previous} hit. This avoids the bias on the second pre-ADC value, as shown in the third column of \autoref{fig:closeHitsExamples}.
+\item If $\Delta t \ge \SI{100}{ns}$ and a \emph{different} peak values is reported, ignore the hit's pre-ADC, and instead subtract the parameterized tail shape of the previous pulse (as this tail is essentially the ``true'' pedestal of the hit). This method, dubbed \emph{charge correction}, was developed by the author.
 \end{enumerate}
 
 However, studies showed that the overall effect (on resolution and bias of reconstructed energy) of the undershoot correction was negligible, at the cost of considerable operational complexity (in maintaining the parameterization of the pulse shapes). In the end, the algorithm as implemented goes:
 
 \begin{enumerate}
 \item If the hit is the first one in the readout, again treat it simply using \eqref{eq:corrChg}.
-\item If $\Delta t < \SI{100}{ns}$, \emph{and the peak value is the same as that of the previous hit}, discard the hit.
-\item If $\Delta t \ge \SI{100}{ns}$, \emph{whether the peak value is the same as or diffrent from the previous one}, keep the hit, but use the pre-ADC from the previous hit.
-\item \emph{(Special case)} If $\Delta t < \SI{100}{ns}$, and the peak value is \emph{different}, treat the hit using \eqref{eq:corrChg}. The reasoning for this special case does not seem to be documented, and it likely only applies to the (rare) scenario of two closely spaced sub-SPE hits, for which it may be possible for the ADC to hit baseline in between the two peaks. In this scenario, keeping both hits may produce a more accurate charge measurement.
+\item If $\Delta t < \SI{100}{ns}$, \emph{and the peak value is the same as that of the previous hit}, set the hit's calibrated charge to zero.
+\item If $\Delta t \ge \SI{100}{ns}$, \emph{whether the peak value is the same as or diffrent from the previous one}, use the pre-ADC from the \emph{previous} hit.
+\item \emph{(Special case)} If $\Delta t < \SI{100}{ns}$, and the peak value is \emph{different}, treat the hit simply using \eqref{eq:corrChg}. The reasoning for this special case does not seem to be documented, and it likely only applies to the (rare) scenario of two closely spaced sub-SPE hits, for which it may be possible for the ADC to hit baseline in between the two peaks. In this scenario, keeping both hits may produce a more accurate charge measurement.
 \end{enumerate}
 
 \begin{figure}[ht]
