@@ -103,6 +103,7 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 * References
 ** Example theses
 - [[https://www.researchgate.net/publication/315458901_Neutrino_Physics_in_Present_and_Future_Kamioka_Water-Cherenkov_Detectors_with_Neutron_Tagging][Pablo Fernandez (Kamioka)]]
+- [[http://dayabay.ihep.ac.cn/twiki/pub/Public/DybPublications/Littlejohn_Thesis_PhD2012.pdf][Bryce]]
 ** Big presentation on reactor neutrinos etc.
 - [[http://www.awa.tohoku.ac.jp/geoscience2013/wp-content/uploads/2012/08/NGS2013_Mar21_Lasserre.pdf][NGS2013_Mar21_Lasserre.pdf]]
 ** Jan 29, 2019
@@ -259,6 +260,10 @@ Should properly fix helm-bibtex and submit a PR (see #266, #267)
 * DYB misc
 ** Coordinates and baselines
 The caption of Table 1 in the long paper is wrong. It says that X is due north. Actually, X is due "west" and Y is due "south" (right-handed coordinates), and the axes are rotated an additional ~8.5deg clockwise from "true" (i.e. Google Maps) north, so that D1 and D2 have the same Y coordinate (i.e., we get these axes by rotating the "standard" axes by 188.5deg clockwise). Also, every published diagram I've seen of the site layout is totally not to scale. The only trusted source is Table 1 (mislabeled axes notwithstanding). I've (partially) verified that the coordinates in that table give the proper baselines.
+** Minimum hit separation
+An SPE pulse looks to be around 30 ns baseline-to-baseline (doc-6710). Meanwhile, misc_ana/TdcSep indicates that the minimum separation between hits is about 50~ns. Most "late light" hits arrive 75-125 ns after the early hit. Also see [[http://arxiv.org/abs/1902.08241][1902.08241]] (nonlinearity) and [[https://arxiv.org/abs/1707.03699][1707.03699]] (FADC).
+** Hit timing
+Light is emitted stochastically with a fast (5 ns), medium (30 ns), and 5% slow (150 ns) component (doc-8732). Propagation, including reflection, can add up to 20 ns or so. See docs 8319, 8732, 8356, 6710, 5612.
 * Things to investigate
 ** make_combined_spectra.C
 - line 176: why do we use [0] instead of [j]
