@@ -46,6 +46,7 @@
 - [[https://tex.stackexchange.com/questions/16337/can-i-get-a-widebar-without-using-the-mathabx-package/60253#60253][Widebar]] and [[https://tex.stackexchange.com/questions/22100/the-bar-and-overline-commands][etc.]]
 - [[http://everythingyouforgetaboutlatex.blogspot.com/2008/10/formatting-tables.html][Basic table spacing]]
 - [[https://latex.org/forum/viewtopic.php?t=30580][Paragraphs in tabular(x)]] (google: latex paragraphs in tabular)
+- [[https://tex.stackexchange.com/questions/37581/latex-figures-side-by-side][Side-by-side figures]] (subfig, subfigure, floatrow)
   
 * References
 - [[http://texdoc.net/texmf-dist/doc/plain/texbytopic/TeXbyTopic.pdf][TeX by Topic]]
