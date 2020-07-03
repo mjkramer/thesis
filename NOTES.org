@@ -117,6 +117,9 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 *** Backgrounds
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
+*** AdSimple
+- doc-7334 (center of charge; energy)
+- doc-7536 (templates)
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
@@ -264,7 +267,7 @@ The caption of Table 1 in the long paper is wrong. It says that X is due north. 
 ** Minimum hit separation
 An SPE pulse looks to be around 30 ns baseline-to-baseline (doc-6710). Meanwhile, misc_ana/TdcSep indicates that the minimum separation between hits is about 50~ns. Most "late light" hits arrive 75-125 ns after the early hit. Also see [[http://arxiv.org/abs/1902.08241][1902.08241]] (nonlinearity) and [[https://arxiv.org/abs/1707.03699][1707.03699]] (FADC).
 ** Hit timing
-Light is emitted stochastically with a fast (5 ns), medium (30 ns), and 5% slow (150 ns) component (doc-8732). Propagation, including reflection, can add up to 20 ns or so. See docs 8319, 8732, 8356, 6710, 5612.
+Light is emitted stochastically with a fast (5 ns), medium (30 ns), and 5% slow (150 ns) component (doc-8732). Propagation, including reflection, can add up to 20 ns or so. See docs 8319, 8732, 8356, 6710, 5612 (closely spaced hits), and Zeyuan's doc-6926 (determination of time window; which hit to take).
 * Things to investigate
 ** make_combined_spectra.C
 - line 176: why do we use [0] instead of [j]
