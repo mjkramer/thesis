@@ -6,7 +6,7 @@
                  (directory-file-name (file-name-directory load-file-name))))
        (files (file-expand-wildcards (concat basedir "chapters/*.tex"))))
   (dolist (file files)
-    (when (not (equal "_region_.tex" (file-name-base file)))
+    (when (not (equal "_region_.tex" (file-name-nondirectory file)))
       (message "Formatting %s" file)
       (find-file file)
       (let ((fill-column 80)
