@@ -6,6 +6,7 @@
 \label{chap:recon}
 
 \section{Introduction}
+\label{sec:reconIntro}
 
 \autoref{chap:calib} discussed the process of taking the raw ADC and TDC values
 of PMT hits, as measured by the front-end electronics, and converting those
@@ -139,22 +140,316 @@ scale to give the \emph{visible energy} (in MeV), then adjusted by a time- and
 position-dependent nonuniformity correction to give the \emph{reconstructed
   energy} and, finally, at the highest levels of analysis, adjusted again to
 correct for electronics nonlinearity, scintillator nonlinearity, and IBD
-kinematics to give the \emph{true neutrino energy}. These stages are discussed
+kinematics to give the \emph{true neutrino energy}. These steps are discussed
 below.
 
 \subsection{Energy scale calibration}
 \label{sec:reconEnergyScale}
 
+The nominal charge produced by a given interaction can vary over time due to,
+for instance, degradation or contamination of the scintillator. Furthermore, for
+the purpose of physics analysis, we would prefer to speak of the energy (in,
+e.g., MeV) deposited in the scintillator, rather than the amount of light
+observed. Accordingly object of the energy scale calibration is to fix the
+definition of a ``visible'' MeV, and to ensure that any given event will yield
+the same visible energy in every AD, regardless of changes over time in the
+behavior of the scintillator.
+
+Given that the response of the ADs (i.e. the nominal charge) depends on the type
+of interaction and is nonlinear with respect to the deposited energy, the energy
+scale (in charge per MeV) will depend on the choice of interaction used to
+calibrate the scale. Daya Bay's two main reconstruction algorithms, AdSimple and
+AdScaled, both define the energy scale such that a neutron capture on gadolinium
+will yield approximately 8 MeV (XXX precision). However, there are significant
+differences between the methodology of the two calibrations.
+
+For AdSimple, the calibration uses Gd captures of spallation neutrons produced
+by high-energy cosmic muons traversing the AD. Since this thesis's analysis is
+based on AdSimple, we give a detailed description of its calibration procedure
+in the section that follows. One of the advantages of using spallation neutrons
+is that they are distributed uniformly throughout the target volume, similarly
+to IBD neutrons. A disadvantage is that the ensuing energy scale is slightly
+biased (upward), relative to that of IBD neutrons, due to PMT afterpulsing
+resulting from the large amount of charged produced by the parent muon. In the
+end, however, this is accounted for in the nonlinearity model
+(\autoref{sec:reconEnergyNL}); as long as the energy scale calibration provides
+consistency in time, space, and between ADs, it is sufficient.
+
+In comparison to AdSimple, AdScaled uses a significantly different method of
+calibrating the energy scale. We only discuss it briefly, since AdScaled is not
+used in this analysis. Essentially, the method is based on using weekly
+$^{60}$Co calibrations to monitor the time variation of the light yield, and
+occasional $\sim$40-hour AmC calibrations (which produce nGd captures) to
+measure the nonlinearity between the $^{60}$Co and nGd peaks. Every Friday, the
+$^{60}$Co source is deployed at the center of each AD for 10 minutes, and the
+charge peak is fit to a Gaussian (XXX). The peak nominal charge is then
+multiplied by the ratio between the nGd and $^{60}$Co charge peaks, as
+determined by the nearest long AmC run, and this scaled light yield is stored in
+the database for use by the reconstruction. This method works because the
+\emph{ratio} of the nGd and $^{60}$Co peaks is quite stable, even when the peaks
+themselves are varying. (Omitting $^{60}$Co, and using AmC alone, would avoid
+the need for this scaling, but the rate of neutrons from the AmC source is
+insufficient to provide the necessary statistics.) It is worth noting that the
+resulting energy scale is defined in terms of events at the \emph{center} of the
+AD, rather than uniformly distributed throughout the GdLS (as in AdSimple). This
+leads to consistent a $\sim$5\% difference in the energy scale calibration
+constants between the two algorithms. Essentially, this is only a difference in
+conventions (i.e., defining the energy scale based on uniformly distributed
+vs. centered events), which is accounted for at the event-by-event level by the
+nonuniformity correction, as discussed in \autoref{sec:reconEnergyNU}.
+
+\begin{comment}
+  A sample enriched in such neutrons is obtained by selecting events in a time
+  window (XXX define) immediately after AD muons (XXX of what minimum
+  energy?). These captures are distributed uniformly throughout the GdLS, much
+  like IBDs. The nGd capture peak in the charge distribution is fit to a
+  Gaussian (XXX crystal ball?), and the location of the peak is defined as
+  corresponding to 7.95 MeV (XXX) 8.0 MeV according to doc-7334 (AdSimple). This
+  energy scale is stored in the offline database, valid for the period in which
+  the neutrons were collected. In the near (far) halls, it takes XXX (YYY) days
+  to obtain the necessary statistics; this is thus the time-resolution of the
+  energy scale, which is sufficient, given that the light yield changes very
+  slowly, declining by some 1\% to 1.5\% per year.
+  
+  24 hours
+\end{comment}
+
+\begin{comment}
+  Figure out exactly what energy is pegged by AdSimple and AdScaled. 7.95 MeV?
+  Discuss differences (e.g. due to muon afterpulsing?)  5x15min Co60 4x10hour
+  AmC
+\end{comment}
+
+\subsubsection{AdSimple calibration procedure}
+\label{sec:reconEnergyAdSimpleCalib}
+
+The AdSimple energy calibration begins with the selection of a sample of
+spallation neutron candidates. These are defined based on their proximity in
+time to a preceding AD muon, where an AD muon is regarded as any event that
+produces more than 3,000 photoelectrons of nominal charge. Non-muon events are
+filtered through a simplified cut to remove instrumental backgrounds
+(``flashers''); specifically, the \emph{ellipse cut} described in
+\autoref{sec:bkgFlashers} is employed. For any surviving event with a nominal
+charge of more than 100 PE (roughly 0.6~MeV), the charge (after correcting for
+any dead PMTs, as described in \autoref{sec:reconActiveChan}) is added either to
+a \emph{signal} histogram, if the time since the previous muon is between 20 and
+\SI{1000}{\micro s}, or to a \emph{background} histogram if $\Delta t$ is
+between 1020 and \SI{2000}{\micro s}. Given that the characteristic nGd capture
+time is $\sim$\SI{30}{\micro s}, the latter histogram provides a clean sideband
+measurement of the background spectrum.
+
+\begin{comment}
+  Note: For AdSimpleNL, in reconstruction, a (AD-specific?) scale constant is
+  applied to the non-NL energy scale constant. See line 209 of
+  QsumEnergyTool.cc. Discuss this?
+\end{comment}
+
+These histograms are stored in files that correspond one-to-one with Daya Bay
+DAQ files (each spanning roughly ten minutes in one hall). The files are
+processed sequentially, and for each AD, a new energy scale constant is
+calculated once 10,000 entries have accumulated in the background-subtracted
+histogram of spallation neutron charges. The constant is determined by fitting
+the charge spectrum to a sum of two Crystal Ball (CB)
+functions~\cite{cbfunction}, corresponding respectively to the peaks from
+neutron capture on $^{155}$Gd and $^{157}$Gd. The relationship between the two
+CB functions (``peaks'') is constrained as follows:
+
+\begin{enumerate}
+\item The shape parameters $\alpha$ and $n$ are the same, and constrained to lie
+  within (0, 5) and (0, 1), respectively.
+\item The amplitude of the $^{155}$Gd peak is constrained to be 0.227 of the
+  $^{157}$Gd amplitude, according to the relative abundances and neutron capture
+  cross sections of the two isotopes.
+\item The location of the $^{155}$Gd peak is constrained to be 1.0755
+  (i.e. 8.536/7.937) of the $^{157}$Gd peak, based on the total gamma energy
+  emitted after neutron capture on each isotope.
+\item The two $\sigma$ (width) parameters are related by the square root of the
+  aforementioned ratio of peak locations.
+\end{enumerate}
+
+After the fit is performed, the location parameter of $\mu$ the first peak
+(generally between 1200 and 1350~PE) is assumed to correspond to 7.937~MeV (from
+$^{157}$Gd), and so, in this convention, the energy scale constant is simply
+$\mu/7.937$ PE/MeV. However, due to the PMT afterpulsing that occurs after a
+high-energy muon event, this value is biased upward compared to the energy scale
+for IBD nGd captures. This would not be issue if the bias were the same size in
+all halls (since it could then simply be absorbed into a common nonlinearity
+correction), but because the muon rate and spectrum differ between halls, so
+does this bias. Such a systematic difference in energy scales could bias the
+oscillation fit. Accordingly, the energy scales are corrected by an AD-specific
+factor (ranging from 0.9895 to 0.9934), empirically determined in order to match
+the IBD-nGd energy scale in the extrapoloated limit of zero muon energy (XXX
+doc-9418). These corrected energy scales are stored in the database for use by
+the AdSimple reconstruction.
+
 \subsection{Nonuniformity correction}
 \label{sec:reconEnergyNU}
 
-\subsubsection{Time-dependent nonuniformity}
-\label{sec:reconEnergyTDNU}
+Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible
+  energy} $\Evis$ is simply $Q/S$. Given that the light collection efficiency
+differs as a function of position within the AD, the effective energy resolution
+would be degraded if $\Evis$ were directly used in physics
+analysis. Fortunately, this nonuniformity can be measured and corrected for. In
+the case of AdSimple, the current nonuniformity map was produced from three
+years of data by dividing the AD into pixels (in $R^2$ and $Z$) and selecting
+spallation neutron captures on both gadolinium and hydrogen within each
+pixel. For each pixel within the GdLS, the nGd spectra was fit to a double
+crystal ball (along with an additional exponential tail, found to improve fit
+quality), and the location of the peak was divided by the mean nGd peak among
+all GdLS pixels, giving the correction factor. (This choice of denominator
+reflects the fact that the energy scale is determined using events uniformly
+distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit
+to the ``Daya Bay function'' (XXX cite), and the peak was divided by the mean nH
+peak among all \emph{GdLS} pixels (XXX check?).
+
+Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex})
+was looked up (using bilinear interpolation) in this nonuniformity map, and the
+resulting (time-invariant) correction factor was applied. However, it has been
+shown that the nonuniformity of the AD changes over time (along with the energy
+scale), presumably because decreases in the attenuation length of the
+scintillator will proportionally affect events located near the edge of the AD,
+compared with events near the center. This behavior was found to be consistent
+between all ADs, and adequately captured by a simple analytical correction:
+\begin{equation*}
+  \frac{\Delta E}{E} = (0.00149 - 0.00109 R^2) \Delta t,
+\end{equation*}
+where $\Delta t$ is the time (in years) since the mean timestamp in the data
+period used when generating the static nonuniformity map. After applying the
+full (static $\times$ time-dependent) nonuniformity correction, the resulting
+reconstructed energy $\Erec$ was stored in the processed data file for use in
+analysis.
 
 \subsection{Nonlinearity correction}
 \label{sec:reconEnergyNL}
 
+Although $\Erec$ provides a reliable, repeatable, position- and time-independent
+proxy for the energy of an interaction, it is \emph{not} simply linearly
+proportional to the actual deposited energy. By construction, $\Erec$ will
+report the correct deposited energy for the $\sim$8~MeV gamma peak produced by
+nGd capture. However, due to differences in scintillator response to positrons
+versus gammas, $\Erec$ will report a different value for a positron that
+deposits 8~MeV. Furthermore, even when considering a single type of particle,
+the response of the scintillator varies by some 10\% across the range of
+energies used in the analysis (0.7--12~MeV). The purpose of the nonlinearity
+correction is to compensate for these effects, yielding the actual deposited
+energy $\Edep$ (assuming a positron event), which can then be trivially
+converted to the true neutrino energy, $\Enu$, via the relation $\Enu \sim \Edep
++ \SI{0.8}{MeV}$. \footnote{The nonlinearity correction is not actually
+  performed during reconstruction. Instead, the correction is applied by the
+  fitter (\autoref{chap:fitting}), which takes AdSimple's $\Erec$ and converts
+  it into $\Enu$. However, as this is merely an implementation detail, we
+  discuss the conversion in this chapter, along with the other preceding steps
+  of the energy reconstruction.}
+
+The two primary sources of nonlinearity are \emph{Birk's law} and \emph{Cerenkov
+  radiation}.
+
 \section{Vertex reconstruction}
 \label{sec:reconVertex}
+
+The AdSimple vertex reconstruction proceeds in multiple stages. First, an
+initial vertex is determined by taking a simple \emph{center of charge} (COC)
+using the coordinates of the PMTs. As this method suffers from significant
+biases (largely toward the center of the AD), a correction is then applied,
+based on interpolating a map of the mean bias (as a function of COC position)
+determined from a sample of Monte Carlo events, giving the \emph{Monte Carlo
+  Corrected COC} (MCC-COC). In earlier versions of AdSimple, the MCC-COC was
+used as the final reconstructed vertex, and it is still used when looking up the
+corrections in the nonuniformity maps. \footnote{Given that the most recent maps
+  seem to have been generated using the final, template-based reconstructed
+  vertices, it would appear that it is a mistake that we continue to use the
+  MCC-COC when looking up the nonuniformity correction. In spite of this, there
+  is no noticeable difference in the IBD $\Erec$ distribution compared to
+  AdScaled, so any \emph{overall statistical} effects are likely
+  insignificant. Nevertheless, it would be worthwhile to correct this oversight
+  for Daya Bay's final data production.} However, even with the MC correction,
+this vertex still suffers from biases , particularly at large $z$, and there are
+additionally some observable ``wiggles'' in what should be uniform vertex
+distributions. In order to reduce such biases and clusterings, and also improve
+the resolution of the position reconstruction, a final vertex is computed by
+matching the distribution of PMT charges to a library of MC templates. We now
+discuss these steps in further detail. (XXX cite docs 7334 and 7536)
+
+
+The COC vertex is calculated trivially,
+\begin{equation*}
+  x_{\mathrm{COC}} = \frac{\sum_{i}^{\mathrm{PMTs}} Q_i x_i}{\sum_i^{\mathrm{PMTs}} Q_i},
+\end{equation*}
+where $x_i$ is the position of the $i$th PMT, and $Q_i$ is the corresponding
+observed charge. To this vertex, the correction from MC is applied next.
+
+The MC sample consists of a large number of uniformly-distributed IBD events,
+with (XXX presumably?) a spectrum that mimics the expected reactor spectrum. A
+cut is applied on the true interaction to eliminate events that occur outside
+the outer acrylic vessel. The positrons (i.e. prompt triggers) from these events
+are then used to generate correction table.
+
+For each MC event, the COC vertex is calculated, and two corrections, a
+``radial'' and a ``vertical'' one, are computed (using cylindrical coordinates):
+\begin{equation*}
+  \Delta r = \frac{\vec{r}_{\mathrm{true}} \cdot \vec{r}_{\mathrm{COC}}}{\abs{\vec{r}_{\mathrm{COC}}} - r_{\mathrm{COC}}},
+\end{equation*}
+\begin{equation*}
+  \Delta z = z_{\mathrm{true}} - z_{\mathrm{COC}},
+\end{equation*}
+Events are divided into 20 bins for $0 < r_{\mathrm{COC}} < \SI{2}{m}$ and 40
+bins for $-2 < z_{\mathrm{COC}} < \SI{2}{m}$. For each bin, the mean $\Delta z$
+is computed, while the mean $\Delta r$ is computed over (and assigned to) all
+$z{_\mathrm{COC}}$ bins for a given $r_{\mathrm{COC}}$, since there is very
+little $z$ dependence on $\Delta r$. The $\Delta r$ and $\Delta z$ correction
+tables are ``pre-interpolated'' with a spline function to give a 10x-finer grid,
+which is then stored for use by AdSimple. During reconstruction, linear
+interpolation is applied to this fine-binned to look up the corrections for
+arbitary ($r_{\mathrm{COC}}$, $z_{\mathrm{COC}}$). Application of the correction
+is trivial: $r \mapsto r + \Delta r$ and $z \mapsto z + \Delta z$. This gives
+the MCC-COC vertex.
+
+The final stage of the AdSimple vertex reconstruction relies on a library of
+9,600 charge templates (i.e. distributions of charge across the PMTs), with each
+template corresponding to a cylindrical voxel of the detector. These voxels
+(i.e. bins) are defined as the product of 20 bins in $0 < r^2 <
+2^2\;\mathrm{m}^2$, 20 bins in $-2 < z < \SI{2}{m}$, and 24 bins in $0 < \phi <
+2\pi$. The charge template for each voxel is taken from the mean of the charge
+distributions (each normalized by total charge) of all MC events whose true
+position lay within the voxel. The MC sample, in turn, is of the same nature as
+the one used for the COC correction: reactor IBD positrons lying within the
+OAV. Taking advantage of the azimuthal symmetry of the detector response, each
+event was rotated in angular steps of $\pi/12$ to produce 23 ``clones'', which
+were added to the sample, thereby providing a ``free'' boost in statistics
+without the need to generate additional MC events.
+
+\newcommand\Niobs{N_i^{\mathrm{obs}}} \newcommand\Niexp{N_i^{\mathrm{exp}}}
+
+During reconstruction, the charge templates are compared to the event's
+(normalized) charge distribution using the ``$\chi^2$'' (more precisely, the
+log-likelihood)
+\begin{align*}
+  \chi^2 &= \sum_i^{\mathrm{PMTs}}\left[ -2 \ln \frac{P(\Niobs, \Niexp(r^2, z, \phi))}
+           {P(\Niobs, \Niobs)} \right] \\
+         &= 2 \sum_i^{\mathrm{PMTs}} \left[ \Niexp - \Niobs+ \Niobs \ln \left( \frac{\Niobs}{\Niexp} \right) \right],
+\end{align*}
+where $P(n, \nu) = \nu^n e^{-n} / (n!)$, the Poisson probability of observing
+$n$ events when $\nu$ are expected. The MCC-COC vertex is used as a starting
+point to search the grid for a local minimum (which is presumably also a global
+minimum). Having thus located the bin with the lowest $\chi^2$, the
+reconstruction proceeds by quadratically interpolating the $\chi^2$ values at
+the neighboring grid points. This interpolation is performed independently for
+the three coordinates $r^2$, $z$, and $\phi$, each time using two neighbors in
+the appropriate direction. Letting $s$ denote any of the three coordinates, with
+$s_1$ being the value of $s$ at the $\chi^2$-minimizing grid point, and $s_2$
+and $s_3$ being those of the neighbors, the value of $s$ at the interpolated
+minimum is
+\begin{equation*}
+  s_{\mathrm{min}} = \frac{(s_1^2 - s_2^2)(\chi_3^2 - \chi_1^2) - (s_1^2 - s_3^2)(\chi_2^2 - \chi_1^2)}{2(s_1 - s_2)(\chi_3^2 - \chi_1^2) - 2(s_1 - s_3)(\chi_2^2 - \chi_1^2)}.
+\end{equation*}
+Calculated in this manner, $r_{\mathrm{min}}$, $z_{\mathrm{min}}$, and
+$\phi_{\mathrm{min}}$ give the final AdSimple reconstructed vertex. This vertex
+provides a significantly improved resolution compared to the MCC-COC vertex, of
+$\sim$7~cm in $r$ and $\sim$9~cm in $z$, compared to 11.5 and 17~cm,
+respectively, for the MCC-COC. There are also no significant biases within the
+OAV region; although some high-frequency ``wiggles'' remain (as a consequence of
+the finite grid spacing), these are insignificant in the context of performing
+physics analysis, as shown, for instance, by the consistency of physics results
+between AdSimple and AdScaled (which lacks such structures).
 
 \end{document}

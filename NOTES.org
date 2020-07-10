@@ -46,6 +46,7 @@
 - [[https://tex.stackexchange.com/questions/16337/can-i-get-a-widebar-without-using-the-mathabx-package/60253#60253][Widebar]] and [[https://tex.stackexchange.com/questions/22100/the-bar-and-overline-commands][etc.]]
 - [[http://everythingyouforgetaboutlatex.blogspot.com/2008/10/formatting-tables.html][Basic table spacing]]
 - [[https://latex.org/forum/viewtopic.php?t=30580][Paragraphs in tabular(x)]] (google: latex paragraphs in tabular)
+- [[https://tex.stackexchange.com/questions/37581/latex-figures-side-by-side][Side-by-side figures]] (subfig, subfigure, floatrow)
   
 * References
 - [[http://texdoc.net/texmf-dist/doc/plain/texbytopic/TeXbyTopic.pdf][TeX by Topic]]
@@ -116,6 +117,9 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 *** Backgrounds
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
+*** AdSimple
+- doc-7334 (center of charge; energy)
+- doc-7536 (templates)
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
@@ -182,6 +186,8 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=10497][DYB-doc-10497-v1: Why Delta m^2_ee is used by Daya Bay]]
 ** Daya Bay DAQ
 - https://indico.ihep.ac.cn/event/6655/contribution/62/material/slides/0.pdf
+** Missing from DybPublications
+- [[https://arxiv.org/abs/1707.03699][{1707.03699} The Flash ADC system and PMT waveform reconstruction]]
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software
@@ -263,7 +269,7 @@ The caption of Table 1 in the long paper is wrong. It says that X is due north. 
 ** Minimum hit separation
 An SPE pulse looks to be around 30 ns baseline-to-baseline (doc-6710). Meanwhile, misc_ana/TdcSep indicates that the minimum separation between hits is about 50~ns. Most "late light" hits arrive 75-125 ns after the early hit. Also see [[http://arxiv.org/abs/1902.08241][1902.08241]] (nonlinearity) and [[https://arxiv.org/abs/1707.03699][1707.03699]] (FADC).
 ** Hit timing
-Light is emitted stochastically with a fast (5 ns), medium (30 ns), and 5% slow (150 ns) component (doc-8732). Propagation, including reflection, can add up to 20 ns or so. See docs 8319, 8732, 8356, 6710, 5612.
+Light is emitted stochastically with a fast (5 ns), medium (30 ns), and 5% slow (150 ns) component (doc-8732). Propagation, including reflection, can add up to 20 ns or so. See docs 8319, 8732, 8356, 6710, 5612 (closely spaced hits), and Zeyuan's doc-6926 (determination of time window; which hit to take).
 * Things to investigate
 ** make_combined_spectra.C
 - line 176: why do we use [0] instead of [j]
