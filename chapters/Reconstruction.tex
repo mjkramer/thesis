@@ -109,6 +109,41 @@ The two primary sources of nonlinearity are \emph{Birk's law} and \emph{Cerenkov
 \section{Vertex reconstruction}
 \label{sec:reconVertex}
 
-The AdSimple vertex reconstruction proceeds in multiple stages. First, an initial vertex is determined by taking a simple \emph{charge-weighted center of mass} (CWCoM) using the coordinates of the PMTs. As this method suffers from significant biases, a correction is then applied, based on interpolating a map of the mean bias (as a function of CWCoM position) determined from a sample of Monte Carlo events, giving the \emph{Monte Carlo Corrected CWCoM} (MCC-CWCoM). In earlier versions of AdSimple, the MCC-CWCoM was used as the final reconstructed vertex, and it is still used when looking up the corrections in the nonuniformity maps. \footnote{Given that the most recent maps seem to have been generated using the final, template-based reconstructed vertices, it would appear that it is a mistake that we continue to use the MCC-CWCoM when looking up the nonuniformity correction. In spite of this, there is no noticeable difference in the IBD $\Erec$ distribution compared to AdScaled, so any \emph{overall statistical} effects are likely insignificant. Nevertheless, it would be worthwhile to correct this oversight for Daya Bay's final data production.} However, even with the MC correction, this vertex still suffers from biases, particularly at large $z$, and there are additionally some observable ``wiggles'' in what should be uniform vertex distributions. In order to reduce such biases and clusterings, and also improve the resolution of the position reconstruction, a final vertex is computed by matching the distribution of PMT charges to a library of MC templates. We now discuss these steps in further detail.
+The AdSimple vertex reconstruction proceeds in multiple stages. First, an initial vertex is determined by taking a simple \emph{center of charge} (COC) using the coordinates of the PMTs. As this method suffers from significant biases (largely toward the center of the AD), a correction is then applied, based on interpolating a map of the mean bias (as a function of COC position) determined from a sample of Monte Carlo events, giving the \emph{Monte Carlo Corrected COC} (MCC-COC). In earlier versions of AdSimple, the MCC-COC was used as the final reconstructed vertex, and it is still used when looking up the corrections in the nonuniformity maps. \footnote{Given that the most recent maps seem to have been generated using the final, template-based reconstructed vertices, it would appear that it is a mistake that we continue to use the MCC-COC when looking up the nonuniformity correction. In spite of this, there is no noticeable difference in the IBD $\Erec$ distribution compared to AdScaled, so any \emph{overall statistical} effects are likely insignificant. Nevertheless, it would be worthwhile to correct this oversight for Daya Bay's final data production.} However, even with the MC correction, this vertex still suffers from biases , particularly at large $z$, and there are additionally some observable ``wiggles'' in what should be uniform vertex distributions. In order to reduce such biases and clusterings, and also improve the resolution of the position reconstruction, a final vertex is computed by matching the distribution of PMT charges to a library of MC templates. We now discuss these steps in further detail. (XXX cite docs 7334 and 7536)
+
+
+The COC vertex is calculated trivially,
+\begin{equation*}
+  x_{\mathrm{COC}} = \frac{\sum_{i}^{\mathrm{PMTs}} Q_i x_i}{\sum_i^{\mathrm{PMTs}} Q_i},
+\end{equation*}
+where $x_i$ is the position of the $i$th PMT, and $Q_i$ is the corresponding observed charge. To this vertex, the correction from MC is applied next.
+
+The MC sample consists of a large number of uniformly-distributed IBD events, with (XXX presumably?) a spectrum that mimics the expected reactor spectrum. A cut is applied on the true interaction to eliminate events that occur outside the outer acrylic vessel. The positrons (i.e. prompt triggers) from these events are then used to generate correction table.
+
+For each MC event, the COC vertex is calculated, and two corrections, a ``radial'' and a ``vertical'' one, are computed (using cylindrical coordinates):
+\begin{equation*}
+  \Delta r = \frac{\vec{r}_{\mathrm{true}} \cdot \vec{r}_{\mathrm{COC}}}{\abs{\vec{r}_{\mathrm{COC}}} - r_{\mathrm{COC}}},
+\end{equation*}
+\begin{equation*}
+  \Delta z = z_{\mathrm{true}} - z_{\mathrm{COC}},
+\end{equation*}
+Events are divided into 20 bins for $0 < r_{\mathrm{COC}} < \SI{2}{m}$ and 40 bins for $-2 < z_{\mathrm{COC}} < \SI{2}{m}$. For each bin, the mean $\Delta z$ is computed, while the mean $\Delta r$ is computed over (and assigned to) all $z{_\mathrm{COC}}$ bins for a given $r_{\mathrm{COC}}$, since there is very little $z$ dependence on $\Delta r$. The $\Delta r$ and $\Delta z$ correction tables are ``pre-interpolated'' with a spline function to give a 10x-finer grid, which is then stored for use by AdSimple. During reconstruction, linear interpolation is applied to this fine-binned to look up the corrections for arbitary ($r_{\mathrm{COC}}$, $z_{\mathrm{COC}}$). Application of the correction is trivial: $r \mapsto r + \Delta r$ and $z \mapsto z + \Delta z$. This gives the MCC-COC vertex.
+
+The final stage of the AdSimple vertex reconstruction relies on a library of 9,600 charge templates (i.e. distributions of charge across the PMTs), with each template corresponding to a cylindrical voxel of the detector. These voxels (i.e. bins) are defined as the product of 20 bins in $0 < r^2 < 2^2\;\mathrm{m}^2$, 20 bins in $-2 < z < \SI{2}{m}$, and 24 bins in $0 < \phi < 2\pi$. The charge template for each voxel is taken from the mean of the charge distributions (each normalized by total charge) of all MC events whose true position lay within the voxel. The MC sample, in turn, is of the same nature as the one used for the COC correction: reactor IBD positrons lying within the OAV. Taking advantage of the azimuthal symmetry of the detector response, each event was rotated in angular steps of $\pi/12$ to produce 23 ``clones'', which were added to the sample, thereby providing a ``free'' boost in statistics without the need to generate additional MC events.
+
+\newcommand\Niobs{N_i^{\mathrm{obs}}}
+\newcommand\Niexp{N_i^{\mathrm{exp}}}
+
+During reconstruction, the charge templates are compared to the event's (normalized) charge distribution using the ``$\chi^2$'' (more precisely, the log-likelihood)
+\begin{align*}
+  \chi^2 &= \sum_i^{\mathrm{PMTs}}\left[ -2 \ln \frac{P(\Niobs, \Niexp(r^2, z, \phi))}
+        {P(\Niobs, \Niobs)} \right] \\
+      &= 2 \sum_i^{\mathrm{PMTs}} \left[ \Niexp - \Niobs+ \Niobs \ln \left( \frac{\Niobs}{\Niexp} \right) \right],
+\end{align*}
+where $P(n, \nu) = \nu^n e^{-n} / (n!)$, the Poisson probability of observing $n$ events when $\nu$ are expected. The MCC-COC vertex is used as a starting point to search the grid for a local minimum (which is presumably also a global minimum). Having thus located the bin with the lowest $\chi^2$, the reconstruction proceeds by quadratically interpolating the $\chi^2$ values at the neighboring grid points. This interpolation is performed independently for the three coordinates $r^2$, $z$, and $\phi$, each time using two neighbors in the appropriate direction. Letting $s$ denote any of the three coordinates, with $s_1$ being the value of $s$ at the $\chi^2$-minimizing grid point, and $s_2$ and $s_3$ being those of the neighbors, the value of $s$ at the interpolated minimum is
+\begin{equation*}
+  s_{\mathrm{min}} = \frac{(s_1^2 - s_2^2)(\chi_3^2 - \chi_1^2) - (s_1^2 - s_3^2)(\chi_2^2 - \chi_1^2)}{2(s_1 - s_2)(\chi_3^2 - \chi_1^2) - 2(s_1 - s_3)(\chi_2^2 - \chi_1^2)}.
+\end{equation*}
+Calculated in this manner, $r_{\mathrm{min}}$, $z_{\mathrm{min}}$, and $\phi_{\mathrm{min}}$ give the final AdSimple reconstructed vertex. This vertex provides a significantly improved resolution compared to the MCC-COC vertex, of $\sim$7~cm in $r$ and $\sim$9~cm in $z$, compared to 11.5 and 17~cm, respectively, for the MCC-COC. There are also no significant biases within the OAV region; although some high-frequency ``wiggles'' remain (as a consequence of the finite grid spacing), these are insignificant in the context of performing physics analysis, as shown, for instance, by the consistency of physics results between AdSimple and AdScaled (which lacks such structures).
 
 \end{document}
