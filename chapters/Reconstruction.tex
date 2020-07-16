@@ -19,13 +19,13 @@ location of the vertex. This is the purpose of \emph{reconstruction.}
 Reconstruction begins with the calculation of the total observed charge
 (i.e. photoelectron count) by summing hits across all channels, with a
 correction for the presence of any inactive channels. This \emph{nominal charge}
-is then converted into \emph{visible energy}, in MeV, according to an energy
-scale determined using regular (weekly or more) calibrations. At the same time,
-the distribution of charge across PMTs is used to estimate the location within
-the AD of the event. The position is then used to apply a \emph{nonuniformity}
-adjustment to the visible energy, to correct for the position-dependent response
-of the detector. This gives the \emph{reconstructed energy}, which is used in
-most subsequent analysis stages.
+is then converted into \emph{raw energy}, in MeV, according to an energy scale
+determined using regular (weekly or more) calibrations. At the same time, the
+distribution of charge across PMTs is used to estimate the location within the
+AD of the event. The position is then used to apply a \emph{nonuniformity}
+adjustment to the raw energy, to correct for the position-dependent response of
+the detector. This gives the \emph{reconstructed energy}, which is used in most
+subsequent analysis stages.
 
 The reconstructed energy should not be regarded as a best estimate of the true
 energy deposited by the event, given the complexities involved in the
@@ -136,7 +136,7 @@ take the calibrated charge of the earliest hit in the window of [-1650,
 -1250]~ns pre-trigger. Sum these up, and then apply a correction of $192/N$,
 where $N$ is the number of active channels. In subsequent stages of the energy
 reconstruction, the nominal charge (in PE) is scaled by a time-dependent energy
-scale to give the \emph{visible energy} (in MeV), then adjusted by a time- and
+scale to give the \emph{raw energy} (in MeV), then adjusted by a time- and
 position-dependent nonuniformity correction to give the \emph{reconstructed
   energy} and, finally, at the highest levels of analysis, adjusted again to
 correct for electronics nonlinearity, scintillator nonlinearity, and IBD
@@ -152,8 +152,8 @@ the purpose of physics analysis, we would prefer to speak of the energy (in,
 e.g., MeV) deposited in the scintillator, rather than the amount of light
 observed. Accordingly object of the energy scale calibration is to fix the
 definition of a ``visible'' MeV, and to ensure that any given event will yield
-the same visible energy in every AD, regardless of changes over time in the
-behavior of the scintillator.
+the same reconstructed energy in every AD, regardless of changes over time in
+the behavior of the scintillator.
 
 Given that the response of the ADs (i.e. the nominal charge) depends on the type
 of interaction and is nonlinear with respect to the deposited energy, the energy
@@ -286,9 +286,9 @@ the AdSimple reconstruction.
 \label{sec:reconEnergyNU}
 
 Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible
-  energy} $\Evis$ is simply $Q/S$. Given that the light collection efficiency
+  energy} $\Eraw$ is simply $Q/S$. Given that the light collection efficiency
 differs as a function of position within the AD, the effective energy resolution
-would be degraded if $\Evis$ were directly used in physics
+would be degraded if $\Eraw$ were directly used in physics
 analysis. Fortunately, this nonuniformity can be measured and corrected for. In
 the case of AdSimple, the current nonuniformity map was produced from three
 years of data by dividing the AD into pixels (in $R^2$ and $Z$) and selecting
@@ -324,25 +324,179 @@ analysis.
 
 Although $\Erec$ provides a reliable, repeatable, position- and time-independent
 proxy for the energy of an interaction, it is \emph{not} simply linearly
-proportional to the actual deposited energy. By construction, $\Erec$ will
-report the correct deposited energy for the $\sim$8~MeV gamma peak produced by
-nGd capture. However, due to differences in scintillator response to positrons
-versus gammas, $\Erec$ will report a different value for a positron that
-deposits 8~MeV. Furthermore, even when considering a single type of particle,
-the response of the scintillator varies by some 10\% across the range of
-energies used in the analysis (0.7--12~MeV). The purpose of the nonlinearity
-correction is to compensate for these effects, yielding the actual deposited
-energy $\Edep$ (assuming a positron event), which can then be trivially
-converted to the true neutrino energy, $\Enu$, via the relation $\Enu \sim \Edep
-+ \SI{0.8}{MeV}$. \footnote{The nonlinearity correction is not actually
-  performed during reconstruction. Instead, the correction is applied by the
-  fitter (\autoref{chap:fitting}), which takes AdSimple's $\Erec$ and converts
-  it into $\Enu$. However, as this is merely an implementation detail, we
-  discuss the conversion in this chapter, along with the other preceding steps
-  of the energy reconstruction.}
+proportional to the actual deposited energy. By construction, AdSimple's $\Erec$
+will report the correct deposited energy for the $\sim$8~MeV gamma peak produced
+by nGd capture. However, due to differences in scintillator response to
+positrons versus gammas, $\Erec$ will report a different value for a
+\emph{positron} that deposits 8~MeV. Furthermore, even when considering a single
+type of particle, the combined response of the scintillator and the electronics
+varies by some 10\% across the range of energies used in the analysis
+(0.7--12~MeV). If this nonlinearity is not corrected for, then the resulting
+distortion in the IBD positron spectrum will potentially bias the extraction of
+$\Dmsqee$. The purpose of the nonlinearity correction is thus to compensate for
+the scintillator and electronics nonlinearity\footnote{The nonlinearity
+  correction is not actually performed during reconstruction. Instead, the
+  correction is applied by the fitter (\autoref{chap:fitting}), which takes
+  AdSimple's $\Erec$ and converts it into $\Enu$. However, as this is merely an
+  implementation detail, we discuss the conversion in this chapter, along with
+  the other preceding steps of the energy reconstruction.}, yielding the
+``true'' deposited energy $\Etrue$ (assuming a positron event\footnote{Given
+  that, for the purpose of oscillation physics, the IBD positron spectrum is the
+  only one whose shape carries any significance, there is no need in this
+  analysis to apply separate corrections for purported gamma, electron, or alpha
+  events. Indeed, the delayed (i.e. nGd gamma) spectrum does not undergo any
+  nonlinearity correction here.}), which can then be trivially converted to the
+true neutrino energy, $\Enu$, via the relation
+\begin{equation*}
+  \Enu \sim \Etrue + \SI{0.80}{MeV} 
+\end{equation*}
+which arises from the kinematics of the reaction: $\Etrue \sim \Enu - (m_n -
+m_p) - m_e + 2m_e = \Enu - (m_n - m_p) + m_e$; that is, 1.29~MeV is ``lost'' due
+to the neutron/proton mass difference, a further 0.511~MeV is ``lost'' to create
+the positron, and then 1.022~MeV is ``gained'' from electron-positron
+annihilation. Here we ignore the kinetic energy of the outgoing neutron, which
+induces a negligible shift and spread on $\Etrue$ on the order of a few
+keV. Note that, in what follows, the phrase ``positron energy'' refers not to
+the positron kinetic energy, nor to to the relativistic (i.e. mass + kinetic)
+energy, but rather to the total \emph{deposited} energy (including annihilation
+gammas); that is, ``positron energy'' = $\Etrue = E_{\mathrm{kin}} + 2m_e =
+E_{\mathrm{rel}} + m_e$. Henceforth, $\Etrue$ will refer to the true energy of
+positrons, unless a different particle is indicated in the subscript.
 
-The two primary sources of nonlinearity are \emph{Birk's law} and \emph{Cerenkov
-  radiation}.
+As was mentioned, the nonlinearity of the AD response can be divided into
+contributions from the scintillator and from the electronics. Both effects are
+on the scale of 10\%, and work in opposite directions: The scintillator response
+is suppressed for low-energy events, while the electronics show a reduced
+response for high-energy events. Nevertheless, they do not cancel each other
+very effectively, so each must be treated separately and carefully. We begin
+with the scintillator. In what follows, we define $\Evis$ to be (proportional
+to) the amount of light produced in the scintillator. In terms of physical
+processes, the (particle and energy-dependent) scintillator nonlinearity
+determines $\Evis$ from $\Etrue$, and then the (charge-dependent) electronics
+nonlinearity determines $\Erec$ from $\Evis$. In analysis, this logic is
+reversed in order to determine $\Etrue$ given $\Erec$\footnote{Recall that any
+  effects from geometric nonuniformity have already been removed in the
+  computation of $\Erec$.}.
+
+Within the scintillator, there are two primary sources of nonlinearity:
+\emph{quenching} (i.e. Birks' law) and \emph{Cerenkov radiation}. Quenching
+occurs when the local ionization density is high, allowing fluorescent excited
+molecules to be ``quenched'' by excited neighbors, preventing light
+emission. Ionization density is highest when a particle is moving slowly
+(especially when it is near the end of its range), so, for a low-energy
+particle, a greater fraction of light will be quenched in comparison to a
+higher-energy particle, leading to nonlinear light emission as a function of
+energy. For organic scintillators such as the Daya Bay LS, this behavior is
+quantitatively well described by \emph{Birks' law},
+\begin{equation}
+  \frac{dQ}{dx} \propto \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}
+  \label{eq:reconBirks}
+\end{equation}
+where $Q$ is the emitted light, $dE/dx$ is the linear density of
+\emph{ionization} energy deposition, and the scintillator-specific value $k_B$
+is known as Birks' constant.
+
+If the $dE/dx$ profile is known across a particle's range, then it can be used
+to integrate \eqref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach
+(XXX refer to nonlinearity paper?) was used to compute the shape of the
+quenching curve for electrons in the Daya Bay LS. This relationship was encoded
+in a function denoted $f_q(\Etrue, k_B)$, where $k_B$ remained to be determined
+from data.
+
+Meanwhile, Cerenkov radiation is the optical equivalent of a supersonic shock
+wave, produced when a particle moves faster than the phase velocity of light in
+a medium. Although Cerenkov emission is the sole source of light in the Daya Bay
+water pools, it plays a subpercent role in the ADs. The energy dependence of
+Cerenkov emission was determined from Geant4 simulations (and independently
+confirmed by an analytic calculation), giving the function $f_c(\Etrue)$, which
+was arbitrarily assigned a ($k_B$-dependent) normalization such that
+$f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$.
+
+Altogether, the combined effects on electrons of quenching and Cerenkov emission
+are therfore described by the relation
+\begin{equation}
+  \label{eq:reconScintNonlin}
+  \frac{E_{\mathrm{vis}}}{E_{\mathrm{true},e^-}} = \beta_{\mathrm{vis}}[f_q(\Etrue, k_B) + k_c f_c(\Etrue)].
+\end{equation}
+Here, we introduce the constant $k_c$, which describes the ratio of Cerenkov
+emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary normalization,
+which can be regarded as folded into the calibrated energy scale constant. The
+parameters $k_B$ and $k_c$ are determined from data, as will be described
+shortly.
+
+Thus far we have only discussed the response of the scintillator to
+electrons. The end goal, however, is to characterize the response to positrons,
+since that is what will allow the measurement of the neutrino spectrum. Before
+the positron annihilates, it effectively ionizes the medium in the same manner
+as an electron would. Following ionization, we measure the response of the
+scintillator to two 511~keV gammas. Accordingly,
+\begin{equation}
+  \label{eq:reconScintPositron}
+  E_{\mathrm{vis},e^+}(E_{\mathrm{kin}}) = E_{\mathrm{vis},e^-}(E_{\mathrm{kin}}) + 2 \times E_{\mathrm{vis},\gamma}(\SI{0.511}{MeV}).
+\end{equation}
+
+Gammas, in turn, do not themselves ionize, but they do produce and scatter
+electrons and positrons. The total response to gammas is, accordingly, rather
+complex, given the need to account for annihilation and pair production \emph{ad
+  nauseam}. As such, Geant4 simulation were used to determine the response of
+the scintillator to gammas, as a function of $k_B$ and $k_C$. The (ionization)
+energy deposited by each simulated electron and positron was converted into
+visible energy according to \eqref{eq:reconScintNonlin}, and the sum gave the
+visible energy from each gamma. With the response to gammas thus determined, it
+could be plugged into \eqref{eq:reconScintPositron} to give the response to
+positrons.
+
+In addition to the nonlinear light \emph{emission} of the scintillator, there is
+also nonlinear light \emph{measurement} caused by the design of the
+electronics. As was described in \autoref{sec:reconHitSelection}, the charge
+(i.e. light) in each channel is determined by taking the \emph{first} hit within
+the nominal time window. And as was described in \autoref{sec:calibHitCharge},
+the first hit will tend to accurately measure the light observed by the PMT,
+\emph{provided that all of the photons arrived within 100~ns of each other.}
+However, some 5\% of the light is ``slow'' and will arrive too late to be
+captured by the hit that corresponds to the fast/medium light. Thus, high-energy
+events, in which every channel ``sees'' some fast/medium light, will fail to
+record any of the slow light. Conversely, in a lower-energy event, some of the
+slow light \emph{will} be recorded, since there is not enough fast/medium light
+to hit every channel. This means that the electronics response is slightly
+suppressed for high-energy events and slightly enhanced for low-energy ones.
+
+Based on a combination of measurements and simulations, this behavior was found
+to be adequately described by the relation
+\begin{equation*}
+  \frac{\Erec}{\Evis} = \beta_{\mathrm{rec}}\left[ 1 + \alpha \left( - \frac{\Evis}{\tau} \right) \right],
+\end{equation*}
+where $\alpha$ and $\tau$ are, like $k_B$ and $k_c$, constrained by
+measurements, and $\beta_{\mathrm{rec}}$ is, like $\beta_{\mathrm{vis}}$, merely
+an arbitrary normalization. The product
+$\beta_{\mathrm{vis}}\beta_{\mathrm{rec}}$, by convention, is chosen to ensure
+that $\Erec = \Etrue$ at 8~MeV.
+
+In order to determine the four parameters $k_B$, $k_c$, $\alpha$, and $\tau$ of
+the nonlinearity model, a fit was performed to a dataset consisting of the peaks
+from twelve gamma lines (both deployed and natural) as well as the electron
+spectrum from cosmogenic $^{12}$B decays, as shown in Figs XXX and XXX. The
+measured values of $\Erec$ were compared to those predicted by simulation (for a
+given set of the parameters), and the best-fit parameters were determined as
+those that minimized the $\chi^2$ between measurement and prediction. As no
+significant differences in nonlinearity were observed between ADs, a single
+nonlinearity model is used for all eight. The best-fit parameters were found to
+be $k_B = 15 \times 10^{-3}\;\mathrm{cm\, MeV^{-1}}$, $k_c = 0.5\%$, $\alpha =
+0.078$, and $\tau = \SI{2.55}{MeV}$. However, these values depend on the assumed
+shapes $f_q$ and $f_q$, which in turn depend on the configuration of
+Geant4. Accordingly, our analysis does not make direct use of these four
+parameters; instead we directly use the digitized nonlinearity curve that they
+determine, as shown in Fig XXX, which includes a 1$\sigma$ uncertainty band on
+the scale of 1\%.
+
+The scintillator nonlinearity was cross-checked using the 53~MeV Michel electron
+endpoint from muon decay as well as the $\beta+\gamma$ spectra from bismuth and
+thallium decays, while the electronics nonlinearity was validated using data
+from a fast ADC system that directly recorded the PMT waveforms in one
+AD. Further validation involved verifying that the best-fit model remained
+stable under removal of any single calibration point. The results of these
+studies were consistent with the 1\% 1$\sigma$ uncertainty band (derived from
+the $\chi^2$ fit) of the nonlinearity model.
 
 \section{Vertex reconstruction}
 \label{sec:reconVertex}
