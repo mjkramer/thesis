@@ -5,4 +5,42 @@
 \chapter{Event selection}
 \label{chap:selection}
 
+From the sequence of reconstructed triggers in the ADs, we are primarily interested in extracting IBD candidates, in order to obtain the antineutrino rate and spectrum. The tight time correlation of the prompt and delayed triggers, as well as the relatively high 8~MeV energy of the nGd capture peak, enable the extraction of a $\sim$98\% pure sample of IBDs, from which the independently estimated backgrounds can then be subtracted.
+
+Aside from the IBD selection, this analysis also employs an extraction of \emph{singles,} that is, those events that produce only a single trigger, uncorrelated in time with any others. The purpose of the singles sample is to enable determination, firstly, the rate and spectrum of backgrounds produced by accidental coincidences, and secondly, the efficiency of the multiplicity cut (discussed in \autoref{sec:pairSel}).
+
+Both selections are implemented using a two-stage approach. In the first stage, the \emph{pre-selection,} the reconstructed Daya Bay DAQ files are scanned, unimportant events are ignored, and of the remaining events, only the minimum required data fields are stored in the output. This process reduces $\sim$600,000 reconstructed DAQ files (each representing $\sim$10 minutes), totaling some 600~TB, down to about 5,500 files (each representing one hall $\times$ day), totaling one terabyte. In the second stage, the \emph{final selection,} the full set of selection criteria are applied to the pre-selected data, producing samples of IBDs and singles for use in the oscillation fit. This two-stage approach significantly reduces the amount of time needed to generate new IBD/singles samples after modifying the selection criteria, since the pre-selection does not need to be re-run. When the NERSC cluster is not under severe disk I/O load, the two-stage approach provides a speed improvement of 3 to 4; during disk overload, the improvement can be even greater.
+
+\section{IBD selection}
+\label{sec:selIBDs}
+
+We begin by discussing the IBD selection. The singles selection proceeds similarly, with minor differences in the final steps, as discussed in \autoref{sec:selSingles}.
+
+\subsection{Pre-selection}
+\label{sec:selPreSel}
+
+\subsubsection{Input data}
+\label{sec:selInputData}
+
+\subsubsection{Trigger type restriction}
+\label{sec:selTrigType}
+
+\subsubsection{Pre-muon selection}
+\label{sec:selPreMuons}
+
+\subsubsection{Flasher removal}
+\label{sec:selFlashers}
+
+\subsection{Final selection}
+\label{sec:selFinalSel}
+
+\subsubsection{Muon veto}
+\label{sec:selMuonVeto}
+
+\subsubsection{Pair selection}
+\label{sec:pairSel}
+
+\section{Singles selection}
+\label{sec:selSingles}
+
 \end{document}
