@@ -17,7 +17,7 @@ During detector commissioning, some PMTs were found to occasionally emit light d
 Fortunately, flashers are easily distinguished from ``true'' singles due to a very characteristic pattern of light emission. When a PMT emits light, that same PMT will naturally see a large portion of the total charge. Furthermore, the radial magnetic shield around each PMT collimates the light into a narrow cone which primarily illuminates the PMTs directly across from the emitter.
 
 \section{Accidental coincidences}
-\label{chap:accbkg}
+\label{sec:accbkg}
 
 As previously stated, the accidental background can be straightforwardly measured based on the characteristics of singles events. The singles spectrum is first measured by searching for prompt-like events that satisfy the usual muon vetos but are separated from other prompt-like events by at least 400~$\mu$s. The total integral of this spectrum gives the prompt-like rate $R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The accidental background rate is then simply
 \[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the factor in parentheses is the probability for a prompt-like single to fall within the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final factor is the probability that the event is \emph{not} rejected by the decoupled multiplicity cut, which disallows any additional prompt-like single in the 400~$\mu$s preceding the delayed event. Once the rate has been determined this way, the spectrum is trivial: It is simply the singles spectrum itself.
@@ -27,6 +27,7 @@ As previously stated, the accidental background can be straightforwardly measure
 \end{comment}
 
 \section{Cosmogenic $^9$Li/$^8$He}
+\label{sec:bkgCosmo}
 
 \newcommand\linine{$^9$Li}
 

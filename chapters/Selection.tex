@@ -44,18 +44,37 @@ Among the remaining non-pre-muon events, some are \emph{flashers,} instrumental 
 \subsubsection{Saving and merging}
 \label{sec:selMergingOne}
 
-Finally, the non-pre-muon, non-flasher triggers are saved in their own tree (one for each AD), separate from the pre-muon tree. For each event, the run number, file number, trigger time, trigger number, and energy are saved.
+Finally, the non-pre-muon, non-flasher triggers are saved in their own tree (one for each AD), separate from the pre-muon tree. For each event, the run number, file number, trigger time, trigger number, and energy are saved. A minimum reconstructed energy of 0.7~MeV (the threshold for prompt-like triggers) is applied here to further reduce the data volume, since lower-energy events are not considered in this analysis.
 
 The pre-selection files are initially produced in one-to-one correspondence with the reconstructed DAQ files, resulting in $\sim$600,000 small files. To reduce the file count and improve IO performance, these files are merged (using ROOT's \texttt{hadd}) into files that each represent one calendar day in one hall, a total of $\sim$5,500 files. Finally, these daily files are pre-loaded into an SSD \emph{burst buffer} at NERSC, to ensure that the performance of the final selection will be minimally impacted by disk load conditions at the facility.
 
 \subsection{Final selection}
 \label{sec:selFinalSel}
 
+The specific thresholds for the cuts described in this section are \emph{nominal}; they are defined somewhat arbitrarily based on qualitative observations and notions of reasonableness, intended to give a satisfactory ratio of signal to background. Later, in \autoref{chap:cutOptim}, we study the effects of varying these cuts, with the aim of jointly optimizing both the uncertainty on the oscillation parameters as well as the stability of the fit with respect to variations in the cuts. Doing so will eliminate the arbitrariness inherent in the cuts described here.
+
 \subsubsection{Muon veto}
 \label{sec:selMuonVeto}
 
+When a muon passes through or near the AD, it can produce triggers in the aftermath. These can include instrumentally-induced triggers (caused by PMT afterpulsing and electronics ringing in the 20~\us following the muon), as well as physical events. The physical events can include spallation neutrons, whose thermalization and subsequent capture can mimic an IBD, isotopes such as $^9$Li, and $^8$He, which produce neutrons when they decay, and various uncorrelated decays that can form accidental IBD-like pairs.
+
+For this reason, it is essential to veto the time period immediately following a muon. Although the mean neutron capture time in the GdLS is only 28~\us, neutrons can be produced outside the GdLS and slowly diffuse into it, necessitating a significantly longer veto window. In the case of WP muons, a veto time of 600~\us was shown to effectively remove all such neutrons. Only relatively energetic, i.e., fast, neutrons would have the ability to reach the GdLS; slow diffusion, meanwhile, is not a significant possibility for WP muons. Meanwhile, for AD muons, neutrons \emph{can} diffuse slowly from the LS or mineral oil, leading to the requirement of a veto window closer to a millisecond. The nominal window for this case is 1.4~ms, a factor of $\sim$7 larger than the mean neutron capture time (mainly on hydrogen) in the LS region. AD muons are (XXX) nominally defined as those triggers having an energy of at least 20~MeV.
+
+Muons that deposit an especially high amount of energy in the AD are termed \emph{shower} muons. Compared to lower-energy (i.e., minimum ionizing) muons, shower muons have a much higher probability of producing the two cosmogenic isotopes $^9$Li and $^8$Be, discussed further in \autoref{sec:bkgCosmo}. These isotopes undergo beta decay, producing a prompt-like trigger, and then break up to produce neutrons which are captured, producing a delayed-like trigger. Given that the lifetime of these isotopes is of order 100~ms, the ordinary AD muon veto of around one millisecond would fail to significantly reduce these backgrounds. Accordingly, a much longer veto window, on the order of one second, is needed after a shower muon. The nominal window here is 1~s, with shower muons defined as having an energy of at least 2~GeV. At this threshold energy, the rate of $^9$Li/$^8$He production is low enough to avoid backgrounds from sub-threshold muons, while the rate of such muons themselves is also low enough to avoid too large of a loss in effective detector livetime. These qualititative statements will be made quantitative in \autoref{chap:cutOptim}, where optimal thresholds and windows will be determined.
+
+An additional veto window is applied, spanning 2~\us \emph{before} each muon, common to WP, AD, and shower muons. Given that trigger latencies can vary, it is possible for a WP muon trigger to receive a trigger timestamp that comes \emph{after} the timestamps for muon-induced events in the AD. The 2~\us pre-veto eliminates this possibility. There is no particular need to veto the 2~\us preceding an \emph{AD} muon, but the original LBNL IBD selection did so anyway, and we honor its legacy by following suit.
+
+During application of the muon veto, the total amount of vetoed time is tracked, accounting for overlaps. This value is used in order to calculate the muon veto efficiency, determined (on a daily basis) simply as the ratio of unvetoed DAQ livetime to total DAQ livetime. It should be noted that the muon veto is only applied to the \emph{delayed} trigger of a coincidence pair, and this is what enables the efficiency to be calculated so simply. Otherwise, we would require a complex calculation involving the prompt-delayed time distribution and the muon rate. Given (as described below) that the maximum time difference between the prompt and delayed event is 200~\us, it is possible for the prompt trigger to lie 200~\us before the end of the veto window. The windows are thus made large enough to ensure that this time period is free of muon-correlated activity.
+
 \subsubsection{Pair selection}
 \label{sec:pairSel}
+
+A potential IBD candidate may be lurking whenever there is a non-vetoed delayed-like trigger (i.e., one lying between 6 and 12~MeV). Specifically, the following conditions (known as the \emph{decoupled}\footnote{The meaning here of ``decoupled'' is explained further in \autoref{chap:accDMC}.} \emph{multiplicity cut}, or DMC) determine the existence of an IBD candidate:
+
+\begin{enumerate}
+\item There is a prompt-like (i.e. 0.7--12~MeV) trigger between 1 and 200~\us before the delayed-like trigger
+\item There are no other triggers of more than 0.7~MeV
+\end{enumerate}
 
 \subsubsection{Merging}
 \label{sec:selMergingTwo}
