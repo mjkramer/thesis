@@ -419,10 +419,9 @@ are therfore described by the relation
   \frac{E_{\mathrm{vis}}}{E_{\mathrm{true},e^-}} = \beta_{\mathrm{vis}}[f_q(\Etrue, k_B) + k_c f_c(\Etrue)].
 \end{equation}
 Here, we introduce the constant $k_c$, which describes the ratio of Cerenkov
-emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary normalization,
-which can be regarded as folded into the calibrated energy scale constant. The
-parameters $k_B$ and $k_c$ are determined from data, as will be described
-shortly.
+emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary
+normalization. The parameters $k_B$ and $k_c$ are determined from data, as will
+be described shortly.
 
 Thus far we have only discussed the response of the scintillator to
 electrons. The end goal, however, is to characterize the response to positrons,
@@ -439,7 +438,7 @@ Gammas, in turn, do not themselves ionize, but they do produce and scatter
 electrons and positrons. The total response to gammas is, accordingly, rather
 complex, given the need to account for annihilation and pair production \emph{ad
   nauseam}. As such, Geant4 simulation were used to determine the response of
-the scintillator to gammas, as a function of $k_B$ and $k_C$. The (ionization)
+the scintillator to gammas, as a function of $k_B$ and $k_c$. The (ionization)
 energy deposited by each simulated electron and positron was converted into
 visible energy according to \eqref{eq:reconScintNonlin}, and the sum gave the
 visible energy from each gamma. With the response to gammas thus determined, it
@@ -470,7 +469,7 @@ where $\alpha$ and $\tau$ are, like $k_B$ and $k_c$, constrained by
 measurements, and $\beta_{\mathrm{rec}}$ is, like $\beta_{\mathrm{vis}}$, merely
 an arbitrary normalization. The product
 $\beta_{\mathrm{vis}}\beta_{\mathrm{rec}}$, by convention, is chosen to ensure
-that $\Erec = \Etrue$ at 8~MeV.
+that $\Erec = \Etrue$ for 8~MeV electrons.
 
 In order to determine the four parameters $k_B$, $k_c$, $\alpha$, and $\tau$ of
 the nonlinearity model, a fit was performed to a dataset consisting of the peaks
@@ -605,5 +604,14 @@ OAV region; although some high-frequency ``wiggles'' remain (as a consequence of
 the finite grid spacing), these are insignificant in the context of performing
 physics analysis, as shown, for instance, by the consistency of physics results
 between AdSimple and AdScaled (which lacks such structures).
+
+Note that the reconstructed vertex is not directly used in selecting IBD
+candidates in this analysis. However, it is still used indirectly in calculating
+the reconstructed energy. In addition, some studies of background rates and
+spectra also depended on the reconstructed vertex. Finally, there is an
+indpendent oscillation analysis (not covered in this thesis), based on selecting
+IBDs where the neutron is captured on hydrogen, and this one typically relies on
+the use of the prompt-delayed distance in order to reduce the background of
+accidental coincidences.
 
 \end{document}
