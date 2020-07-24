@@ -72,14 +72,23 @@ During application of the muon veto, the total amount of vetoed time is tracked,
 A potential IBD candidate may be lurking whenever there is a non-vetoed delayed-like trigger (i.e., one lying between 6 and 12~MeV). Specifically, the following conditions (known as the \emph{decoupled}\footnote{The meaning here of ``decoupled'' is explained further in \autoref{chap:accDMC}.} \emph{multiplicity cut}, or DMC) determine the existence of an IBD candidate:
 
 \begin{enumerate}
-\item There is a prompt-like (i.e. 0.7--12~MeV) trigger between 1 and 200~\us before the delayed-like trigger
-\item There are no other triggers of more than 0.7~MeV
+\item There is a prompt-like (i.e. 0.7--12~MeV) trigger between 1 and 200~\us before this delayed-like trigger
+\item There are no other triggers of more than 0.7~MeV between 1 and 400~\us before this delayed-like trigger.\footnote{Originally, this condition was framed in terms of \emph{prompt-like}, rather than $>$0.7~MeV triggers, but the permitted ``extra'' events above 12~MeV (i.e. low-energy muons) were found to be correlated with backgrounds consisting of pairs of neutron captures. The modified condition eliminates this background.}
+\item There are no delayed-like triggers within 200~\us after this one.
 \end{enumerate}
 
-\subsubsection{Merging}
+The purpose of the latter two conditions is to avoid the ambiguity that can arise, for instance, in the contrived example of three 7~MeV events spaced 100~\us apart. Here there are three possible ways to form a pair. There are other possible ways to define cuts that would avoid this ambiguity, for instance, by defining ``empty'' windows relative to the prompt trigger, but the DMC allows for a simple calculation of the efficiency as well as an avoidance of correlations with the muon veto efficiency, as described in \autoref{chap:accDMC}.
+
+IBD candidates that pass the DMC are stored in an output tree containing the run and file number, the prompt-delayed time difference, and the IDs and energies of the two triggers.
+
+\subsubsection{Merging and post-processing}
 \label{sec:selMergingTwo}
+
+After the $\sim$5,500 hall-daily files have been fully produced, they are merged with \texttt{hadd} into nine files, the product of three halls and three periods (the 6AD, 8AD, and 7AD periods, whose names reference the number of operating ADs). The splitting into periods is done for convenience is preparing the input files required by the fitter, which expects separate files for each period. The fitter's input files, which consist of the IBD spectra, the accidentals spectra, and textual tables of rates, efficiencies, backgrounds, uncertainties, etc., are prepared by a simple script from these nine hall-period files.
 
 \section{Singles selection}
 \label{sec:selSingles}
+
+The singles selection proceeds in a similar manner to the IBD selection, except that pairs are no longer being selected. Instead, when a non-muon trigger of at least 0.7~MeV is found, an \emph{isolation cut} is applied, eliminating those events for which another 0.7~MeV trigger lies within specified windows before and after the ``singles candidate''. As implemented, the windows used are 400~\us before the trigger and 200~\us after, chosen to resemble the DMC as closely as possible. In principle, the exact sizes of these windows should not matter (provided they are wide enough to eliminate correlated multiplets), as the efficiency of the isolation cut is corrected for in calculating the DMC efficiency and accidental background rate. In practice, due to correlated low-energy processes such as alpha-alpha cascades, the singles sample does not fully consists of ``true'' singles, so the choice of DMC-like time windows is a naive attempt to minimize any resulting biases. Ultimately, the uncertainty of the accidental background rate is inflated beyond the statistical uncertainty in order to account for this problem.
 
 \end{document}
