@@ -9,7 +9,7 @@ From the sequence of reconstructed triggers in the ADs, we are primarily interes
 
 Aside from the IBD selection, this analysis also employs an extraction of \emph{singles,} that is, those events that produce only a single trigger, uncorrelated in time with any others. The purpose of the singles sample is to enable determination, firstly, the rate and spectrum of backgrounds produced by accidental coincidences, and secondly, the efficiency of the multiplicity cut (discussed in \autoref{sec:pairSel}).
 
-Both selections are implemented using a two-stage approach. In the first stage, the \emph{pre-selection,} the reconstructed Daya Bay DAQ files are scanned, unimportant events are ignored, and of the remaining events, only the minimum required data fields are stored in the output. This process reduces $\sim$600,000 reconstructed DAQ files (each representing $\sim$10 minutes), totaling some 600~TB, down to about 5,500 files (each representing one hall $\times$ day), totaling one terabyte. In the second stage, the \emph{final selection,} the full set of selection criteria are applied to the pre-selected data, producing samples of IBDs and singles for use in the oscillation fit. This two-stage approach significantly reduces the amount of time needed to generate new IBD/singles samples after modifying the selection criteria, since the pre-selection does not need to be re-run. When the NERSC cluster is not under severe disk I/O load, the two-stage approach provides a speed improvement of 3 to 4; during disk overload, the improvement can be even greater.
+Both selections are implemented using a two-stage approach. In the first stage, the \emph{pre-selection,} the reconstructed Daya Bay DAQ files are scanned, unimportant events are ignored, and of the remaining events, only the minimum required data fields are stored in the output. This process reduces $\sim$600,000 reconstructed DAQ files (each representing $\sim$10 minutes), totaling some 600~TB, down to about 5,500 files (each representing one hall $\times$ day), totaling one terabyte. In the second stage, the \emph{final selection,} the full set of selection criteria are applied to the pre-selected data, producing samples of IBDs and singles for use in the oscillation fit. This two-stage approach significantly reduces the amount of time needed to generate new IBD/singles samples after modifying the selection criteria, since the pre-selection does not need to be re-run. When the NERSC cluster is not under severe disk I/O load, the two-stage approach provides a speed improvement of 3 to 4; during disk overload, the improvement can be greater still.
 
 \section{IBD selection}
 \label{sec:selIBDs}
@@ -22,14 +22,31 @@ We begin by discussing the IBD selection. The singles selection proceeds similar
 \subsubsection{Input data}
 \label{sec:selInputData}
 
+The processed (i.e. calibrated and reconstructed) Daya Bay DAQ files (in ROOT format) serve as the input to the pre-selection. Although these files contain basic taggings of muon-like events and coincidence clusters, this information is not used here; our event selection is a completely independent implementation.
+
+Two ROOT TTrees are read in parallel: the \texttt{AdSimple} tree, which contains the reconstructed energy, and the \texttt{CalibStats} tree, which contains the nominal charge (used, in some cases, for pre-muon identification), the number of hit PMTs (used for identifying pre-muons in the water pool), and various quantities that are used for removing instrumental backgrounds. Both trees are of the same length, with one entry per trigger, including triggers in the water pools and RPCs (for which AD-specific quantities are left blank). Being the same length, the two trees can be ``friended'' together (in ROOT parlance) and scanned as one. Other fields loaded from this combined tree are the detector ID, the trigger type, the trigger ID, and the trigger time.
+
 \subsubsection{Trigger type restriction}
 \label{sec:selTrigType}
+
+The very first criterion applied in the pre-selection is a restriction on the type of triggers saved. In particular, six types of triggers are excluded: manual triggers, cross triggers (issued when a trigger occurs in a different detector subsystem), periodic and random triggers (used for subthreshold and noise measurements), pedestal triggers (used in special runs to measure the ADC pedestals), and calibration triggers (issued, for instance, when a calibration LED is pulsed). The remaining events consist solely of \texttt{NHit} and \texttt{ESum} triggers, issued (respectively) when the number of hit channels or the total measured charge, within the previous $\sim\mu$ s, is above a configured threshold. The NHit threshold is 45, while the ESum threshold (in units roughly, but not exactly, analogous to the nominal charge) is 100, 107, and 130 in EH1, EH2, and EH3. These thresholds were determined during commissioning in order to ensure perfect trigger efficiency at the IBD prompt energy threshold of 0.7~MeV, without overwhelming the trigger rate.
 
 \subsubsection{Pre-muon selection}
 \label{sec:selPreMuons}
 
+After removing unwanted trigger types, the next step in the pre-selection is to extract muon-like events to an output tree of \emph{pre-muons.} The actual definition of a muon (for the purpose of applying the muon veto) is applied in stage two; the pre-muon criteria are thus designed to be loose enough to encompass any final muon definition. An event in the water pool is considered a pre-muon if the number of hit PMTs is more than 12, and an AD pre-muon is defined as having a reconstructed energy of more than 20~MeV (XXX).\footnote{In previous versions of the pre-selection, AD pre-muons were defined in terms of nominal charge rather than energy, with a cut at 3,000 p.e. This was done for the sake of consistency with the original LBNL IBD selection, which defined muons in terms of charge rather than energy. However, the uniform use of energy simplifies matters somewhat, so this departure was made from the original selection.} Each pre-muon was stored with its trigger time and its \emph{strength}, either its energy (for AD triggers) or its hit multiplicity (for WP triggers).
+
 \subsubsection{Flasher removal}
 \label{sec:selFlashers}
+
+Among the remaining non-pre-muon events, some are \emph{flashers,} instrumental backgrounds produced by arcing within the base of the PMTs. The light from these arcs can illuminate the detector, resulting in a trigger. As detailed in \autoref{sec:bkgFlashers}, these events can be easily distinguished by their characteristic conical pattern of light emission. The three cuts described in \autoref{sec:bkgFlashers} (the \emph{ellipse,} \emph{PSD,} and \emph{2" PMT} cuts) are used to identify and remove flashers from the output.
+
+\subsubsection{Saving and merging}
+\label{sec:selMergingOne}
+
+Finally, the non-pre-muon, non-flasher triggers are saved in their own tree (one for each AD), separate from the pre-muon tree. For each event, the run number, file number, trigger time, trigger number, and energy are saved.
+
+The pre-selection files are initially produced in one-to-one correspondence with the reconstructed DAQ files, resulting in $\sim$600,000 small files. To reduce the file count and improve IO performance, these files are merged (using ROOT's \texttt{hadd}) into files that each represent one calendar day in one hall, a total of $\sim$5,500 files. Finally, these daily files are pre-loaded into an SSD \emph{burst buffer} at NERSC, to ensure that the performance of the final selection will be minimally impacted by disk load conditions at the facility.
 
 \subsection{Final selection}
 \label{sec:selFinalSel}
@@ -39,6 +56,9 @@ We begin by discussing the IBD selection. The singles selection proceeds similar
 
 \subsubsection{Pair selection}
 \label{sec:pairSel}
+
+\subsubsection{Merging}
+\label{sec:selMergingTwo}
 
 \section{Singles selection}
 \label{sec:selSingles}
