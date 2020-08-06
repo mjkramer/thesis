@@ -114,12 +114,17 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[https://arxiv.org/pdf/1812.06739.pdf][Future opportunities in accelerator-based neutrino physics]]
 - [[https://arxiv.org/pdf/1609.03268.pdf][Beta spectrum of unique first-forbidden decays as a novel test for fundamental symmetries]]
 ** DocDB references
-*** Backgrounds
+*** Backgrounds 
+**** Flashers
+- doc-7434 (Xin) - Summary (including bibliography)
+- doc-7537 (Xin) - Inefficiency
+- doc-7946 (Xin) - Inefficiency update
 **** Fast neutrons
 - http://dayabay.ihep.ac.cn/cgi-bin/DocDB/ShowDocument?docid=11787 (Baobiao, BeijingMtng2018)
 *** AdSimple
 - doc-7334 (center of charge; energy)
 - doc-7536 (templates)
+- email to Sam on 2020/8/4
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
