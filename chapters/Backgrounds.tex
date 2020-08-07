@@ -10,36 +10,143 @@ small contamination of backgrounds (at the percent level) is unavoidable. These
 backgrounds can be subdivided into \emph{correlated} and \emph{uncorrelated}
 backgrounds. The uncorrelated backgrounds consist entirely of accidental
 coincidences between singles events, and the rate and spectrum can be easily
-estimated from those of the singles. On the other hand, the correlated
+estimated from that of the singles. On the other hand, the correlated
 backgrounds are so named because the prompt and delayed pulses are correlated in
 time, as they both originate from a single underlying process. The correlated
 background in Daya Bay correspond to four distinct processes, and each one
-requires its own technique for measuring the rate and spectrum.
+requires its own technique for determining the rate and spectrum.
 
 In this chapter, we discuss the measurement of each of these backgrounds. Once
 they have been measured, their scaled prompt spectra can be subtracted from that
-of IBD candidates, allowing the oscillation fit to proceed with an
-uncontaminated prompt spectrum, albeit one with an additional uncertainty
-stemming from the imprecise nature of the background measurements.
+of IBD candidates, allowing the oscillation fit to proceed with more pure prompt
+spectrum, albeit one with an additional uncertainty stemming from the imprecise
+nature of the background measurements.
+
+Before considering these double-coincidence backgrounds, we begin by discussing
+a background defined at the level of \emph{individual} triggers, namely, the
+so-called ``flashing'' of PMTs. Reduction of these ``flashers'' is necessary in
+order to minimize the rate of the uncorrelated backgrounds.
 
 \section{PMT light emission (``flashers'')}
 \label{sec:bkgFlashers}
 
 During detector commissioning, some PMTs were found to occasionally emit light
-due to arcing in their bases. At any given time, a few percent of the PMTs will
-have the tendency to flash brightly enough to trigger the detector. These
-``flashers'' can produce as much as 100~MeV of visible energy. Within the
+due to arcing in their bases. At any given time, a dozen or two PMTs in each AD
+will have the tendency to flash brightly enough to trigger the detector. Some
+flashers can produce as much as 100~MeV of reconstructed energy. Within the
 delayed energy region of 6-12~MeV, the flasher rate has averaged at around
 0.7~Hz for each AD. These ``delayed-like'' flashers, if included in the
-analysis, would significantly increase the rate of accidental backgrounds (as
-the rate of non-flasher delayed-like singles ranges from around 0.05~Hz at EH3
-to 1~Hz at EH1.)
+analysis, would significantly increase the rate of backgrounds caused by the
+accidental coincidence of two uncorrelated signals. As discussed in
+\autoref{sec:accbkg} and \autoref{chap:accDMC}, the rate of such ``accidentals''
+is proportional to the rate of delayed-like signals, and this rate (excluding
+flashers) ranges from around 0.05~Hz at EH3 to 1~Hz at EH1. While this would
+merely (roughly) double the 1\% accidental background in the near halls, in the
+far hall it would increase this background by an order of magnitude to the 10\%
+level, counter to Daya Bay's goal of perecent-level background contamination.
 
-Fortunately, flashers are easily distinguished from ``true'' singles due to a
-very characteristic pattern of light emission. When a PMT emits light, that same
-PMT will naturally see a large portion of the total charge. Furthermore, the
-radial magnetic shield around each PMT collimates the light into a narrow cone
-which primarily illuminates the PMTs directly across from the emitter.
+Fortunately, flashers are easily distinguished from ``physical'' singles due to
+their unique pattern of light emission, enabling them to be removed from the
+analysis with high efficiency while minimally affecting true IBDs. This light
+pattern is characteristized by two ``hot spots'' on opposite sides of the
+AD. When a PMT base emits light, much of the light is absorbed by the black
+radial shield and conical magnetic shield. The remainder escapes within a
+conical profile; some of the photons will strike the flasher's photocathode
+(resulting in the flashing PMT having the highest charge), and others will
+primarily illuminate the PMTs across the AD from the flasher, especially the one
+that lies directly opposite to it. In addition, the time distribution of PMT
+hits is broadened for flashers due to the geometry of light propagation across
+the AD. By taking advantage of these telltale distributions of charges and
+times, it is possible to achieve excellent discrimination of flashers from
+physical events.
+
+The flasher identification criteria were developed in a somewhat ad-hoc fashion,
+by defining quantities that could conceivably serve as discriminators, and then
+further defining combinations of these quantities, and finally plotting the
+distributions of these (combined) quantities until a clean separation between
+flashers and non-flashers was apparent. It is far more important to minimize
+(IBD) signal inefficiency instead of maximizing flasher rejection, because a
+small amount of unrejected flashers will simply slightly increase the rate of
+accidental backgrounds (which can be easily quantified), whereas a signal
+inefficiency could vary among the ADs and thereby bias the oscillation fit.
+
+\newcommand\fmax{f_{\mathrm{max}}} \newcommand\fquad{f_{\mathrm{quad}}}
+\newcommand\fID{f_{\mathrm{ID}}} \newcommand\fPSD{f_{\mathrm{PSD}}}
+
+Early in the experiment, this prolonged and interative process eventually gave
+rise to the \emph{ellipse cut} (based on the charge distribution) and the
+\emph{PSD cut} (based on the time distribution), which demonstrated excellent
+performance, and these cuts continue to be used in this analysis. The ellipse
+cut is based on two quantities, termed $\fmax$ and $\fquad$. The first, $\fmax$,
+is simply the ratio of $Q_{\mathrm{max}}$ (the maximum individual PMT charge
+across all PMTs) over the total charge $Q_{\mathrm{tot}}$:
+\begin{equation*}
+  \fmax = \frac{Q_{\mathrm{max}}}{Q_{\mathrm{tot}}}.
+\end{equation*}
+For flasher events, $Q_{\mathrm{max}}$ belongs to the flashing PMT itself, and
+$\fmax$ is typically higher for flashers than for physics events. However,
+physical events near the edge of the detector can exhibit high $\fmax$, so this
+variable alone is insufficient to cleanly discriminate flashers. As such, we
+also consider $\fquad$, which is based on dividing the AD into four quadrants:
+``Quadrant 1'' (q1) is the one that is centered on the highest-charge PMT; q3 is
+the one across from q1; and q2 and q4 are the two ``to the side.'' $\fquad$ than
+captures the conical nature of the light emission:
+\begin{equation*}
+  \fquad = \frac{Q_{\mathrm{q3}}}{Q_{\mathrm{q2}} + Q_{\mathrm{q4}}}.
+\end{equation*}
+Like $\fmax$, $\fquad$ alone is not a good discriminator, due to overlap between
+flashers and physics events. However, their combination
+\begin{equation*}
+  \fID = \log_{10} \left[ \fquad^2 + \left( \frac{\fmax}{0.45} \right)^2 \right]
+\end{equation*}
+turns out to be an excellent discriminator. Indeed, as shown by (XXX Fig. 21 of
+the long paper), requiring $\fID < 0$ reduces the flasher rate to a negligible
+level, and many analyses have relied on $\fID$ alone to identify flashing 8"
+PMTs. Still, even further flasher reduction can be achieved by incorporating
+timing information. To capture the broadening of the time distribution shown by
+flashers, we use the variable(s) $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$), defined
+as the ratio of the number of hits in the first 200 (150)~ns of the signal, over
+the number of hits in the first 400~ns. The discriminator $\fPSD$ is then
+defined as
+\begin{equation*}
+  \fPSD = \log_{10} [4 \cdot (1 - f_{\mathrm{t}1})^2 + 1.8 \cdot (1 - f_{\mathrm{t}2})^2].
+\end{equation*}
+By requiring both $\fID < 0$ and $\fPSD < 0$, we eliminate virtually all 8" PMT
+flashers from the analysis. However, in addition to the 192 8" PMTs, there are
+six 2" PMTs located at the top and bottom of each AD along the calibration axes,
+and these can also flash. Such events were easily identified as those in which a
+2" PMT saw an extreme amount of charge, with a cut of 100 PE providing
+essentially perfect separation between 2" PMT flashers and other events.
+
+The exact efficiency of these cuts, in terms of identifying flashers, is
+unimportant, as long as it is high enough. Any residual flashers will
+automatically be counted in the singles rate, and thus so will their
+contribution to the accidental background rate.\footnote{There is a small
+  second-order correction due to the fact that an accidental cannot be formed by
+  two flashers in the same PMT, given that it takes on the order of a second for
+  a PMT to ``recharge'' after flashing. However, this correction is negigible
+  given the extremely low rate of residual flashers.} On the other hand, it
+\emph{is} important to study the signal inefficiency, i.e. the probability of
+improperly rejecting an IBD prompt or delayed trigger. If this inefficiency
+differs significantly among the ADs, it could bias the oscillation result. The
+inefficiency was estimated by taking a sample of IBD-like events (without the
+flasher cut) (XXX Xin's flasher slides), and making a 2D histogram of
+$(f_{\mathrm{prompt}},f_{\mathrm{delayed}})$, where $f$ is $\fID$ or
+$\fPSD$. The IBD-like sample consists of a small number of accidentals that
+contain a flasher (or two), and a much larger number of flasher-free pairs
+(including true IBDs, accidentals, and correlated backgrounds). The use of
+IBD-like events has the effect of diluting the presence of flashers in the
+sample, since a coincident pair is much more likely to come from an IBD than an
+accidental (which furthermore is more likely to have two physical singles rather
+than a flasher). The inefficiency was then determined by the degree to which the
+flasher-free ``blob'' extended into the regions rejected by the
+discriminator. These studies found that $\fID$ and $\fPSD$ each introduce an
+inefficiency of 0.02\%, with uncertainties of 0.01\% correlated and 0.01\%
+uncorrelated. Since we use both of them in this analysis, our estimated
+inefficiency is 0.04\%, with an uncertainty of 0.02\% correlated and 0.02\%
+uncorrelated.
+
+XXX show 2D plot of ellipse cut from doc-7143.
 
 \section{Accidental coincidences}
 \label{sec:accbkg}
@@ -320,6 +427,112 @@ stainless steel or by Gd nuclei in the GdLS overflow tank. The gamma rays from
 the scatters and captures would occasionally reach the GdLS region, producing a
 correlated signal.
 
-\section{$^{13}\mathrm{C}(\alpha, \mathrm{n})^{16}\mathrm{O}^*$}
+\newcommand\alphN{(\alpha,\mathrm{n})} \newcommand\CanO{^{13}\mathrm{C}(\alpha,
+  \mathrm{n})^{16}\mathrm{O}}
+
+\section{$\CanO$}
+
+A final and relatively minor ($\lesssim$ 0.01\%/0.07\% near/far) correlated
+background arises from $\alphN$ reactions initiated by natural radioactivity
+within the detector. In these reactions, an alpha from natural radioactivity is
+captured by a nucleus, which then emits a neutron. A prompt signal arises from a
+number of sources of energy deposition, including the kinetic energy of the
+alpha, gammas from nuclear deexcitation (including potentially those from
+inelastic scattering of the neutron), and proton recoils caused by the
+neutron. This prompt signal is then followed by capture of the neutron,
+mimicking the signature of an IBD.
+
+Based on the chemical composition of the scintillator and the known cross
+sections of $\alphN$ reactions, it was determined that $\CanO$ is the only such
+reaction to occur in the ADs at any significant rate. Meanwhile, there are three
+natural decay chains that can lead to alpha activity in the AD: The so-called
+uranium, thorium, and actinium chains, which begin, respectively, with the
+long-lived isotopes $^{238}$U, $^{232}$Th, and $^{235}$U\footnote{In practice,
+  the rate of the thorium chain is determined by the concentration of the
+  shorter-lived $^{228}$Th ($t_{1/2}$ = 1.9~yr), and likewise, for the actinium
+  chain by $^{227}$Ac ($t_{1/2}$ = 21.8~yr).}. Given that U, Th, and Ac all have
+similar chemical properties to Gd, a small amount of contamination is difficult
+to avoid during the Gd-doping process. In addition to these three decay chains,
+additional alpha activity comes from the decay of $^{210}$Po, a moderately
+stable ($t_{1/2}$ = 138~d) daughter of $^{222}$Rn (which itself comes from the
+uranium chain). $^{210}$Po was deposited on detector surfaces by $^{222}$Rn
+during detector construction, and is essentially the only significant alpha
+emitter outside the GdLS region.
+
+Quantifying the $\CanO$ background consists of two parallel tasks. One task is
+to determine the level of alpha activity produced by the three decay chains and
+by $^{210}$Po. The other task is to determine, for the set of alphas produced by
+a given chain, the probability and prompt spectrum of $\CanO$ events. These two
+pieces of knowledge can then be combined to yield a predicted rate and spectrum
+for the $\CanO$ background.
+
+The three chains all share a fortuitious property that enables a straightforward
+estimation of their rates. Namely, they each contain a rapid $\alpha$-$\alpha$
+or $\beta$-$\alpha$ cascade whose time correlation and energy distribution allow
+for clean extraction from the data. For the uranium, thorium, and actinium
+chains, these cascades are, respectively, $^{214}$Bi $\to$ $^{214}$Po $\to$
+$^{210}$Pb, $^{212}$Bi $\to$ $^{212}$Po $\to$ $^{208}$Pb, and $^{219}$Rn $\to$
+$^{215}$Po $\to$ $^{211}$Pb, with Po half-lives of \SI{164.3}{\micro s},
+\SI{0.3}{\micro s}, and \SI{1.781}{ms}.
+
+To extract these events, time coincidence windows of [10, 400]~\us, [1, 3]~\us,
+and [1, 4]~ms were used, respectively. Accidentals (most significant for the
+actinium chain's Po cascade) could be subtracted via the usual procedure (XXX
+check that this was actually done, at least for actinium), and for the uranium
+chain's Po cascade, contamination with nH IBDs was not an issue given that the
+(quenched) delayed alpha energy for these events is around 1-1.5~MeV,
+significantly below the 2.2~MeV nH peak. For the thorium chain, the prompt
+spectrum had to be extrapolated below 0.5~MeV in order to determine the total
+rate; otherwise, there were no major complications. Under the assumption that
+each chain is in equilibrium\footnote{Up to $^{228}$Th and $^{227}$Ac for the
+  throrium and actinium chains, rather than all the way up to $^{232}$Th and
+  $^{235}$U, as noted previously.}, the rate of the polonium cascade gives the
+rate of the entire chain.
+
+For the first two years of data, this procedure determined rates of 0.009, 0.16,
+and 0.2~Bq for U, Th, and Ac. Since the U chain is initiated by $^{238}$U in the
+AD, its rate is essentially constant, given the $^{238}$U half-life of
+4.5~Gyr. On the other hand, the Th and Ac rates do decrease over time, since the
+parent half-lives are 1.9 and 21.8~yr. To determine the average Th and Ac rates
+for the 5+ year dataset used in this analysis, we account for this decrease and
+obtain XXX.
+
+For $^{210}$Po, a single decay instead of a chain, time correlations could not
+be exploited. Instead, 5.3~MeV alphas produced by this isotope were, after
+quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting
+this peak gave an average rate, for the first two years, of 0.7~Hz. Based on the
+$^{210}$Po half-life of 138~d, this was extrapolated to give an average rate in
+our dataset of XXX.
+
+For a given decay chain (or $^{210}$Po), the set of emitted alphas is known. For
+each of these alphas, in turn, simulations can be used to determine the rate and
+prompt spectrum of $\CanO$ events. At each step in the simulation, the alpha
+loses some energy and travels some distance according to its $dE/dx$ profile in
+the LS. With some probability (i.e. cross section), during this step the alpha
+may be captured, producing one of the excited states of $^{17}$O. If this
+happens, the $^{17}$O will emit a neutron, whose energy depends on both the
+initial excited state of $^{17}$O and the final (excited or ground) state of
+$^{16}$O. The neutron produces prompt energy through proton recoils and, if it
+is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a
+$\sim$5~MeV gamma. Additional prompt energy will come from deexcitation gammas
+if the $^{16}$O had been produced in an excited state. Repeating this procedure
+in a large Monte Carlo sample then gives the desired rate and prompt spectrum of
+$\CanO$ events for each alpha source.
+
+Uncertainties in the $\CanO$ prediction arise from a number of sources. The
+uncertainty coming from the $\alphN$ cross section was estimated by repeating
+the MC procedure using two different cross section tables, JENDL and EXFOR. This
+suggested an uncertainty ranging from 6.6\% (for $^{210}$Po) up to 27.5\% (for
+$^{232}$Ac) \cite{Zhao_2014}. Additional uncertainty could come from the
+fundamentals of the MC simulation, i.e., the $dE/dx$ table and the numerical
+integration of discrete steps. This was evaluated by comparing the results of
+GEANT4 and SRIM, which differed at a negligible level of less than a
+percent. Finally, the assumption of decay chain equilibrium, and the efficiency
+of the cascade selection, both could introduce additional uncertainty. These are
+difficult to explicitly quantify, and given the relative unimportance of the
+$\CanO$ background, the decision was made to simply assign a conservative 50\%
+total uncertainty to the $\CanO$ estimation
+
+XXX refer to CPC alpha-n paper.
 
 \end{document}

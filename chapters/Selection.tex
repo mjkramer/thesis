@@ -146,7 +146,7 @@ arbitrariness inherent in the cuts described here.
 
 When a muon passes through or near the AD, it can produce triggers in the
 aftermath. These can include instrumentally-induced triggers (caused by PMT
-afterpulsing and electronics ringing in the 20~\us following the muon), as well
+afterpulsing and electronics ringing in the 20~\us\ following the muon), as well
 as physical events. The physical events can include spallation neutrons, whose
 thermalization and subsequent capture can mimic an IBD, isotopes such as $^9$Li,
 and $^8$He, which produce neutrons when they decay, and various uncorrelated
@@ -156,7 +156,7 @@ For this reason, it is essential to veto the time period immediately following a
 muon. Although the mean neutron capture time in the GdLS is only 28~\us,
 neutrons can be produced outside the GdLS and slowly diffuse into it,
 necessitating a significantly longer veto window. In the case of WP muons, a
-veto time of 600~\us was shown to effectively remove all such neutrons. Only
+veto time of 600~\us\ was shown to effectively remove all such neutrons. Only
 relatively energetic, i.e., fast, neutrons would have the ability to reach the
 GdLS; slow diffusion, meanwhile, is not a significant possibility for WP
 muons. Meanwhile, for AD muons, neutrons \emph{can} diffuse slowly from the LS
@@ -183,12 +183,12 @@ to avoid too large of a loss in effective detector livetime. These qualititative
 statements will be made quantitative in \autoref{chap:cutOptim}, where optimal
 thresholds and windows will be determined.
 
-An additional veto window is applied, spanning 2~\us \emph{before} each muon,
+An additional veto window is applied, spanning 2~\us\ \emph{before} each muon,
 common to WP, AD, and shower muons. Given that trigger latencies can vary, it is
 possible for a WP muon trigger to receive a trigger timestamp that comes
-\emph{after} the timestamps for muon-induced events in the AD. The 2~\us
+\emph{after} the timestamps for muon-induced events in the AD. The 2~\us\
 pre-veto eliminates this possibility. There is no particular need to veto the
-2~\us preceding an \emph{AD} muon, but the original LBNL IBD selection did so
+2~\us\ preceding an \emph{AD} muon, but the original LBNL IBD selection did so
 anyway, and we honor its legacy by following suit.
 
 During application of the muon veto, the total amount of vetoed time is tracked,
@@ -200,7 +200,7 @@ enables the efficiency to be calculated so simply. Otherwise, we would require a
 complex calculation involving the prompt-delayed time distribution and the muon
 rate. Given (as described below) that the maximum time difference between the
 prompt and delayed event is 200~\us, it is possible for the prompt trigger to
-lie 200~\us before the end of the veto window. The windows are thus made large
+lie 200~\us\ before the end of the veto window. The windows are thus made large
 enough to ensure that this time period is free of muon-correlated activity.
 
 \subsubsection{Pair selection}
@@ -213,20 +213,20 @@ following conditions (known as the \emph{decoupled}\footnote{The meaning here of
 \emph{multiplicity cut}, or DMC) determine the existence of an IBD candidate:
 
 \begin{enumerate}
-\item There is a prompt-like (i.e. 0.7--12~MeV) trigger between 1 and 200~\us
+\item There is a prompt-like (i.e. 0.7--12~MeV) trigger between 1 and 200~\us\
   before this delayed-like trigger
-\item There are no other triggers of more than 0.7~MeV between 1 and 400~\us
+\item There are no other triggers of more than 0.7~MeV between 1 and 400~\us\
   before this delayed-like trigger.\footnote{Originally, this condition was
     framed in terms of \emph{prompt-like}, rather than $>$0.7~MeV triggers, but
     the permitted ``extra'' events above 12~MeV (i.e. low-energy muons) were
     found to be correlated with backgrounds consisting of pairs of neutron
     captures. The modified condition eliminates this background.}
-\item There are no delayed-like triggers within 200~\us after this one.
+\item There are no delayed-like triggers within 200~\us\ after this one.
 \end{enumerate}
 
 The purpose of the latter two conditions is to avoid the ambiguity that can
 arise, for instance, in the contrived example of three 7~MeV events spaced
-100~\us apart. Here there are three possible ways to form a pair. There are
+100~\us\ apart. Here there are three possible ways to form a pair. There are
 other possible ways to define cuts that would avoid this ambiguity, for
 instance, by defining ``empty'' windows relative to the prompt trigger, but the
 DMC allows for a simple calculation of the efficiency as well as an avoidance of
@@ -257,7 +257,7 @@ that pairs are no longer being selected. Instead, when a non-muon trigger of at
 least 0.7~MeV is found, an \emph{isolation cut} is applied, eliminating those
 events for which another 0.7~MeV trigger lies within specified windows before
 and after the ``singles candidate''. As implemented, the windows used are
-400~\us before the trigger and 200~\us after, chosen to resemble the DMC as
+400~\us\ before the trigger and 200~\us\ after, chosen to resemble the DMC as
 closely as possible. In principle, the exact sizes of these windows should not
 matter (provided they are wide enough to eliminate correlated multiplets), as
 the efficiency of the isolation cut is corrected for in calculating the DMC

@@ -506,17 +506,8 @@ using the coordinates of the PMTs. As this method suffers from significant
 biases (largely toward the center of the AD), a correction is then applied,
 based on interpolating a map of the mean bias (as a function of COC position)
 determined from a sample of Monte Carlo events, giving the \emph{Monte Carlo
-  Corrected COC} (MCC-COC). In earlier versions of AdSimple, the MCC-COC was
-used as the final reconstructed vertex, and it is still used when looking up the
-corrections in the nonuniformity maps. \footnote{Given that the most recent maps
-  seem to have been generated using the final, template-based reconstructed
-  vertices, it would appear that it is a mistake that we continue to use the
-  MCC-COC when looking up the nonuniformity correction. In spite of this, there
-  is no noticeable difference in the IBD $\Erec$ distribution compared to
-  AdScaled, so any \emph{overall statistical} effects are likely
-  insignificant. Nevertheless, it would be worthwhile to correct this oversight
-  for Daya Bay's final data production.} However, even with the MC correction,
-this vertex still suffers from biases , particularly at large $z$, and there are
+  Corrected COC} (MCC-COC). However, even with the MC correction, this vertex
+still suffers from biases , particularly at large $z$, and there are
 additionally some observable ``wiggles'' in what should be uniform vertex
 distributions. In order to reduce such biases and clusterings, and also improve
 the resolution of the position reconstruction, a final vertex is computed by
