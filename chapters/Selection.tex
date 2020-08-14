@@ -268,4 +268,106 @@ naive attempt to minimize any resulting biases. Ultimately, the uncertainty of
 the accidental background rate is inflated beyond the statistical uncertainty in
 order to account for this problem.
 
+\section{Data quality}
+\label{sec:selDataQuality}
+
+In order to avoid potential biases on the extracted oscillation parameters, it
+is essential that data only be used from periods when the detectors are behaving
+as designed. From time to time, hardware might malfunction, runs might be
+misconfigured, or calibrations may be erroneous, resulting in questionable data
+quality. Accordingly, Daya Bay features a comprehensive program of data quality
+monitoring, review, and recordkeeping. These activities, carried out by the Data
+Quality Working Group (DQWG), culminate in the publication of ``good run lists''
+(technically, good \emph{file} lists) which specify those data files that are
+suitable for use in physics analysis.
+
+Daya Bay's first line of defense against bad data is made up of ``shifters'',
+ordinary collaborators carrying out their obligation to occasionally take 8-hour
+shifts monitoring the experiment. At any given time, there is one shifter on
+duty, who periodically carries out a checklist to verify that the experiment is
+operating normally. This procedure includes checking for any alarms from the
+Detector Control System, which monitors environmental parameters (temperature,
+humidity, etc.), liquid levels, PMT high voltages, and various mechanical and
+electronic systems. Aside from the alarms, a number of plots are checked by the
+shifter. These plots show various quantities (such as PMT hit rates and average
+pulse size, trigger rates and trigger types, and overall data rates), comparing
+the current values to those from ``normal'' historical data.
+
+If any possible issues are noticed, the shifter records a note in the logbook
+and notifies the designated experts for the subsystem in question. The experts
+may then contact the DQWG to report a potential data quality
+issue. Alternatively, the shifter may submit a report directly to the DQWG
+either via email or a web form. In addition to receiving such reports, the DQWG
+also monitors the shift logbook to see whether the shifters have noted anything
+worthy of further investigation.
+
+Data quality records, such as the aforementioned reports from shifters, are
+maintained in a Data Quality Database (DQDB). The DQDB also stores the quality
+rating (i.e., good, bad, or to-be-determined) of each data file, along with a
+reference to a comment record that describes the reason why a file has been
+``tagged'' as bad. Finally, the DQDB stores various physics-driven metrics for
+each file (such as event rates and peak energies), which are utilized in the
+procedures carried about by the DQ shifter, as described later.
+
+The DQ metrics are calculated and recorded at IHEP during Keep Up Production
+(KUP), in which Daya Bay's data production software (which carries out
+calibration, reconstruction, tagging, etc.) is automatically run on each new raw
+data file received from onsite. During KUP, calibration is performed using the
+``old'' constants from the end of the previous data production, so the results
+are not suitable for precise analysis, but they suffice for monitoring detector
+stability and sanity.
+
+For each detector, the KUP software calculates the rates of various event
+classes (overall triggers, prompt-like events, $^{40}$K events, etc.), the
+energies of various peaks ($^{40}$K, n-Gd capture, etc.), and the rate of
+blocked triggers (caused by excessive pileup, typically by noise in the
+electronics). These quantities are then uploaded to the DQDB for use by external
+tools employed by DQ shifters and the DQWG.
+
+The review of these metrics is the responsibility of the DQ shifter, Daya Bay's
+second line of defense. The DQ shifter uses the DQ shift website to view time
+series plots of one or more selected metrics. All metrics, and all detectors in
+a given hall, are shown on the same page. Under general circumstances, the DQ
+shifter typically looks at the prompt-like rate, the $^{40}$K peak energy, and
+the AD and WP blocked trigger rates, since the vast majority of data quality
+issues will manifest themselves in at least one of these plots.
+
+Any abnormal data points (i.e. files) can be clicked on by the DQ shifter; this
+will ``locally'' tag the file as bad (or vice versa, if the file was previously
+tagged) in the personal ``session'' of the DQ shifter. A comment is also
+recorded, indicating which metric the shifter clicked on, and whether the tagged
+file was above or below the local average. Locally tagged files are shown in a
+different color from the rest of the files. There are also specific colors for
+``officially'' tagged files (i.e. those marked as bad in the DQDB), and for
+officially tagged files that the shifter has clicked on (to indicate that the
+official tagging should be reversed). Since the colors are synchronized between
+all metrics and halls, the shifter is able to view possible correlations. It is
+also possible to draw a rectangle around a collection of points, which can be
+used both for viewing correlations (since the selected files are highlighted in
+all plots) and for (un)tagging files in bulk.
+
+The work of the DQ shifter is subsequently reviewed by a member of the DQWG, who
+logs into the shifter's session to view and potentially alter the shifter's
+tagging decisions. Once the session has been thus finalized, it is exported from
+the website in the form a text file listing each file to be (un)tagged and its
+associated comment. A script is then run on this file to insert the comment and
+tagging decision in the DQDB.
+
+The regular shift and DQ shift both take place in ``real time'' (with a
+potential modest delay in the case of the DQ shift), as data is being taken. An
+additional (i.e. third) defense against data quality is executed much later,
+after data has been processed (with correct calibrations) in an official
+production campaign. After such a production, a preliminary good run list is
+issued by the DQWG, based on the information contained at the time in the
+DQDB. Then, a number of Daya Bay's analysis groups run a series of independent
+data quality checks, producing plots in which outlying points serve as an
+indication of possible DQ issues. Such outliers are reported and investigated,
+and any files deemed bad are tagged as such in the DQ DB. Once this work is
+complete, a new good run list is issued, and the checks are repeated to ensure
+that all outliers are gone (or understood to be harmless).
+
+Through these redundant and complementary procedures, Daya Bay is able to ensure
+that any bad data is identified and removed from the analysis, enabling full
+confidence in the final quoted result.
+
 \end{document}
