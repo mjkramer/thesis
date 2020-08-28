@@ -16,7 +16,7 @@ In order to extract neutrino oscillation parameters, Daya Bay data is compared t
 In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the underlying models (reactor, detector, background, etc.) and knows how their predictions will vary under different assumptions regarding systematic uncertainties. In this approach, each systematic is parameterized by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy response of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
 \[ \chi^2 = \sum_i \frac{(x_i - \widebar x_i)^2}{\sigma_i^2} + \sum_j \frac{(\eta_j - \widebar \eta_j)^2}{\varsigma_j^2}, \] where $x_i$ are the measured data (e.g., AD spectra), $\widebar x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\widebar \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls.
 
-Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ error bars on the oscillation parameters are then based on the amount of variation required to increase the reduced $\chi^2$ by one unit (minimizing over the pull terms at every step). Correlations between spectral energy bins are handled implicitly; the information is encoded in the manner in which different bins move together when pull terms are varied.
+Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ error bars on the oscillation parameters are then based on the amount of variation required to increase the reduced $\chi^2$ by one unit [XXX not one unit if fitting more than one parameter; see e.g. doc-8774 p29 and its ref 22] (minimizing over the pull terms at every step). Correlations between spectral energy bins are handled implicitly; the information is encoded in the manner in which different bins move together when pull terms are varied.
 
 \subsection{Covariance matrix approach}
 \label{sec:covmatapproach}
@@ -24,99 +24,23 @@ Fitting is complete when the fitter has found the values of the oscillation para
 As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\widebar x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
 \[ \chi^2 = (x_i - \widebar x_i) V_{ij}^{-1} (x_j - \widebar x_j). \]
 
-In practice, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in the next section, was developed for this purpose.
+In practice, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in the next section, was developed for this purpose. Following the discussion of the toy MC, we describe the oscillation fit and uncertainty calculation in detail.
 
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
-\section{Preparation of reactor predictions}
-\label{sec:nomspecprep}
-
-(Note: Merge these details into reactor chapter?)
-
-An important input to both the fitter and the toy MC is the prediction of the flux from each of the six reactors. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85 to 12.8~MeV.
-% The result is stored separately for each isotope.
-To produce this prediction, a number of basic inputs are required:
+The toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
-\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in \autoref{chap:reactor}.
-\item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
-\item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U. We rebin these into 50~keV bins by sampling the midpoints.
-\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see \autoref{tab:noneqcorr}).
-\item A nominal spectrum for spent nuclear fuel (SNF).
-\item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
+\item The covariance matrix used for calculating $\chi^2$ during the fit.
+\item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross section-weighted antineutrino flux produced by each core. This is used for extrapolating near-site measurements to the far site.
+\item The conversion matrix between prompt and ``true'' antineutrino energy, also used in the extrapolation.
 \end{itemize}
 
-\subsection{Nominal spectra}
-\label{sec:nomspectra}
+In addition, the toy MC provides a method of validating the fitter, since toys can be generated for any chosen values of $\tAC$ and $\Dmsqee$, thus enabling the testing of the fitter's ability to recover the same values.
 
-For each core $c$, the first step is to sum over each week $w$ and calculate the time-averaged nominal flux $F^{\mathrm{nom}}_{ci}(E)$ from isotope $i$ at energy $E$. By convention, this quantity is specified in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, and calculated as:
-% \[ F_{ie} = \frac{S_{ie} \sum_w \frac{\widebar P P_w}{q\widebar E_w}
-%   f_{iw}T_w}{N \sum_w T_w}, \]
-% \[ F_{ie} = \frac{1}{N} S_{ie} \frac{1}{\sum_wT_w} \sum_w \frac{\widebar P
-%   P_w}{q \widebar E_w} f_{iw} T_w, \]
-% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w \frac{\widebar P P_w}{q \widebar
-%   E_w} f_{iw} T_w, \]
-% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w T_w f_{iw} \frac{\widebar P
-%   P_w}{q \widebar E_w}, \]
-\[ F^\mathrm{nom}_{ci}(E) = \frac{S_{i}(E)}{N\sum_wT_w} \sum_w T_w f_{wci}
-  R_{wc}, \]
-\begin{flalign*}
-  \text{where } S_{i}(E) & \text{ is the theoretical spectrum, in $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$,} & \\
-  N & \equiv 10^{18} \text{ is a normalization factor,} \\
-  T_{w} & \text{ is the weekly total detector livetime (i.e. weekly weighting factor), in days,} \\
-  f_{wci} & \text{ is the weekly average fission fraction of isotope $i$, and} \\
-  R_{wc} & \text{ is the weekly average fission rate, in s$^{-1}$.}
-\end{flalign*}
-
-In turn, the weekly fission rate $R_{wc}$ is
-\[ R_{wc} = \frac{\widebar P P_{wc}}{q \widebar E_{wc}}, \]
-\begin{flalign*}
-  \text{where } \widebar P & \text{ is the nominal core power, 2895~MW, } & \\
-  P_{wc} & \text{ is the actual core power, as a fraction of $\widebar P$,} \\
-  q & \text{ is 1.602$\times10^{-19}$ J/eV,} \\
-  \widebar E_{wc} & \equiv \textstyle{\sum_i} f_{wci} E_i
-  \text{ is the weekly average energy per fission, in MeV, and} \\
-  E_i & \text{ is the average energy per fission of isotope $i$, in MeV.}
-\end{flalign*}
-
-Thus, from data files containing $T_w$, $P_{wc}$, and $f_{wci}$, along with static definitions of $S_i(E)$ and $E_i$, the livetime-weighted average nominal flux emitted by each core is calculated.
-
-\subsection{Corrected spectra}
-\label{sec:corrspectra}
-
-\subsubsection{Non-equilibrium correction}
-\label{sec:noneqcorrspectra}
-
-As discussed in \autoref{chap:reactor}, the nominal spectra are derived from measurements taken with foils irradiated for a few dozen hours. Since, in such experiments, longer-lived fission fractions are not given enough time to reach their equilibrium concentrations, the measured spectra deviate slightly from those emitted by long-running nuclear reactors. \autoref{tab:noneqcorr} shows the percentage corrections to the spectra of the three fissile isotopes, which were tabulated by C. Lewis \cite{Lewis} based on \cite{Mueller_2011}. At energies between the five tabulated points, the corrections are linearly interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for each isotope $i$. For U-238, the function is identically zero. Applying the correction and summing over isotopes then gives the intermediate result $F^\mathrm{ne}_c(E)$,
-\[ F^\mathrm{ne}_c(E) = \sum_i \Bigl(1 + 0.01\, C^\mathrm{ne}_i(E)\Bigr)\,
-  F^\mathrm{nom}_{ci}(E). \]
-
-\begin{table}
-  \centering
-  \begin{tabular}{lrrrrr}
-    \toprule
-    $E$ (MeV) & 2.0 & 2.5 & 3.0 & 3.5 & 4.0 \\
-    \midrule
-    U-235 & 5.7 & 4.4 & 1.5 & 0.7 & 0.1 \\
-    Pu-239 & 2.1 & 1.7 & 0.5 & 0.0 & 0.0 \\
-    Pu-241 & 1.9 & 1.5 & 0.5 & 0.0 & 0.0 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Non-equilibrium corrections to antineutrino spectra, in percentage terms. The corrections are linearly interpolated when applied at intermediate energies. No correction is defined for U-238.}
-  \label{tab:noneqcorr}
-\end{table}
-
-\subsubsection{Spent nuclear fuel}
-\label{sec:snfcorrspectra}
-
-An additional term must be added to the reactor prediction due to the presence of spent nuclear fuel in storage pools near the reactor cores. Based on studies described in \cite{Lewis}, it was determined that a fraction $R^\mathrm{snf}$ of 0.3\% of the \emph{total, cross-section weighted} antineutrino flux must come from spent nuclear fuel. The uncertainty on this percentage is unspecified (FIXME?), but the oscillation analysis is largely insensitive even to large errors in the reactor prediction, so the impact of the SNF uncertainty is essentially negligible. A core-dependent SNF spectrum $S^\mathrm{snf}_c(E)$ (also described in \cite{Lewis}), with arbitrary normalization, is added to $F^\mathrm{ne}(E)$ (after non-equilibrium correction), subject to the aforementioned constraint on the measured rate. This constraint determines the normalization factor $A^\mathrm{snf}_c$,
-\[ A^\mathrm{snf}_c = \frac{\frac{1}{6}\sum_{c'} \int
-    F^\mathrm{ne}_{c'}(E)\,\sigma(E)\, dE}{\int S^\mathrm{snf}_c(E)\,\sigma(E)\,
-    dE} \; R^\mathrm{snf},
-\]
-where $\sigma(E)$ is the IBD cross section and the integrals are understood to represent sums over binned spectra. The factor of 1/6 is included because $R^\mathrm{snf}$ is defined with respect to the \emph{total} flux, while $A^\mathrm{snf}_c$ is specific to the core $c$. Essentially, this procedure divides the total integrated SNF flux evenly among the six cores, while still allowing for a different shape in each core. In the current implementation, a single shape is used for all six cores.
-
-At this point, the final, fully-corrected reactor prediction can be written simply as \[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E). \] It is this $F_c(E)$ that is fed into the fitter and toy MC framework. Again, its units are 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$.
+\begin{comment}
+  The toy MC also generates a ``PredictedIBD'' file which contains the background-free no-oscillation IBD spectra of each detector. As far as I can tell, this is only used in order to calculate a `summed' covariance matrix in which the matrices of the three stages (6, 8, 7AD) are combined, with the weighting determined by the PredictedIBD counts. (Oscillations shouldn't affect this weighting between ADs in the same hall, or the weighting between different stages.) In turn, the summed matrix is not used during the fit, but is only produced as a diagnostic. 
+\end{comment}
 
 \end{document}
