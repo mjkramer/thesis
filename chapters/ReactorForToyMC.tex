@@ -88,11 +88,18 @@ An additional term must be added to the reactor prediction due to the presence o
 \]
 where $\sigma(E)$ is the IBD cross section and the integrals are understood to represent sums over binned spectra. The factor of 1/6 is included because $R^\mathrm{snf}$ is defined with respect to the \emph{total} flux, while $A^\mathrm{snf}_c$ is specific to the core $c$. Essentially, this procedure divides the total integrated SNF flux evenly among the six cores, while still allowing for a different shape in each core. In the current implementation, a single shape is used for all six cores.
 
-At this point, the final, fully-corrected reactor prediction can be written simply as \[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E). \] It is this $F_c(E)$ (in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$) that is fed into the fitter (for extrapolation) and the toy MC.
+At this point, the final, fully-corrected reactor prediction can be written simply as
+\begin{equation}
+  \label{eq:reacToyFinalPred}
+  F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E)
+\end{equation}
+It is this $F_c(E)$ that is fed into the fitter (for extrapolation) and the toy MC. The spectra are specified in 220 bins (50-keV wide) of $E_\nu$ from 1.85 to 12.8~MeV, in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, with one such spectrum per core per data period (6AD, 8AD, or 7AD). The livetime weighting uses the average weekly livetime across the three halls, rather than treating each hall individually; this is valid, since the data sample only includes periods where all three halls were running.
 
 \section{Fluctuated spectra}
 \label{sec:reactoyFluct}
 
 Use the Cholesky decomposition of Lewis's covariance matrix \cite{Lewis}. Generate an array x of Gaus(1), multiply by L from Cholesky, fluctuate each bin of the nominal spectrum by the relative amount contained in Lx. Do this four times, once for each isotope. Now we have fluctuated spectra. The covariance matrix accounts for uncertainties in the published spectra (both correlated and uncorrelated between isotopes), fission fraction uncertainty (5\%), relative reactor power uncertainty, and non-equilibrium uncertainty. (XXX What about SNF uncertainty? Check \cite{Lewis}.)
+
+The actual generation of the covariance matrix is discussed in \autoref{sec:reacunccorr}, with the full details available in \cite{Lewis}.
 
 \end{document}

@@ -22,53 +22,12 @@
 \usepackage{changepage}
 \usepackage{braket}
 % \usepackage{multirow}
-
 \usepackage{xstring}
-\IfStrEq*{\jobname}{thesis}{}{
-  \makeatletter
-  \providecommand*{\input@path}{{../}}
-  \makeatother
-}
+\usepackage{subfiles}
+
 \input{macros.tex}
 
 \addbibresource{biblio.bib}
-
-\usepackage{subfiles}
-\def\subfilebackmatter{}          % empty when subfiles are inluded; redefined at bottom
-
-% \def\frontsize{\fontsize{12}{14.5}\selectfont}
-\def\frontsize{}
-\def\mylarge{\large}            % prevent Emacs highlighting
-
-\def\MyDoubleSpacing{%
-\setSpacing{2}%
-\makeatletter%
-\edef\m@m@footnote@spacing{\baselinestretch}%
-\edef\m@m@float@spacing{\baselinestretch}%
-\makeatother%
-}
-
-\setlrmarginsandblock{1.25in}{1.25in}{*}
-\setulmarginsandblock{1.5in}{1.5in}{*}
-\checkandfixthelayout%
-% \setlength{\evensidemargin}{\oddsidemargin}
-
-\settocdepth{subsection}
-\setsecnumdepth{subsection}
-\def\conts{}                    % toc for subfiles
-
-\def\chap{\chapter}
-
-\setfloatadjustment{figure}{\centering}
-\setfloatadjustment{table}{\centering}
-
-\graphicspath{{images/}}
-
-\addto\extrasUSenglish{%
-  \def\chapterautorefname{Chapter}%
-  \def\sectionautorefname{Section}%
-  \def\subsectionautorefname{Section}%
-}
 
 \title{Precision Measurement of $\theta_{13}$\\ from Reactor Antineutrino
   Oscillation\\ at Daya Bay}
@@ -125,54 +84,5 @@
 
 \end{document}
 
-% The following are applied only when a chapter is processed solo
-
-\SingleSpacing
-\addbibresource{../biblio.bib}
-\def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
-
-\newcommand\myconts{%
-\begingroup%
-\let\clearpage\relax%
-\let\contentsname\relax%
-% prevent putting CONTENTS instead of chapter name in the heading:
-\let\tocmark\relax%
-\vspace{-10em}%
-\begin{adjustwidth}{-\parindent}{}%
-\item \tableofcontents*%
-\end{adjustwidth}%
-\vspace{\baselineskip}%
-\endgroup%
-}
-
-% https://tex.stackexchange.com/questions/341027/how-to-add-some-negative-vertical-space-before-a-chapter-title
-\newcommand\mybeforechap{
-  \begingroup%
-  \clearpage%
-  \let\clearpage\relax%
-  \vspace*{-10em}%
-}
-\newcommand\myafterchap{\endgroup\myconts}
-
-% This doesn't work when hyperref is enabled
-\makeatletter
-\pretocmd\@chapter\mybeforechap{}{}
-\pretocmd\@schapter\mybeforechap{}{}
-% \apptocmd\@chapter\myafterchap{}{}
-\@ifpackageloaded{hyperref}{%
-  % don't ask me why (but see hluatex.def)
-  % hyperref's redefined \@chapter will try to consume \myafterchap as argument?
-  \apptocmd\Hy@org@chapter\myafterchap{}{}%
-}{%
-  \apptocmd\@chapter\myafterchap{}{}%
-}
-\apptocmd\@schapter\myafterchap{}{}
-\makeatother
-
-% Make standalone \chapter equivalent to \chapter* (i.e. "Chapter 0")
-% \makeatletter\let\@m@mchapter\@m@mschapter\makeatother
-
-% Not sure why this doesn't work:
-% \graphicspath{{../images/}}
-% But this does:
-\AtBeginDocument{\graphicspath{{../images/}}}
+% This runs only when a chapter is processed solo
+\input{macros/solo_chapter.tex}

@@ -1,0 +1,52 @@
+%% This was originally in thesis.tex, before \usepackage{subfiles}
+%% It doesn't seem like we actually need it
+% \IfStrEq*{\jobname}{thesis}{}{
+%   \makeatletter
+%   \providecommand*{\input@path}{{../}}
+%   \makeatother
+% }
+
+\def\subfilebackmatter{}          % empty when subfiles are inluded; redefined in solo_hacks.tex
+
+% \def\frontsize{\fontsize{12}{14.5}\selectfont}
+\def\frontsize{}
+\def\mylarge{\large}            % prevent Emacs highlighting
+
+\def\MyDoubleSpacing{%
+  \setSpacing{2}%
+  \makeatletter%
+  \edef\m@m@footnote@spacing{\baselinestretch}%
+  \edef\m@m@float@spacing{\baselinestretch}%
+  \makeatother%
+}
+
+\setlrmarginsandblock{1.25in}{1.25in}{*}
+\setulmarginsandblock{1.5in}{1.5in}{*}
+\checkandfixthelayout%
+% \setlength{\evensidemargin}{\oddsidemargin}
+
+\settocdepth{subsection}
+\setsecnumdepth{subsection}
+\def\conts{}                    % toc for subfiles
+
+\def\chap{\chapter}
+
+\setfloatadjustment{figure}{\centering}
+\setfloatadjustment{table}{\centering}
+
+\graphicspath{{images/}}
+
+\addto\extrasUSenglish{%
+  \def\chapterautorefname{Chapter}%
+  \def\sectionautorefname{Section}%
+  \def\subsectionautorefname{Section}%
+  \def\equationautorefname{}%
+}
+
+%% google "autoref equation parentheses"
+\makeatletter
+\def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
+\let\orgtheequation\theequation
+% We add the \unskip since we don't prepend e.g. "Equation"
+\def\theequation{\unskip(\orgtheequation)}
+\makeatother

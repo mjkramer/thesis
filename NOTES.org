@@ -99,6 +99,11 @@ height is divided up between components, such that equal contributors will have
 equal heights after unstacking and placing side-by-side. For unequal
 contributors, the heights (after unstacking) will reflect their logarithmic
 difference, i.e., each major axis increment corresponds to a factor of ten.
+** Kam-Biu's idea
+- Take far site data
+- Use inverse square law to predict near site rate for θ13 = 0
+- Draw random subsample of near site data, matching predicted rate above
+- Ensure fit recovers θ13 = 0 and is stable against variations in cuts, repeat for other values of θ13
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
@@ -129,6 +134,13 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - doc-7709 (rate fitter)
 - doc-8769 (toy MC)
 - doc-8774 (shape fitter)
+*** 2015 unified nonlinearity model
+- docs 10330 10254 10260? 10268 10269 10274; history of unification 10061?
+- consModel_450itr.root is Soeren's energyModel_march2015.root from doc-10330
+*** 2017 nonlinearity model update (what we actually use)
+- doc 11486, 11611, 11646 (Yongbo)
+- We use the root files from doc-11611
+- How do those differ from the ones in 11646?
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
