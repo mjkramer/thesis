@@ -1,0 +1,49 @@
+\SingleSpacing
+\addbibresource{../biblio.bib}
+\def\subfilebackmatter{\printbibliography[title=Bibliography,heading=subbibliography]}
+
+\newcommand\myconts{%
+\begingroup%
+\let\clearpage\relax%
+\let\contentsname\relax%
+% prevent putting CONTENTS instead of chapter name in the heading:
+\let\tocmark\relax%
+\vspace{-10em}%
+\begin{adjustwidth}{-\parindent}{}%
+\item \tableofcontents*%
+\end{adjustwidth}%
+\vspace{\baselineskip}%
+\endgroup%
+}
+
+% https://tex.stackexchange.com/questions/341027/how-to-add-some-negative-vertical-space-before-a-chapter-title
+\newcommand\mybeforechap{
+  \begingroup%
+  \clearpage%
+  \let\clearpage\relax%
+  \vspace*{-10em}%
+}
+\newcommand\myafterchap{\endgroup\myconts}
+
+% This doesn't work when hyperref is enabled
+\makeatletter
+\pretocmd\@chapter\mybeforechap{}{}
+\pretocmd\@schapter\mybeforechap{}{}
+% \apptocmd\@chapter\myafterchap{}{}
+\@ifpackageloaded{hyperref}{%
+  % don't ask me why (but see hluatex.def)
+  % hyperref's redefined \@chapter will try to consume \myafterchap as argument?
+  \apptocmd\Hy@org@chapter\myafterchap{}{}%
+}{%
+  \apptocmd\@chapter\myafterchap{}{}%
+}
+\apptocmd\@schapter\myafterchap{}{}
+\makeatother
+
+% Make standalone \chapter equivalent to \chapter* (i.e. "Chapter 0")
+% \makeatletter\let\@m@mchapter\@m@mschapter\makeatother
+
+% Not sure why this doesn't work:
+% \graphicspath{{../images/}}
+% But this does:
+\AtBeginDocument{\graphicspath{{../images/}}}

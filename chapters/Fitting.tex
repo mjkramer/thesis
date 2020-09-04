@@ -46,10 +46,11 @@ uncertainties on the pulls.
 Fitting is complete when the fitter has found the values of the oscillation
 parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$
 error bars on the oscillation parameters are then based on the amount of
-variation required to increase the reduced $\chi^2$ by one unit (minimizing over
-the pull terms at every step). Correlations between spectral energy bins are
-handled implicitly; the information is encoded in the manner in which different
-bins move together when pull terms are varied.
+variation required to increase the reduced $\chi^2$ by one unit [XXX not one
+unit if fitting more than one parameter; see e.g. doc-8774 p29 and its ref 22]
+(minimizing over the pull terms at every step). Correlations between spectral
+energy bins are handled implicitly; the information is encoded in the manner in
+which different bins move together when pull terms are varied.
 
 \subsection{Covariance matrix approach}
 \label{sec:covmatapproach}
@@ -69,159 +70,272 @@ oscillation parameters which minimize the $\chi^2$,
 
 In practice, the full NuWa-based Monte Carlo is not used for generating the
 covariance matrix, due to its complexity and computational cost. Instead, a
-``toy'' MC, described in the next section, was developed for this purpose.
+``toy'' MC, described in the next section, was developed for this
+purpose. Following the discussion of the toy MC, we describe the oscillation fit
+and uncertainty calculation in detail.
 
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
-\section{Preparation of reactor predictions}
-\label{sec:nomspecprep}
-
-(Note: Merge these details into reactor chapter?)
-
-An important input to both the fitter and the toy MC is the prediction of the
-flux from each of the six reactors. By convention, we define these spectra in
-terms of true neutrino energy, and omit any weighting by the IBD cross
-section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85
-to 12.8~MeV.
-% The result is stored separately for each isotope.
-To produce this prediction, a number of basic inputs are required:
+The toy MC essentially acts as a generator of ``fake'' experiments (or
+``toys''), as represented by the prompt spectrum measured by each AD. Each toy
+may include fluctuations due to statistics and/or a chosen set of
+systematics. This basic functionality enables the production of three essential
+inputs used by the fitter:
 
 \begin{itemize}
-\item Weekly average thermal power and fission fractions for each reactor, as
-  reported by the Reactor Working Group using data provided by the power
-  company. The fission fractions are determined from simulations, as described
-  in \autoref{chap:reactor}.
-\item Weekly detector livetimes, in order to properly weight the spectra for
-  each week. Given that we only use data where all three halls were operating
-  (and passing data quality requirements) simultaneously, there is only a single
-  value for each week, not three values.
-\item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to
-  13~MeV, and in units of $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For
-  $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the
-  French spectrum is used for $^{238}$U. We rebin these into 50~keV bins by
-  sampling the midpoints.
-\item Nominal corrections to account for the ILL measurements having been made
-  out of equilibrium. These consist of five correction per isotope (none for
-  $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see
-  \autoref{tab:noneqcorr}).
-\item A nominal spectrum for spent nuclear fuel (SNF).
-\item The IBD cross section as a function of $E_\nu$. At this stage, this is
-  only used in calculating the normalization of the SNF contribution, as
-  described below.
+\item The covariance matrix used for calculating $\chi^2$ during the fit.
+\item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross
+  section-weighted antineutrino spectrum produced by each core. This is used
+  when breaking down the near-site spectra into reactor components for
+  extrapolation to the far site.
+\item The conversion matrix between prompt and ``true'' antineutrino energy,
+  also used in the extrapolation.
 \end{itemize}
 
-\subsection{Nominal spectra}
-\label{sec:nomspectra}
+In addition, the toy MC provides a method of validating the fitter, since toys
+can be generated for any chosen values of $\tAC$ and $\Dmsqee$, thus enabling
+the testing of the fitter's ability to recover the same values.
 
-For each core $c$, the first step is to sum over each week $w$ and calculate the
-time-averaged nominal flux $F^{\mathrm{nom}}_{ci}(E)$ from isotope $i$ at energy
-$E$. By convention, this quantity is specified in units of
-10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, and calculated as:
-% \[ F_{ie} = \frac{S_{ie} \sum_w \frac{\widebar P P_w}{q\widebar E_w}
-%   f_{iw}T_w}{N \sum_w T_w}, \]
-% \[ F_{ie} = \frac{1}{N} S_{ie} \frac{1}{\sum_wT_w} \sum_w \frac{\widebar P
-%   P_w}{q \widebar E_w} f_{iw} T_w, \]
-% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w \frac{\widebar P P_w}{q \widebar
-%   E_w} f_{iw} T_w, \]
-% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w T_w f_{iw} \frac{\widebar P
-%   P_w}{q \widebar E_w}, \]
-\[ F^\mathrm{nom}_{ci}(E) = \frac{S_{i}(E)}{N\sum_wT_w} \sum_w T_w f_{wci}
-  R_{wc}, \]
-\begin{flalign*}
-  \text{where } S_{i}(E) & \text{ is the theoretical spectrum, in $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$,} & \\
-  N & \equiv 10^{18} \text{ is a normalization factor,} \\
-  T_{w} & \text{ is the weekly total detector livetime (i.e. weekly weighting factor), in days,} \\
-  f_{wci} & \text{ is the weekly average fission fraction of isotope $i$, and} \\
-  R_{wc} & \text{ is the weekly average fission rate, in s$^{-1}$.}
-\end{flalign*}
+\begin{comment}
+  The toy MC also generates a ``PredictedIBD'' file which contains the bac
+  kground-free no-oscillation IBD spectra of each detector. As far as I can
+  tell, this is only used in order to calculate a `summed' covariance matrix in
+  which the matrices of the three stages (6, 8, 7AD) are combined, with the
+  weighting determined by the PredictedIBD counts. (Oscillations shouldn't
+  affect this weighting between ADs in the same hall, or the weighting between
+  different stages.) In turn, the summed matrix is not used during the fit, but
+  is only produced as a diagnostic.
+\end{comment}
 
-In turn, the weekly fission rate $R_{wc}$ is
-\[ R_{wc} = \frac{\widebar P P_{wc}}{q \widebar E_{wc}}, \]
-\begin{flalign*}
-  \text{where } \widebar P & \text{ is the nominal core power, 2895~MW, } & \\
-  P_{wc} & \text{ is the actual core power, as a fraction of $\widebar P$,} \\
-  q & \text{ is 1.602$\times10^{-19}$ J/eV,} \\
-  \widebar E_{wc} & \equiv \textstyle{\sum_i} f_{wci} E_i
-  \text{ is the weekly average energy per fission, in MeV, and} \\
-  E_i & \text{ is the average energy per fission of isotope $i$, in MeV.}
-\end{flalign*}
+\subsection{IBD spectrum at each AD}
+\label{sec:fitToyFluxPred}
 
-Thus, from data files containing $T_w$, $P_{wc}$, and $f_{wci}$, along with
-static definitions of $S_i(E)$ and $E_i$, the livetime-weighted average nominal
-flux emitted by each core is calculated.
+The toy MC chain begins with the prediction of the livetime-averaged
+antineutrino spectrum $F_c(E_\nu)$ produced (per unit time) at each reactor core
+$c$, as specified by \autoref{eq:reacToyFinalPred}.\footnote{The technical
+  details of this prediction are described in \autoref{chap:reactoy}, and the
+  underlying theory is discussed in \autoref{chap:reactor}.} This is then used
+to calculate the IBD spectrum at each AD $i$ as
+\begin{equation}
+  \label{eq:fitTrueIbdSpec}
+  R_i(E_\nu) = T_i\,N_i\,\epsilon_i\,\sigma(E_\nu) \sum_c F_c(E_\nu) \frac{1}{4\pi L_{ci}^2}
+  \Posc(E_\nu, L_{ci})
+\end{equation}
+where $T_i$ is the livetime, $N_i$ is the number of target protons, and $L_{ci}$
+is the baseline.
 
-\subsection{Corrected spectra}
-\label{sec:corrspectra}
+The detection efficiency $\epsilon_i$ includes the calculated efficiencies of
+the muon veto and the multiplicity cut (both of which are considered to have
+negligible uncertainty), as well as an additional factor which accounts for all
+of the remaining efficiency components. This factor is identical for all ADs in
+the nominal case, but when allowing fluctuations (as when generating toy samples
+for the construction of the covariance matrix), the efficiency is assigned an
+AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\%, with the latter
+component fully correlated with the variation in energy scale of the
+AD.\footnote{The relative energy scale uncertainty is 0.2\%, as described
+  later. Studies have shown (Yasu's DocDB 10956) that a 1\% energy scale
+  variation leads to a 0.36\% shift in detection efficiency (largely due to the
+  delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.}
 
-\subsubsection{Non-equilibrium correction}
-\label{sec:noneqcorrspectra}
+The cross section $\sigma(E_\nu)$ is integrated over $4\pi$ based on the
+treatment in \cite{Vogel_1999}, recalculated with updated PDG constants for the
+phase factor $f^R$, the axial-vector coupling $g_A$, and the neutron
+lifetime. $\Posc$, meanwhile, is calculated according to
+\autoref{eq:survProbDybFull}, which of course depends on $\SinSq$ and
+$\Dmsqee$.\footnote{By default, the toy MC assumes the normal hierarchy when
+  converting $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for
+  insertion into \autoref{eq:survProbDybFull}.} For generating the covariance
+and response matrices, ``nominal'' values of 0.085 and 0.00248~eV$^2$ are
+used.\footnote{In princple, full self-consistency would require regenerating the
+  matrices after a fit (using the best-fit oscillation parameters), repeating
+  the fit, and iterating this sequence until the results converge. However, in
+  practice, the matrices do not vary significantly in the vicinity of the
+  $\chi^2$ minimum, so this complication is unnecessary as long as the nominal
+  parameters are reasonably close to the minimum.} Other values of the
+oscillation parameters can be used for benchmarking the fitter, e.g., verifying
+that it recovers the parameters used by the toy MC.
 
-As discussed in \autoref{chap:reactor}, the nominal spectra are derived from
-measurements taken with foils irradiated for a few dozen hours. Since, in such
-experiments, longer-lived fission fractions are not given enough time to reach
-their equilibrium concentrations, the measured spectra deviate slightly from
-those emitted by long-running nuclear reactors. \autoref{tab:noneqcorr} shows
-the percentage corrections to the spectra of the three fissile isotopes, which
-were tabulated by C. Lewis \cite{Lewis} based on \cite{Mueller_2011}. At
-energies between the five tabulated points, the corrections are linearly
-interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the
-corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results
-in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for
-each isotope $i$. For U-238, the function is identically zero. Applying the
-correction and summing over isotopes then gives the intermediate result
-$F^\mathrm{ne}_c(E)$,
-\[ F^\mathrm{ne}_c(E) = \sum_i \Bigl(1 + 0.01\, C^\mathrm{ne}_i(E)\Bigr)\,
-  F^\mathrm{nom}_{ci}(E). \]
+\subsection{Detector response}
+\label{sec:fitToyDetResponse}
 
-\begin{table}
-  \centering
-  \begin{tabular}{lrrrrr}
-    \toprule
-    $E$ (MeV) & 2.0 & 2.5 & 3.0 & 3.5 & 4.0 \\
-    \midrule
-    U-235 & 5.7 & 4.4 & 1.5 & 0.7 & 0.1 \\
-    Pu-239 & 2.1 & 1.7 & 0.5 & 0.0 & 0.0 \\
-    Pu-241 & 1.9 & 1.5 & 0.5 & 0.0 & 0.0 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Non-equilibrium corrections to antineutrino spectra, in percentage
-    terms. The corrections are linearly interpolated when applied at
-    intermediate energies. No correction is defined for U-238.}
-  \label{tab:noneqcorr}
-\end{table}
+Once the toy MC has determined each AD's IBD spectrum (in terms of antineutrino
+energy), the next step is to convert it into a prompt energy spectrum. This
+entails four steps:
 
-\subsubsection{Spent nuclear fuel}
-\label{sec:snfcorrspectra}
+\begin{enumerate}
+\item Converting neutrino energy into positron energy
+\item Accounting for the ``loss'' of visible energy incurred when positrons
+  deposit some of their energy in the acrylic wall of the IAV
+\item Converting scintillator-deposited energy into mean visible energy,
+  according to the absolute energy scale and the nonlinearity model
+\item Smearing the visible energy according to the resolution of the AD
+\end{enumerate}
 
-An additional term must be added to the reactor prediction due to the presence
-of spent nuclear fuel in storage pools near the reactor cores. Based on studies
-described in \cite{Lewis}, it was determined that a fraction $R^\mathrm{snf}$ of
-0.3\% of the \emph{total, cross-section weighted} antineutrino flux must come
-from spent nuclear fuel. The uncertainty on this percentage is unspecified
-(FIXME?), but the oscillation analysis is largely insensitive even to large
-errors in the reactor prediction, so the impact of the SNF uncertainty is
-essentially negligible. A core-dependent SNF spectrum $S^\mathrm{snf}_c(E)$
-(also described in \cite{Lewis}), with arbitrary normalization, is added to
-$F^\mathrm{ne}(E)$ (after non-equilibrium correction), subject to the
-aforementioned constraint on the measured rate. This constraint determines the
-normalization factor $A^\mathrm{snf}_c$,
-\[ A^\mathrm{snf}_c = \frac{\frac{1}{6}\sum_{c'} \int
-    F^\mathrm{ne}_{c'}(E)\,\sigma(E)\, dE}{\int S^\mathrm{snf}_c(E)\,\sigma(E)\,
-    dE} \; R^\mathrm{snf},
-\]
-where $\sigma(E)$ is the IBD cross section and the integrals are understood to
-represent sums over binned spectra. The factor of 1/6 is included because
-$R^\mathrm{snf}$ is defined with respect to the \emph{total} flux, while
-$A^\mathrm{snf}_c$ is specific to the core $c$. Essentially, this procedure
-divides the total integrated SNF flux evenly among the six cores, while still
-allowing for a different shape in each core. In the current implementation, a
-single shape is used for all six cores.
+\subsubsection{Positron energy}
 
-At this point, the final, fully-corrected reactor prediction can be written
-simply as \[ F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \,
-  S^\mathrm{snf}_c(E). \] It is this $F_c(E)$ that is fed into the fitter and
-toy MC framework. Again, its units are
-10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$.
+This discussion follows the treatment in XXX doc-8769, which in turn is based on
+\cite{Vogel_1999}. Here, the relatively minuscule kinetic energy of the neutron
+is included perturbatively (i.e. as an expansion in 1/$m$, where $m$ is the
+nucleon mass scale). The zeroth-order energy $E_e^{(0)}$ is simply
+\begin{equation*}
+  E_e^{(0)} = E_\nu - \Delta,
+\end{equation*}
+where $\Delta \equiv m_n - m_p$. Then the first-order positron energy is
+\begin{equation*}
+  E_e^{(1)} = E_e^{(0)} \left[ 1 - \frac{E_\nu}{m_p}(1 - \beta_e^{(0)}\cos\theta) \right]
+  - \frac{\Delta^2 - m_e^2}{m_p},
+\end{equation*}
+where $\beta_e^{(0)}$ is the positron velocity corresponding to $E_e^{(0)}$. The
+mean energy can then be obtained by using the mean value of $\cos \theta$, given
+by \cite{Vogel_1999}
+\begin{equation*}
+  \langle \cos \theta \rangle = -0.034 \beta_e^{(0)} + 2.4 \frac{E_\nu}{m_p}.
+\end{equation*}
+It is safe to neglect the energy spread caused by the angular distribution, as
+it is negligible in comparison to the dominant factors in the energy resolution
+(primarily photon statistics, as well as detector nonuniformity and
+noise). Likewise, there is no need to extend the calculation to higher order,
+given that the neutron carries away only $\mathcal{O}$(10~keV) of kinetic
+energy.
+
+\subsubsection{IAV effect}
+
+\newcommand\Miav{M^{\mathrm{IAV}}}
+\newcommand\Eetrue[1]{E^{\mathrm{true}}_{e#1}}
+\newcommand\Eels[1]{E^{\mathrm{LS}}_{e#1}}
+
+For IBDs that occur near the edge of the inner acrylic vessel, some of the
+positron's kinetic energy may be deposited in the acrylic, rendering that energy
+invisible.\footnote{Some of the energy from the annihilation gammas can also
+  disappear in this way. The Daya Bay MC accounts for this.} In order to model
+this effect, it was simulated in the full Daya Bay MC (XXX doc-8608), producing
+a matrix $\Miav_{ij}$ which converts ``true'' positron energy $\Eetrue{}$ into
+``LS-deposited'' positron energy $\Eels{}$,
+\begin{equation*}
+  \Eels{,i} = \Miav_{ij} \Eetrue{,j}
+\end{equation*}
+where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization
+condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the
+conversion preserves the total neutrino count, as it should).
+
+The uncertainty of the IAV wall thickness is assigned a conservative 4\%, which
+is assumed to translate to a 4\% uncertainty on the elements of $\Miav$. As
+implemented, the matrix is fluctuated by applying an independent 4\% Gaussian
+variation to each off-diagonal element, and then setting the diagonal elements
+so as to restore the normalization condition.
+
+\subsubsection{Positron to mean reconstructed energy}
+
+As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is
+affected by nonlinearity in the scintillator (quenching, Cerenkov radiation) and
+in the electronics. Within the Daya Bay collaboration, a great deal of
+widespread effort went toward characterizing this behavior, as described in XXX
+NL paper. The sum of this work was distilled in April 2018 by Yongbo Huang (XXX
+doc-11611) to produce a ``unified'' nonlinearity model for use in analysis. This
+model is used in the toy MC.
+
+The unified nonlinearity model takes the form of a nominal curve (tabulating the
+ratio of reconstructed to positron energy, as a function of positron energy),
+along with four pull curves that (XXX doc-9826 p10) express the uncertainty in
+the model. The curves were generating using the full Daya Bay MC, as controlled
+by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics
+parameters). The curve that best fit a collection of source/$^{12}$B data was
+designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL,
+the pull curves were taken as the four that best spanned the remaining 246. The
+four pulls thus account for the correlations inherent in the shape uncertainty,
+without requiring the use of a full covariance matrix during analysis.
+
+Based on the unified model, a random nonlinearity curve is generated according
+to
+\begin{equation*}
+  f_{\mathrm{ran}}(E_e) = f_{\mathrm{nom}}(E_e) + \sum_p^4 a_p [ f_p(E_e) - f_{\mathrm{nom}}(E_e)],
+\end{equation*}
+where the $a_p$ are standard Gaussian random variables. (We will continue using
+$a$ to denote such variables.) The same curve is used in all detectors. However,
+where the ADs \textit{can} differ is in their overall energy scales. The
+relative energy scale uncertainty has been estimated to be 0.2\% (XXX DocDB
+``May 2014'' in Spectrum.C?). Accordingly, for each toy, and each AD $d$, a
+scaling factor $k_d$ is calculated as
+\begin{equation*}
+  k_d = 1 + a_d \cdot 0.002.
+\end{equation*}
+The final relationship between positron and reconstructed energy, for AD $d$, is
+then
+\begin{equation*}
+  \Erec = F_d(E_e) = k_d \cdot f_{\mathrm{ran}}(E_e) \cdot E_e.
+\end{equation*}
+
+Using this relationship, the number of events $N_{\mathrm{rec},i}$in the $i$th
+bin of reconstructed energy (centered at $E_{\mathrm{rec},i}$) is calculated as
+\begin{equation}
+  \label{eq:fitNrec}
+  N_{\mathrm{rec},i} = N_{e,j} \frac{1}{F'(E_{e,j})} \frac{\Delta_{\mathrm{rec}}}{\Delta_{\mathrm{e}}}
+\end{equation}
+where $j$ is the index of the positron energy bin containing
+$F^{-1}(E_{\mathrm{rec},i})$, and the $\Delta$ are the bin widths.
+
+\subsubsection{Detector resolution}
+
+As described in \cite{An_2017}, the Daya Bay detector resolution has been
+characterized as taking the form
+\begin{equation*}
+  \frac{\sigma(E)}{E} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E}
+    + \frac{(2.6\%)^2}{E^2}},
+\end{equation*}
+where the three terms correspond to detector nonuniformity, photoelectron
+statistics, and noise, respectively. This fractional resolution is given a
+conservative uncertainty of 0.2\% correlated and 0.2\% uncorrelated, with
+fluctuations applied as a constant shift to the fractional uncertainty. As such,
+for detector $d$, $\sigma$ is fluctuated according to
+\begin{equation*}
+  \frac{\sigma_{\mathrm{ran},d}(E)}{E} = \frac{\sigma(E)}{E} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
+\end{equation*}
+
+Application of the detector resolution begins with the $\Erec$ histogram
+produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty)
+``destination'' histogram is then constructed, and for each destination bin
+centered at $E_i$, we loop over the ``source'' bins that span $E_i \pm
+8\,\sigma(E_i)$, and increase the count in the destination bin by the contents
+of the source bin, times the appropriate Gaussian factor. This produces the
+final, smeared, IBD spectrum.
+\subsection{Backgrounds}
+\label{sec:fitToyBackgrounds}
+
+\subsubsection{\LiHe\}
+
+  The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as
+  is the prediction of the spectrum, which assumes a 5.5\% proportion of
+  $^8$He. When fluctuations are enabled, the toy MC fluctuates the rate in each
+  hall independently. In order to enable fluctuation of the shape, a sample of
+  250 random \LiHe\ spectra were produced under 100\% variations of the alpha
+  and neutron quenching factors. (The $^8$He proportion was not varied during
+  this process, since its impact is small compared to that of the quenching.)
+  For each fluctuated toy, a spectrum is chosen at random from this set.
+
+  \subsection{Outputs}
+  \label{sec:fitToyOutputs}
+
+
+  \subsubsection{``Super histograms''}
+
+  The so-called \emph{super histograms} $S_c$ are essentially the cross
+  section-weighted antineutrino spectra produced by each core, with some
+  arbitrary (but consistent) normalization
+  \begin{equation*}
+    S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
+  \end{equation*}
+  As an implementation detail, these are calculated in the toy MC by applying
+  \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific
+  quantities set to unity (or an arbitrary constant), and $\theta_{13}$ set to
+  zero. The super histograms are used to calculate the fraction of each AD's
+  spectrum that is attributable to each core, as needed when extrapolating
+  near-site measurements to the far site. The normalization is unimportant,
+  since only the ratios matter in this calculation.
+  \subsubsection{Response matrix}
+
+  \subsubsection{Toy spectra}
+
+  \subsubsection{Covariance matrices}
 
 \end{document}

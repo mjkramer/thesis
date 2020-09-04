@@ -236,6 +236,78 @@ enrichment, whereas the latter approach is preferable at higher muon cuts, due
 to the avoidance of the neutron tagging efficiency. Below, we describe a
 measurement that uses both techniques, applied where each is the optimal choice.
 
+\subsection{Spectrum}
+\label{sec:bkgLi9Spectrum}
+
+The \LiHe\ spectrum can be either extracted from data or predicted from nuclear
+tables. The two approaches give consistent results, and we briefly describe them
+both here, although our analysis makes exclusive use of the predicted spectrum.
+
+An extraction of the spectrum from Daya Bay data was performed by Marshall in
+[XXX]. The approach takes advantage of the fact that \LiHe\ are essentially the
+only IBD-like events that are correlated with muons on the 100~ms timescale. A
+\LiHe-enriched sample was obtained by taking IBD-like events within 2---200~ms
+of a ``shower'' muon, here defined as one producing at least $2\times10^5$
+photoelectrons. This sample contained various muon-uncorrelated ``backgrounds'',
+such as true IBDs and accidentals. In order to remove this contamination, a
+\LiHe-depleted sample was obtained by looking for IBD candidates with no
+preceding shower muons within 1.5~s. Before subtracting the two spectra, an
+appropriate normalization for the depleted sample had to be determined. This was
+done by performing the time-to-last-muon fit for the enriched sample, which
+indicated the number of true \LiHe\ events in the sample, in turn implying the
+number of non-\LiHe\ events. The depleted sample was thus normalized to this
+latter count, and the subtraction was performed, giving the results shown in
+Fig.~XXX.
+
+The prediction of the \LiHe\ spectrum was carried out by Ochoa in [XXX docs
+8772, 8860]. Three types of reference tables were consulted: nuclear structure,
+branching ratios, and measured spectra (of neutrons, alphas, and gammas). Given
+the number of decay pathways involved, a purely analytic approach was
+infeasible, so a toy Monte Carlo was used to produce random decay events. The
+discussion here uses the example of $^9$Li, but $^8$He was essentially treated
+the same way. The initial $\beta$ decay (into any of four $^9Be^*$ states) was
+simulated using the Fermi theory and the published energy levels and branching
+fractions. For the decays that produce a $2\alpha+n$ final state (i.e. the only
+decays of interest to us), $^9Be^*$ disintegrates via two consecutive two-body
+decays (via either $^8$Be or $^5$He). Since there is no angular distribution to
+consider in a two-body decay, the disintegration was treated using basic
+kinematics, with the width of each state modeled with a Breit-Wigner
+function. The result was a collection of simulated events, each one recording
+the (true) energies of the electron, the neutron, and the two alphas (or, in the
+case of $^8$He, the electron, the neutron, and the gamma).
+
+In order to benchmark this simulation, its output was compared against published
+measurements of \LiHe\ spectra of neutrons, alphas, and gammas. Based on this
+comparison, one (particularly broad) level of $^8$He had to be augmented with a
+Gaussian density of states (a complication not considered for the other
+levels). Since the published branching ratios were relatively imprecise, they
+were hand-tuned (within limits) in the simulation so as to achieve satisfactory
+agreement with the published spectra.
+
+Finally, to obtain the predicted spectrum in terms of prompt (i.e. reconstructed
+energy), the simulated events were passed through a model of the detector
+nonlinearity. Given that the \LiHe\ spectrum prediction was performed in 2013,
+it is based on an older nonlinearity model than the one discussed in
+\autoref{sec:fitToyDetResponse}.\footnote{The differences between models are not
+  significant enough to warrant concern, especially in light of the uncertainty
+  we assign to the \LiHe\ spectrum, as discussed in XXX ref toy MC.} Crucially,
+this model, produced by the BCW analysis group,\footnote{Brookhaven, Caltech,
+  and William \& Mary.} includes nonlinearity curves for alphas and neutrons,
+whose kinetic energies were also considered when determining the prompt energy
+for each event. The resulting prompt energy spectra could then be combined
+according to the best estimate of the relative proportions of $^9$Li and
+$^8$He. For the sake of this analysis, a nominal 5.5\% fraction of $^8$He was
+used.\footnote{The measured spectrum and the rate fit both give results that are
+  consistent with zero $^8$He, while rough predictions (XXX cite?) indicate that
+  the $^8$He proportion should not exceed 20\%. Meanwhile, the predicted
+  spectrum does not change very significantly when the fraction is varied from 0
+  to 20\%, in comparison to the other sources of uncertainty (neutron and alpha
+  quenching). Hence, 5.5\%, an ``inherited'' feature of this analysis, is as
+  good a guess as any.} \autoref{sec:fitToyBackgrounds} discusses the
+uncertainty assigned to the \LiHe\ spectrum.
+
+XXX show plot overlaying measured and predicted spectra.
+
 \section{Cosmogenic fast neutrons}
 
 XXX ref doc-10948. Fig. 25 from long paper.
@@ -416,12 +488,12 @@ final results given in Table~XXX.
 \section{AmC source}
 
 To study the response of the detectors to neutrons, each AD was initially
-configured with a low-intensity ($\sim$0.7~Hz) \AmC\ neutron sources in each of
+configured with a low-intensity ($\sim$0.7~Hz) \AmC\ neutron source in each of
 the three automated calibration units (ACUs) housed on the detector's lid. The
 \AmC\ sources are used, for instance, in determining the ratio of visible
 energies between $^{60}$Co and n-Gd events; this ratio is a necessary input in
-the calibration of the AdScaled reconstruction. Unlike more traditional neutron
-sources such as $^{252}$Cf and $^{241}$Am-$^{9}$Be, the \AmC\ source was
+the calibration of the AdScaled reconstruction. In contrast to more traditional
+neutron sources such as $^{252}$Cf and $^{241}$Am-$^{9}$Be, the \AmC\ source was
 designed to avoid multi-neutron and gamma-neutron cascades (a potential
 correlated background). Furthermore, when not in use, the location and shielding
 of the sources ensures that neutrons do not infiltrate the GdLS region,
@@ -457,9 +529,9 @@ statistics, and the AdScaled calibration would be impaired in the meantime. On
 the other hand, it \emph{is} possible to directly measure the rate
 ($\sim$230/day, initially) of \emph{uncorrelated} events from neutron capture in
 the stainless steel. Furthermore, MC simulations can be used to relate the rates
-of uncorrelated and correlated events. Finally, a high-activity AmC source can
-be used to benchmark the MC. These three insights together enable a relatively
-precise (i.e. to within 45\%) determination of the AmC background.
+of uncorrelated and correlated events. Finally, a high-activity AmC source (HAS)
+can be used to benchmark the MC. These three insights together enable a
+relatively precise (i.e. to within 45\%) determination of the AmC background.
 
 The following is the fundamental relationship used in the AmC background
 estimation:
@@ -480,28 +552,30 @@ AD. All of the complexity lay in the determination of $\xi$. In principle, $\xi$
 could be extracted directly from a MC simulation. Although the Daya Bay MC
 contains a detailed and accurate modeling of the detector materials and geometry
 (including the ACUs and the AmC sources themselves), any inaccuracies in the
-simulated physics could bias the obtained value of $\xi$. Accordingly, the
-high-activity AmC source (HAS) was designed and deployed in order to validate
-the simulations.
+simulated physics could bias the obtained value of $\xi$. Accordingly, the HAS
+was designed and deployed in order to validate the simulations.
 
 Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was
 much more intense, producing $\sim$59 neutrons/s. Furthermore, the enclosure of
-the HAS consisted of a nearly solid cylinder of SS, in order to maximize the
-rate of neutron captures and inelastic scatters. The HAS was placed on the lid
-of EH3-AD1 (AD4) in the summer of 2012, and data was collected for ten days. The
-number of uncorrelated HAS-induced neutron-like events was determined by
-subtracting the neutron-like samples between AD4 and the adjacent AD5, which
-observed $\sim$50,000 and $\sim$4,000 events, respectively.
+the HAS consisted of a nearly solid cylinder of stainless steel, in order to
+maximize the rate of neutron captures and inelastic scatters. The HAS was placed
+on the lid of EH3-AD1 (AD4) in the summer of 2012, and data was collected for
+ten days. The number of uncorrelated HAS-induced neutron-like events was
+determined by subtracting the neutron-like samples between AD4 and the adjacent
+AD5, which observed $\sim$50,000 and $\sim$4,000 events, respectively.
 
 Meanwhile, the number of \emph{correlated} AmC events was measured by taking the
 spectrum of IBD candidates in AD4, subtracting the accidental background, and
-the subtracting the (background-subtracted) IBD sample measured by AD5. Relating
-the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS},
-of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a
-$\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data
-was then assigned as an uncertainty of the MC. With the addition of the 20\%
-statistical uncertainty on the data, a total uncertainty of 30\% was assigned to
-$\xi$.
+then subtracting the (background-subtracted) IBD sample measured by
+AD5.\footnote{This procedure doesn't account for other correlated backgrounds in
+  AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are
+  insignificant compared to the 63 correlated events per day produced by the
+  HAS.} Relating the uncorrelated and correlated rates gave a value of $\xi$,
+\emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other
+hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\%
+difference versus data was then assigned as an uncertainty of the MC. With the
+addition of the 20\% statistical uncertainty on the data, a total uncertainty of
+30\% was assigned to $\xi$.
 
 Compared to the HAS, the ordinary, i.e. low-intensity, AmC source (LAS) is
 expected to have a lower $\xi$, since it lies farther from the AD and has a
@@ -532,15 +606,15 @@ uncertainty of 45\% on the AmC background. Given the identical design of the
 ADs, identical behavior was assumed with respect to the AmC background, and no
 attempt was made to calculate AD-specific quantities.
 
-With $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty thus
-determined, evaluation of each AD's AmC background then amounted to the simple
+After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the
+uncertainty, evaluation of each AD's AmC background then amounted to the simple
 task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto
 efficiency) and multiplying it by $\xi$, resulting in the final values used in
 this analysis. It should be noted that the ACU-B and ACU-C AmC sources were
 removed from the EH3 ADs in 2012, during installation of EH2-AD2 and
 EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between
   the three-sources and one-source scenarios, but this subtlety is not discussed
-  in \cite{Gu_2015}. Presumably, any such effects are fall within the 45\%
+  in \cite{Gu_2016}. Presumably, any such effects fall within the 45\%
   uncertainty.} This significantly reduced the AmC background at the far site
 from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of
 data, a 50\% decline was observed in the rate from each AmC source, in all three
