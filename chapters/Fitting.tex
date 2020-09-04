@@ -108,10 +108,39 @@ As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affecte
 
 The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves that (XXX doc-9826 p10) express the uncertainty in the model. The curves were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis.
 
+Based on the unified model, a random nonlinearity curve is generated according to
+\begin{equation*}
+  f_{\mathrm{ran}}(E_e) = f_{\mathrm{nom}}(E_e) + \sum_p^4 a_p [ f_p(E_e) - f_{\mathrm{nom}}(E_e)],
+\end{equation*}
+where the $a_p$ are standard Gaussian random variables. (We will continue using $a$ to denote such variables.) The same curve is used in all detectors. However, where the ADs \textit{can} differ is in their overall energy scales. The relative energy scale uncertainty has been estimated to be 0.2\% (XXX DocDB ``May 2014'' in Spectrum.C?). Accordingly, for each toy, and each AD $d$, a scaling factor $k_d$ is calculated as
+\begin{equation*}
+  k_d = 1 + a_d \cdot 0.002.
+\end{equation*}
+The final relationship between positron and reconstructed energy, for AD $d$, is then
+\begin{equation*}
+  \Erec = F_d(E_e) = k_d \cdot f_{\mathrm{ran}}(E_e) \cdot E_e.
+\end{equation*}
 
-\subsubsection{Smearing}
+Using this relationship, the number of events $N_{\mathrm{rec},i}$in the $i$th bin of reconstructed energy (centered at $E_{\mathrm{rec},i}$) is calculated as
+\begin{equation}
+  \label{eq:fitNrec}
+  N_{\mathrm{rec},i} = N_{e,j} \frac{1}{F'(E_{e,j})} \frac{\Delta_{\mathrm{rec}}}{\Delta_{\mathrm{e}}}
+\end{equation}
+where $j$ is the index of the positron energy bin containing $F^{-1}(E_{\mathrm{rec},i})$, and the $\Delta$ are the bin widths.
 
+\subsubsection{Detector resolution}
 
+As described in \cite{An_2017}, the Daya Bay detector resolution has been characterized as taking the form
+\begin{equation*}
+  \frac{\sigma(E)}{E} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E}
+    + \frac{(2.6\%)^2}{E^2}},
+\end{equation*}
+where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. This fractional resolution is given a conservative uncertainty of 0.2\% correlated and 0.2\% uncorrelated, with fluctuations applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma$ is fluctuated according to
+\begin{equation*}
+  \frac{\sigma_{\mathrm{ran},d}(E)}{E} = \frac{\sigma(E)}{E} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
+\end{equation*}
+
+Application of the detector resolution begins with the $\Erec$ histogram produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty) ``destination'' histogram is then constructed, and for each destination bin centered at $E_i$, we loop over the ``source'' bins that span $E_i \pm 8\,\sigma(E_i)$, and increase the count in the destination bin by the contents of the source bin, times the appropriate Gaussian factor. This produces the final, smeared, IBD spectrum.
 \subsection{Backgrounds}
 \label{sec:fitToyBackgrounds}
 
@@ -121,9 +150,9 @@ The unified nonlinearity model takes the form of a nominal curve (tabulating the
 
 \subsubsection{``Super histograms''}
 
-The so-called \emph{super histograms} $S_c$ are essentially the cross section-weighted antineutrino spectra produced by each core, times some arbitrary normalization $\alpha$:
+The so-called \emph{super histograms} $S_c$ are essentially the cross section-weighted antineutrino spectra produced by each core, with some arbitrary (but consistent) normalization
 \begin{equation*}
-  S_c(E_\nu) = \alpha\,\sigma(E_\nu)\,F_c(E_\nu).
+  S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
 \end{equation*}
 As an implementation detail, these are calculated in the toy MC by applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific quantities set to unity (or an arbitrary constant), and $\theta_{13}$ set to zero. The super histograms are used to calculate the fraction of each AD's spectrum that is attributable to each core, as needed when extrapolating near-site measurements to the far site. The normalization is unimportant, since only the ratios matter in this calculation.
 \subsubsection{Response matrix}
