@@ -55,7 +55,7 @@ The toy MC chain begins with the prediction of the livetime-averaged antineutrin
 \end{equation}
 where $T_i$ is the livetime, $N_i$ is the number of target protons, and $L_{ci}$ is the baseline.
 
-The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\%, with the latter component fully correlated with the variation in energy scale of the AD.\footnote{The relative energy scale uncertainty is 0.2\%, as described later. Studies have shown (Yasu's DocDB 10956) that a 1\% energy scale variation leads to a 0.36\% shift in detection efficiency (largely due to the delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.}
+The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\%, with the latter component fully correlated with the variation in energy scale of the AD.\footnote{The relative energy scale uncertainty is 0.2\%, as described later. Studies have shown (XXX Yasu's DocDB 10956) that a 1\% energy scale variation leads to a 0.36\% shift in detection efficiency (largely due to the delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.}
 
 The cross section $\sigma(E_\nu)$ is integrated over $4\pi$ based on the treatment in \cite{Vogel_1999}, recalculated with updated PDG constants for the phase factor $f^R$, the axial-vector coupling $g_A$, and the neutron lifetime. $\Posc$, meanwhile, is calculated according to \autoref{eq:survProbDybFull}, which of course depends on $\SinSq$ and $\Dmsqee$.\footnote{By default, the toy MC assumes the normal hierarchy when converting $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} For generating the covariance and response matrices, ``nominal'' values of 0.085 and 0.00248~eV$^2$ are used.\footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum.} Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
 
@@ -141,16 +141,34 @@ where the three terms correspond to detector nonuniformity, photoelectron statis
 \end{equation*}
 
 Application of the detector resolution begins with the $\Erec$ histogram produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty) ``destination'' histogram is then constructed, and for each destination bin centered at $E_i$, we loop over the ``source'' bins that span $E_i \pm 8\,\sigma(E_i)$, and increase the count in the destination bin by the contents of the source bin, times the appropriate Gaussian factor. This produces the final, smeared, IBD spectrum.
+
 \subsection{Backgrounds}
 \label{sec:fitToyBackgrounds}
 
-\subsubsection{\LiHe\}
+The toy MC's treatment of backgrounds is based on the discussion in \autoref{chap:bkg}. Here we briefly review the determination of the rate and shape (and their respective uncertainties) of each background. Fluctuations may be applied differently for different backgrounds; for instance, for some backgrounds each AD is fluctuated independently, while for others the fluctuations are correlated. Such details will also be covered in what follows. In all cases, the rate and shape uncertainties are decoupled; that is, shape fluctuations are implemented by distorting the spectrum and then renormalizing it to its previous integral, while rate fluctuations involve uniformly scaling all bins by the same factor.
 
-The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. When fluctuations are enabled, the toy MC fluctuates the rate in each hall independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching.) For each fluctuated toy, a spectrum is chosen at random from this set.
+\subsubsection{Accidentals}
+
+The accidental background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. A conservative XXX\% uncertainty is assigned to the rate in order to account for the possibility of low-energy correlated processes (e.g. alpha-alpha) that could slightly bias the rate calculation. Rate fluctuations are applied independently for each AD. No shape uncertainty is assigned, given the substantial statistics of the background sample and the fact that the uncertainty in each energy bin is more than covered by the overall rate uncertainty. XXX should show that the shape doesn't vary much for different isolation cuts.
+
+\subsubsection{\LiHe}
+
+The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Rate fluctuations are applied to each \emph{hall} independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching.) For each fluctuated toy, a spectrum is chosen at random from this set. The same random spectrum is used among all ADs.
+
+\subsubsection{Fast neutrons}
+
+The fast neutron rate and shape were estimated using a number of techniques, as described in \autoref{sec:bkgFastn}. As with \LiHe, rate fluctuations are applied on a per-hall basis. The nominal shapes take the form of \autoref{eq:bkgFastnShape}, with separate parameters $E_0$ and $a$ specified for each hall,\footnote{As currently implemented, $a$ is set to zero.} based on fits to data samples enriched in fast neutrons. For shape fluctuations, the key consideration is the fact that most of the shape uncertainty lies at low energies. Accordingly, for each toy, an empirical distortion curve is generated as
+\begin{equation*}
+  y(E) = \mathrm{Gaus}(0,1) \cdot E^{-0.1} + c,
+\end{equation*}
+where $c$ is chosen to ensure that $y = 1$ (i.e. no distortion) at 12~MeV. When the random Gaussian gives $\pm 1$, the size of this distortion is 25\% at 0.7~MeV. The distorted shape is obtained by multiplying the nominal spectrum by $y(E)$. The same distorted spectrum is used for all ADs.
+
+\subsubsection{AmC}
+
+\subsubsection{$^{13}\mathrm{C}(\alpha,n)^{16}\mathrm{O}$}
 
 \subsection{Outputs}
 \label{sec:fitToyOutputs}
-
 
 \subsubsection{``Super histograms''}
 
