@@ -176,12 +176,40 @@ The rate and its uncertainty for the $\CanO$ background are described in \autore
 
 \subsubsection{``Super histograms''}
 
-The so-called \emph{super histograms} $S_c$ are essentially the cross section-weighted antineutrino spectra produced by each core, with some arbitrary (but consistent) normalization
+The so-called \emph{super histograms} $S_c$ are essentially the cross section-weighted antineutrino spectra produced by each core, with some arbitrary (but consistent) normalization:
 \begin{equation*}
   S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
 \end{equation*}
-As an implementation detail, these are calculated in the toy MC by applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific quantities set to unity (or an arbitrary constant), and $\theta_{13}$ set to zero. The super histograms are used to calculate the fraction of each AD's spectrum that is attributable to each core, as needed when extrapolating near-site measurements to the far site. The normalization is unimportant, since only the ratios matter in this calculation.
+As an implementation detail, these histograms are calculated in the toy MC by applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific quantities set to unity (or an arbitrary constant), and $\theta_{13}$ set to zero. The super histograms are used to calculate the fraction of each AD's spectrum that is attributable to each core, as needed when extrapolating near-site measurements to the far site. The normalization is unimportant, since only the ratios matter in this calculation.
+
 \subsubsection{Response matrix}
+
+As discussed in \autoref{eq:bkgFastnShape}, a number of effects contribute to the relationship between neutrino energy and reconstructed prompt energy. The overall response can be encapsulated by a single matrix that relates the two energies. In the fitter, discussed later, this matrix is used to convert prompt energy to neutrino energy, for extrapolation to the far site, where the transposed matrix is used to convert back to prompt energy for comparison with the measurement.
+
+This matrix is initially generated as a two-dimensional ROOT histogram, in which the $x$ axis represents neutrino energy in 240 bins from 0 to 12~MeV, and the $y$ axis represents prompt energy. Two (somewhat arbitrary) options are available for the prompt energy binning:
+
+\begin{enumerate}
+\item ``LBNL'' binning: One bin from 0.7 to 1~MeV, 35 bins of 0.2~MeV from 1 to 8~MeV, and one bin from 8 to 12~MeV, for a total of 37 bins.
+\item ``BCW'' binning: One bin from 0.7 to 1.3~MeV, 24 bins of 0.25~MeV from 1.3 to 7.3~MeV, and one bin from 7.3 to 12~MeV, for a total of 26 bins.
+\end{enumerate}
+
+The spectrum below 1.3~MeV is particularly susceptible to distortion from the IAV effect. In turn, if the IAV effect is imperfectly modeled, this can lead to a $\sim1\sigma$ bias in the extraction of $\Dmsqee$, as was indeed observed during comparisons of the results between independent analysis groups. The use of a coarser binning at low energies thus removes any sensitivity to this distortion. For this reason, the BCW binning is preferred (at least pending improvements to the IAV matrix).
+
+\begin{comment}
+  I don't see any reason to mention the fact that a finer binning (2880 instead of 240) is used internally by the toy MC when generating this matrix. With the standard 240 bins, the edges line up with both the LBNL and BCW edges, so there shouldn't be any benefit from using a finer binning.
+
+  deleted: Internally, the toy MC normally represents both neutrino and prompt energy using 240 bins (of 50~keV) from 0 to 12~MeV.
+\end{comment}
+
+The intuitive way to produce the response matrix would be loop over $E_\nu$ bins and populate their columns with the corresponding probability distribution functions of $\Erec$. The result would work fine for obtaining $\Erec$ from $E_\nu$, but unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation from $\Erec$ to $E_\nu$ as required by the first step of the near-to-far extrapolation. Use of the tranpose, meanwhile, would only be valid if the antineutrino spectrum were flat, which is obviously not the case.
+
+The solution to these difficulties is to weight each $E_\nu$ column according to the expected shape of the IBD spectrum. Under the assumption that the measured spectrum actually matches this shape, it is then valid to use the transpose in order to convert $\Erec$ to an $E_\nu$ distribution. Given that the shape is distorted both by oscillations and by differences in the fission fractions, it is important to verify that the analysis is insensitive to the expected variations in the spectral shape. XXX, was this done?
+
+To produce the response matrix, the toy MC first generates a nominal spectrum (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 neutrino energy bins;\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} for each bin $i$, it produces the corresponding p.d.f. of prompt energy (assuming a flat distribution within bin $i$), then scales it by the height of the $E_\nu$ spectrum at bin $i$; the result is then assigned to the $i$th column of the matrix.
+
+Finally, each \emph{row} of the matrix is normalized to unity.
+
+YYY now check to see how Predictor actually applies the inverse transformation.
 
 \subsubsection{Toy spectra}
 
