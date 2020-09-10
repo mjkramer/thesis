@@ -201,15 +201,23 @@ The spectrum below 1.3~MeV is particularly susceptible to distortion from the IA
   deleted: Internally, the toy MC normally represents both neutrino and prompt energy using 240 bins (of 50~keV) from 0 to 12~MeV.
 \end{comment}
 
-The intuitive way to produce the response matrix would be loop over $E_\nu$ bins and populate their columns with the corresponding probability distribution functions of $\Erec$. The result would work fine for obtaining $\Erec$ from $E_\nu$, but unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation from $\Erec$ to $E_\nu$ as required by the first step of the near-to-far extrapolation. Use of the tranpose, meanwhile, would only be valid if the antineutrino spectrum were flat, which is obviously not the case.
+For the near-to-far extrapolation, we require the ability to convert from $\Erec$ to $E_\nu$. However, the toy MC can only go in the opposite direction, from $E_\nu$ to $\Erec$. Therefore, the intuitive way to produce the response matrix would be loop over $E_\nu$ bins and populate their columns with the corresponding (normalized) $\Erec$ spectra. The result could then be directly used for converting $E_\nu$ to $\Erec$:
+\begin{equation*}
+  \mathbf{S_{\mathrm{rec}}} = \mathbf{M} \mathbf{S_\nu} 
+\end{equation*}
+where the $\mathbf{S}$ are the spectra and $\mathbf{M}}$ is the matrix.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use this method to convert $E_\nu$ to $\Erec$ at the end of the extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each $\Erec$ bin, and the result is then integrated back into the original $\Erec$ bin. This method is perhaps not quite as rigorous, but there is no evidence of any resulting bias.} Unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation that we need. Meanwhile, use of the transpose, as in
+\begin{equation*}
+  \mathbf{S_\nu} = \mathbf{M^{\mathrm{T}}} \mathbf{S_{\mathrm{rec}}},
+\end{equation*}
+would only be valid if the antineutrino spectrum were flat, which is obviously not the case.
 
-The solution to these difficulties is to weight each $E_\nu$ column according to the expected shape of the IBD spectrum. Under the assumption that the measured spectrum actually matches this shape, it is then valid to use the transpose in order to convert $\Erec$ to an $E_\nu$ distribution. Given that the shape is distorted both by oscillations and by differences in the fission fractions, it is important to verify that the analysis is insensitive to the expected variations in the spectral shape. XXX, was this done?
+The solution to these difficulties is to weight the $\Erec$ spectrum in each $E_\nu$ column according to the expected shape (in $E_\nu$) of the IBD spectrum. This effectively gives a prediction of the 2D joint distribution of $E_\nu$ and $\Erec$. Each \emph{row} can then be normalized to give an $E_\nu$ spectrum for each $\Erec$ bin. Under the assumption that the measured spectrum reasonably matches this shape, it is then valid to use the result for converting an $\Erec$ bin to an $E_\nu$ distribution.\footnote{Given that the shape is distorted both by oscillations and by differences in the fission fractions, it is important to verify that the analysis is insensitive to such variations in the spectral shape. XXX, was this done?}
 
-To produce the response matrix, the toy MC first generates a nominal spectrum (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 neutrino energy bins;\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} for each bin $i$, it produces the corresponding p.d.f. of prompt energy (assuming a flat distribution within bin $i$), then scales it by the height of the $E_\nu$ spectrum at bin $i$; the result is then assigned to the $i$th column of the matrix.
+\begin{comment}
+  We should fix genEvisToEnuMatrix.C to turn off the theta13 oscillation, and then note below that oscillations are disabled.
+\end{comment}
 
-Finally, each \emph{row} of the matrix is normalized to unity.
-
-YYY now check to see how Predictor actually applies the inverse transformation.
+To produce the response matrix, the toy MC first generates a nominal spectrum (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 neutrino energy bins;\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} for each bin $i$, it produces the corresponding p.d.f. of prompt energy (assuming a flat distribution within bin $i$), then scales it by the height of the $E_\nu$ spectrum at bin $i$; the result is then assigned to the $i$th column of the matrix. Finally, each \emph{row} of the matrix is normalized to unity.
 
 \subsubsection{Toy spectra}
 
