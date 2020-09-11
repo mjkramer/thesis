@@ -7,6 +7,9 @@
 % \chapter*{Accidentals rate and DMC efficiency}
 % \stepcounter{chapter}
 
+XXX this still needs to be updated in some areas to account for our use of a
+DMC-like isolation cut instead of a symmetric one.
+
 \def\Emin{\ensuremath{E_\mathrm{min}}} \def\Emax{\ensuremath{E_\mathrm{max}}}
 \def\Rs{\ensuremath{R_\mathrm{s}}} \def\Rplu{\ensuremath{R_\mathrm{+}}}
 \def\Rpro{\ensuremath{R_\mathrm{p}}} \def\Rdel{\ensuremath{R_\mathrm{d}}}
@@ -67,8 +70,8 @@ singles selection), and $T$ be the raw DAQ livetime of the sample.
 \section{Singles selection}
 \label{sec:singsel}
 
-We begin with a sample of singles, consisting of events that meet the following
-cuts:
+We begin with a sample of singles. As described in \autoref{sec:selSingles},
+these are events that meet the following criteria:
 
 \begin{comment}
   This is the current state of the code:
@@ -92,16 +95,19 @@ cuts:
 \item Not in a muon veto window.
 \item AdSimple energy of at least 0.7~MeV.
 \item Charge of less than 3,000 p.e. (i.e., not muon-like)
-\item No other events passing the above cuts within time window $\pm t$.
+\item No other such events within 400~\us\ before the event
+\item No other such events \emph{between 6 and 12~MeV} within 200~\us\ after the
+  event
 \end{enumerate}
 
 The muon veto conditions need not be the same as those used in the IBD
 selection, as long as they are sufficiently stringent (as explained in
-\autoref{sec:avoidmuoncorr}). Likewise, $t$ can be chosen arbitrarily, provided
-that the window is large enough to remove correlated triggers and short enough
-to provide sufficient statistics. As currently implemented, a value of $t =
-1$~ms is used. This is a conservative choice; other analysis groups have
-successfully used values more than 50\% shorter.
+\autoref{sec:avoidmuoncorr}). Likewise, the final two conditions (the
+\emph{isolation cut}) can be chosen somewhat arbitrarily, provided that the
+window is large enough to remove correlated triggers and small enough to provide
+sufficient statistics. The actual employed isolation cut is designed to mimic
+the IBD selection's multiplicity cut as closely as possible, as discussed in
+\autoref{sec:selSingles}.
 
 \section{Muon veto considerations}
 \label{sec:muonventoconsider}

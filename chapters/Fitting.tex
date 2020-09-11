@@ -84,7 +84,8 @@ systematics. This basic functionality enables the production of three essential
 inputs used by the fitter:
 
 \begin{itemize}
-\item The covariance matrix used for calculating $\chi^2$ during the fit.
+\item The covariance matrices for signal and background systematics, used in
+  calculating $\chi^2$ during the fit.
 \item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross
   section-weighted antineutrino spectrum produced by each core. This is used
   when breaking down the near-site spectra into reactor components for
@@ -134,7 +135,7 @@ for the construction of the covariance matrix), the efficiency is assigned an
 AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\%, with the latter
 component fully correlated with the variation in energy scale of the
 AD.\footnote{The relative energy scale uncertainty is 0.2\%, as described
-  later. Studies have shown (Yasu's DocDB 10956) that a 1\% energy scale
+  later. Studies have shown (XXX Yasu's DocDB 10956) that a 1\% energy scale
   variation leads to a 0.36\% shift in detection efficiency (largely due to the
   delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.}
 
@@ -248,9 +249,10 @@ without requiring the use of a full covariance matrix during analysis.
 
 Based on the unified model, a random nonlinearity curve is generated according
 to
-\begin{equation*}
+\begin{equation}
+  \label{eq:fitRandomNL}
   f_{\mathrm{ran}}(E_e) = f_{\mathrm{nom}}(E_e) + \sum_p^4 a_p [ f_p(E_e) - f_{\mathrm{nom}}(E_e)],
-\end{equation*}
+\end{equation}
 where the $a_p$ are standard Gaussian random variables. (We will continue using
 $a$ to denote such variables.) The same curve is used in all detectors. However,
 where the ADs \textit{can} differ is in their overall energy scales. The
@@ -299,43 +301,270 @@ centered at $E_i$, we loop over the ``source'' bins that span $E_i \pm
 8\,\sigma(E_i)$, and increase the count in the destination bin by the contents
 of the source bin, times the appropriate Gaussian factor. This produces the
 final, smeared, IBD spectrum.
+
 \subsection{Backgrounds}
 \label{sec:fitToyBackgrounds}
 
-\subsubsection{\LiHe\}
+The toy MC's treatment of backgrounds is based on the discussion in
+\autoref{chap:bkg}. Here we briefly review the determination of the rate and
+shape (and their respective uncertainties) of each background. Fluctuations may
+be applied differently for different backgrounds; for instance, for some
+backgrounds each AD is fluctuated independently, while for others the
+fluctuations are correlated. Such details will also be covered in what
+follows. In all cases, the rate and shape uncertainties are decoupled; that is,
+shape fluctuations are implemented by distorting the spectrum and then
+renormalizing it to its previous integral, while rate fluctuations involve
+uniformly scaling all bins by the same factor.
 
-  The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as
-  is the prediction of the spectrum, which assumes a 5.5\% proportion of
-  $^8$He. When fluctuations are enabled, the toy MC fluctuates the rate in each
-  hall independently. In order to enable fluctuation of the shape, a sample of
-  250 random \LiHe\ spectra were produced under 100\% variations of the alpha
-  and neutron quenching factors. (The $^8$He proportion was not varied during
-  this process, since its impact is small compared to that of the quenching.)
-  For each fluctuated toy, a spectrum is chosen at random from this set.
+\subsubsection{Accidentals}
 
-  \subsection{Outputs}
-  \label{sec:fitToyOutputs}
+The accidental background rate is calculated from data per
+\autoref{sec:accratecalc}, and the shape is likewise extracted from data as
+described in \autoref{sec:selSingles} and \autoref{sec:singsel}. A conservative
+XXX\% uncertainty is assigned to the rate in order to account for the
+possibility of low-energy correlated processes (e.g. alpha-alpha) that could
+slightly bias the rate calculation. Rate fluctuations are applied independently
+for each AD. No shape uncertainty is assigned, given the substantial statistics
+of the background sample and the fact that the uncertainty in each energy bin is
+more than covered by the overall rate uncertainty. XXX should show that the
+shape doesn't vary much for different isolation cuts.
 
+\subsubsection{\LiHe}
 
-  \subsubsection{``Super histograms''}
+The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is
+the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Rate
+fluctuations are applied to each \emph{hall} independently. In order to enable
+fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced
+under 100\% variations of the alpha and neutron quenching factors. (The $^8$He
+proportion was not varied during this process, since its impact is small
+compared to that of the quenching.) For each fluctuated toy, a spectrum is
+chosen at random from this set. The same random spectrum is used among all ADs.
 
-  The so-called \emph{super histograms} $S_c$ are essentially the cross
-  section-weighted antineutrino spectra produced by each core, with some
-  arbitrary (but consistent) normalization
-  \begin{equation*}
-    S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
-  \end{equation*}
-  As an implementation detail, these are calculated in the toy MC by applying
-  \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific
-  quantities set to unity (or an arbitrary constant), and $\theta_{13}$ set to
-  zero. The super histograms are used to calculate the fraction of each AD's
-  spectrum that is attributable to each core, as needed when extrapolating
-  near-site measurements to the far site. The normalization is unimportant,
-  since only the ratios matter in this calculation.
-  \subsubsection{Response matrix}
+\subsubsection{Fast neutrons}
 
-  \subsubsection{Toy spectra}
+The fast neutron rate and shape were estimated using a number of techniques, as
+described in \autoref{sec:bkgFastn}. As with \LiHe, rate fluctuations are
+applied on a per-hall basis. The nominal shapes take the form of
+\autoref{eq:bkgFastnShape}, with separate parameters $E_0$ and $a$ specified for
+each hall,\footnote{As currently implemented, $a$ is set to zero.} based on fits
+to data samples enriched in fast neutrons. For shape fluctuations, the key
+consideration is the fact that most of the shape uncertainty lies at low
+energies. Accordingly, for each toy, an empirical distortion curve is generated
+as
+\begin{equation*}
+  y(E) = \mathrm{Gaus}(0,1) \cdot E^{-0.1} + c,
+\end{equation*}
+where $c$ is chosen to ensure that $y = 1$ (i.e. no distortion) at 12~MeV. When
+the random Gaussian gives $\pm 1$, the size of this distortion is 25\% at
+0.7~MeV. The distorted shape is obtained by multiplying the nominal spectrum by
+$y(E)$. The same distorted spectrum is used for all ADs.
 
-  \subsubsection{Covariance matrices}
+\subsubsection{AmC}
+
+As described in \autoref{sec:bkgAmC}, the AmC rates and a nominal measured
+spectrum from the high-activity AmC source (HAS) were obtained from studies
+within the collaboration (XXX cite). The ensuing uncertainty was deemed to be
+dominated by potential biases in the procedure itself (i.e. MC simulations and
+measurement of a high-activity source), rather than by statistics or AD-to-AD
+variations. As such, both rate and shape fluctuations are applied consistently
+among all ADs. The nominal spectrum was obtained by fitting the HAS spectrum to
+an exponential. Shape fluctuations are then implemented by varying the
+exponential's slope by $\pm$0.15\%, based on the recommendation of studies
+internal to the collaboration.
+
+\subsubsection{$\CanO$}
+
+The rate and its uncertainty for the $\CanO$ background are described in
+\autoref{sec:bkgCanO}. Rate fluctuations are applied independently among all
+ADs. No shape fluctuations are applied, since this background is very small and
+the rate uncertainty is very conservative.
+
+\subsection{Outputs}
+\label{sec:fitToyOutputs}
+
+\subsubsection{``Super histograms''}
+
+The so-called \emph{super histograms} $S_c$ are essentially the cross
+section-weighted antineutrino spectra produced by each core, with some arbitrary
+(but consistent) normalization:
+\begin{equation*}
+  S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
+\end{equation*}
+As an implementation detail, these histograms are calculated in the toy MC by
+applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the
+AD-specific quantities set to unity (or an arbitrary constant), and
+$\theta_{13}$ set to zero. The super histograms are used to calculate the
+fraction of each AD's spectrum that is attributable to each core, as needed when
+extrapolating near-site measurements to the far site. The normalization is
+unimportant, since only the ratios matter in this calculation.
+
+\subsubsection{Response matrix}
+
+As discussed in \autoref{eq:bkgFastnShape}, a number of effects contribute to
+the relationship between neutrino energy and reconstructed prompt energy. The
+overall response can be encapsulated by a single matrix that relates the two
+energies. In the fitter, discussed later, this matrix is used to convert prompt
+energy to neutrino energy, for extrapolation to the far site, where the
+transposed matrix is used to convert back to prompt energy for comparison with
+the measurement.
+
+This matrix is initially generated as a two-dimensional ROOT histogram, in which
+the $x$ axis represents neutrino energy in 240 bins from 0 to 12~MeV, and the
+$y$ axis represents prompt energy. Two (somewhat arbitrary) options are
+available for the prompt energy binning:
+
+\begin{enumerate}
+\item ``LBNL'' binning: One bin from 0.7 to 1~MeV, 35 bins of 0.2~MeV from 1 to
+  8~MeV, and one bin from 8 to 12~MeV, for a total of 37 bins.
+\item ``BCW'' binning: One bin from 0.7 to 1.3~MeV, 24 bins of 0.25~MeV from 1.3
+  to 7.3~MeV, and one bin from 7.3 to 12~MeV, for a total of 26 bins.
+\end{enumerate}
+
+The spectrum below 1.3~MeV is particularly susceptible to distortion from the
+IAV effect. In turn, if the IAV effect is imperfectly modeled, this can lead to
+a $\sim1\sigma$ bias in the extraction of $\Dmsqee$, as was indeed observed
+during comparisons of the results between independent analysis groups. The use
+of a coarser binning at low energies thus removes any sensitivity to this
+distortion. For this reason, the BCW binning is preferred (at least pending
+improvements to the IAV matrix).
+
+\begin{comment}
+  I don't see any reason to mention the fact that a finer binning (2880 instead
+  of 240) is used internally by the toy MC when generating this matrix. With the
+  standard 240 bins, the edges line up with both the LBNL and BCW edges, so
+  there shouldn't be any benefit from using a finer binning.
+
+  deleted: Internally, the toy MC normally represents both neutrino and prompt
+  energy using 240 bins (of 50~keV) from 0 to 12~MeV.
+\end{comment}
+
+For the near-to-far extrapolation, we require the ability to convert from
+$\Erec$ to $E_\nu$. However, the toy MC can only go in the opposite direction,
+from $E_\nu$ to $\Erec$. Therefore, the intuitive way to produce the response
+matrix would be loop over $E_\nu$ bins and populate their columns with the
+corresponding (normalized) $\Erec$ spectra. The result could then be directly
+used for converting $E_\nu$ to $\Erec$:
+\begin{equation*}
+  \mathbf{S_{\mathrm{rec}}} = \mathbf{M} \mathbf{S_\nu} 
+\end{equation*}
+where the $\mathbf{S}$ are the spectra and $\mathbf{M}$ is the
+matrix.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use
+  this method to convert $E_\nu$ to $\Erec$ at the end of the
+  extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each
+  $\Erec$ bin, and the result is then integrated back into the original $\Erec$
+  bin. This method is perhaps not quite as rigorous, but there is no evidence of
+  any resulting bias.} Unfortunately, this matrix would not be directly
+invertible, greatly complicating the reverse transformation that we
+need. Meanwhile, use of the transpose, as in
+\begin{equation*}
+  \mathbf{S_\nu} = \mathbf{M^{\mathrm{T}}} \mathbf{S_{\mathrm{rec}}},
+\end{equation*}
+would only be valid if the antineutrino spectrum were flat, which is obviously
+not the case.
+
+The solution to these difficulties is to weight the $\Erec$ spectrum in each
+$E_\nu$ column according to the expected shape (in $E_\nu$) of the IBD
+spectrum. This effectively gives a prediction of the 2D joint distribution of
+$E_\nu$ and $\Erec$. Each \emph{row} can then be normalized to give an $E_\nu$
+spectrum for each $\Erec$ bin. Under the assumption that the measured spectrum
+reasonably matches this shape, it is then valid to use the result for converting
+an $\Erec$ bin to an $E_\nu$ distribution.\footnote{Given that the shape is
+  distorted both by oscillations and by differences in the fission fractions, it
+  is important to verify that the analysis is insensitive to such variations in
+  the spectral shape. XXX, was this done?}
+
+\begin{comment}
+  We should fix genEvisToEnuMatrix.C to turn off the theta13 oscillation, and
+  then note below that oscillations are disabled.
+\end{comment}
+
+To produce the response matrix, the toy MC first generates a nominal spectrum
+(for the arbitrary case of AD1). Backgrounds are not included, since the fitter
+subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over
+the 240 neutrino energy bins;\footnote{Of course, there will be no antineutrinos
+  below $\sim$1.8~MeV, but this is how the code was written.} for each bin $i$,
+it produces the corresponding p.d.f. of prompt energy (assuming a flat
+distribution within bin $i$), then scales it by the height of the $E_\nu$
+spectrum at bin $i$; the result is then assigned to the $i$th column of the
+matrix. Finally, each \emph{row} of the matrix is normalized to unity.
+
+\subsubsection{Covariance matrices}
+
+The covariance matrix, which describes how the far site data can fluctuate
+around the prediction from the near sites (including correlations between ADs
+and energy bins), can be decomposed as the sum of three components,
+corresponding to signal (antineutrino) systematics, background systematics, and
+statistics. The statistical covariance matrix is calculated analytically by the
+fitter, as described in \autoref{sec:fitStatCovMat}. The two matrices for the
+systematics are generated by the toy MC, as detailed here.
+
+Although the toy MC is capable of simultaneously varying the signal and
+background systematics, the two categories are treated separately due to
+differences in their scaling behaviors: The signal uncertainties scale with the
+size of the signal (which depends on the oscillation parameters), while the
+background uncertainties are constant.
+
+To generate the covariance matrix for signal systematics, a sample of $M
+=$~1,000 toy experiments is generated, using nominal oscillation parameters of
+$\SinSq = 0.084$ and $\Dmsqee = \SI{2.48e-3}{eV^2}$, subject to the following
+fluctuations:
+
+\begin{itemize}
+\item Solar oscillation parameters (XXX provide table with uncertainties)
+\item Reactor power (0.5\% core-to-core uncorrelated)
+\item Fission fractions (uncorrelated), isotope $\nubar$ spectra,
+  non-equilibrium corrections, and spent fuel contributions (all correlated), as
+  encapsulated by the covariance matrix from \cite{Lewis} (see
+  \autoref{sec:reacunccorr})
+\item IAV thickness (4\% AD-to-AD uncorrelated)
+\item Nonlinearity model, fluctuated according to \autoref{eq:fitRandomNL}
+  (correlated)
+\item Relative energy scale (0.2\% uncorrelated)
+\item Energy resolution (0.2\% correlated $\oplus$ 0.2\% uncorrelated)
+\end{itemize}
+
+From this sample of toys, a ``normalized'' signal covariance matrix is
+constructed according to
+\begin{equation*}
+  (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  \frac{(F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)}%
+  {F^{\mathrm{pred},t}_i \cdot F^{\mathrm{pred},t}_j}
+\end{equation*}
+Here, $F^{\mathrm{obs}}$ ($F^{\mathrm{pred}}$) is the observed (predicted) far
+site data, and the indices $i$ and $j$ can potentially\footnote{Depending on how
+  data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a)
+far ADs, (b) the near site(s)/AD(s) used for the prediction, and (c) energy
+bins. When the fitter calculates the $\chi^2$ at a given set of oscillation
+parameters, it scales $V^{\mathrm{norm}}_{\mathrm{sys}}$ according to the
+predicted signal at the far site:
+\begin{equation*}
+  (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}}) \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
+  \cdot F^{\mathrm{pred}}_j(\SinSq, \Dmsqee).
+\end{equation*}
+This uniform scaling procedure does not account for second-order variations in
+the ``shape'' of the covariance matrix as the oscillation parameters vary, but
+this simplification was found to have a negligible affect on the fit, so long as
+the assumed nominal parameters are reasonable.
+
+For the background systematics, another set of 1,000 toys is generated (again
+with nominal oscillation parameters), subject to the rate and shape fluctuations
+described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance
+matrix is calculated as
+\begin{equation*}
+  (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)
+\end{equation*}
+
+\section{Fitter}
+\label{sec:fitFitter}
+
+\subsection{Far site prediction from near sites}
+\label{sec:fitNearToFarPred}
+
+\subsection{Statistical covariance matrix}
+\label{sec:fitStatCovMat}
+
+\subsection{Combination of data}
+\label{sec:fitCombo}
 
 \end{document}

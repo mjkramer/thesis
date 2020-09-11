@@ -151,20 +151,33 @@ XXX show 2D plot of ellipse cut from doc-7143.
 \section{Accidental coincidences}
 \label{sec:accbkg}
 
-As previously stated, the accidental background can be straightforwardly
-measured based on the characteristics of singles events. The singles spectrum is
-first measured by searching for prompt-like events that satisfy the usual muon
-vetos but are separated from other prompt-like events by at least
-400~$\mu$s. The total integral of this spectrum gives the prompt-like rate
-$R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The
-accidental background rate is then simply
-\[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the
-factor in parentheses is the probability for a prompt-like single to fall within
-the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the final
-factor is the probability that the event is \emph{not} rejected by the decoupled
-multiplicity cut, which disallows any additional prompt-like single in the
-400~$\mu$s preceding the delayed event. Once the rate has been determined this
-way, the spectrum is trivial: It is simply the singles spectrum itself.
+IBD-like pairs can be formed when two uncorrelated triggers (\emph{singles})
+``accidentally'' occur closely together in time. Given that the singles rate is
+a few dozen Hz in each AD, the characteristics of singles (and thus of
+accidentals) can be measured with extremely high statistical precision. Once the
+rates of prompt-like and delayed-like singles have been determined, the
+accidentals rate can be calculated via a straightforward application of Poisson
+statistics. This procedure is detailed in \autoref{sec:accratecalc}. The
+spectrum, meanwhile, is equal to that of the singles sample, whose extraction is
+described in \autoref{sec:selSingles}.
+
+\begin{comment}
+  As previously stated, the accidental background can be straightforwardly
+  measured based on the characteristics of singles events. The singles spectrum
+  is first measured by searching for prompt-like events that satisfy the usual
+  muon vetos but are separated from other prompt-like events by at least
+  400~$\mu$s. The total integral of this spectrum gives the prompt-like rate
+  $R_p$, while the integral above 6~MeV gives the delayed-like rate $R_d$. The
+  accidental background rate is then simply
+  \[ R_\mathrm{acc} = R_d(1 - e^{-R_p\Delta t})e^{-2R_p\Delta t}, \] where the
+  factor in parentheses is the probability for a prompt-like single to fall
+  within the $\Delta t$~=~200~$\mu$s preceding a delayed-like single, and the
+  final factor is the probability that the event is \emph{not} rejected by the
+  decoupled multiplicity cut, which disallows any additional prompt-like single
+  in the 400~$\mu$s preceding the delayed event. Once the rate has been
+  determined this way, the spectrum is trivial: It is simply the singles
+  spectrum itself.
+\end{comment}
 
 \begin{comment}
   Mention IHEP's cross-check, and the additional uncertainty stemming from the
@@ -309,6 +322,7 @@ uncertainty assigned to the \LiHe\ spectrum.
 XXX show plot overlaying measured and predicted spectra.
 
 \section{Cosmogenic fast neutrons}
+\label{sec:bkgFastn}
 
 XXX ref doc-10948. Fig. 25 from long paper.
 
@@ -423,11 +437,14 @@ next, and a total uncertainty is assigned to the combination.
 
 Previous simulation studies have found that the fast neutron spectrum can be
 accurately described by the p.d.f.
-\[ f(E) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0}, \] where $E_0$ and
-$a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the p.d.f. When we
-float an additional normalization factor $N$ and perform a fit to some portion
-of the fast neutron spectrum, the best-fit $N$ represents the number of events
-``under the curve'' from 0 to $\infty$~MeV.
+\begin{equation}
+  \label{eq:bkgFastnShape}
+  f(E) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0},  
+\end{equation}
+where $E_0$ and $a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the
+p.d.f. When we float an additional normalization factor $N$ and perform a fit to
+some portion of the fast neutron spectrum, the best-fit $N$ represents the
+number of events ``under the curve'' from 0 to $\infty$~MeV.
 
 In turn, if we have a (hypothetical) pure fast-neutron spectrum containing
 $N_\mathrm{fid}$ events in the fiducial region of [0.7, 12]~MeV, then the full
@@ -486,6 +503,7 @@ final results given in Table~XXX.
 \newcommand\AmC{$^{241}$Am-$^{13}$C}
 
 \section{AmC source}
+\label{sec:bkgAmC}
 
 To study the response of the detectors to neutrons, each AD was initially
 configured with a low-intensity ($\sim$0.7~Hz) \AmC\ neutron source in each of
@@ -623,10 +641,8 @@ led to an ultimate background rate of only 0.05\% and 0.03\%, near and far
 (although the mean rate over the entire data sample is higher, due to the fact
 that earlier rates were higher.)
 
-\newcommand\alphN{(\alpha,\mathrm{n})} \newcommand\CanO{^{13}\mathrm{C}(\alpha,
-  \mathrm{n})^{16}\mathrm{O}}
-
 \section{$\CanO$}
+\label{sec:bkgCanO}
 
 A final and relatively minor ($\lesssim$ 0.01\%/0.07\% near/far) correlated
 background arises from $\alphN$ reactions initiated by natural radioactivity
