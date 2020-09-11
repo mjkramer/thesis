@@ -32,7 +32,7 @@ In practice, the full NuWa-based Monte Carlo is not used for generating the cova
 The toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
-\item The covariance matrix used for calculating $\chi^2$ during the fit.
+\item The covariance matrices for signal and background systematics, used in calculating $\chi^2$ during the fit.
 \item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross section-weighted antineutrino spectrum produced by each core. This is used when breaking down the near-site spectra into reactor components for extrapolation to the far site.
 \item The conversion matrix between prompt and ``true'' antineutrino energy, also used in the extrapolation.
 \end{itemize}
@@ -109,9 +109,10 @@ As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affecte
 The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves that (XXX doc-9826 p10) express the uncertainty in the model. The curves were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis.
 
 Based on the unified model, a random nonlinearity curve is generated according to
-\begin{equation*}
+\begin{equation}
+  \label{eq:fitRandomNL}
   f_{\mathrm{ran}}(E_e) = f_{\mathrm{nom}}(E_e) + \sum_p^4 a_p [ f_p(E_e) - f_{\mathrm{nom}}(E_e)],
-\end{equation*}
+\end{equation}
 where the $a_p$ are standard Gaussian random variables. (We will continue using $a$ to denote such variables.) The same curve is used in all detectors. However, where the ADs \textit{can} differ is in their overall energy scales. The relative energy scale uncertainty has been estimated to be 0.2\% (XXX DocDB ``May 2014'' in Spectrum.C?). Accordingly, for each toy, and each AD $d$, a scaling factor $k_d$ is calculated as
 \begin{equation*}
   k_d = 1 + a_d \cdot 0.002.
@@ -205,7 +206,7 @@ For the near-to-far extrapolation, we require the ability to convert from $\Erec
 \begin{equation*}
   \mathbf{S_{\mathrm{rec}}} = \mathbf{M} \mathbf{S_\nu} 
 \end{equation*}
-where the $\mathbf{S}$ are the spectra and $\mathbf{M}}$ is the matrix.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use this method to convert $E_\nu$ to $\Erec$ at the end of the extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each $\Erec$ bin, and the result is then integrated back into the original $\Erec$ bin. This method is perhaps not quite as rigorous, but there is no evidence of any resulting bias.} Unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation that we need. Meanwhile, use of the transpose, as in
+where the $\mathbf{S}$ are the spectra and $\mathbf{M}$ is the matrix.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use this method to convert $E_\nu$ to $\Erec$ at the end of the extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each $\Erec$ bin, and the result is then integrated back into the original $\Erec$ bin. This method is perhaps not quite as rigorous, but there is no evidence of any resulting bias.} Unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation that we need. Meanwhile, use of the transpose, as in
 \begin{equation*}
   \mathbf{S_\nu} = \mathbf{M^{\mathrm{T}}} \mathbf{S_{\mathrm{rec}}},
 \end{equation*}
@@ -219,8 +220,49 @@ The solution to these difficulties is to weight the $\Erec$ spectrum in each $E_
 
 To produce the response matrix, the toy MC first generates a nominal spectrum (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 neutrino energy bins;\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} for each bin $i$, it produces the corresponding p.d.f. of prompt energy (assuming a flat distribution within bin $i$), then scales it by the height of the $E_\nu$ spectrum at bin $i$; the result is then assigned to the $i$th column of the matrix. Finally, each \emph{row} of the matrix is normalized to unity.
 
-\subsubsection{Toy spectra}
-
 \subsubsection{Covariance matrices}
+
+The covariance matrix, which describes how the far site data can fluctuate around the prediction from the near sites (including correlations between ADs and energy bins), can be decomposed as the sum of three components, corresponding to signal (antineutrino) systematics, background systematics, and statistics. The statistical covariance matrix is calculated analytically by the fitter, as described in \autoref{sec:fitStatCovMat}. The two matrices for the systematics are generated by the toy MC, as detailed here.
+
+Although the toy MC is capable of simultaneously varying the signal and background systematics, the two categories are treated separately due to differences in their scaling behaviors: The signal uncertainties scale with the size of the signal (which depends on the oscillation parameters), while the background uncertainties are constant.
+
+To generate the covariance matrix for signal systematics, a sample of $M =$~1,000 toy experiments is generated, using nominal oscillation parameters of $\SinSq = 0.084$ and $\Dmsqee = \SI{2.48e-3}{eV^2}$, subject to the following fluctuations:
+
+\begin{itemize}
+\item Solar oscillation parameters (XXX provide table with uncertainties)
+\item Reactor power (0.5\% core-to-core uncorrelated)
+\item Fission fractions (uncorrelated), isotope $\nubar$ spectra, non-equilibrium corrections, and spent fuel contributions (all correlated), as encapsulated by the covariance matrix from \cite{Lewis}
+\item IAV thickness (4\% AD-to-AD uncorrelated)
+\item Nonlinearity model, fluctuated according to \autoref{eq:fitRandomNL} (correlated)
+\item Relative energy scale (0.2\% uncorrelated)
+\item Energy resolution (0.2\% correlated $\oplus$ 0.2\% uncorrelated)
+\end{itemize}
+
+From this sample of toys, a ``normalized'' signal covariance matrix is constructed according to
+\begin{equation*}
+  (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  \frac{(F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)}%
+       {F^{\mathrm{pred},t}_i \cdot F^{\mathrm{pred},t}_j}
+\end{equation*}
+Here, $F^{\mathrm{obs}}$ ($F^{\mathrm{pred}}$) is the observed (predicted) far site data, and the indices $i$ and $j$ can potentially\footnote{Depending on how data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a) far ADs, (b) the near site(s)/AD(s) used for the prediction, and (c) energy bins. When the fitter calculates the $\chi^2$ at a given set of oscillation parameters, it scales $V^{\mathrm{norm}}_{\mathrm{sys}}$ according to the predicted signal at the far site:
+\begin{equation*}
+  (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}}) \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
+  \cdot F^{\mathrm{pred}}_j(\SinSq, \Dmsqee).
+\end{equation*}
+This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit.
+
+For the background systematics, another set of 1,000 toys is generated
+
+\section{Fitter}
+\label{sec:fitFitter}
+
+\subsection{Far site prediction from near sites}
+\label{sec:fitNearToFarPred}
+
+\subsection{Statistical covariance matrix}
+\label{sec:fitStatCovMat}
+
+\subsection{Combination of data}
+\label{sec:fitCombo}
 
 \end{document}
