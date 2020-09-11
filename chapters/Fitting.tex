@@ -231,7 +231,7 @@ To generate the covariance matrix for signal systematics, a sample of $M =$~1,00
 \begin{itemize}
 \item Solar oscillation parameters (XXX provide table with uncertainties)
 \item Reactor power (0.5\% core-to-core uncorrelated)
-\item Fission fractions (uncorrelated), isotope $\nubar$ spectra, non-equilibrium corrections, and spent fuel contributions (all correlated), as encapsulated by the covariance matrix from \cite{Lewis}
+\item Fission fractions (uncorrelated), isotope $\nubar$ spectra, non-equilibrium corrections, and spent fuel contributions (all correlated), as encapsulated by the covariance matrix from \cite{Lewis} (see \autoref{sec:reacunccorr})
 \item IAV thickness (4\% AD-to-AD uncorrelated)
 \item Nonlinearity model, fluctuated according to \autoref{eq:fitRandomNL} (correlated)
 \item Relative energy scale (0.2\% uncorrelated)
@@ -249,9 +249,13 @@ Here, $F^{\mathrm{obs}}$ ($F^{\mathrm{pred}}$) is the observed (predicted) far s
   (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}}) \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
   \cdot F^{\mathrm{pred}}_j(\SinSq, \Dmsqee).
 \end{equation*}
-This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit.
+This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit, so long as the assumed nominal parameters are reasonable.
 
-For the background systematics, another set of 1,000 toys is generated
+For the background systematics, another set of 1,000 toys is generated (again with nominal oscillation parameters), subject to the rate and shape fluctuations described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance matrix is calculated as
+\begin{equation*}
+  (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)
+\end{equation*}
 
 \section{Fitter}
 \label{sec:fitFitter}
