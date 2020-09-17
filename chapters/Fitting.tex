@@ -29,6 +29,8 @@ In practice, the full NuWa-based Monte Carlo is not used for generating the cova
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
+XXX discuss how multiple data periods are handled, especially correlation of systematics (e.g. Table 5 in 9999).
+
 The toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
@@ -260,13 +262,136 @@ For the background systematics, another set of 1,000 toys is generated (again wi
 \section{Fitter}
 \label{sec:fitFitter}
 
+Fundamentally, the task of the fitter is simply to find the oscillation parameters that best fit the observed data, where the quality of fit is given by
+\begin{equation*}
+  \chi^2 = \sum_{i,j} (\Fobs_i - \Fpred_i) V^{-1}_{ij} (\Fobs_j - \Fpred_j).
+\end{equation*}
+The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors and periods, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency.\footnote{Similarly, in a pull-based relative fit, there would be no need for nuisance parameters to describe the absolute efficiency.} Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
+
+The bulk of the fitter's complexity lies in the determination of the far site prediction $\Fpred$ based on the near site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
+
+\begin{comment}
+Compared to the toy Monte Carlo, the LBNL shape fitter is a relatively simple thing.
+
+Its job is just to find the oscillation parameters that best fit the data, i.e. that give the lowest chi2.
+
+It also produces a map of chi2 in parameter space for derivation of contours.
+\end{comment}
+
 \subsection{Far site prediction from near sites}
 \label{sec:fitNearToFarPred}
+
+As was mentioned, the far site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, making for a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor information must be used to decompose each near site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of reconstructed energy as a separate subexperiment. For a single near AD, a single far AD, and a single bin of reconstructed energy, the extrapolation proceeds as follows:
+
+\begin{enumerate}
+\item The detector response matrix (\autoref{sec:fitToyOutputs}) is used to generate a distribution of true neutrino energies, by taking the row corresponding to the reconstructed energy bin being extrapolated
+\item For each bin of neutrino energy, the contribution from each core is determined based on the predicted flux (according to power, fission fractions, and isotope spectra), the baselines, and the oscillation parameters. (Describe calculation of ``flux histogram'')
+\item For a single core's contribution to a single neutrino energy bin, the extrapolation factor of XXX is applied to obtain the predicted contribution at the far AD. (Describe calculation of ``extrapolation map''.)
+\item This is repeated for all cores, for all bins of true neutrino energy, to generate a predicted neutrino energy spectrum at the far AD \emph{for the single bin of reconstructed energy in question}
+\item The neutrino energy spectrum is integrated back into the original bin of reconstructed energy
+\end{enumerate}
+
+After repeating this procedure for each bin of reconstructed energy, a predicted prompt generation is thereby obtained at the far AD. Given that there are four near ADs and four far ADs (when all 8 ADs are operating), this results in a total of 16 predictions for each energy bin. The 6 and 7AD periods are essentially considered separate experiments (whose correlations due to systematics are encoded in the covariance matrix, as described in XXX), with 9 and 12 predictions for each energy bin, respectively.
+
+\begin{comment}
+Near site spectrum divided into Erec bins.
+
+For each bin, convert to true energy using matrix.
+
+For each true energy bin (from this single Erec bin), determine fraction from each core using baselines and power.
+
+For each core, undo 1/L^2 and oscillation, then apply them for each far site
+
+Sum up cores, repeat for all Etrue bins (still for this single Erec bin)
+
+Integrate back into original Erec bin at far site. Repeat for all bins.
+
+In this way we get 16 predictions.
+\end{comment}
 
 \subsection{Statistical covariance matrix}
 \label{sec:fitStatCovMat}
 
+The near-to-far extrapolation produces multiple predictions for each far AD, one per near AD. Likewise, each near AD furnishes multiple predictions, one per far AD. Accordingly, statistical fluctuations in the near and far AD data will produce correlated fluctuations (across multiple near/far pairs) in the deviation between prediction and measurement. These correlations are encoded in the statistical covariance matrix, whose calculation we describe here.
+
+Technically speaking, fluctuations in the near site data will produce fluctuations in $\Fpred$, while fluctuations in the far site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This greatly simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
+
+Given this convention, the statistical uncertainty on $\Fpred$ that arises from near site fluctuations is
+\begin{equation*}
+  \snear(\Fpred) = \frac{\Fpred}{N^{\mathrm{obs}}} \sqrt{N^{\mathrm{obs}} + N^{\mathrm{bkg}}},
+\end{equation*}
+where $N^{\mathrm{obs}}$ is the background-subtracted observation at the near AD, and $N^{\mathrm{bkg}}$ is likewise the predicted near AD background. In other words, this is the statistical uncertainty of the (background-subtracted) near measurement, scaled by the far-to-near ratio.
+
+Meanwhile, the statistical uncertainty on $\Fpred$ from far site fluctuations is simply
+\begin{equation*}
+  \sfar(\Fpred) = \sqrt{\Fpred + F^{\mathrm{bkg}}},
+\end{equation*}
+where $F^{\mathrm{bkg}}$ is the predicted background at the far AD. The total uncertainty on $\Fpred$ is then the sum of $\snear$ and $\sfar$, in quadrature.
+
+As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown (XXX) that, for two predictions (in the same energy bin and data period) that arise from same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix.
+
+\begin{comment}
+In the fit, we compare the far site measurement to the far site prediction as obtained from the near sites. Statistical uncertainty arises from both the near sites (in the form of fluctuations in the far site prediction) and from the far site data itself. We have the two expressions for each component.
+
+Without affecting the fit, we can simplify the situation by assigning both components of the statistical uncertainty to the far site \emph{predictions}, with no error bars on the far site data.
+
+The predictions at the same far AD, but from different near ADs, are statistically correlated via the statistical fluctuations at the far AD. The resulting covariance is the product of the two $\sigma_{\mathrm{far}}$.
+
+Likewise, the predictions at different far ADs, but from the same near AD, are correlated via the fluctuations at the near AD. This gives a covariance of the product of the two $\sigma_{\mathrm{near}}$.
+
+I don't know how to prove these claims about the covariances.
+
+From this we can straightforwardly generalize to the full statistical covariance matrix across all ADs, energy bins, and data periods.
+\end{comment}
+
 \subsection{Combination of data}
 \label{sec:fitCombo}
+
+\begin{comment}
+What do we ultimately get? Check P14A technote. 2 (near sites) x 3 (periods) = 4 predictions, over 37 energy bins. Size of covariance matrix is thus 37 x 2 x 3.
+\end{comment}
+
+\subsubsection{Combination of near site data}
+
+\begin{comment}
+Data is summed across all ADs in each near site.
+\end{comment}
+
+\subsubsection{Combination of far site predictions}
+
+\begin{comment}
+The far site prediction is summed across the four far ADs.
+\end{comment}
+
+\subsubsection{Combination of far site data}
+
+\begin{comment}
+The far site data is summed across the four far ADs.
+\end{comment}
+
+\subsubsection{Combination of covariance matrix}
+
+\begin{comment}
+See CombineMatrix in Predictor.cc.
+\end{comment}
+
+\subsubsection{Dealing with 6/8/7AD periods}
+
+\begin{comment}
+Correlations are implemented at the level of the toy MC.
+\end{comment}
+\subsection{$\chi^2$ calculation}
+\label{sec:fitChi2}
+
+\begin{comment}
+Just take $(Fpred_i - Fobs_i)V^{-1}_{ij}(Fpred_j - Fobs_j)$
+\end{comment}
+
+\subsection{Generation of contours}
+\label{sec:fitContours}
+
+\begin{comment}
+Generate map of chi2 in oscillation parameter space. Take the 1sigma contour based on where the chi2 falls to XXX, etc.
+\end{comment}
 
 \end{document}
