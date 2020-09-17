@@ -264,9 +264,13 @@ For the background systematics, another set of 1,000 toys is generated (again wi
 
 Fundamentally, the task of the fitter is simply to find the oscillation parameters that best fit the observed data, where the quality of fit is given by
 \begin{equation*}
-  \chi^2 = \sum_{i,j} (\Fobs_i - \Fpred_i) V^{-1}_{ij} (\Fobs_j - \Fpred_j).
+  \chi^2 = \sum_{i,j} (\Fobs_i - \Fpred_i) V^{-1}_{ij} (\Fobs_j - \Fpred_j),
 \end{equation*}
-The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors and periods, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency.\footnote{Similarly, in a pull-based relative fit, there would be no need for nuisance parameters to describe the absolute efficiency.} Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
+where the total covariance matrix $V$ is given by
+\begin{equation*}
+  V = V_{\mathrm{sig}} + V_{\mathrm{bkg}} + V_{\mathrm{stat}}.
+\end{equation*}
+$V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors and periods, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency.\footnote{Similarly, in a pull-based relative fit, there would be no need for nuisance parameters to describe the absolute efficiency.} Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
 
 The bulk of the fitter's complexity lies in the determination of the far site prediction $\Fpred$ based on the near site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
 
@@ -321,12 +325,12 @@ which essentially removes the effects of baseline and oscillation from the near 
 
 We then have the predicted flux contribution at the far AD:
 \begin{equation*}
-  F_{kj,i}(\Enu; \Erec) = e_{kj,i}(\Enu) \times N_{ij}(\Enu)
+  F^{\mathrm{pred}}_{kj,i}(\Enu; \Erec) = e_{kj,i}(\Enu) \times N_{ij}(\Enu)
 \end{equation*}
 
 Then to get the final prediction at far AD $k$ from near AD $i$, we sum over all cores $j$ and integrate all $\Enu$ bins into the original $\Erec$ bin:
 \begin{equation*}
-  F_{ki}(\Erec) = \sum_j \sum_{\Enu} F_{kj,i}(\Enu; \Erec)
+  F^{\mathrm{pred}}_{ki}(\Erec) = \sum_j \sum_{\Enu} F_{kj,i}(\Enu; \Erec)
 \end{equation*}
 
 \begin{comment}
@@ -383,35 +387,47 @@ From this we can straightforwardly generalize to the full statistical covariance
 \subsection{Combination of data}
 \label{sec:fitCombo}
 
+As was noted, the extrapolation process produces multiple predictions, many of which are highly correlated by virtue of sharing a near or far AD. For the basic case of a single 8AD data period, we are essentially turning four observations (one from each far AD) into 16 variables (one per prediction). Due to this correlation, the full covariance matrix is non-invertible. In order to obtain an invertible matrix, the dimensionality must be reduced down to the level of the original input data (or smaller). This is done by combining data between ADs.
+
+There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2. XXX is this true and if so why?
+
+By convention, the far ADs are added, while the near ADs are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
+\begin{equation*}
+  F^{\mathrm{obs},\mathrm{comb}}(\Erec) = \sum_k F^{\mathrm{obs}}_k(\Erec).
+\end{equation*}
+Likewise, we have the two near-site predictions, where the index $i$ now runs over the two near sites:
+\begin{equation*}
+  F^{\mathrm{pred},\mathrm{comb}}_i (\Erec) = \frac{1}{n_i} \sum_d \sum_k F^{\mathrm{pred}}_{k,d}.
+\end{equation*}
+Here, the index $d$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
+\begin{equation*}
+  V^{\mathrm{comb}}_{ij} = \frac{1}{n_i} \frac{1}{n_j} \sum_{i',j'} V_{i'j'}
+\end{equation*}
+where the indices $i'$ and $j'$ run over all predictions from the $i$th near site to all far ADs.
+
+\subsubsection{Handling of multiple data periods}
+
+In order to straightforwardly account for correlations between data across different data periods (6, 8, and 7AD), data from the three periods is \emph{not} combined. As such, the dimensions of the (full) prediction vector, observation vector, and covariance matrix are enlarged by a factor of $1 + 6/8 + 7/8 = 21/8$ (with respect to the case of a single 8AD period). In generating the full covariance matrix, fluctuations are correlated (or not) across periods according to [XXX Table ? in Toy MC section]. For the combined vectors and matrix, the dimensionality is increased by a factor of 3.
+
 \begin{comment}
 What do we ultimately get? Check P14A technote. 2 (near sites) x 3 (periods) = 4 predictions, over 37 energy bins. Size of covariance matrix is thus 37 x 2 x 3.
 \end{comment}
-
-\subsubsection{Combination of near site data}
 
 \begin{comment}
 Data is summed across all ADs in each near site.
 \end{comment}
 
-\subsubsection{Combination of far site predictions}
-
 \begin{comment}
 The far site prediction is summed across the four far ADs.
 \end{comment}
-
-\subsubsection{Combination of far site data}
 
 \begin{comment}
 The far site data is summed across the four far ADs.
 \end{comment}
 
-\subsubsection{Combination of covariance matrix}
-
 \begin{comment}
 See CombineMatrix in Predictor.cc.
 \end{comment}
-
-\subsubsection{Dealing with 6/8/7AD periods}
 
 \begin{comment}
 Correlations are implemented at the level of the toy MC.
@@ -419,12 +435,20 @@ Correlations are implemented at the level of the toy MC.
 \subsection{$\chi^2$ calculation}
 \label{sec:fitChi2}
 
+The data combination procedure results in an invertible covariance matrix, and thus the final $\chi^2$ can be calculated as
+\begin{equation*}
+  \chi^2 = \sum_{i,j} (F^{\mathrm{obs},\mathrm{comb}} - F^{\mathrm{pred},\mathrm{comb}}_i) V^{-1,\mathrm{comb}}_{ij} (F^{\mathrm{obs},\mathrm{comb}} - F^{\mathrm{pred},\mathrm{comb}}_j),
+\end{equation*}
+where the $\chi^2$ and $F^{\mathrm{pred}}$ are implicitly functions of the oscillation parameters.\footnote{Again, technically so is $V$, but for reasons of computational tractability we use a single $V$ generated from nominal oscillation parameters.} This $\chi^2$ is then minimized using ROOT's MINUIT package in order to find the best fit oscillation parameters.
+
 \begin{comment}
 Just take $(Fpred_i - Fobs_i)V^{-1}_{ij}(Fpred_j - Fobs_j)$
 \end{comment}
 
 \subsection{Generation of contours}
 \label{sec:fitContours}
+
+To obtain the uncertainty on the oscillation parameters, a grid of $\chi^2$ values is generated in the two-dimensional parameter space. The $1\sigma$, $2\sigma$, and $3\sigma$ contours are then determined according to the condition $\chi^2 = 2.30$, 6.18, and 11.83, respectively. The individual error bar on $\SinSq$ is finally given by the distance along the $\SinSq$ axis from the best fit point to the $1\sigma$, and similarly for $\Dmsqee$.
 
 \begin{comment}
 Generate map of chi2 in oscillation parameter space. Take the 1sigma contour based on where the chi2 falls to XXX, etc.
