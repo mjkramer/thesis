@@ -293,6 +293,42 @@ As was mentioned, the far site data is predicted based on the measurements at th
 
 After repeating this procedure for each bin of reconstructed energy, a predicted prompt generation is thereby obtained at the far AD. Given that there are four near ADs and four far ADs (when all 8 ADs are operating), this results in a total of 16 predictions for each energy bin. The 6 and 7AD periods are essentially considered separate experiments (whose correlations due to systematics are encoded in the covariance matrix, as described in XXX), with 9 and 12 predictions for each energy bin, respectively.
 
+\subsubsection{Mathematical details}
+
+For near AD $i$ and neutrino energy $\Enu$, the fraction of the flux coming from core $j$ is given by the flux factor
+\begin{equation*}
+  f_{ij}(\Enu) = \frac{F_j(\Enu) \times P^{\mathrm{osc}}_{ij}(\Enu) \times 1/L^2_{ij}}
+  {\sum_k F_k(\Enu) \times P^{\mathrm{osc}}_{ik}(\Enu) \times 1/L^2_{ik}},
+\end{equation*}
+where $F_k(\Enu)$ is the flux from core $k$, given by \autoref{eq:reacToyFinalPred}, and $L_{ik}$ is the baseline from core $k$ to AD $i$.
+
+The observation at near AD $i$, attributable to core $j$, in true energy bin $\Enu$, for the extrapolation of reconstructed energy bin $\Erec$, is then simply
+\begin{equation*}
+  N_{ij}(\Enu; \Erec) = f_{ij}(\Enu) \times N_i(\Enu; \Erec)
+\end{equation*}
+where $N_i(\Enu; \Erec)$ is the background-subtracted count in the $\Enu$ bin:
+\begin{equation*}
+  N_i(\Enu; \Erec) = M(\Erec, \Enu) \times N_i(\Erec).
+\end{equation*}
+Here we express the detector response matrix $M$ as a function of $\Erec$ and $\Enu$ rather than of bin indices.
+
+In order to take near AD $i$'s observation of core $j$ and calculate the predicted observation at far AD $k$, we use the extrapolation factor
+\begin{equation*}
+  e_{kj,i}(\Enu) = \frac{P^{\mathrm{osc}}_{kj}(\Enu) \times 1/L^2_{kj}}
+  {P^{\mathrm{osc}}_{ij}(\Enu) \times 1/L^2_{ij}},
+\end{equation*}
+which essentially removes the effects of baseline and oscillation from the near observation, and then applies them for the case of the far detector.
+
+We then have the predicted flux contribution at the far AD:
+\begin{equation*}
+  F_{kj,i}(\Enu; \Erec) = e_{kj,i}(\Enu) \times N_{ij}(\Enu)
+\end{equation*}
+
+Then to get the final prediction at far AD $k$ from near AD $i$, we sum over all cores $j$ and integrate all $\Enu$ bins into the original $\Erec$ bin:
+\begin{equation*}
+  F_{ki}(\Erec) = \sum_j \sum_{\Enu} F_{kj,i}(\Enu; \Erec)
+\end{equation*}
+
 \begin{comment}
 Near site spectrum divided into Erec bins.
 
