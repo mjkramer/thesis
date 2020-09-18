@@ -412,21 +412,21 @@ In this way we get 16 predictions.
 
 The near-to-far extrapolation produces multiple predictions for each far AD, one per near AD. Likewise, each near AD furnishes multiple predictions, one per far AD. Accordingly, statistical fluctuations in the near and far AD data will produce correlated fluctuations (across multiple near/far pairs) in the deviation between prediction and measurement. These correlations are encoded in the statistical covariance matrix, whose calculation we describe here.
 
-Technically speaking, fluctuations in the near site data will produce fluctuations in $\Fpred$, while fluctuations in the far site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This greatly simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
+Technically speaking, fluctuations in the near site data will produce fluctuations in $\Fpred$, while fluctuations in the far site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
 
 Given this convention, the statistical uncertainty on $\Fpred$ that arises from near site fluctuations is
 \begin{equation*}
   \snear(\Fpred) = \frac{\Fpred}{N^{\mathrm{obs}}} \sqrt{N^{\mathrm{obs}} + N^{\mathrm{bkg}}},
 \end{equation*}
-where $N^{\mathrm{obs}}$ is the background-subtracted observation at the near AD, and $N^{\mathrm{bkg}}$ is likewise the predicted near AD background. In other words, this is the statistical uncertainty of the (background-subtracted) near measurement, scaled by the far-to-near ratio.
+where $N^{\mathrm{obs}}$ is the background-subtracted observation at the near AD, and $N^{\mathrm{bkg}}$ is likewise the predicted near AD background. In other words, this is the statistical uncertainty of the (background-subtracted) near measurement, scaled by the expected far-to-near ratio.
 
-Meanwhile, the statistical uncertainty on $\Fpred$ from far site fluctuations is simply
+Meanwhile, the ``transferred'' statistical uncertainty on $\Fpred$ from far site fluctuations is simply
 \begin{equation*}
   \sfar(\Fpred) = \sqrt{\Fpred + F^{\mathrm{bkg}}},
 \end{equation*}
 where $F^{\mathrm{bkg}}$ is the predicted background at the far AD. The total uncertainty on $\Fpred$ is then the sum of $\snear$ and $\sfar$, in quadrature.
 
-As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown (XXX) that, for two predictions (in the same energy bin and data period) that arise from same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix.
+As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown (XXX how???) that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
 
 \begin{comment}
 In the fit, we compare the far site measurement to the far site prediction as obtained from the near sites. Statistical uncertainty arises from both the near sites (in the form of fluctuations in the far site prediction) and from the far site data itself. We have the two expressions for each component.
@@ -447,17 +447,17 @@ From this we can straightforwardly generalize to the full statistical covariance
 
 As was noted, the extrapolation process produces multiple predictions, many of which are highly correlated by virtue of sharing a near or far AD. For the basic case of a single 8AD data period, we are essentially turning four observations (one from each far AD) into 16 variables (one per prediction). Due to this correlation, the full covariance matrix is non-invertible. In order to obtain an invertible matrix, the dimensionality must be reduced down to the level of the original input data (or smaller). This is done by combining data between ADs.
 
-There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2. XXX is this true and if so why?
+There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2. (XXX is this really true and if so, why?)
 
 By convention, the far ADs are added, while the near ADs are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
 \begin{equation*}
-  F^{\mathrm{obs},\mathrm{comb}}(\Erec) = \sum_k F^{\mathrm{obs}}_k(\Erec).
+  F^{\mathrm{obs},\,\mathrm{comb}}(\Erec) = \sum_b F^{\mathrm{obs}}_b(\Erec),
 \end{equation*}
-Likewise, we have the two near-site predictions, where the index $i$ now runs over the two near sites:
+where the index $b$ runs over the far ADs. Likewise, we have the two near-site predictions, where the index $i$ now runs over the two near sites:
 \begin{equation*}
-  F^{\mathrm{pred},\mathrm{comb}}_i (\Erec) = \frac{1}{n_i} \sum_d \sum_k F^{\mathrm{pred}}_{k,d}.
+  F^{\mathrm{pred},\,\mathrm{comb}}_i (\Erec) = \frac{1}{n_i} \sum_a \sum_b F^{\mathrm{pred}}_{ab}.
 \end{equation*}
-Here, the index $d$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
+Here, the index $a$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
 \begin{equation*}
   V^{\mathrm{comb}}_{ij} = \frac{1}{n_i} \frac{1}{n_j} \sum_{i',j'} V_{i'j'}
 \end{equation*}
@@ -465,7 +465,7 @@ where the indices $i'$ and $j'$ run over all predictions from the $i$th near sit
 
 \subsubsection{Handling of multiple data periods}
 
-In order to straightforwardly account for correlations between data across different data periods (6, 8, and 7AD), data from the three periods is \emph{not} combined. As such, the dimensions of the (full) prediction vector, observation vector, and covariance matrix are enlarged by a factor of $1 + 6/8 + 7/8 = 21/8$ (with respect to the case of a single 8AD period). In generating the full covariance matrix, fluctuations are correlated (or not) across periods according to \autoref{tab:fitToyPeriodCorr}. For the combined vectors and matrix, the dimensionality is increased by a factor of 3.
+As noted in \autoref{sec:fitToyPeriods}, data is \emph{not} combined between the 6AD, 8AD, and 7AD periods. As such, the dimensions of the (full) prediction vector, observation vector, and covariance matrix are enlarged by a factor of $1 + 6/8 + 7/8 = 21/8$ (with respect to the case of a single 8AD period). In generating the full covariance matrix, fluctuations are correlated (or not) across periods according to \autoref{tab:fitToyPeriodCorr}. For the combined vectors and matrix, the dimensionality is increased by a factor of 3. The above discussion generalizes to this scenario in a straightforward fashion.
 
 \begin{comment}
 What do we ultimately get? Check P14A technote. 2 (near sites) x 3 (periods) = 4 predictions, over 37 energy bins. Size of covariance matrix is thus 37 x 2 x 3.
@@ -495,9 +495,9 @@ Correlations are implemented at the level of the toy MC.
 
 The data combination procedure results in an invertible covariance matrix, and thus the final $\chi^2$ can be calculated as
 \begin{equation*}
-  \chi^2 = \sum_{i,j} (F^{\mathrm{obs},\mathrm{comb}} - F^{\mathrm{pred},\mathrm{comb}}_i) V^{-1,\mathrm{comb}}_{ij} (F^{\mathrm{obs},\mathrm{comb}} - F^{\mathrm{pred},\mathrm{comb}}_j),
+  \chi^2 = \sum_{i,j} (F^{\mathrm{obs},\,\mathrm{comb}} - F^{\mathrm{pred},\,\mathrm{comb}}_i) V^{-1,\,\mathrm{comb}}_{ij} (F^{\mathrm{obs},\,\mathrm{comb}} - F^{\mathrm{pred},\,\mathrm{comb}}_j),
 \end{equation*}
-where the $\chi^2$ and $F^{\mathrm{pred}}$ are implicitly functions of the oscillation parameters.\footnote{Again, technically so is $V$, but for reasons of computational tractability we use a single $V$ generated from nominal oscillation parameters.} This $\chi^2$ is then minimized using ROOT's MINUIT package in order to find the best fit oscillation parameters.
+where $i$ and $j$ run over the EH1 and EH2 predictions for each $\Erec$ bin and data period. Here, $\chi^2$, $F^{\mathrm{pred}}$ and $V$ are implicitly functions of the oscillation parameters.\footnote{Again, the systematic components of $V$ are only rescaled, but not fully recomputed, for reasons of computational tractability.} To find the best fit oscillation parameters, ROOT's MINUIT package is used to minimize the $\chi^2$ over the 2D parameter space.
 
 \begin{comment}
 Just take $(Fpred_i - Fobs_i)V^{-1}_{ij}(Fpred_j - Fobs_j)$
@@ -506,7 +506,7 @@ Just take $(Fpred_i - Fobs_i)V^{-1}_{ij}(Fpred_j - Fobs_j)$
 \subsection{Generation of contours}
 \label{sec:fitContours}
 
-To obtain the uncertainty on the oscillation parameters, a grid of $\chi^2$ values is generated in the two-dimensional parameter space. The $1\sigma$, $2\sigma$, and $3\sigma$ contours are then determined according to the condition $\chi^2 = 2.30$, 6.18, and 11.83, respectively. The individual error bar on $\SinSq$ is finally given by the distance along the $\SinSq$ axis from the best fit point to the $1\sigma$, and similarly for $\Dmsqee$.
+To obtain the uncertainty on the oscillation parameters, a 2D grid of $\chi^2$ values is generated in parameter space. Based on the shape of the $\chi^2$ distribution for two degrees of freedom, the $1\sigma$, $2\sigma$, and $3\sigma$ contours are then determined according to the condition $\chi^2 = 2.30$, 6.18, and 11.83, respectively. The individual error bar on $\SinSq$ is finally given by the distance along the $\SinSq$ axis from the best fit point to the $1\sigma$ contour, and similarly for $\Dmsqee$.
 
 \begin{comment}
 Generate map of chi2 in oscillation parameter space. Take the 1sigma contour based on where the chi2 falls to XXX, etc.
