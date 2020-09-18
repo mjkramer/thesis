@@ -8,15 +8,19 @@
 \section{Overview}
 \label{sec:fitoverview}
 
-In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, incorporating systematic and statistical uncertainties, and then assigning error bars to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms, and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in what follows.
+In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, calculating the goodness of fit (while properly accounting for systematic and statistical uncertainties), and then assigning error bars to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms (a.k.a. nuisance parameters), and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in this introductory section. In the rest of this chapter, we detail the specific fitting machinery developed at LBNL by the author's colleagues.
 
 \subsection{Method of pull terms}
 \label{sec:pullterms}
 
-In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the underlying models (reactor, detector, background, etc.) and knows how their predictions will vary under different assumptions regarding systematic uncertainties. In this approach, each systematic is parameterized by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy response of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
+In the method of pull terms, the fitter is ``smart'' in the sense that it has knowledge of the various underlying models (reactor flux, detector response, backgrounds, etc.) and knows how their predictions will vary under variations of the systematic uncertainties. In this approach, each systematic is represented by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy scale of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
 \[ \chi^2 = \sum_i \frac{(x_i - \widebar x_i)^2}{\sigma_i^2} + \sum_j \frac{(\eta_j - \widebar \eta_j)^2}{\varsigma_j^2}, \] where $x_i$ are the measured data (e.g., AD spectra), $\widebar x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\widebar \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls.
 
-Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ error bars on the oscillation parameters are then based on the amount of variation required to increase the reduced $\chi^2$ by one unit [XXX not one unit if fitting more than one parameter; see e.g. doc-8774 p29 and its ref 22] (minimizing over the pull terms at every step). Correlations between spectral energy bins are handled implicitly; the information is encoded in the manner in which different bins move together when pull terms are varied.
+Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ error bars on the oscillation parameters are then based on the amount of variation required to increase the reduced $\chi^2$ by 1 unit (or 2.3 for a 2D fit, etc.), while minimizing over the pull terms at every step. Correlations between energy bins are handled implicitly; the information is encoded in the manner in which the predictions in different bins are shifted together when the pull terms are varied.
+
+\begin{comment}
+  See doc-8774 p29 and its ref 22 regarding the amount of chi2 increase for a 2D fit.
+\end{comment}
 
 \subsection{Covariance matrix approach}
 \label{sec:covmatapproach}
@@ -24,26 +28,30 @@ Fitting is complete when the fitter has found the values of the oscillation para
 As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\widebar x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
 \[ \chi^2 = (x_i - \widebar x_i) V_{ij}^{-1} (x_j - \widebar x_j). \]
 
-In practice, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in the next section, was developed for this purpose. Following the discussion of the toy MC, we describe the oscillation fit and uncertainty calculation in detail.
+A major advantage of this approach is that it greatly reduces the dimensionality of the minimization---instead of minimizing over potentially dozens of pulls (as well as the oscillation parameters), only the two oscillation parameters must be considered. The computational cost and risk of falling into false minima are thus avoided. A disadvantage is the need to possibly take extra steps in order to ensure an invertible covariance matrix, and the need to carefully treat correlations, which are implicitly accounted for when using pull terms.
+
+In the LBNL fitter, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in \autoref{sec:toymc}, was developed for this purpose. Following the discussion of the toy MC, the oscillation fitter is described in detail.
+
+\subsection{Relative or absolute?}
+\label{sec:fitRelOrAbs}
+
+In addition to the choice between using pull terms or a covariance matrix (or some hybrid of the two), there is also the orthogonal option of performing a relative or an absolute fit. In a relative fit, the near site data is used to generate predictions for the far sites, which are then compared to the far site data. Whereas in an absolute fit, predictions are generated for both the near and the far sites, for comparison to both the near and far observations. The main advantage of performing a relative fit is that the absolute detection efficiency (both its nominal value and its uncertainty) can be ignored completely, since it has no bearing on the process of near-to-far extrapolation. On the other hand, a relative fit requires dealing with multiple correlated predictions and/or merging data between ADs, and implementing it in the context of a pull-term fitter is not as straightforward as doing an absolute fit. Ultimately, both approaches should give the same results. The LBNL fitter takes the relative approach, as discussed further in \autoref{sec:fitFitter}.
 
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
-XXX discuss how multiple data periods are handled, especially correlation of systematics (e.g. Table 5 in 9999).
-
-The toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics. This basic functionality enables the production of three essential inputs used by the fitter:
+The LBNL toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
-\item The covariance matrices for signal and background systematics, used in calculating $\chi^2$ during the fit.
+\item The covariance matrices for signal and background systematics, used in calculating the $\chi^2$ during the fit.
 \item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross section-weighted antineutrino spectrum produced by each core. This is used when breaking down the near-site spectra into reactor components for extrapolation to the far site.
-\item The conversion matrix between prompt and ``true'' antineutrino energy, also used in the extrapolation.
+\item The conversion matrix between prompt energy $\Erec$ and true antineutrino energy $\Enu$; this is also used in the extrapolation.
 \end{itemize}
 
 In addition, the toy MC provides a method of validating the fitter, since toys can be generated for any chosen values of $\tAC$ and $\Dmsqee$, thus enabling the testing of the fitter's ability to recover the same values.
 
 \begin{comment}
-  The toy MC also generates a ``PredictedIBD'' file which contains the bac
-  kground-free no-oscillation IBD spectra of each detector. As far as I can tell, this is only used in order to calculate a `summed' covariance matrix in which the matrices of the three stages (6, 8, 7AD) are combined, with the weighting determined by the PredictedIBD counts. (Oscillations shouldn't affect this weighting between ADs in the same hall, or the weighting between different stages.) In turn, the summed matrix is not used during the fit, but is only produced as a diagnostic. 
+  The toy MC also generates a ``PredictedIBD'' file which contains the background-free no-oscillation IBD spectra of each detector. As far as I can tell, this is only used in order to calculate a `summed' covariance matrix in which the matrices of the three stages (6, 8, 7AD) are combined, with the weighting determined by the PredictedIBD counts. (Oscillations shouldn't affect this weighting between ADs in the same hall, or the weighting between different stages.) In turn, the summed matrix is not used during the fit, but is only produced as a diagnostic. 
 \end{comment}
 
 \subsection{IBD spectrum at each AD}
@@ -259,6 +267,31 @@ For the background systematics, another set of 1,000 toys is generated (again wi
   (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)
 \end{equation*}
 
+\subsection{Handling of multiple data periods}
+\label{sec:fitToyPeriods}
+
+Some additional complexity arises from the fact that Daya Bay has operated under three different detector configurations: First with 6 ADs (missing EH2-AD2 and EH3-AD4), then with all 8, and finally with 7 (after the repurposing of EH1-AD1 for JUNO experiment R\&D). In principle, the data from the three periods could simply be merged together. However, as explained in \autoref{sec:fitCombo}, obtaining an invertible covariance matrix requires combining data from ADs in the same sites, and this procedure is simplest to implement when the (active) ADs have the same lifetime, since they can be weighted easily. For this reason, the LBNL toy MC and fitter treat the three data periods as separate experiments (thus increasing the dimensionality of the prediction/observation vectors and the covariance matrix). However, some systematic fluctuations must be correlated among the periods, given that the overall experimental setup was the same (aside from some missing ADs). These correlations are summarized in \autoref{tab:fitToyPeriodCorr}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}[h]{lcc}
+    \toprule
+    & \multicolumn{2}{c}{Correlation between:} \\
+    Fluctuated systematic & Detector & Period \\
+    \midrule
+    Relative efficiency/response & & \checkmark \\
+    Solar parameters, nonlinearity & \checkmark & \checkmark \\
+    Correlated background shapes & \checkmark & \checkmark \\
+    Accidentals rates & & \\
+    Fast neutron and \LiHe\ rates & \checkmark (same hall) & \checkmark \\
+    AmC rates & & \checkmark \\
+    $\CanO$ rates & & \\
+    \bottomrule
+  \end{tabular}
+  \caption{Correlations of systematics across detectors and periods. Reproduced from \cite{berkeley_shapefit_P14A}.}
+  \label{tab:fitToyPeriodCorr}
+\end{table}
+
 \section{Fitter}
 \label{sec:fitFitter}
 
@@ -270,7 +303,7 @@ where the total covariance matrix $V$ is given by
 \begin{equation*}
   V = V_{\mathrm{sig}} + V_{\mathrm{bkg}} + V_{\mathrm{stat}}.
 \end{equation*}
-$V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors and periods, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency.\footnote{Similarly, in a pull-based relative fit, there would be no need for nuisance parameters to describe the absolute efficiency.} Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
+$V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency.\footnote{Similarly, in a pull-based relative fit, there would be no need for nuisance parameters to describe the absolute efficiency.} Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
 
 The bulk of the fitter's complexity lies in the determination of the far site prediction $\Fpred$ based on the near site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
 
