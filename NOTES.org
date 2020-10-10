@@ -1,3 +1,5 @@
+XXX switch to BCW binning?
+
 * Outline
 ** Neutrino oscillation
 ** Daya Bay experiment
@@ -142,6 +144,10 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - doc 11486, 11611, 11646 (Yongbo)
 - We use the root files from doc-11611
 - How do those differ from the ones in 11646?
+*** Error budget
+- doc-11724 (P17B, Beda)
+- doc-10804 (P15A, Henoch)
+- docs 8774, 9999 (shapefit technotes)
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
@@ -159,6 +165,7 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[http://dbpubs.stanford.edu:8091/~klein/lagrange-multipliers.pdf][Lagrange Multipliers Without Permanent Scarring]]
 - [[https://math.stackexchange.com/questions/63238/why-do-we-use-a-least-squares-fit][statistics - Why do we use a Least Squares fit? - Mathematics SO]]
 - Raster scan? See Feldman-Cousins paper.
+- [[https://www.slac.stanford.edu/econf/C030908/papers/TUAT004.pdf][Definition and Treatment of Systematic Uncertainties]] (PhyStat2003)
 **** Supermisc
 - [[https://www.mcs.anl.gov/~tpeterka/papers/2018/sousa-chep18-paper.pdf][Implementation of Feldman-Cousins in HPC for NOvA]]
 ** (Parallel?) fitting
