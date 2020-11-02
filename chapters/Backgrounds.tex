@@ -66,9 +66,47 @@ As previously stated, the accidental background can be straightforwardly measure
 
 \newcommand\linine{$^9$Li}
 
-The dominant correlated background in Daya Bay comes from the short-lived isotopes $^9$Li and $^8$He, which are produced as spallation products of carbon when muons traverse the AD. These two isotopes\footnote{For the sake of brevity, we will henceforth collectively refer to the two isotopes as \linine; this is by far the dominant of the two, as will be shown later.} have livetimes on the order of hundreds of milliseconds; thus, while the majority of them will decay within the $\sim$1~s veto window that follows AD muons, a non-negligible fraction will survive past it. When they undergo beta decay, the daughter nuclei break apart, and neutrons are contained among the debris. The combination of the beta decay and the subsequent nGd capture produce the characteristic double-coincidence signature of an IBD event.
+The dominant correlated background for Daya Bay comes from the isotopes $^9$Li and $^8$He, which are produced as spallation products of carbon when energetic muons traverse the AD. These two isotopes have relatively long livetimes of 257~ms for $^9$Li and 172~ms for $^8$He; thus, while the majority of them will decay within the O(1~s) veto window that follows showering muons, a non-negligible fraction will survive past it. When one of these isotopes undergoes beta decay into particular excited states of the daughter nucleus, the daughter will immediately emit a neutron (and, in the case of $^9$Li, further disintegrate into two alphas). The relevant beta decay endpoints extend up to 12~MeV, placing these decays squarely within the IBD prompt energy cut. The combination of this beta decay and the subsequent nGd capture produces the characteristic double-coincidence signature of an IBD event. In what follows, we will collectively refer to these two isotopes as $^9$Li, given that it is believed to be the predominant of the two. (For instance, the KamLAND collaboration's FLUKA simulations \cite{KamLAND_cosmo} indicated a 10:1 ratio of $^9$Li to $^8$He production.) Later we will propagate the uncertainty on this ratio into the background estimation. 
 
-At the statistical level, the key difference between IBDs and \linine\ decays is that the latter are correlated in time with AD muons. This correlation can be exploited to measure the total rate of \linine\ decays. To do so, the IBD candidate sample is used to construct a histogram of the time since the last AD muon. In this histogram, true IBDs will exhibit an exponential distribution with a characteristic time $\tau$ corresponding to the muon rate, while \linine\ decays will be similarly distributed but with a much shorter $\tau$ corresponding to the \linine\ lifetime. By fitting the histogram with a sum of these exponential distributions, it is possible to extract the \linine\ rate.
+Although at Daya Bay there is no feasible way of distinguishing \linine\ decays from IBDs at the level of individual events, it is still possible to statistically estimate the total \linine\ rate by exploiting the correlation in time between \linine\ events and preceding muons. To see this, let the muon rate be denoted by $R_\mu$, and the \linine\ livetime by $\tau$. Since IBD events are uncorrelated with muons, the time between an IBD and the most recent preceding muon is given, according to Poisson statistics, by the PDF
+\begin{equation}
+  \label{eq:cosmoBkgPdfIbd}
+  f_{\mathrm{IBD}}(t) = R_\mu e^{-R_\mu t}.
+\end{equation}
+Meanwhile, a \linine\ decay is correlated in time with the parent muon:
+\begin{equation}
+  \label{eq:cosmoBkgPdfLiProd}
+  f_{\mathrm{Li,\,Parent}}(t) = \frac{1}{\tau} e^{-t/\tau}.
+\end{equation}
+However, in the time between a muon shower and an associated \linine\ decay, additional muons may be detected, and these may closely resemble the true parent muon. As such, the quantity that we can reliably measure is not the time between the \linine\ decay and the parent muon, but (as with IBDs) the time between the decay and the \emph{last} muon. This detail has the effect of modifying the time constant in \autoref{eq:cosmoBkgPdfLiProd}. To derive this modification, let us consider a \linine\ event with a time-to-last-muon of $t$. Either the last muon was the parent muon, or it wasn't. Defining our time axis with the decay at the origin, these two possibilities can be stated quantitatively as:
+\begin{enumerate}
+\item The parent muon occured at time $-t$, with no intervening uncorrelated muons, or
+\item The parent muon occured prior to $-t$, and the most recent uncorrelated muon occured at $-t$.
+\end{enumerate}
+The parent muon's time PDF is given by \autoref{eq:cosmoBkgPdfLiProd}, and that of uncorrelated muons by \autoref{eq:cosmoBkgPdfIbd}. Meanwhile, the Poisson probability of observing zero uncorrelated muons in a time window of $t$ is given by $e^{-R_\mu t}$. Thus, letting $P_1$ and $P_2$ be the probabilities\footnote{Here we will say ``probability'' when we really mean ``probability density''.} of the two cases above, we have
+\begin{align*}
+  P_1 = \frac{1}{\tau} e^{-t/\tau} \cdot e^{-R_\mu t} = \frac{1}{\tau}e^{-(R_\mu + 1/\tau)t}
+\end{align*}
+and
+\begin{align*}
+  P_2 = \int_t^\infty \frac{1}{\tau}e^{-t'/\tau}\,dt' \cdot R_\mu e^{-R_\mu t} = e^{-t/\tau} \cdot R_\mu e^{-R_\mu t} = R_\mu e^{-(R_\mu + 1/\tau)t}.
+\end{align*}
+Letting
+\begin{equation*}
+  \lambda = R_\mu + 1/\tau,
+\end{equation*}
+we finally add $P_1$ and $P_2$ to obtain the PDF of time-to-last-muon for \linine\ decays:
+\begin{equation}
+  \label{eq:cosmoBkgPdfLi}
+  f_{\mathrm{Li}}(t) = \lambda e^{-\lambda t}.
+\end{equation}
+
+Comparing \autoref{eq:cosmoBkgPdfLi} and \autoref{eq:cosmoBkgPdfIbd}, we see that, if $\lambda$ is sufficiently different from $R_\mu$ (in other words, if $R_\mu$ is sufficiently small), then there will be a measurable difference between the time-to-last-muon PDFs of \linine\ and IBD events. In this case, the separate event counts can be obtained by constructing a histogram of time-to-last-muon from a mixed sample of IBDs and \linine\ events. This histogram can then be fit to a weighted sum of \autoref{eq:cosmoBkgPdfLi} and \autoref{eq:cosmoBkgPdfIbd}, with the weights (as detemined by the fit) corresponding to the number of events in the two categories:
+\begin{equation*}
+  f(t) = N_{\mathrm{Li}} \lambda e^{-\lambda t} + N_{\mathrm{IBD}} R_\mu e^{-R_\mu t}.
+\end{equation*}
+
+At the statistical level, the key difference between IBDs and \linine\ decays is that the latter are correlated in time with muons. This correlation can be exploited to measure the total rate of \linine\ decays. To do so, the IBD candidate sample is used to construct a histogram of the time since the last AD muon. In this histogram, true IBDs will exhibit an exponential distribution with a characteristic time $\tau$ corresponding to the muon rate, while \linine\ decays will be similarly distributed but with a much shorter $\tau$ corresponding to the \linine\ lifetime. By fitting the histogram with a sum of these exponential distributions, it is possible to extract the \linine\ rate.
 
 Although this method is simple in theory, a significant challenge arises from the fact that a minimum muon energy must be defined when calculating the time between each event and its most recent preceding muon. If this cut is too low, then the time between muons will be comparable to the \linine\ livetime, and with finite statistics, it will be difficult to reliably distringuish between the two components in the fit. Conversely, if the muon cut is too high, then some fraction of \linine-producing muons will be discarded, and those \linine\ events will not appear to be muon-correlated, leading to an underestimation of the rate.
 
@@ -148,12 +186,12 @@ where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime, m
 \subsection{Extrapolation method}
 \label{sec:fastn_extrap}
 
-Previous simulation studies have found that the fast neutron spectrum can be accurately described by the p.d.f.
+Previous simulation studies have found that the fast neutron spectrum can be accurately described by the PDF
 \begin{equation}
   \label{eq:bkgFastnShape}
   f(E) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0},  
 \end{equation}
-where $E_0$ and $a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the p.d.f. When we float an additional normalization factor $N$ and perform a fit to some portion of the fast neutron spectrum, the best-fit $N$ represents the number of events ``under the curve'' from 0 to $\infty$~MeV.
+where $E_0$ and $a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the PDF. When we float an additional normalization factor $N$ and perform a fit to some portion of the fast neutron spectrum, the best-fit $N$ represents the number of events ``under the curve'' from 0 to $\infty$~MeV.
 
 In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $N_\mathrm{fid}$ events in the fiducial region of [0.7, 12]~MeV, then the full spectrum ([0, $\infty$]~MeV) should contain an event count equal to
 \[ N_\mathrm{tot} = \frac{N_\mathrm{fid}}{\int_{0.7}^{12} f(E; E_0, a)\,dE }. \] This $N_\mathrm{tot}$ is, by definition, the same as the $N$ introduced in the previous paragraph. Therefore, when we fit a portion of the fast neutron spectrum to the form
