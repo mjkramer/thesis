@@ -106,6 +106,9 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - Use inverse square law to predict near site rate for θ13 = 0
 - Draw random subsample of near site data, matching predicted rate above
 - Ensure fit recovers θ13 = 0 and is stable against variations in cuts, repeat for other values of θ13
+** Notes on Li9
+*** Regarding [Li9_2006]
+- The time constant T' = 1/(R_mu + R_nu) applies when we're considering only IBD candidates that are preceded "immediately" by a muon, i.e. requiring no intervening IBD candidate (so we're throwing away cases where the IBD was preceded more recently by another IBD than by a muon). See reMarkable. If we ignore intervening IBDs and just take the time-to-last-muon for all IBDs, we just get T = 1/R_mu, regardless of the IBD rate.
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
