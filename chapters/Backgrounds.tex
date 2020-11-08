@@ -132,13 +132,39 @@ where
 
 Although this method is simple in theory, a significant challenge arises from the fact that a minimum muon energy must be defined when calculating the time between each event and its most recent preceding muon. If this cut is too low, then the time between muons will be comparable to the \linine\ livetime, and with finite statistics, it will be difficult to reliably distringuish between the two components in the fit. Conversely, if the muon cut is too high, then some fraction of \linine-producing muons will be discarded, and those \linine\ events will not appear to be muon-correlated, leading to an underestimate of the rate.
 
-Although this issue is mitigated somewhat by the fact that low-energy muons produce a relatively small portion of the total \linine\ rate,\footnote{Based on the results shown in this section, some 90\% (95\%) of the \linine\ at the near (far) site comes from muons above the 3e5-pe ``shower muon'' threshold.} an accurate assessment must still attempt to quantify this contribution. To enhance the \linine\ signal in the fit, either the muon sample or the \linine\ candidate sample (or both) must be somewhat purified. We use both methods in what follows.
+This issue is mitigated somewhat by the fact that low-energy muons produce a relatively small portion of the total \linine\ rate.\footnote{Based on the results shown in this section, some 90\% (95\%) of the \linine\ at the near (far) site comes from muons above the 3e5-pe ``shower muon'' threshold.} However, an accurate assessment must still attempt to quantify this contribution. To enhance the \linine\ signal in the fit, either the muon sample or the \linine\ candidate sample (or both) must be somewhat purified. We use both methods in what follows.
 
 For the muon sample, the goal is to remove muons that are unlikely to produce a \linine\ event. This will reduce the muon rate $R_\mu$, thus increasing the difference between the time constants of the fit components. However, the cost of this \emph{muon reduction} is that some fraction of \linine-producing muons will be discarded. The associated \linine\ events will have a time-to-last-muon rate constant of $R_\mu$ rather than $\lambda$, so they will not contribute to the measured \linine\ rate, leading to an inefficiency (and corresponding uncertainty) in the total rate estimate. Here, muon reduction is achieved by using \emph{neutron tagging}, in which we only consider those muons for which a neutron capture is observed in the immediate aftermath. Given the sizable uncertainty on the efficiency of the tagging, this method is only used where absolutely necessary, i.e., in the lowest bin of muon energy. The details are discussed later.
 
 As for increasing the purity of the \linine\ sample, the method used here is simply to apply a cut on the prompt energy. As shown in Fig.~XXX, the \linine\ and IBD spectra differ substantially, with the former being much harder. As such, a higher prompt energy cut will increase the ratio of \linine\ to IBD events. This benefit, however, must be weighed against the loss in the total statistics arising from an aggressive prompt energy cut. Here, heuristically chosen cuts are used in order to obtain acceptable fits. As will be detailed later, more aggressive cuts are used in the near hall (where the IBD ``background'' fraction is larger) and for lower muon energies (where a greater \linine\ purity is needed due to the proximity of $\lambda$ to $R_\mu$). These prompt cuts, together with neutron tagging (for low muon energies), enable the \linine\ fit to be performed for muon energies that extend all the way down to the ``AD muon'' threshold of 3,000~pe.
 
 In the sections that follow, we describe the \linine\ rate estimation in detail, beginning with the selection of \linine\ candidates, followed by the muon selection, the fitting procedure, its results, and their uncertainties.
+
+\subsection{$^9$Li candidate selection}
+\label{sec:bkgLi9Sel}
+
+The $^9$Li selection is largely identical to the standard IBD selection, as described in \autoref{chap:selection}, with two key differences: First, the prompt energy cut is higher, as described above (although this cut is applied after the initial selection, for the sake of flexibility), and, secondly, the ``shower muon'' veto is disabled. That is, rather than vetoing for 0.4004~s after a muon of $>$3e5~pe, only the ``AD muon'' veto of 1.4~ms is applied. This is necessary because the shower veto would remove approximately 80\% ($1 - exp(-400/257)$) of the $^9$Li events produced by shower muons, greatly reducing the already-limited statistics of the sample. When producing the final \linine\ rate estimation, we must correct for the efficiency of this modified muon veto. Using the muon toy MC described in (XXX cut optimization chapter), these efficiencies were determined to be 87\%, 90\%, and 99\% in EH1, EH2, and EH3, respectively. (Compare to 82\%, 85\%, and 98\% for the standard muon veto.)
+
+XXX the Li9 rates, as I've been using them so far, are calculated assuming the efficiencies of the standard muon veto, rather than the modified one. I've corrected the constants in Li9Calc accordingly, but need to rerun the calculation and update the plots etc.
+
+\subsection{Muon selection}
+\label{sec:bkgLi9MuonSel}
+
+For the purposes of applying the muon veto and constructing the time-to-last-muon histograms, we use the muon tree generated by the Daya Bay software framework (\texttt{NuWa}) during data production. In this tree, muons that trigger multiple detectors are merged into a single muon, and prompt retriggers are discarded. This represents a minor difference from the IBD selection, where retriggers are \emph{not} discarded, leading to a slight reduction in the muon veto efficiency (which is nevertheless correctly accounted for in the summation of veto windows, and thus there is no resulting bias). The discarding of retriggers, in particular, helps to prevent the arising of a bias in the time constant for $^9$Li events. The precise details of the \texttt{NuWa} muon selection are as follows:
+
+\begin{itemize}
+\item A trigger in the inner (outer) water pool, with at least 6 (8) fired PMTs, is tagged as a WP muon.
+\item A trigger in an AD of more than 3000 photoelectrons is tagged as an AD muon
+\item Tagged muons that occur within a 300~ns window are merged into a single muon (with the WP hit counts and AD charges individually stored), with the timestamp taken to be the time of the earliest trigger.
+\item Any subsequent ``muons'' that occur within 10~\usec are deemed to be retriggers and are thus discarded
+\end{itemize}
+
+During the $^9$Li selection, a given muon object will result in the 1.4~ms AD muon veto if the object contains an AD muon for the detector in question. If not, but if there is a IWP or OWP muon present with \emph{more than 12 hit PMTs}, then the 600~\usec WP muon veto is applied instead.
+
+\subsubsection{Neutron tagging}
+\label{sec:bkgLi9NeuTag}
+
+
 
 \subsection{Spectrum}
 \label{sec:bkgLi9Spectrum}
