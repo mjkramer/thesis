@@ -156,19 +156,47 @@ For the purposes of applying the muon veto and constructing the time-to-last-muo
 \item A trigger in the inner (outer) water pool, with at least 6 (8) fired PMTs, is tagged as a WP muon.
 \item A trigger in an AD of more than 3000 photoelectrons is tagged as an AD muon
 \item Tagged muons that occur within a 300~ns window are merged into a single muon (with the WP hit counts and AD charges individually stored), with the timestamp taken to be the time of the earliest trigger.
-\item Any subsequent ``muons'' that occur within 10~\usec\ are deemed to be retriggers and are thus discarded
+\item Any subsequent ``muons'' that occur within 10~\us\ are deemed to be retriggers and are thus discarded
 \end{itemize}
 
-During the $^9$Li selection, a given muon object will result in the 1.4~ms AD muon veto if the object contains an AD muon for the detector in question. If not, but if there is a IWP or OWP muon present with \emph{more than 12 hit PMTs}, then the 600~\usec WP muon veto is applied instead.
+During the $^9$Li selection, a given muon object will result in the 1.4~ms AD muon veto if the object contains an AD muon for the detector in question. If not, but if there is a IWP or OWP muon present with \emph{more than 12 hit PMTs}, then the 600~\us\ WP muon veto is applied instead.
 
 If a $^9$Li candidate is found, then all preceding muons (within a 10~second window) are stored in an array specific to that candidate. This array can then be looped over when constructing the time-to-last-muon histogram, skipping over muons outside of a chosen energy range until the most recent one (within the energy range) is found.
 
 \subsubsection{Neutron tagging}
 \label{sec:bkgLi9NeuTag}
 
-In order to enable the neutron tagging technique (as needed for calculating the rate of $^9$Li produced by low-energy muons), an additional flag is stored for each muon, indicating whether the muon occurred in coincidence with a neutron capture candidate. Specifically, the neutron tag is applied if any trigger ranging from 1.8 to 12~MeV (XXX why is it 18~MeV in the code?) occurs between 20 and 200~\usec\ after the muon. Although these cuts are heuristic, they are reasonable in principle: The energy range is wide enough to include captures on both gadolinium and hydrogen, and the time window includes most of the Gd captures and a decent fraction of H captures, while avoiding spurious signals that can arise from retriggers occurring in the first dozen or so \usec\ after a muon.
+In order to enable the neutron tagging technique (as needed for calculating the rate of $^9$Li produced by low-energy muons), an additional flag is stored for each muon, indicating whether the muon occurred in coincidence with a neutron capture candidate. Specifically, the neutron tag is applied if any trigger ranging from 1.8 to 12~MeV (XXX why is it 18~MeV in the code?) occurs between 20 and 200~\us\ after the muon. Although these cuts are heuristic, they are reasonable in principle: The energy range is wide enough to include captures on both gadolinium and hydrogen, and the time window includes most of the Gd captures and a decent fraction of H captures, while avoiding spurious signals that can arise from retriggers occurring in the first dozen or so \us\ after a muon.
 
 The primary challenge in using the neutron tagging technique is accounting for the efficiency of the tagging. That is, what percentage of $^9$Li-producing AD muons (within a specified energy range) will be tagged? For sufficiently high-energy muons (roughly above 1.6e5 photoelectrons), the $^9$Li rate can be measured both with and without neutron tagging, and thus the efficiency can be extracted directly. However, for muons below 1.6e5~pe (where neutron tagging is \emph{required}), this is not possible, and the efficiency must be extrapolated. In XXX doc-10920, the efficiency is measured across a range of muon energies, and found to range from $\sim$90\% for muons above 1.8~GeV ($\sim$2.9e5~p.e.), down to $\sim$60\% for muons of 1.0--2.5~GeV (1.6--4e5~p.e.). For the sake of analysis, we thus assume a neutron tagging efficiency of unity (XXX should change this to 80\% in Li9Calc!!!), and apply a relative uncertainty of 45\% to the $^9$Li rate for muons below 1.6e5~p.e.
+
+\subsection{Time-to-last-muon fit}
+\label{sec:bkgLi9HistoFit}
+
+
+
+- Forming and fitting the histogram
+- - Detail the cuts we use for different muon energy ranges (prompt energy, neutron tag)
+- Prompt cut efficiency
+- - Extraction of spectrum. Subtraction of IBD spectrum.
+- - Uncertainty
+- - - Statistical - binomial confidence interval accounting for error bars on subtracted spectrum => 1-2\% (See if can find how Chris did it in code... sounds tricky)
+- - - Systematic - Variations in time binning, muon PE cut in background sample => 1\%
+- Neutron tag efficiency
+- - Uncertainty - 45\% according to doc-10920
+- - Nominal value of... 80\%? 60\%?
+- Uncertainty from fit
+- - Neutron tagging cutoff - 1.5e5 to 1.8e5 => 10\% (NOT IN CHRIS'S TABLE)
+- - Binning => <5\% (NOT IN CHRIS'S TABLE) (MENTIONED AT END)
+- - B12 => 8\%
+- - He8 => 4\%
+- Uncertainty of shower veto correction (He8 fraction)
+- - Vary He8 fraction from 0 to 15\%
+- Conversion from fit result to daily rate
+- - Efficiencies of Li9 selection (ntag, pcut)
+- - IBD selection efficiencies (veto, mult)
+- - Shower veto correction
+- - Propagation of uncertainties
 
 \subsection{Spectrum}
 \label{sec:bkgLi9Spectrum}

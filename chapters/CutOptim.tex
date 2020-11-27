@@ -5,4 +5,22 @@
 \chapter{Cut optimization}
 \label{chap:cutOptim}
 
+\section{Muon veto efficiency calculation}
+\label{sec:cutOptimMuVetoEff}
+
+In order to use the LBNL toy Monte Carlo for the purpose of predicting and validating the data-driven optimization of the shower muon veto, we must provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). During the actual data-driven optimization, the veto efficiency is essentially obtained ``for free'', as one of the outputs of the IBD selection. In principle, then, for the toy MC study we could simply run the IBD selection in order to obtain the efficiency for a given definition of the veto. However, it would be ideal for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
+
+The veto efficiency is, naturally, a function of the muon rate. In particular, it depends on the rates of the three types of muons: water pool, AD, and shower. The first step, then, is to measure these rates, while taking care to avoid double counting due to retriggers and multi-detector muons. Once the rates have been obtained, the next step is to calculate the efficiency, which requires a proper treatment of the possible overlap of veto windows between closely spaced muons. In what follows we describe these two steps in detail and demonstrate that the results agree sufficiently well with the ``true'' veto efficiency obtained from the IBD selection.
+
+\subsection{Muon rate measurement}
+\label{sec:cutOptimMuRate}
+
+The objective of the muon rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons which produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD. Given that the AD/shower veto windows are longer than the WP window, any AD+WP muon should be regarded as a single AD muon. The measurement of the AD muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``normal'' and ``shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower muon definition, without requiring a re-run of the muon selection.
+
+
+
+\begin{comment}
+  XXX local slides from mid-late Oct for retrigger plots. See misc_ana/MuonVetoEff/condenser4retrig.
+\end{comment}
+
 \end{document}
