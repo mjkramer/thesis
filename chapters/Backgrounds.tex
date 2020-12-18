@@ -213,7 +213,7 @@ The spectrum extraction proceeds in two steps. First, a spectrum is obtained fro
 
 To obtain the $^9$Li-rich sample, the $^9$Li candidates from all three halls were combined, and a subset was taken by selecting events that fell between 2 and 200~ms after a high-energy shower muon, defined here as a muon that produced more then 400,000 photoelectrons of visible energy. The time-to-last-muon fit of \autoref{eq:bkgLi9FullExpr} was then performed, giving the relative fraction of the sample comprised by \emph{shower-correlated} $^9$Li. The remaining, shower-uncorrelated, events consisted largely of non-$^9$Li ``background'' (predominantly true IBDs). Within the shower-uncorrelated fraction, we expect the presence of some $^9$Li events produced by sub-400,000 p.e. muons, but this is a small contribution: As shown by the fit results in Table.~XXX, some 85\% of the total $^9$Li sample (before applying any shower muon veto) is produced by showers of at least 400,000 photoelectrons. Meanwhile (as can be seen from visually inspecting the fits in Fig.~XXX), in this muon energy range (and time window), the correlated events take up approximately 1/3rd of the candidate sample. As such, the number of shower-uncorrelated $^9$Li events in this subsample, relative to the total number of uncorrelated events, is roughly 0.15 $\times$ 0.33 / 0.66 = 7.5\%. That is, the uncorrelated rate, as reported by the fit, describes a set that is about 93\% non-$^9$Li.\footnote{Following Marshall, in what follows we assume that 93\% $\approx$ 100\%. It would be more correct to scale the non-$^9$Li ``background'' spectrum (described later) by $\sim$0.9 before subtracting it. Instead, so as to avoid reinventing Marshall's analysis, we ignore this potential O(10\%) systematic; as it does not make a very large difference when added in quadrature to the other systematics. We also ignore the effects of $^{12}$B, which amount to only a few percent, as seen from the plotted fits.}
 
-Given that around 2/3rds of the events in this enriched sample are in fact non-$^9$Li ``background'' (mainly IBDs), it is imperative to obtain a clean background sample for subtraction. To do so, Marshall took events from the $^9$Li selection which were preceded by at least 1.5~s of isolation from muons of greater than 200,000~pe. This cut excludes virtually all (99.8\%, based on the $^9$Li lifetime) $^9$Li events produced by >200,000~pe muons. The remaining $^9$Li events are a very small contribution: About 0.4\% of the $^9$Li candidate sample consists of actual $^9$Li, and based on the results of the time-to-last-muon fit, some 5\% of these events are produced by muons of below 200,000~pe. Multiplying the two percentages, we deduce that around 0.02\% of this $^9$Li-deficient sample is contaminated by $^9$Li. This is more than acceptable.
+Given that around 2/3rds of the events in this enriched sample are in fact non-$^9$Li ``background'' (mainly IBDs), it is imperative to obtain a clean background sample for subtraction. To do so, Marshall took events from the $^9$Li selection which were preceded by at least 1.5~s of isolation from muons of greater than 200,000~pe. This cut excludes virtually all (99.8\%, based on the $^9$Li lifetime) $^9$Li events produced by >200,000~pe muons. The remaining $^9$Li events are a very small contribution: About 0.4\% of the $^9$Li candidate sample consists of actual $^9$Li, and based on the results of the time-to-last-muon fit, some 5\% of these events are produced by muons of below 200,000~pe. Multiplying the two percentages, we deduce that around 0.02\% of this $^9$Li-deficient sample is contaminated by $^9$Li. This is more than acceptable. Meanwhile, the overall rate of $^{12}$B events is less than 10\% of the $^9$Li rate (see fit plots), and we similarly expect some 5\% of them to come from muons of below 200,000~pe, so it is safe to ignore any contribution from $^{12}$B.
 
 Once the ``signal'' and ``background'' samples have been extracted, all that remains is to scale the latter and subtract it from the former. To do this, Marshall took the rate of shower-uncorrelated events reported by the time-to-last-muon fit on the ``signal'' sample. He then scaled the background sample so that its integral equalled the shower-uncorrelated rate, and subtracted it from the signal spectrum. The result was his estimate of the $^9$Li spectrum. The uncertainty in each bin, for both the signal and background spectra, were calculated based on Poisson statistics, and combined in quadrature to give the error bar on each bin of the final $^9$Li spectrum. Finally, the efficiency of each prompt cut was calculated by summing the counts of each accepted bin, and dividing this by the total count in all bins. The uncertainty, meanwhile, was simply the result of adding the error on each bin in quadrature, and propagating the combined errors through the calculation of the ratio. As a cross-check, the calculation was performed separately for each hall, with the results found to be consistent with each other, validating the combination of all three halls in calculating a single efficiency.
 
@@ -233,9 +233,54 @@ Marshall considered two potential sources of systematic uncertainty in the calcu
   \caption{Prompt energy cut efficiencies for the $^9$Li selection}
   \label{tab:bkgLi9PromptCutEffs}
 \end{table}
-XXX What about 12B?
 
-- Forming and fitting the histogram
+\subsubsection{Neutron tagging}
+\label{sec:bkgLi9NeuTagEff}
+
+Historically, the largest contribution to the overall $^9$Li rate uncertainty has come from the neutron tagging efficiency. In previous analyses, the prompt energy cut was 3.5~MeV, for which the IBD ``background'' was so large as to require neutron tagging for all muons below 300,000~pe. Given that some 80\% of the total $^9$Li rate (after application of the shower muon veto) comes from muons below 300,000~pe, this uncertainty applied to that entire 80\% subsample. Making matters worse, this uncertainty is quite large, as it can only be directly measured for higher-energy muons (where neutron tagging is not necessary in order to obtain a valid time-to-last-muon fit). For the muon energy range where neutron tagging is \emph{actually needed} (namely, below 160,000~pe), the uncertainty must be extrapolated.
+
+In \cite{WeiLi9}, the efficiency was found to range from about 60 to 100\% within the energy ranges where it could be measured directly. As such, an uncertainty of 45\% was assigned by Marshall to the efficiency. As for the nominal value, unity was chosen. This choice can be post-hoc justified by the results in \cite{MaWuLi9}, where an efficiency of 93.9\% was found for 160,000 to 400,000~pe in EH1, but values closer to 70\% were found in the other two halls, and the efficiency is expected to decrease for lower muon energies, so perhaps a central value closer to 60 or 70\% would be more correct. In any case, the 45\% uncertainty encompasses these potential variations.
+
+Owing to Marshall's application of a much stricter prompt energy cut for muons below 400,000~pe (8 MeV and 6 MeV in the near and far halls, respectively), the neutron tagging requirement was eliminated in the muon energy range of 160,000 to 300,000~pe. This range contributes to about 60\% of the total $^9$Li background, out of the 80\% that previously required neutron reduction. The more stringent prompt energy cut thereby reduces the total uncertainty by some 25\% in the near halls. In the far halls, where the mean muon energy is significantly higher (and thus the muons that require neutron tagging contribute a relatively minor proportion of the total $^9$Li rate), the stricter prompt energy cut has a relatively minor effect.
+
+\subsection{Other systematics}
+\label{sec:bkgLi9FitSyst}
+
+\subsubsection{Variation of neutron tagging cutoff}
+\label{sec:bkgLi9NeuTagCutoff}
+
+In the nominal $^9$Li fit, neutron tagging is applied for muons below 160,000~pe. To study the effects of varying this dividing line, Marshall repated the analysis for various values between 150,000 and 180,000~pe. The resulting variation in the final estimated rate of $^9$Li in the oscillation analysis sample was found to be of order 10\%, which was assigned as an additional systematic on the final rate.
+
+\subsubsection{Binning}
+\label{sec:bkgLi9Binning}
+
+To study the effect of varying the time binning used in the fit,\footnote{As described above, 25 variable-width bins from 0.002 to 10 seconds, with 20~ms bins below 100~ms} Marshall repeated the analysis for two alternative binnings. The first was finer, with 40 total bins and 10~ms bins below 100~ms. The second was coarser, with 20 total bins and 50~ms bins below 100~ms. These alternative binnings produced less than a 5\% shift in the final result, so an additional systematic of 5\% was assessed.
+
+\subsubsection{$^{12}$B and $^8$He components}
+\label{sec:bkgLi9B12unc}
+
+To evaluate the systematic error arising from the $^{12}$B and $^8$He components in the fit, Marshall performed the fit after disabling the $^{12}$B component and after varying the $^8$He fraction from 0 to 15\%. These variations shifted the final rate by some 4\%, which was included as an additional systematic.
+
+The $^8$He fraction, in addition to affecting the result of the fit, also affects the conversion into the final daily rate (described in the next section). This is because a correction factor must be applied to account for the shower muon veto used in the oscillation analysis IBD selection. The efficiency of this veto is a function of the isotope livetime, which of course varies between $^9$Li and $^8$He. Although this systematic was not considered by Marshall, we evaluate it here and fold it into our final rate estimation.
+
+We consider three cases: 0\% $^8$He, 5.5\% $^8$He (the nominal fraction), and 15\% $^8$He. The three efficiencies are, respectively, $\exp(-0.4/0.257) = 0.211$, $0.945 \times \exp(-0.4/0.257) + 0.055 \times \exp(-0.4/0.172) = 0.205$, and $0.85 \times \exp(-0.5/0.257) + 0.15 \times \exp(-0.4/0.172) = 0.194$, or a roughly 4\% uncertainty in the final rate for $^9$Li events produced by muons above 300,000~pe (our nominal shower muon cut in the oscillation IBD selection). Given that these high-energy muons produce some 80-90\% of the final $^9$Li events in the oscillation sample (even after the shower muon veto), we simply apply this 4\% uncertainty to the entire $^9$Li rate.
+
+\subsection{Calculation of daily rates}
+\label{sec:bkgLi9DailyRateCalc}
+
+Based on the results of fitting the three muon energy ranges, the final daily $^9$Li rate per AD in each hall is calculated as
+\begin{equation*}
+  \frac{1}{\epsilon_\mu \epsilon_m T N^{\mathrm{eff}}_{\mathrm{det}}}
+  \left[ \frac{N^{\mathrm{low}}}{\epsilon^{\mathrm{low}}_p \epsilon_n} 
+    + \frac{N^{\mathrm{mid}}}{\epsilon_p^{\mathrm{mid}}}
+    % + \frac{N^{\mathrm{low}}}{\epsilon_p^{\mathrm{low}} \exp(-t_{\mathrm{sh}} / \tau_{\mathrm{Li}})}
+    + \frac{N^{\mathrm{high}}}{\epsilon_p^{\mathrm{high}} e^{-t_{\mathrm{sh}} / \tau_{\mathrm{Li}}}}
+  \right],
+\end{equation*}
+where $\epsilon_\mu$ is the muon veto efficiency (without the shower muon veto), $e_m$ is the multiplicity cut efficiency, $T$ is the total livetime, $N^{\mathrm{eff}}_{\mathrm{det}}$ is the livetime-weighted number of detectors, $N^{\mathrm{low/mid/high}}$ are the raw rates from the fits, $\epsilon_n$ is the neutron tagging efficiency, $\epsilon_p$ are the prompt cut efficiencies, and $t_{\mathrm{sh}}$ is the shower muon veto time. The muon veto efficiencies are calculated using the toy MC described in XXX cutoptim chapter, and the multiplicity cut efficiencies (which are relatively stable) are taken from the IBD selection.\footnote{The multiplicity efficiencies are 97-98\%; the 2-3\% inefficiency is negligible in comparison to the overall $^9$Li efficiency, so we need not dwell on it any further.} The uncertainties described in previous sections are propagated through this calculation, with the final result given in Table.~XXX.
+
+\begin{comment}
+- forming and fitting the histogram %
 - - Detail the cuts we use for different muon energy ranges (prompt energy, neutron tag)
 - Prompt cut efficiency
 - - Extraction of spectrum. Subtraction of IBD spectrum.
@@ -257,6 +302,7 @@ XXX What about 12B?
 - - IBD selection efficiencies (veto, mult)
 - - Shower veto correction
 - - Propagation of uncertainties
+\end{comment}
 
 \subsection{Spectrum}
 \label{sec:bkgLi9Spectrum}
