@@ -215,8 +215,24 @@ To obtain the $^9$Li-rich sample, the $^9$Li candidates from all three halls wer
 
 Given that around 2/3rds of the events in this enriched sample are in fact non-$^9$Li ``background'' (mainly IBDs), it is imperative to obtain a clean background sample for subtraction. To do so, Marshall took events from the $^9$Li selection which were preceded by at least 1.5~s of isolation from muons of greater than 200,000~pe. This cut excludes virtually all (99.8\%, based on the $^9$Li lifetime) $^9$Li events produced by >200,000~pe muons. The remaining $^9$Li events are a very small contribution: About 0.4\% of the $^9$Li candidate sample consists of actual $^9$Li, and based on the results of the time-to-last-muon fit, some 5\% of these events are produced by muons of below 200,000~pe. Multiplying the two percentages, we deduce that around 0.02\% of this $^9$Li-deficient sample is contaminated by $^9$Li. This is more than acceptable.
 
-Once the ``signal'' and ``background'' samples have been extracted, all that remains is to scale the latter and subtract it from the former. To do this, Marshall took the rate of shower-uncorrelated events reported by the time-to-last-muon fit on the ``signal'' sample. He then scaled the background sample so that its integral equalled the shower-uncorrelated rate, and subtracted it from the signal spectrum. The result was his estimate of the $^9$Li spectrum. The uncertainty in each bin, for both the signal and background spectra, were calculated based on Poisson statistics, and combined in quadrature to give the error bar on each bin of the final $^9$Li spectrum. Finally, the efficiency of each prompt cut was calculated by summing the counts of each accepted bin, and dividing this by the total count in all bins. The uncertainty, meanwhile, was simply the result of adding the error on each bin in quadrature, and propagating the combined errors through the calculation of the ratio.
+Once the ``signal'' and ``background'' samples have been extracted, all that remains is to scale the latter and subtract it from the former. To do this, Marshall took the rate of shower-uncorrelated events reported by the time-to-last-muon fit on the ``signal'' sample. He then scaled the background sample so that its integral equalled the shower-uncorrelated rate, and subtracted it from the signal spectrum. The result was his estimate of the $^9$Li spectrum. The uncertainty in each bin, for both the signal and background spectra, were calculated based on Poisson statistics, and combined in quadrature to give the error bar on each bin of the final $^9$Li spectrum. Finally, the efficiency of each prompt cut was calculated by summing the counts of each accepted bin, and dividing this by the total count in all bins. The uncertainty, meanwhile, was simply the result of adding the error on each bin in quadrature, and propagating the combined errors through the calculation of the ratio. As a cross-check, the calculation was performed separately for each hall, with the results found to be consistent with each other, validating the combination of all three halls in calculating a single efficiency.
 
+Marshall considered two potential sources of systematic uncertainty in the calculation of the prompt energy cut efficiency. The first was the choice of time binning used. After repeating the analysis for the two alternative binnings described in Sec.~XXX, he found a variation of less than 1\%. The second source was the muon energy cut used in extracted the $^9$Li-deficient sample. After increasing that cut to 400,000~pe, Marshall again found less than 1\% variation in the calculated efficiency. Based on these studies, a conservative systematic uncertainty of 1\% (absolute) was assigned. After taking the statistical uncertainty, adding the 1\% systematic in qudrature, and rounding to the nearest percentage point, the results in \autoref{tab:bkgLi9PromptCutEffs} were obtained.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lr}
+    \toprule
+    Prompt energy cut & Efficiency \\
+    \midrule
+    3.5 MeV & $75\% \pm 3\%$\\
+    6 MeV & $40\% \pm 3\%$ \\
+    8 MeV & $15\% \pm 2\%$\\
+    \bottomrule
+  \end{tabular}
+  \caption{Prompt energy cut efficiencies for the $^9$Li selection}
+  \label{tab:bkgLi9PromptCutEffs}
+\end{table}
 XXX What about 12B?
 
 - Forming and fitting the histogram
