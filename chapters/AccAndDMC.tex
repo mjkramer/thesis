@@ -171,45 +171,60 @@ isolation cut efficiency is described next.
 \section{Isolation cut efficiency}
 \label{sec:isolcuteff}
 
-As a starting point, we have the following identity:
-\begin{equation}
+\newcommand\NL{\ensuremath{N_{\mathrm{L}}}}
+\newcommand\RL{\ensuremath{R_{\mathrm{L}}}}
+\newcommand\tL{\ensuremath{t_{\mathrm{L}}}}
+\newcommand\NR{\ensuremath{N_{\mathrm{R}}}}
+\newcommand\RR{\ensuremath{R_{\mathrm{R}}}}
+\newcommand\tR{\ensuremath{t_{\mathrm{R}}}}
+
+Let ``L'' and ``R'' (i.e. left and right) refer to the two classes of events that would lead to rejection of a singles candidate, should such an event be measured within a time window of (respectively) $\tL$ before or $\tR$ after the candidate. Let $\NL$ and $\RL$ denote, respectively, the raw measured count and the true rate of L-class events, and likewise for $\NR$ and $\RR$. Also let $T$ denote the total livetime.
+
+As a starting point, we have the following identities:
+\begin{align}
   \label{eq:ident0}
-  \Nplu = \emu \eisol \Rplu T,
-\end{equation}
-in which \Nplu, \emu, and $T$ are known, and \eisol\ and \Rplu\ are not. In
-addition, the Poisson distribution implies that
+  \begin{split}
+    \NL &= \emu \eisol \RL T \\
+    \NR &= \emu \eisol \RR T
+  \end{split}
+\end{align}
+in which \emu\ and $T$ and each $N$ are known, while the unknowns are \eisol\ and each $R$. In addition, the Poisson distribution implies that
 \begin{equation}
   \label{eq:ident1}
-  \eisol = e^{-2\Rplu t}.
+  \eisol = e^{-\RL \tL -\RR \tR}.
 \end{equation}
-This is simply the probability of observing zero prompt-plus events in two time
-windows (one preceding, one following) each of length $t$. Combining these two
-equations and eliminating \eisol, we have:
-\begin{equation}
-  \Nplu = \emu e^{-2\Rplu t} \Rplu T,
-\end{equation}
+This is simply the probability of observing zero L-class events in a time window of length $\tL$, and zero R-class events in a $\tR$-length window. Combining \autoref{eq:ident0} and \autoref{eq:ident1}, we have:
+\begin{align*}
+  \begin{split}
+    \NL &= \emu e^{-\RL \tL -\RR \tR} \RL T \\
+    \NR &= \emu e^{-\RL \tL -\RR \tR} \RR T \\
+\end{split}
+\end{align*}
+or, after rearranging and multiplying the top and bottom equations by $\tL$ and $\tR$, respectively,
+\begin{align*}
+  \begin{split}
+    e^{\RL \tL + \RR \tR} \NL \tL &= \emu \RL \tL T \\
+    e^{\RL \tL + \RR \tR} \NR \tR &= \emu \RR \tR T. \\
+  \end{split}
+\end{align*}
+Adding these two coupled equations gives
+\begin{equation*}
+  e^{\RL \tL + \RR \tR} (\NL \tL + \NR \tR) = \emu (\RL \tL + \RR \tR) T
+\end{equation*}
 which, after some rearrangement, gives:
-\begin{equation}
-  (-2 \Rplu t) e^{-2 \Rplu t} = - \frac{2 \Nplu t}{\emu T}.
-\end{equation}
-This equation takes the form $we^w = z$, which cannot be solved for $w$ (or, in
-our case, \Rplu) using elementary functions. Instead we employ the Lambert $W$
-function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w)
-= w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches.
-We know that, for a 1~ms isolation window, $\Rplu t \ll 1$, implying that the
-correct choice is the upper branch $W_0$. Then
-\begin{equation}
-  \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
-\end{equation}
+\begin{equation*}
+  (-\RL \tL - \RR \tR) e^{-\RL \tL - \RR \tR} = -\frac{\NL \tL + \NR \tR}{\emu T}.
+\end{equation*}
+This equation takes the form $we^w = z$, which cannot be solved for $w$  using elementary functions. Instead we employ the Lambert $W$ function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w) = w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches. We know that, for an O(1~ms) isolation window, $\RL \tL \ll 1$ (and likewise for $\RR$), implying that the correct choice is the upper branch $W_0$. Then
+\begin{equation*}
+  % \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
+  \RL \tL + \RR \tR = - W_0\left(-\frac{\NL \tL + \NR \tR}{\emu T}\right)
+\end{equation*}
 Finally, inserting this into \eqref{eq:ident1}, we obtain the isolation cut
 efficiency:
 \begin{equation}
-  \eisol = \exp \, W_0 \left( -\frac{2\Nplu t}{\emu T} \right).
+  \eisol = \exp \, W_0 \left( -\frac{\NL \tL + \NR \tR}{\emu T} \right).
 \end{equation}
-
-TODO: Describe generalization to case where different time periods and/or energy
-ranges are used before/after the event. Hint: Take the two coupled equations,
-move all exponentials to the left side, add the two equations.
 
 \begin{figure}
   \centering \includegraphics[scale=0.7]{../images/lambertW.png}
@@ -226,7 +241,7 @@ prompt- and delayed-like singles rates:
   \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
   \Rdel = \frac{\Ndel}{\eisol \emu T},
 \end{equation}
-and so on.
+and so on. These quantities are essential for calculating the DMC efficiency and accidentals rate, as described below.
 
 \section{DMC efficiency}
 \label{sec:dmceffcalc}
