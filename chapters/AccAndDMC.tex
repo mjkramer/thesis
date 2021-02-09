@@ -223,6 +223,7 @@ This equation takes the form $we^w = z$, which cannot be solved for $w$  using e
 Finally, inserting this into \eqref{eq:ident1}, we obtain the isolation cut
 efficiency:
 \begin{equation}
+  \label{eq:accIsolEff}
   \eisol = \exp \, W_0 \left( -\frac{\NL \tL + \NR \tR}{\emu T} \right).
 \end{equation}
 
@@ -238,6 +239,7 @@ efficiency:
 Once the isolation cut efficiency is known, it is trivial to calculate the
 prompt- and delayed-like singles rates:
 \begin{equation}
+  \label{eq:accSingRates}
   \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
   \Rdel = \frac{\Ndel}{\eisol \emu T},
 \end{equation}
@@ -278,9 +280,9 @@ conditions:
 \item No prompt-plus (prompt-like or sub-muon) events in [-400, -200]~$\mu$s.
 \item No delayed-like events in [0, 200]~$\mu$s.
 \end{enumerate}
-The accidentals rate is then simply the product of these probabilities with the
-delayed-like singles rate:
+The accidentals rate is then simply the product of these probabilities multiplied by the delayed-like singles rate:
 \begin{align}
+  \label{eq:accRate}
   \Racc &= \Rdel \cdot P(1; \Rpro \tau)\cdot P(0; \Rsub \tau)
            \cdot P(0; \Rplu \tau)\cdot P(0; \Rdel \tau) \nonumber \\
         &= \Rdel\cdot\Rpro\tau e^{-\Rpro\tau}\cdot e^{-\Rsub\tau}
@@ -296,6 +298,15 @@ when providing the accidentals rate to the fitter:
 \begin{equation}
   \Racc' = \frac{\Racc}{\edmc}.
 \end{equation}
+
+\subsection{Statistical uncertainty}
+\label{sec:accStatUnc}
+
+The accidentals rate, as calculated using \autoref{eq:accRate}, carries a statistical uncertainty which derives from that of the rates that enter the calculation: the prompt-like rate, delayed-like rate, etc. In turn, these rates, as specified by \autoref{eq:accSingRates}, derive their own uncertainties from those of the event counts in each classification. The uncertainties of the counts are trivial, being merely the Poisson uncertainty of $\sqrt{N}$. However, once we consider the \emph{rates} rather than the \emph{counts}, we begin to encounter complications. Most notably, the isolation cut efficiency $\epsilon_{\mathrm{i}}$ in \autoref{eq:accSingRates} is \emph{also} a function of the event counts, as indicated by \autoref{eq:accIsolEff}. This nonlinear dependence on the event counts is only made more complicated when the rates are inserted into \autoref{eq:accRate}. Furthermore, the event classifications in question are not always statistically independent: For instance, the prompt-like and delayed-like counts are correlated by virtue of the fact that they both include events in the 6--12 MeV region.
+
+In spite of these complications, it is still possible to undertake a theoretical calculation of the statistical uncertainty on the accidentals rate. This would involve expanding \autoref{eq:accRate} in terms of the various event counts $N_{\mathrm{p}}$, $N_{\mathrm{d}}$, etc., and then reexpressing the event counts (such as the prompt-like and delayed-like counts) as sums of counts of \emph{disjoint} event classes $N_1$, $N_2$, etc. (e.g., an 0.7--6 MeV class and a 6--12 MeV class). This complicated function $R_{\mathrm{acc}}(N_1, N_2, \ldots)$ could then be expanded in a power series using computer algebra. From that, an expression for the variance $\braket{R_{\mathrm{acc}}^2} - \braket{R_{\mathrm{acc}}}^2$ could be obtained up to any desired order, and evaluated using the known cumulants of the Poisson distribution.
+
+Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance, particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate. For this reason, a simple Monte Carlo was developed for calculating this uncertainty.
 
 \section{Conclusions}
 \label{sec:accdmcconcl}
