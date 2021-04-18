@@ -39,13 +39,17 @@ Unfortunately, running the IBD selection with modified cuts requires more than s
 \subsection{Shower muon threshold and veto time}
 \label{sec:cutVaryShowerMuon}
 
-\subsection{Minimum delayed energy}
-\label{sec:cutVaryMinDelayed}
+The shower muon veto parameters are important for two reasons: They significantly affect the overall veto efficiency (and thus the signal statistics), and they determine the rate of $^9$Li, which is a major source of background uncertainty, contributing more than 50\% (30\%) of the total near-site (far-site) background uncertainty. Altering these parameters can thus potentially affect both the statistical and systematic uncertainty of the oscillation fit. Furthermore, variation of these parameters can serve to demonstrate that the analysis gives consistent results under the ensuing variations in the event sample, and that the $^9$Li background subtraction is performed properly.
 
-\subsection{Minimum prompt energy}
-\label{sec:cutVaryMinPrompt}
+As described in \autoref{sec:bkgLi9LinReg}, our $^9$Li calculation properly captures the dependence of the rate upon the veto parameters. Likewise, the veto efficiency calculation simply sums up the unvetoed time windows, and is thus valid for any set of veto parameters. Both of these calculations are performed by the IBD selector. No additional steps need to be taken when reprocessing the data.
 
-\section{Muon veto efficiency calculation}
+On the other hand, when we investigate the toy MC's predictions of the effects of varying the cut, we are not re-running the IBD selector, so we must explicitly adjust the veto efficiency and $^9$Li rate. Even though the toy MC produces is its own sample of ``data'', it does rely on an input, the so-called ``\texttt{Theta13}'' text file, which is produced by the IBD selector. This file lists, for each AD, the livetime, target mass, efficiencies (veto, multiplicity, delayed energy), and background rates and uncertainties. These values are then used by the toy MC to generate the predicted prompt spectra at each AD\@.
+
+An additional input from the IBD selection is the singles spectrum (which gives the spectral shape of the accidental background). The AD muon veto window of O(1~ms) (to say nothing of the O(1~s) shower window) is more than long enough to remove all prompt, isolated, muon-induced triggers, so we expect no variation in the shape of the singles spectrum as we vary the shower veto.
+
+The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, and feed it the modified veto parameters. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
+
+\subsubsection{Muon veto efficiency calculation}
 \label{sec:cutVaryMuVetoEff}
 
 In order to use the LBNL toy Monte Carlo for the purpose of predicting and validating the data-driven optimization of the shower muon veto, we must provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). During the actual data-driven optimization, the veto efficiency is essentially obtained ``for free'', as one of the outputs of the IBD selection. In principle, then, for the toy MC study we could simply run the IBD selection in order to obtain the efficiency for a given definition of the veto. However, it would be ideal for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
@@ -62,5 +66,11 @@ The objective of the muon rate measurement is to obtain, for each AD, two result
 \begin{comment}
   XXX local slides from mid-late Oct for retrigger plots. See misc_ana/MuonVetoEff/condenser4retrig.
 \end{comment}
+
+\subsection{Minimum delayed energy}
+\label{sec:cutVaryMinDelayed}
+
+\subsection{Minimum prompt energy}
+\label{sec:cutVaryMinPrompt}
 
 \end{document}
