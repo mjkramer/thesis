@@ -278,7 +278,7 @@ Based on the results of fitting the three muon energy ranges, the final daily $^
   \left[ \frac{N^{\mathrm{low}}}{\epsilon^{\mathrm{low}}_p \epsilon_n} 
     + \frac{N^{\mathrm{mid}}}{\epsilon_p^{\mathrm{mid}}}
     % + \frac{N^{\mathrm{low}}}{\epsilon_p^{\mathrm{low}} \exp(-t_{\mathrm{sh}} / \tau_{\mathrm{Li}})}
-    + \frac{N^{\mathrm{high}}}{\epsilon_p^{\mathrm{high}} e^{-t_{\mathrm{sh}} / \tau_{\mathrm{Li}}}}
+    + \frac{N^{\mathrm{high}}}{\epsilon_p^{\mathrm{high}} e^{t_{\mathrm{sh}} / \tau_{\mathrm{Li}}}}
   \right],
 \end{equation}
 where $\epsilon_\mu$ is the muon veto efficiency (without the shower muon veto), $e_m$ is the multiplicity cut efficiency, $T$ is the total livetime, $N^{\mathrm{eff}}_{\mathrm{det}}$ is the livetime-weighted number of detectors, $N^{\mathrm{low/mid/high}}$ are the raw rates from the fits, $\epsilon_n$ is the neutron tagging efficiency, $\epsilon_p$ are the prompt cut efficiencies, and $t_{\mathrm{sh}}$ is the shower muon veto time. As mentioned earlier, the muon veto efficiencies are calculated using the toy MC described in \autoref{sec:cutOptimMuVetoEff} chapter, and the multiplicity cut efficiencies (which are relatively stable) are taken from the IBD selection.\footnote{The multiplicity efficiencies are 97-98\%; the 2-3\% inefficiency is negligible in comparison to the overall $^9$Li efficiency, so we need not dwell on it any further.} The uncertainties described in previous sections are propagated through this calculation, with the final result given in Table.~XXX.

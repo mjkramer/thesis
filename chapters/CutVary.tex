@@ -77,13 +77,24 @@ If we were to naively count the number of events of each type in the \texttt{muo
 \item If an AD muon occurs less than 5~\us\ after a WP muon, the WP muon is discarded in favor of the AD muon.
 \end{itemize}
 
-Each final ``merged'' muon produced by this procedure is stored in a histogram binned according to the number of hits (for WP muons) or the charge (for AD muons). It should be noted that there is a separate histogram of WP muons for each AD, even though all ADs in a hall share the same water pools. This is because an AD muon will override a WP muon, but a given muon will not necessarily pass through every AD, so the WP muon will still be counted for those ADs which do not see an AD muon.
+Each final ``merged'' muon produced by this procedure is stored in a histogram binned according to the number of hits (for WP muons) or the charge (for AD muons). It should be noted that there is a separate histogram of WP muons for each AD, even though all ADs in a hall share the same water pools. This is because an AD muon will override a WP muon, but a given muon will not necessarily pass through every AD, so the WP muon will still be counted for those ADs which do not see an associated AD muon.
 
 \begin{comment}
   XXX local slides from mid-late Oct for retrigger plots. See misc_ana/MuonVetoEff/condenser4retrig.
+
+Are our efficiencies biased because we don't count for the'' `muon multiplicity efficiency' coming from being falsely ignored as a retrigger?
 \end{comment}
 
-\subsection{Minimum delayed energy}
+Using the histograms of WP and AD muons, the rates of the three muon classes can be calculated: First, the number of WP(-only) muons is determined by integrating the WP histogram for \texttt{nHit}$> 13$, while the number of (non-shower) AD muons is the integral of the AD histogram from 3000 PE to the shower threshold, and the number of shower muons is the above-threshold integral. These counts are then divided by the total livetime to obtain the three rates.
+
+The final step is to calculate the veto efficiency from the three rates. Although the three muon classes are simple independent Poisson processes, it is difficult to calculate the veto efficiency analytically, given the possibility of overlapping veto windows between and within the three classes. On the other hand, it is trivial to simulate the processes, and the simulated veto windows can then simply be added (after removing overlaps) to determine the total vetoed time and hence the efficiency. For the sake of validation, three different approaches were tested, all with consistent results:
+
+\begin{itemize}
+\item A ``shotgun'' toy MC that generates $N$ (rate $\times$ time) random muons (of each type) distributed in time according to the uniform distribution, before sorting and merging them
+\item A ``sequential'' toy MC that uses the relative rates to determine the type of the ``next'' muon, and the exponential distribution to determine the time to it
+\item A ``parallel'' toy MC in which the three processes independently generate random samples of the time-to-next (i.e.\ exponential) distributions, with the events then sorted and merged. This version generated output files in the same format as the pre-selector, so the actual second-stage IBD selection could be run on them, to verify that our window-adding implementation agrees with that in the IBD selector.
+\end{itemize}
+
 \label{sec:cutVaryMinDelayed}
 
 \subsection{Minimum prompt energy}
