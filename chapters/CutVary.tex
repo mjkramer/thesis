@@ -49,19 +49,35 @@ An additional input from the IBD selection is the singles spectrum (which gives 
 
 The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, and feed it the modified veto parameters. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
 
-\subsubsection{Muon veto efficiency calculation}
+\subsubsection{Muon veto efficiency calculation}%
 \label{sec:cutVaryMuVetoEff}
 
-In order to use the LBNL toy Monte Carlo for the purpose of predicting and validating the data-driven optimization of the shower muon veto, we must provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). During the actual data-driven optimization, the veto efficiency is essentially obtained ``for free'', as one of the outputs of the IBD selection. In principle, then, for the toy MC study we could simply run the IBD selection in order to obtain the efficiency for a given definition of the veto. However, it would be ideal for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
+In order to use the toy MC for predicting and validating the data-driven optimization of the shower muon veto, we must provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). During the analysis of real data, the veto efficiency is computed as one of the outputs of the IBD selection. In principle, then, for the toy MC study we could simply run the IBD selection, with the desired veto parameters, in order to obtain the time-averaged efficiency for a given definition of the veto. However, this is computationally expensive, and more importantly, it would be ideal for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
 
-The veto efficiency is, naturally, a function of the muon rate. In particular, it depends on the rates of the three types of muons: water pool, AD, and shower. The first step, then, is to measure these rates, while taking care to avoid double counting due to retriggers and multi-detector muons. Once the rates have been obtained, the next step is to calculate the efficiency, which requires a proper treatment of the possible overlap of veto windows between closely spaced muons. In what follows we describe these two steps in detail and demonstrate that the results agree sufficiently well with the ``true'' veto efficiency obtained from the IBD selection.
+The veto efficiency is, naturally, a function of the muon rate. In particular, it depends on the rates of the three types of muons: water pool, AD, and shower. The first step, then, is to measure these rates, while taking care to avoid double counting due to retriggers and multi-detector muons. For this purpose, a ``muon selector'' was written to extract all of the muon events in our dataset. This is the one place where actual data enters this process, but the code is independent of the IBD selection's second stage, where IBD cuts (including the veto) are normally applied. Once the muon sample has been obtained, the rates of the three classes can be calculated. The final step is to calculate the efficiency, which requires a proper treatment of the possible overlap of veto windows between closely spaced muons. In what follows we describe these steps in detail and demonstrate that the results agree well with the veto efficiency obtained from the IBD selection.
 
-\subsection{Muon rate measurement}
+\subsection{Muon rate measurement}%
 \label{sec:cutVaryMuRate}
 
-The objective of the muon rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons which produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD. Given that the AD/shower veto windows are longer than the WP window, any AD+WP muon should be regarded as a single AD muon. The measurement of the AD muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``normal'' and ``shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower muon definition, without requiring a re-run of the muon selection.
+The objective of the muon rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons which produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD\@. Given that the AD/shower veto windows are longer than the WP window, any AD+WP muon should be regarded as a single AD muon. The measurement of the AD muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``shower'' and ``non-shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower muon definition, without requiring a re-run of the muon selection.
 
+\subsubsection{Muon selection}
+\label{sec:cutVaryMuonSel}
 
+The muon selector runs on the output of the first stage of the IBD selection, i.e., the pre-selection, which does not depend on the IBD selection cuts. In particular, the muon selector reads the contents of the \texttt{muons} tree, which simply contains basic information (time, detector, and charge or energy) for each WP trigger with more than 12 above-threshold PMTs, and each AD trigger with more than 3000 p.e.\ of charge. We collectively refer to these events of muon-like triggers.
+
+If we were to naively count the number of events of each type in the \texttt{muons} tree, we would overestimate the muon rates, for two reasons: Muons that trigger more than one detector must still be only counted once, and muon-induced retriggers must be discarded. The strategy for handling these subtleties is similar to the one described in \autoref{sec:bkgLi9MuonSel} for the muon selection used in the $^9$Li rate study:
+
+\begin{itemize}
+\item No distinction is made between the inner and outer water pools.
+\item If a WP muon occurs less than 15~\us\ after an AD muon, it is discarded in favor of the AD muon.
+\item If a WP muon occurs less than 5~\us\ after another WP muon (which, in practice, will always be in the other pool), and the number of hit PMTs is greater than the previous one, this muon replaces the previous one.\footnote{This reflects the fact that the IBD selection's muon veto simply requires one pool, and not necessarily both, to be above-threshold.}
+\item If a WP muon occurs between 5 and 15~\us\ after another WP muon, it is discarded as a retrigger.
+\item If an AD muon occurs less than 15~\us\ after another muon in the same AD, it is discarded as a retrigger.
+\item If an AD muon occurs less than 5~\us\ after a WP muon, the WP muon is discarded in favor of the AD muon.
+\end{itemize}
+
+Each final ``merged'' muon produced by this procedure is stored in a histogram binned according to the number of hits (for WP muons) or the charge (for AD muons). It should be noted that there is a separate histogram of WP muons for each AD, even though all ADs in a hall share the same water pools. This is because an AD muon will override a WP muon, but a given muon will not necessarily pass through every AD, so the WP muon will still be counted for those ADs which do not see an AD muon.
 
 \begin{comment}
   XXX local slides from mid-late Oct for retrigger plots. See misc_ana/MuonVetoEff/condenser4retrig.
@@ -72,5 +88,8 @@ The objective of the muon rate measurement is to obtain, for each AD, two result
 
 \subsection{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
+
+\subsection{Vertex cut}
+\label{sec:cutVaryVertexCut}
 
 \end{document}
