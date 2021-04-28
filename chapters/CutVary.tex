@@ -114,6 +114,45 @@ Meanwhile, the LBNL and IHEP vetos both lie in regions in which there is little 
 \section{Minimum delayed energy}
 \label{sec:cutVaryMinDelayed}
 
+In the reconstructed energy spectrum from nGd captures, there is a long and tall tail below the nominal cut of 6~MeV (Fig.~XXX). This tail is populated by events in which one or more gammas ``leak'' beyond the active volume of the AD, leaving some of the initial energy unreconstructed. Estimates (XXX?) suggest that some 10\% of nGd captures fall below the 6~MeV cut. Due to this potential of gaining O(10\%) in signal statistics, it is worthwhile to explore the variation of the 6~MeV cut. Here we study modified delayed cuts ranging from 4 to 7~MeV.
+
+Of course, there is a tradeoff: With an increase in signal comes an increase in backgrounds. For those correlated backgrounds that involve an actual delayed nGd capture ($^9$Li, fast neutrons, and $\alpha$-$n$), the rate will increase according to the same scaling factor as the signal rate. The AmC background possesses a different delayed energy spectrum (domninated by neutron captures in the AD's stainless steel vessel), and this spectrum is unknown (XXX); due to the small size of this background, we simply ignore it in the present discussion.
+
+Although these correlated backgrounds do increase, the effect on the uncertainty is outweighed by the increase in signal statistics. Letting $k$ denote this scaling factor (i.e.\ the ratio of the new delayed efficiency to the old one):
+\begin{align}
+  \label{eq:cutVaryDelayedNcorrSigma}
+  & N_{\mathrm{corr}} \equiv N_{\mathrm{obs}} - N_{\mathrm{bkg}} \\
+  \implies & \sigma(N'_{\mathrm{corr}}) = \sqrt{k} \sigma(N_{\mathrm{corr}}) \\
+  \implies & \frac{\sigma(N'_{\mathrm{corr}})}{N'_{\mathrm{corr}}} = \frac{\sqrt{k} \sigma(N_{\mathrm{corr}})}{k N_{\mathrm{corr}}} = \frac{1}{\sqrt{k}} \frac{\sigma(N_{\mathrm{corr}})}{N_{\mathrm{corr}}},
+\end{align}
+that is, even though there is an increase in the absolute uncertainty on the background-subtracted rate, the \emph{relative} uncertainty actually decreases. Therefore, if these were the only backgrounds at Daya Bay, it would be advantageous to use a delayed cut that is as low as possible.
+
+Unfortunately, the accidental background is not as well-behaved. As shown in Fig.~XXX, the spectrum of delayed-like singles rises much more steeply below 5 (XXX?) MeV compared to the neutron capture spectrum, implying that the accidental background increases faster (percentage-wise) than the IBD rate. When this effect is large enough, the overall uncertainty on the background-subtracted IBD rate no longer decreases (as illustrated in \autoref{eq:cutVaryDelayedNcorrSigma}); instead, it \emph{increases}. In principle, then, it is the accidental background that serves to penalize overly loose definitions of the delayed energy cut.\footnote{In saying this, we are ignoring the possibility of new, unaccounted-for \emph{correlated} backgrounds appearing when we loosen the delayed cut. As we discuss later, this is in fact a likely issue.}
+
+A further downside of loosening the delayed cut is that the multiplicity cut (DMC) efficiency is reduced, as we are now more likely to reject an IBD candidate on the basis of an ``extra'' delayed-like event in the 200~\us\ post-delayed window. However, this effect is outweighed by the increase in the efficiency of the delayed cut, as shown (XXX) by the following argument. (Use Eq 6 of the AccAndDMC chapter, etc.).
+
+In theory, the toy MC should be able to capture and quantify the \emph{known} effects of varying the delayed cut, that is, the effects on the delayed cut efficiency (and by extension the signal statistics), on the accidentals, and on the nominal set of correlated backgrounds. We expect the toy MC to show no variation in the best fit (again, as a confirmation of the self-consistency of the toy MC / fitter system), but we do expect the uncertainty on the oscillation parameters to vary, based on the balance of the competing effects described above.
+
+As with the shower muon veto, we carry out the toy MC study by taking the \texttt{Theta13} file from the nominal (i.e. 6~MeV) IBD selection, and altering those quantities that vary with the delayed cut. However, the toy MC does not have any built-in knowledge of how the signal efficiency and background rates vary with the delayed cut. As such, we must externally provide this knowledge, which we obtain from measurements down to 4~MeV of the neutron capture spectrum and the delayed-like singles spectrum. These measurements are described in Sec.~XXX.
+
+When we perform fits to actual data using a modified delayed cut, the correct accidentals rate is automatically calculated by the IBD selector, and of course there is no need to apply (as in the toy MC case) a scaling factor to the raw signal rate. However, the correlated background rates must still be corrected using the same formalism as that applied for the toy MC. Furthermore, an additional complication arises from the fact that the ADs differ among themselves in the shape of their neutron capture spectra (Fig.~XXX). As a result, when we modify the delayed cut, the efficiency of this cut will not necessarily vary in unison among the ADs, possibly altering the measured near-far ratio. There are multiple ways to deal with this issue, and we discuss them further in Sec.~XXX. First, however, we discuss our treatment of the backgrounds.
+
+\subsection{Treatment of backgrounds}
+\label{sec:cutVaryDelayedCutBkgTreatment}
+
+\subsubsection{Accidentals background}
+
+For fits to actual data, the accidentals background is calculated by the IBD selector as described in XXX AccAndDMC. This calculation is valid for any delayed energy cut, so no further correction is necessary.
+
+For fits to toy spectra, we use information from a special IBD selection run on the full P17B dataset. This special selection is simply the nominal selection with a loosened delayed cut of 4~MeV. From the spectrum of delayed-like singles measured by this selection, we can calculate the accidentals rate for any delayed cut of 4~MeV or greater. We do this by manually instantiating the relevant class from the IBD selector. The calculated rates are then substituted into the \texttt{Theta13} file.
+
+\subsubsection{Correlated backgrounds}
+
+For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutron, and $\alpha$-$n$ events all include a delayed neutron capture, we can employ the neutron capture spectrum $S_n(E)$obtained from IBDs, whose extraction we describe in Sec.~XXX. For a delayed cut of $q$~MeV, the backgrounds are then simply scaled according to the ratio
+\[
+  \frac{\int_q^{12} S_n(E)\,dE}{\int_6^12 S_n(E)\,dE}
+\]
+
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
 
