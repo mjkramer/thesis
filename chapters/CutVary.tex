@@ -165,8 +165,12 @@ Our fitter, however, does not support pull terms. Instead, we could take the mea
 Once the neutron capture spectrum has been measured, there are a number of ways it can be used to apply a correction factor to the IBD rate. We name and define these approaches as follows:
 
 \begin{itemize}
-\item \texttt{flat}: No correction. 
+\item \texttt{flat}: No correction. As in the official analysis, we simply assume that all ADs have the same delayed cut efficiency, for all values of the cut.
+\item \texttt{relative}: We integrate the spectrum from $E_{\mathrm{cut}}$ to 12~MeV, and divide by the integral from 6 to 12~MeV. Thus, when $E_{\mathrm{cut}} = 12$~MeV, we reproduce the official analysis.
+\item \texttt{absolute}: We again integrate from $E_{\mathrm{cut}}$ to 12~MeV, but this time we divide by the total integral of the measured spectrum (i.e., from 4 to 12~MeV).
 \end{itemize}
+
+The \texttt{flat} method is obviously the simplest, and as we shall show (XXX), it produces the aforementioned shifts in $\SinSq$, demonstrating that the delayed cut efficiency varies among ADs. Meanwhile, the advantage of the \texttt{relative} correction is that it allows us to show that we can obtain constant results as we move the delayed cut away from 6~MeV, provided that we correct for differences in the neutron capture shape. This proves that we understand and can account for the implications of varying the cut. However, the \texttt{relative} method says nothing about the size of the bias caused by the assumption of equal efficiencies at 6~MeV. This is where the \texttt{absolute} methods provides insight. From the difference in the best-fit values of $\SinSq$ at 6~MeV between the \texttt{relative} and \texttt{absolute} methods, we can infer the scale of the aforementioned bias. This measurement is not exact, since there is still a degree of arbitrariness from the choice of the lower cutoff (in our case, 4~MeV), but as we show, there are not many neutron captures with such low energy, so that variations around 4~MeV can be expected to have minimal effect.
 
 Talk about how we measure the neutron capture spectrum (three implementations).
 
