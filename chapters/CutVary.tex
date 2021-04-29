@@ -153,6 +153,25 @@ For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutro
   \frac{\int_q^{12} S_n(E)\,dE}{\int_6^12 S_n(E)\,dE}
 \]
 
+\section{Delayed cut efficiency}
+\label{sec:cutVaryDelCutEff}
+
+As we show later (XXX), naively varying the delayed cut will cause a shift in the best-fit oscillation parameters (particularly $\SinSq$). This shift comes from slight AD-to-AD differences in the shape of the IBD delayed spectrum. In what follows, we will refer to this spectrum as the ``neutron capture'' or ``nGd'' spectrum.\footnote{Although the bulk of delayed triggers are indeed nGd captures, there is in fact a small peak around 5~MeV (Fig.~XXX) from neutron captures on carbon.} Due to these shape discrepancies, varying the delayed cut will cause its efficiency to vary by different amounts between the ADs.
+
+In the published Daya Bay analyses, we have always assumed that all 8 ADs have the same delayed cut efficiency, to which we assign a nominal (and irrelevant) value of 0.88 in the \texttt{Theta13} file. However, from the observed differences in the nGd shape, it is clear that this assumption is inaccurate. Obviously, the efficiency of the 6~MeV cut cannot be measured by a direct comparison of the IBD rates between ADs, since this wouldn't account for all of the other effects (e.g., oscillation!) which affect the measured rate. However, the delayed cut efficiency\footnote{More accurately, the total detection efficiency, divided by those efficiencies (veto and DMC) that we treat individually.} \emph{could}, in principle, be measured by a fitter with 8 pull terms for the efficiencies and an additional pull term for the ``reactor antineutrino anomaly'' (the last of which already is included in the pull-based fitters used in the collaboration). Of course, including these 8 additional pulls could lead to a shift in the best-fit $\SinSq$, reflecting the fact that a particularly unfortunate combination of delayed cut efficiencies could be mistaken for an oscillation signal.
+
+Our fitter, however, does not support pull terms. Instead, we could take the measured IBD rates, correct them for baseline and oscillation effects, and then take the ratios to, say, AD1, giving the 8 \emph{relative} efficiencies, normalized to AD1. Again, though, such an approach would suffer from the ambiguity between the effects of oscillation and unequal efficiencies. Thus, we make no attempt to perform a corrected rate-based measurement of the 6~MeV cut's efficiency. Instead, our approach is to measure the shape of the neutron capture spectrum as best as possible (as described in Sec.~XXX), and use that as our sole source of information on the efficiency of the delayed cut. Since our study extends down to delayed cuts of 4~MeV, so does our measurement of the neutron capture spectrum. The soft end of this spectrum includes both events from the nGd tail as well as nC captures.
+
+Once the neutron capture spectrum has been measured, there are a number of ways it can be used to apply a correction factor to the IBD rate. We name and define these approaches as follows:
+
+\begin{itemize}
+\item \texttt{flat}: No correction. 
+\end{itemize}
+
+Talk about how we measure the neutron capture spectrum (three implementations).
+
+Talk about how we use it.
+
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
 
