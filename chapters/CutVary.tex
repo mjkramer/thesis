@@ -162,7 +162,7 @@ In the published Daya Bay analyses, we have always assumed that all 8 ADs have t
 
 Our fitter, however, does not support pull terms. Instead, we could take the measured IBD rates, correct them for baseline and oscillation effects, and then take the ratios to, say, AD1, giving the 8 \emph{relative} efficiencies, normalized to AD1. Again, though, such an approach would suffer from the ambiguity between the effects of oscillation and unequal efficiencies. Thus, we make no attempt to perform a corrected rate-based measurement of the 6~MeV cut's efficiency. Instead, our approach is to measure the shape of the neutron capture spectrum as best as possible (as described in Sec.~XXX), and use that as our sole source of information on the efficiency of the delayed cut. Since our study extends down to delayed cuts of 4~MeV, so does our measurement of the neutron capture spectrum. The soft end of this spectrum includes both events from the nGd tail as well as nC captures.
 
-Once the neutron capture spectrum has been measured, there are a number of ways it can be used to apply a correction factor to the IBD rate. We name and define these approaches as follows:
+Once the neutron capture spectrum has been measured, there are three ways it can be used (or not) to apply a correction factor to the IBD rate. We name and define these approaches as follows:
 
 \begin{itemize}
 \item \texttt{flat}: No correction. As in the official analysis, we simply assume that all ADs have the same delayed cut efficiency, for all values of the cut.
@@ -170,11 +170,28 @@ Once the neutron capture spectrum has been measured, there are a number of ways 
 \item \texttt{absolute}: We again integrate from $E_{\mathrm{cut}}$ to 12~MeV, but this time we divide by the total integral of the measured spectrum (i.e., from 4 to 12~MeV).
 \end{itemize}
 
-The \texttt{flat} method is obviously the simplest, and as we shall show (XXX), it produces the aforementioned shifts in $\SinSq$, demonstrating that the delayed cut efficiency varies among ADs. Meanwhile, the advantage of the \texttt{relative} correction is that it allows us to show that we can obtain constant results as we move the delayed cut away from 6~MeV, provided that we correct for differences in the neutron capture shape. This proves that we understand and can account for the implications of varying the cut. However, the \texttt{relative} method says nothing about the size of the bias caused by the assumption of equal efficiencies at 6~MeV. This is where the \texttt{absolute} methods provides insight. From the difference in the best-fit values of $\SinSq$ at 6~MeV between the \texttt{relative} and \texttt{absolute} methods, we can infer the scale of the aforementioned bias. This measurement is not exact, since there is still a degree of arbitrariness from the choice of the lower cutoff (in our case, 4~MeV), but as we show, there are not many neutron captures with such low energy, so that variations around 4~MeV can be expected to have minimal effect.
+The \texttt{flat} method is obviously the simplest, and as we shall show (XXX), it produces the aforementioned shifts in $\SinSq$, demonstrating that the delayed cut efficiency varies among ADs. Meanwhile, the advantage of the \texttt{relative} correction is that it allows us to show that we can obtain constant results as we move the delayed cut away from 6~MeV, provided that we correct for differences in the neutron capture shape. This proves that we understand and can account for the implications of varying the cut. However, the \texttt{relative} method says nothing about the size of the bias caused by the assumption of equal efficiencies at 6~MeV. This is where the \texttt{absolute} method provides insight. From the difference in the best-fit values of $\SinSq$ at 6~MeV between the \texttt{relative} and \texttt{absolute} methods, we can infer the scale of the aforementioned bias. This measurement is still uncertain, since there is a degree of arbitrariness from the choice of the lower cutoff (in our case, 4~MeV), but as we show, there are not many neutron captures with such low energy, so that variations around 4~MeV can be expected to have minimal effect.
+
+We will show the results of applying all three methods, ultimately demonstrating excellent stability in $\SinSq$ when the relative method is applied between 5 and 7~MeV.
+
+\subsection{Measurement of neutron capture spectrum}
+\label{sec:cutVarDelCutSpecMeas}
+
+Before we can integrate the neutron capture spectrum, we must, of course, measure it for each AD. It would be incorrect to use the raw delayed spectrum from the IBD candidates, since this includes contributions from backgrounds. Fortunately, all of the correlated backgrounds (except AmC, which we neglect due to its small rate) feature a neutron capture as the delayed event. On the other hand, accidental backgrounds will be drawn from the spectrum of delayed-like singles, which has a different shape from the neutron capture spectrum. Fortunately, both this spectrum and the accidentals rate can be measured quite accurately, so that we can obtain our final measurement simply by taking the delayed spectrum of IBD candidates, and subtracting the delayed-like singles spectrum scaled by the accidentals rate.
+
+Although we did not diverge from this overall method, we implemented it in three different ways:
+
+\begin{itemize}
+\item \texttt{original}: We performed a ``reference'' IBD selection using a delayed cut of 4~MeV, extracting the neutron capture spectrum as described above. For any subsequent IBD selection with arbitrary cuts, this reference spectrum was used to obtain the (\texttt{relative} or \texttt{absolute}) efficiency.
+\item \texttt{calc-then-add}: Within each IBD selection, we perform a ``parallel'' IBD selection using the same cuts, except with a 4~MeV delayed cut. The \emph{daily} spectrum, and then the efficiency (both \texttt{relative} and \texttt{absolute}) are obtained from the parallel selection. For the efficiency in the total sample, we use the weighted mean of the daily efficiencies.
+\item \texttt{add-then-calc}: Again we use the ``parallel'' 4~MeV selection, but we do not calculate the efficiency on a daily basis. Rather, we add the daily neutron capture spectra in order to obtain the spectra for the full dataset, and then calculate the efficiency from these total spectra.
+\end{itemize}
+
+For all cut variations we study \emph{except for the application of a vertex cut}, these three methods generally give equivalent results. However, when we apply a vertex cut (as discussed in Sec.~XXX), there can be some variation in the shape of the neutron capture spectrum. The latter two methods were implemented so as to enable direct measurement of the efficiency for each cut, without recourse to a reference spectrum that may have the wrong shape. Although \texttt{calc-then-add} and \texttt{add-then-calc} are equivalent in principle, the former can suffer from division-by-zero in EH3 on days where there are no events in a given bin, so in practice we reject it in favor of \texttt{add-then-calc}.
+
+In most of the results that follow, we show the outcome of using the \texttt{original} method, but the other methods give the same results. When we later discuss the application of vertex cuts, we will switch to the \texttt{add-then-calc} method (and will show the difficulties that result when attempting to use the \texttt{original} method).
 
 Talk about how we measure the neutron capture spectrum (three implementations).
-
-Talk about how we use it.
 
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
