@@ -174,7 +174,7 @@ The \texttt{flat} method is obviously the simplest, and as we shall show (XXX), 
 
 We will show the results of applying all three methods, ultimately demonstrating excellent stability in $\SinSq$ when the relative method is applied between 5 and 7~MeV.
 
-\subsection{Measurement of neutron capture spectrum}
+\subsection{Measurement of neutron capture spectra}
 \label{sec:cutVarDelCutSpecMeas}
 
 Before we can integrate the neutron capture spectrum, we must, of course, measure it for each AD. It would be incorrect to use the raw delayed spectrum from the IBD candidates, since this includes contributions from backgrounds. Fortunately, all of the correlated backgrounds (except AmC, which we neglect due to its small rate) feature a neutron capture as the delayed event. On the other hand, accidental backgrounds will be drawn from the spectrum of delayed-like singles, which has a different shape from the neutron capture spectrum. Fortunately, both this spectrum and the accidentals rate can be measured quite accurately, so that we can obtain our final measurement simply by taking the delayed spectrum of IBD candidates, and subtracting the delayed-like singles spectrum scaled by the accidentals rate.
@@ -191,10 +191,18 @@ For all cut variations we study \emph{except for the application of a vertex cut
 
 In most of the results that follow, we show the outcome of using the \texttt{original} method, but the other methods give the same results. When we later discuss the application of vertex cuts, we will switch to the \texttt{add-then-calc} method (and will show the difficulties that result when attempting to use the \texttt{original} method).
 
-Talk about how we measure the neutron capture spectrum (three implementations).
-
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
+
+Unlike the delayed spectrum, the prompt spectrum of IBDs does not contain a long tail, so that varying the prompt cut is likely to have a smaller effect on the analysis, with minimal potential statistical gain. Although the minimum IBD energy deposition is 1.02~MeV (from positron annihilation), the finite detector resolution leads to the reconstruction of some events below this minimum energy. Since we can see that the prompt spectrum doesn't fall to zero at 0.7~MeV (Fig.~XXX), it is clear that events will be lost or gained upon variation of the cut. It is therefore worth verifying that the analysis is stable under such circumstances.
+
+\emph{A priori,} there is no reason to assume that the prompt cut has the same efficiency (and $d\epsilon/dE_{\mathrm{cut}}$) across all ADs. Just as with the delayed cut, it is possible that we may need to apply corrections for the AD-dependent prompt efficiency. In that case, we could extract the prompt spectrum analogously to the case of the delayed spectrum, and then integrate it using either the \texttt{absolute} or \texttt{relative} methods.
+
+Compared to the delayed spectrum, it may be possible to more accurately measure the absolute efficiency, given the lack of a long tail. Even though the rate of prompt-like singles rises very steeply around 0.7~MeV, the accidentals rate is bottlenecked by the rate of delayed-like singles, so the accidentals subtraction can still be performed accurately. However, the \emph{correlated} backgrounds each have their own externally supplied prompt spectra, which (as we describe XXX below) must be individually integrated (to scale the rate) and subtracted. Hence, the measured prompt spectrum could be skewed by any errors in the rates and spectra of the correlated backgrounds. Fortunately, the total rate of the correlated backgrounds is quite low, and in the case of the dominant one ($^9Li$), 0.7~MeV lies below its lower endpoint (XXX check and revise). We therefore don't expect the correlated backgrounds to pose a major difficulty in the prompt spectrum extraction.
+
+The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
+
+
 
 \section{Vertex cut}
 \label{sec:cutVaryVertexCut}
