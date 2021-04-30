@@ -202,7 +202,15 @@ Compared to the delayed spectrum, it may be possible to more accurately measure 
 
 The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
 
+When varying the prompt cut, then, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$, we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
+\[
+  \frac{\int_{E_{\mathrm{cut}}}^{12} S_b(E)}{\int_{0.7}^{12} S_b(E)}.
+\]
+The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{cut}$, normalizes it to the specified rate, and subtracts it from the raw prompt spectrum. This adjustment of the correlated backgrounds is applied for both the cases of fitting data and toy samples. There are no further subtleties related to the variation of the prompt cut.
 
+As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
+
+Meanwhile, Fig.~XXX shows the results of fitting actual data. Happily, there is no significant change in the best-fit values of $\SinSq$ and $\Dmsqee$ when we vary the prompt cut. Likewise, the uncertainty remains stable. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
 \section{Vertex cut}
 \label{sec:cutVaryVertexCut}
