@@ -210,9 +210,31 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
 
 As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
 
-Meanwhile, Fig.~XXX shows the results of fitting actual data. Happily, there is no significant change in the best-fit values of $\SinSq$ and $\Dmsqee$ when we vary the prompt cut. Likewise, the uncertainty remains stable. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and there is nothing suboptimal about the nominal cut of 0.7~MeV.
+Meanwhile, Fig.~XXX shows the results of fitting actual data. Happily, there is no significant change in the best-fit values of $\SinSq$ and $\Dmsqee$ when we vary the prompt cut. Likewise, the uncertainty remains stable. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
 \section{Vertex cut}
 \label{sec:cutVaryVertexCut}
+
+\begin{comment}
+  XXX Do our adjustments of background rates account for the fact that some backgrounds can occur in the GdLS+LS whereas others occur only in GdLS?
+
+Accidentals -- Handled automatically, no adjustment, we're good
+Li9, fast-n, alpha-n: Only in GdLS, ???
+AmC: Both. R distribution unknown but probably ``lumpy''. Z probably like what we did.
+\end{comment}
+
+Since our analysis is based on nGd IBDs, the delayed events of the IBDs will all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the prompt events will likewise occur in the GdLS\footnote{Those that don't are accounted for in the spill-in efficiency.}. The situation is the same for the three correlated backgrounds ($^9$Li, fast neutrons, and $\alpha$-n) that involve nGd captures.
+
+Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices; most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS. And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
+
+Based on these facts, it is obvious why the official nGd analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
+
+Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in Fig.~XXX, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In Sec.~XXX, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downard trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
+
+For these reasons, we choose to go beyond the official analysis and explore the use of vertex cuts. When applying a vertex cut, care must be taken in two areas: the detection efficiencies and the background rates. As was mentioned, a vertex cut may not have the same efficiency among all ADs, so this efficiency must be measured and corrected for. The accidental background rate calculation, being based on the singles selection (to which we apply the same vertex cut), accounts for the vertex cut automatically. As for the correlated backgrounds, we must assume a particular vertex distribution for each background, and then calculate the percentage of the distribution that lies within our fiducial volume.
+
+Throughout this study, we apply a given vertex cut to both the prompt and delayed vertex. This is to be distinguished from, say, the muon veto, which considers only the delayed trigger. We choose to cut on both triggers because it avoids the need to make an arbitrary choice between prompt and delayed, and it avoids the need to perform two separate singles selections with two different vertex cuts.
+
+In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts, and whether the observed variations are consistent with our statistical uncertainty.
 
 \end{document}
