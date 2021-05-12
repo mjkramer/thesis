@@ -44,7 +44,18 @@ On the other hand, when we investigate the toy MC's predictions of the effects o
 
 An additional input from the IBD selection is the singles spectrum (which gives the spectral shape of the accidental background). The AD muon veto window of O(1~ms) (to say nothing of the O(1~s) shower window) is more than long enough to remove all prompt, isolated, muon-induced triggers, so we expect no variation in the shape of the singles spectrum as we vary the shower veto.
 
-The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, and feed it the modified veto parameters. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/li9_bkg.eh1_ad1.8ad.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/li9_bkg.eh3_ad1.8ad.pdf}%
+  \end{minipage}%
+  \caption{$^9$Li rate as a function of the shower veto parameters, for a near hall AD (left) and a far hall AD (right).}
+  \label{fig:cutVaryVetoEffLi9Rates}
+\end{figure}
+
+The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, as described in \autoref{sec:bkgCosmo} and feed it the modified veto parameters, producing the $^9$Li rates exemplified in \autoref{fig:cutVaryVetoEffLi9Rates}. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
 
 \subsection{Veto efficiency calculation}%
 \label{sec:cutVaryMuVetoEff}
@@ -92,7 +103,24 @@ The final step is to calculate the veto efficiency from the three rates. Althoug
 \item A ``parallel'' toy MC in which the three processes independently generate random samples of the time-to-next (i.e.\ exponential) distributions, with the events then sorted and merged. This version generated output files in the same format as the pre-selector, so the actual second-stage IBD selection could be run on them, to verify that our window-adding calculation agrees with that in the IBD selector.
 \end{itemize}
 
-Fig.~XXX (doc-12269 p10) shows the daily efficiency of the nominal muon veto, both as reported by the IBD selection, and by performing the calculation above using the rates measured from data. As can be seen, there is a very small bias (on the order of 0.02\%) inherent in this approach. This is unsurprising, given that the IBD selection does not discard muon retriggers, which can therefore extend the veto window by O(10~\us). In any case, this bias is not large enough to meaningfully impact the toy MC study of the shower veto\footnote{And the whole purpose of the toy MC study is merely to show that we don't expect any variation of the fit results as we vary the veto parameters.}. Fig.~XXX (p11) compares the dependence of the efficiency upon the two shower veto parameters, as determined both by running the full IBD selection, and by using the above calculation on the muon rates measured by the nominal selection. Excellent agreement can be seen.
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{CutVary/ShowerVeto/vetoEffCompare.png}
+  \caption{Daily muon veto efficiency in EH1-AD1, both as reported by the IBD selection (by summing veto windows) and as calculated using the measured rates in the toy simulation.}
+  \label{fig:cutVaryVetoEffCompare}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+  \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad_toymc.pdf}%
+  \end{minipage}%
+  \caption{Veto efficiency as a function of shower veto parameters in EH1-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right).}
+  \label{fig:cutVaryVetoEff2dNear}
+\end{figure}
+
+\autoref{fig:cutVaryVetoEffCompare} shows the daily efficiency of the nominal muon veto, both as reported by the IBD selection, and by performing the calculation above using the rates measured from data. As can be seen, there is a very small bias (on the order of 0.02\%) inherent in this approach. This is unsurprising, given that the IBD selection does not discard muon retriggers, which can therefore extend the veto window by O(10~\us). In any case, this bias is not large enough to meaningfully impact the toy MC study of the shower veto\footnote{And the whole purpose of the toy MC study is merely to show that we don't expect any variation of the fit results as we vary the veto parameters.}. \autoref{fig:cutVaryVetoEff2dNear} compares the dependence of the efficiency upon the two shower veto parameters, as determined both by running the full IBD selection, and by using the above calculation on the muon rates measured by the nominal selection. Excellent agreement can be seen.
 
 Having thus determined the expected veto efficiency for a modified shower veto, this value can be substituted into the \texttt{Theta13} file, along with the predicted $^9$Li rate. The toy MC can then be run as usual in order to generate the covariance and detector response matrices, etc., and then the Asimov toy spectra are fed to the fitter in order to extract the oscillation parameters. Meanwhile, for fits to data, the \texttt{Theta13} file is taken directly from the output of the IBD selection, and the fitter receives the prompt spectra from the data sample. In both cases, the toy samples (and hence the covariance matrices) are generated under the assumption of ``nominal'' oscillation parameters, namely $\SinSq = 0.084$ and $\Dmsqee = 0.00248$\footnote{As the covariance matrix has been shown to vary little under changes of the assumed oscillation parameters, we do not attempt to make the process more ``self-consistent'', such as by using an iterative procedure in which the covariance matrices are regenerated using the best-fit parameters, the fit is repeated, and so forth until convergence.}. In the following sections we discuss the fit results for both the toy and the real data samples.
 
@@ -103,11 +131,55 @@ Regarding results: Don't comment on ``structure'' until we've regenerated the 2D
 \subsection{Fit results}%
 \label{sec:cutVaryMuVetoDataResults}
 
-Toy samples were produced and fit in a uniform 14x14 grid of shower veto parameters, with the charge threshold ranging from 1.8e5 to 4.4e5 photoelectrons, and the veto time ranging from 0.25 to 1.875 seconds. Fig.~XXX (doc p15 rhs) shows the results of the fits. The variation is on the order of 0.01\%, which is far below the scale of the analysis's uncertainty, and is likely attributable to rounding error of some kind. Thus, as expected, the toy MC predicts essentially no variation in the results of the oscillation analysis when the shower veto is varied.
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_mid_toymc.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_mid_toymc.pdf}%
+  \end{minipage}%
+  \caption{Results of oscillation fit to toy samples as a function of the shower veto parameters. On the left is $\SinSq$ and on the right is $\Dmsqee$.}
+  \label{fig:cutVaryVetoEffToyResults}
+\end{figure}
 
-Fig.~XXX shows the results of running the IBD selection and fitter on the P17B dataset, on the same grid of veto parameters as used in the toy MC study. In this case we see XXX.
+Toy samples were produced and fit in a uniform 14x14 grid of shower veto parameters, with the charge threshold ranging from 1.8e5 to 4.4e5 photoelectrons, and the veto time ranging from 0.25 to 1.875 seconds. \autoref{fig:cutVaryVetoEffToyResults} shows the results of the fits. The variation is on the order of 0.01\%, which is far below the scale of the analysis's uncertainty, and is likely attributable to rounding error of some kind. Thus, as expected, the toy MC predicts essentially no variation in the results of the oscillation analysis when the shower veto is varied.
 
-Although the toy and data fits showed very disparate scales of variation in the best-fit oscillation parameters, the variation in the reported fit uncertainty was more consistent between the two. As expected, the toy MC predicts a small but non-negligible amount of variation in the uncertainty, due to the aforementioned effect of the shower veto on both the veto efficiency (i.e. signal statistics) and the $^9$Li rate. The fits to data indicate a slightly higher uncertainty overall, possibly due to statistical fluctuations in the data sample, but the same general pattern of increasing uncertainty toward the upper left of the grid. In any case, the key conclusion from both the toys and the data is that the nominal shower veto (using a threshold of 3e5 photoelectrons and a veto time of 0.4004~s) lies within a large, flat valley in the parameter space. We are free to vary the parameters within this region without consequence, but there is also nothing to be gained from it. The nominal ``LBNL'' shower veto, as well as the veto used by the alternative ``IHEP'' analysis (Analysis A in XXX long paper, vetoing for 1~s on muons of 2.5~GeV, or about 4e5 PE), can therefore both be considered ``optimal'' in the sense that they both achieve near-minimum uncertainty.
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_mid.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_mid.pdf}%
+  \end{minipage}%
+  \caption{Results of oscillation fit to P17B data as a function of the shower veto parameters. Note different scale compared to \autoref{fig:cutVaryVetoEffToyResults}. On the left is $\SinSq$ and on the right is $\Dmsqee$.}
+  \label{fig:cutVaryVetoEffDataResults}
+\end{figure}
+
+\autoref{fig:cutVaryVetoEffDataResults} shows the results of running the IBD selection and fitter on the P17B dataset, on the same grid of veto parameters as used in the toy MC study. In this case we see a greater degree of variation, which is unsurprising given that, in data, modifying the shower veto will produce statistical fluctuations, while this effect is abasent for the toy MC. Nonetheless, in a large region of parameter space, including both the LBNL and IHEP nominal vetoes, the fit is acceptably stable. Significant deviations are observed only on the left edge, where the loose definition of a shower muon results in an unreasonably low veto efficiency.
+
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_unc_toymc.pdf}%
+  \end{minipage}%
+  \caption{The fitter's reported uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to toy samples.}
+  \label{fig:cutVaryVetoEffToyUnc}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_unc.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_unc.pdf}%
+  \end{minipage}%
+  \caption{The fitter's reported uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to P17B data.}
+  \label{fig:cutVaryVetoEffDataUnc}
+\end{figure}
+
+Although the toy and data fits showed very disparate scales of variation in the best-fit oscillation parameters, the variation in the reported fit uncertainty was more consistent between the two, as shown in \autoref{fig:cutVaryVetoEffToyUnc} and \autoref{fig:cutVaryVetoEffDataUnc}. As expected, the toy MC predicts a small but non-negligible amount of variation in the uncertainty, due to the aforementioned effect of the shower veto on both the veto efficiency (i.e. signal statistics) and the $^9$Li rate. The fits to data indicate a slightly higher uncertainty overall, possibly due to statistical fluctuations in the data sample, but the same general pattern of increasing uncertainty toward the upper left of the grid. In any case, the key conclusion from both the toys and the data is that the nominal shower veto (using a threshold of 3e5 photoelectrons and a veto time of 0.4004~s) lies within a large, flat valley in the parameter space. We are free to vary the parameters within this region without consequence, but there is also nothing to be gained from it. The nominal ``LBNL'' shower veto, as well as the veto used by the alternative ``IHEP'' analysis (Analysis A in \cite{An_2017}, vetoing for 1~s on muons of 2.5~GeV, or about 4e5 PE), can therefore both be considered ``optimal'' in the sense that they both achieve near-minimum uncertainty.
 
 Meanwhile, the LBNL and IHEP vetos both lie in regions in which there is little variation in the best fit for small perturbations of the veto parameters. Curiously, however, there is a O(0.5\%) difference between the best fit values of $\SinSq$ for the LBNL and IHEP parameters (holding constant the remaining cuts). XXX We'd hope that both the LBNL and IHEP points give closer results. We'll see when we regenerate. Ideally, we see that the LBNL and IHEP points both lie within a large region of minimally varying best-fit $\SinSq$. Curious about the effects of using BCW binning. We should do both, so 14x14x2 = 392 sel/fits.
 
