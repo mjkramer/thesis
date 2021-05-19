@@ -90,7 +90,7 @@ Each final ``merged'' muon produced by this procedure is stored in a histogram b
 Are our efficiencies biased because we don't count for the'' `muon multiplicity efficiency' coming from being falsely ignored as a retrigger?
 \end{comment}
 
-Using the histograms of WP and AD muons, the rates of the three muon classes can be calculated: First, the number of WP(-only) muons is determined by integrating the WP histogram for \texttt{nHit}$> 13$, while the number of (non-shower) AD muons is the integral of the AD histogram from 3000 PE to the shower threshold, and the number of shower muons is the above-threshold integral. These counts are then divided by the total livetime to obtain the three rates.
+Using the histograms of WP and AD muons, the rates of the three muon classes can be calculated: First, the number of WP(-only) muons is determined by integrating the WP histogram for \texttt{nHit}$> 12$, while the number of (non-shower) AD muons is the integral of the AD histogram from 3000 PE to the shower threshold, and the number of shower muons is the above-threshold integral. These counts are then divided by the total livetime to obtain the three rates.
 
 \subsubsection{Efficiency from the rates}
 \label{sec:cutVaryMuVetoEffFromRates}
@@ -376,12 +376,40 @@ Meanwhile, for accidental backgrounds, there is no correlation between the promp
 
 Based on these facts, it is obvious why the official nGd analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
 
-Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in Fig.~XXX, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In Sec.~XXX, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downard trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
+Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis and the reliability of the vertex reconstruction. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in Fig.~XXX, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In Sec.~XXX, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downard trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
 
 For these reasons, we choose to go beyond the official analysis and explore the use of vertex cuts. When applying a vertex cut, care must be taken in two areas: the detection efficiencies and the background rates. As was mentioned, a vertex cut may not have the same efficiency among all ADs, so this efficiency must be measured and corrected for. The accidental background rate calculation, being based on the singles selection (to which we apply the same vertex cut), accounts for the vertex cut automatically. As for the correlated backgrounds, we must assume a particular vertex distribution for each background, and then calculate the percentage of the distribution that lies within our fiducial volume.
 
 Throughout this study, we apply a given vertex cut to both the prompt and delayed vertex. This is to be distinguished from, say, the muon veto, which considers only the delayed trigger. We choose to cut on both triggers because it avoids the need to make an arbitrary choice between prompt and delayed, and it avoids the need to perform two separate singles selections with two different vertex cuts.
 
-In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts, and whether the observed variations are consistent with our statistical uncertainty.
+In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts, and whether the observed variations are consistent with our statistical uncertainty.
+
+\subsection{Implementation details}
+\label{sec:cutVaryVtxCutImplDet}
+
+Within the IBD selection, the vertex cut is implemented using the vertex provided by the \texttt{AdSimple} reconstruction, after conversion from Cartesian coordinates to the natural cylindrical coordinate system of the AD. The cut involves four parameters, corresponding to the minimum and maximum acceptable radial and vertical coordinates. Both the singles selection and the IBD selection apply the cut, in the latter case to both the prompt and delayed triggers. Furthermore, when applying the multplicity cut, any ``extra'' triggers are ignored if they do not pass the vertex cut (i.e., such triggers will not cause the single/IBD candidate to fail the multipliticy cut). In effect, any (non-muon) trigger that fails to pass the vertex cut is completely excluded from the analysis.
+
+\subsection{Efficiency calculation}
+\label{sec:cutVaryVtxCutEffCalc}
+
+Before going into the details of the efficiency calculation, it is worthwhile to demonstrate \emph{why} it is worthwhile to carry it out in the first place. First, we must define some vertex cuts to investigate. \autoref{tab:cutVaryVtxCutCutsTbl} lists five cuts along with the names we will use when referring to them in the remainder of this chapter. Using those definitions, Fig.~XXX shows the best-fit oscillation parameters obtained when applying these cuts without any efficiency correction. We expect some scatter, given that we are analyzing statistically independent subsamples.\footnote{More precisely, the three vertical cuts are statistically independent from each other, and likewise for the two radial cuts, but there \emph{is} a degree of overlap between each vertical and each radial cut. The overall point remains, however.}. Since we know that roughly half of the fit's uncertainty comes from statistics (as discussed in XXX fitting chapter), and since the vertical (radial) cuts approximately divide the sample into thirds (halves), we can estimate the statistical uncertainty on each subsample to be between $0.5\sqrt{2}$ and $0.5\sqrt{3}$ of the total (full sample statistical + systematic) uncertainty, i.e. 70--85\% of the total error bar. From Fig~XXX, it is apparent that the scale of the scatter is slightly larger than 1$\sigma$. While a mere statistical fluctuation cannot be ruled out, this result suggests that we should attempt to determine whether an AD-dependent efficiency variation may be playing a role (in which case a correction should be applied). As we will shortly show, when we measure the vertex efficiency, we do in fact find different values among the ADs, and applying a correction indeed reduces the scatter between the fit results.
+
+\begin{table}[h]
+  \begin{tabular}{lc}
+    \toprule
+    Name & Definition \\
+    \midrule
+    \texttt{zTopThird} & $z \in [0.5,\, 1.5]\,\mathrm{m}$ \\
+    \texttt{zMidThird} & $z \in [-0.5,\, 0.5]\,\mathrm{m}$ \\
+    \texttt{zBotThird} & $z \in [-1.5,\, -0.5]\,\mathrm{m}$ \\
+    \texttt{rInside1000} & $r < 1\,\mathrm{m}$ \\
+    \texttt{rOutside1000} & $r > 1\,\mathrm{m}$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{The five vertex cuts under investigation.}
+  \label{tab:cutVaryVtxCutCutsTbl}
+\end{table}
+
+
 
 \end{document}
