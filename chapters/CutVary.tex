@@ -454,20 +454,39 @@ Based on this uniformity assumption, we define a ``radial'' factor $f_r$ to acco
   z_{\mathrm{max}}^{\mathrm{nom}} &= \SI{1700}{mm}.
 \end{align*}
 
-Since these backgrounds are not expected to occur outside the GdLS, we must clamp the vertex cut parameters at the limits defined above. The radial factor is then
+Since these backgrounds are not expected to occur outside the GdLS, we clamp the vertex cut parameters at the limits defined above:
+\begin{align*}
+  r'_{\mathrm{max}} &= \min(r_{\mathrm{max}}, r_{\mathrm{max}}^{\mathrm{nom}})\\
+  z'_{\mathrm{min}} &= \max(z_{\mathrm{min}}, z_{\mathrm{min}}^{\mathrm{nom}})\\
+  z'_{\mathrm{max}} &= \min(z_{\mathrm{max}}, z_{\mathrm{max}}^{\mathrm{nom}})
+\end{align*}
+
+The radial factor is then
 \[
-  f_r = \left(\frac{\min(r_{\mathrm{max}}, r_{\mathrm{max}}^{\mathrm{nom}})}{r_{\mathrm{max}}^{\mathrm{nom}}}\right)^2 - \left(\frac{r_{\mathrm{min}}}{r_{\mathrm{max}}^{\mathrm{nom}}} \right)^2.
+  f_r = \left(\frac{r'_{\mathrm{max}}}{r_{\mathrm{max}}^{\mathrm{nom}}}\right)^2 - \left(\frac{r_{\mathrm{min}}}{r_{\mathrm{max}}^{\mathrm{nom}}} \right)^2.
 \]
 Here, the first term is the fraction of the IAV we'd be using if $r_{\mathrm{min}}$ were zero. The second term then subtracts out the fraction excluded by nonzero $r_{\mathrm{min}}$.
 
 Meanwhile, the vertical factor is simply
 \[
-  f_z = \frac{\max(z_{\mathrm{min}}, z_{\mathrm{min}}^{\mathrm{nom}}) - \min(z_{\mathrm{max}}, z_{\mathrm{max}}^{\mathrm{nom}})}{z_{\mathrm{max}}^{\mathrm{nom}} - z_{\mathrm{min}}^{\mathrm{nom}}}.
+  f_z = \frac{z'_{\mathrm{max}} - z'_{\mathrm{min}}}{z_{\mathrm{max}}^{\mathrm{nom}} - z_{\mathrm{min}}^{\mathrm{nom}}}
 \]
 
-Each of these backgrounds is then adjusted according to
+Each of these three backgrounds is then adjusted according to
 \[
   R = R^{\mathrm{nom}} \cdot f_r \cdot f_z.
 \]
 
+\subsubsection{AmC background}
+
+Since the AmC backgrounds are produced near the top of the AD, the assumption of uniformity is clearly invalid. Based on the results in XXX AmC paper, we assume a linearly rising vertical profile terminating at the center of the AD; see Fig.~XXX. For the purpose of this calculation, then, we clamp $z_{\mathrm{min}}$ at the center:
+\[
+  z''_{\mathrm{min}} = \max(z_{\mathrm{min}}, 0)
+\]
+We then integrate the vertical profile to derive the AmC vertical factor:
+\[
+  f_z^{\mathrm{AmC}} = \frac{(z'_{\mathrm{max}})^2 - (z''_{\mathrm{min}})^2 - z_{\mathrm{min}}^{\mathrm{nom}} (z'_{\mathrm{max}} - z''_{\mathrm{min}})} {(z_{\mathrm{max}}^{\mathrm{nom}})^2 - z_{\mathrm{min}}^{\mathrm{nom}} z_{\mathrm{max}}^{\mathrm{nom}}} 
+\]
+
+As for the radial distribution, even though the AmC sources are located at three discrete points, we assume that scattering and resolution produce enough smearing to result in uniformity. Therefore, we use the same $f_r$ as above. The AmC background is a small one, so any inaccuracies here are not liable to significantly affect the overall analysis.
 \end{document}
