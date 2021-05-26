@@ -415,6 +415,22 @@ Before going into the details of the efficiency calculation, it is worthwhile to
   \label{tab:cutVaryVtxCutCutsTbl}
 \end{table}
 
+\begin{comment}
+  TODO Try doing vertex efficiency with background subtraction. Oh wait we already do.
+\end{comment}
 
+\subsubsection{Procedure}
+\label{sec:cutVaryVtxCutProc}
+
+The vertex cut efficiency is determined by taking the ``corrected'' IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed cut) while applying the vertex cut, we must perform a reference vertex cut-free IBD selection with those same modifications. This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
+
+The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We simply take the total number of IBD candidates $N_{\mathrm{raw}}$, subtract the total predicted number of backgrounds, and divide by the livetime, the veto efficiency, and the multiplicity efficiency. Since the IBD selection's convention is to output the background prediction $R_{\mathrm{bkg}}$ as an efficiency- and livetime-corrected daily rate, we must undo these corrections before performing the subtraction. In summary:
+\begin{align*}
+  N_{\mathrm{bkg}} &= R_{\mathrm{bkg}} \cdot T \cdot \epsilon_\mu \cdot \epsilon_m\\
+  R_{\mathrm{corr}} &= (N_{\mathrm{raw}} - N_{\mathrm{bkg}}) \;/\; (T \cdot \epsilon_\mu \cdot \epsilon_m)
+\end{align*}
+
+The efficiency of the vertex cut is then obtained by simply taking the ratio with respect to the reference selection:
+$$ \epsilon_v = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}. $$
 
 \end{document}
