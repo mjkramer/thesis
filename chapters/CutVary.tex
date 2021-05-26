@@ -422,7 +422,7 @@ Before going into the details of the efficiency calculation, it is worthwhile to
 \subsubsection{Procedure}
 \label{sec:cutVaryVtxCutProc}
 
-The vertex cut efficiency is determined by taking the ``corrected'' IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed cut) while applying the vertex cut, we must perform a reference vertex cut-free IBD selection with those same modifications. This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
+The vertex cut efficiency is determined by taking the ``corrected'' IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed cut) while applying the vertex cut, we must perform a reference IBD selection with those same modifications (minus the vertex cut). This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
 
 The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We simply take the total number of IBD candidates $N_{\mathrm{raw}}$, subtract the total predicted number of backgrounds, and divide by the livetime, the veto efficiency, and the multiplicity efficiency. Since the IBD selection's convention is to output the background prediction $R_{\mathrm{bkg}}$ as an efficiency- and livetime-corrected daily rate, we must undo these corrections before performing the subtraction. In summary:
 \begin{align*}
@@ -432,5 +432,42 @@ The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We s
 
 The efficiency of the vertex cut is then obtained by simply taking the ratio with respect to the reference selection:
 $$ \epsilon_v = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}. $$
+
+\subsection{Background rate adjustment}
+\label{sec:cutVaryVtxCutBkgRate}
+
+In the preceding discussion of the efficiency calculation, the background rate $R_{\mathrm{bkg}}$ is itself implicitly a function of the vertex cut, and is thus different between the selection in question and the reference selection. This modified value of $R_{\mathrm{bkg}}$ must also, of course, be the one we use when subtracting the backgrounds during the oscillation fit. Here we discuss how the five background rates are affected by the use of a vertex cut.
+
+\subsubsection{Accidentals}
+
+The accidental background is calculated, as usual, directly from the prompt- and delayed-like singles rates obtained from the singles selection. Since we apply the same vertex cut in the IBD and the singles selection, the calculated accidentals rate automatically takes the vertex cut into account. No adjustment is therefore necessary.
+
+\subsubsection{$^9$Li, fast neutrons, and $\alpha$-$n$}
+
+These ``neutronic'' backgrounds are assumed to be uniformly distributed throughout the GdLS. Since fast neutrons arrive from above and stop inside the AD, some bias toward the top is expected, but this effect has been shown to be small (XXX cite; see Beda's email). Meanwhile, since $^9$Li-producing shower muons pass through the AD, no such bias is expected. Likewise, $\alpha$ activity is uniformly distributed throughout the AD.
+
+Based on this uniformity assumption, we define a ``radial'' factor $f_r$ to account for the minimum and maximum radii accepted in the cut, and likewise a ``vertical'' factor $f_z$ corresponding to the minimum and maximum acceptable vertical coordinates. In order to account for the finite resolution of the vertex reconstruction, we ``extend'' the dimensions of the IAV by 200~mm in every direction, leading to the following definitions of the nominal minimum and maximum coordinates:
+\begin{align*}
+  r_{\mathrm{min}}^{\mathrm{nom}} &= \SI{0}{mm}\\
+  r_{\mathrm{max}}^{\mathrm{nom}} &= \SI{1700}{mm}\\
+  z_{\mathrm{min}}^{\mathrm{nom}} &= \SI{-1700}{mm}\\
+  z_{\mathrm{max}}^{\mathrm{nom}} &= \SI{1700}{mm}.
+\end{align*}
+
+Since these backgrounds are not expected to occur outside the GdLS, we must clamp the vertex cut parameters at the limits defined above. The radial factor is then
+\[
+  f_r = \left(\frac{\min(r_{\mathrm{max}}, r_{\mathrm{max}}^{\mathrm{nom}})}{r_{\mathrm{max}}^{\mathrm{nom}}}\right)^2 - \left(\frac{r_{\mathrm{min}}}{r_{\mathrm{max}}^{\mathrm{nom}}} \right)^2.
+\]
+Here, the first term is the fraction of the IAV we'd be using if $r_{\mathrm{min}}$ were zero. The second term then subtracts out the fraction excluded by nonzero $r_{\mathrm{min}}$.
+
+Meanwhile, the vertical factor is simply
+\[
+  f_z = \frac{\max(z_{\mathrm{min}}, z_{\mathrm{min}}^{\mathrm{nom}}) - \min(z_{\mathrm{max}}, z_{\mathrm{max}}^{\mathrm{nom}})}{z_{\mathrm{max}}^{\mathrm{nom}} - z_{\mathrm{min}}^{\mathrm{nom}}}.
+\]
+
+Each of these backgrounds is then adjusted according to
+\[
+  R = R^{\mathrm{nom}} \cdot f_r \cdot f_z.
+\]
 
 \end{document}
