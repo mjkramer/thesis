@@ -37,7 +37,12 @@ Like $\fmax$, $\fquad$ alone is not a good discriminator, due to overlap between
 \begin{equation*}
   \fID = \log_{10} \left[ \fquad^2 + \left( \frac{\fmax}{0.45} \right)^2 \right]
 \end{equation*}
-turns out to be an excellent discriminator. Indeed, as shown by (XXX Fig. 21 of the long paper), requiring $\fID < 0$ reduces the flasher rate to a negligible level, and many analyses have relied on $\fID$ alone to identify flashing 8" PMTs. Still, even further flasher reduction can be achieved by incorporating timing information. To capture the broadening of the time distribution shown by flashers, we use the variable(s) $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$), defined as the ratio of the number of hits in the first 200 (150)~ns of the signal, over the number of hits in the first 400~ns. The discriminator $\fPSD$ is then defined as
+turns out to be an excellent discriminator. Indeed, as shown by (XXX Fig. 21 of the long paper), requiring
+\begin{equation}
+  \label{eq:ellipseCut}
+  \fID < 0
+\end{equation}
+reduces the flasher rate to a negligible level, and many analyses have relied on $\fID$ alone to identify flashing 8" PMTs. Still, even further flasher reduction can be achieved by incorporating timing information. To capture the broadening of the time distribution shown by flashers, we use the variable(s) $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$), defined as the ratio of the number of hits in the first 200 (150)~ns of the signal, over the number of hits in the first 400~ns. The discriminator $\fPSD$ is then defined as
 \begin{equation*}
   \fPSD = \log_{10} [4 \cdot (1 - f_{\mathrm{t}1})^2 + 1.8 \cdot (1 - f_{\mathrm{t}2})^2].
 \end{equation*}
