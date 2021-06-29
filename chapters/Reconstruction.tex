@@ -106,13 +106,32 @@ After the fit is performed, the location parameter $\mu$ of the first peak (gene
 \subsection{Nonuniformity correction}
 \label{sec:reconEnergyNU}
 
-Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible energy} $\Eraw$ is simply $Q/S$. Given that the light collection efficiency differs as a function of position within the AD, the effective energy resolution would be degraded if $\Eraw$ were directly used in physics analysis. Fortunately, this nonuniformity can be measured and corrected for. In the case of AdSimple, the current nonuniformity map was produced from three years of data by dividing the AD into pixels (in $R^2$ and $Z$) and selecting spallation neutron captures on both gadolinium and hydrogen within each pixel. For each pixel within the GdLS, the nGd spectra was fit to a double crystal ball (along with an additional exponential tail, found to improve fit quality), and the location of the peak was divided by the mean nGd peak among all GdLS pixels, giving the correction factor. (This choice of denominator reflects the fact that the energy scale is determined using events uniformly distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit to the ``Daya Bay function'' (XXX cite), and the peak was divided by the mean nH peak among all \emph{GdLS} pixels (XXX check?).
+Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible energy} $\Eraw$ is simply $Q/S$. Given that the light collection efficiency differs as a function of position within the AD, the effective energy resolution would be degraded if $\Eraw$ were directly used in physics analysis. Fortunately, this nonuniformity can be measured and corrected for. In the case of AdSimple, the current nonuniformity map was produced from three years of data by dividing the AD into pixels (in $R^2$ and $Z$) and selecting spallation neutron captures on both gadolinium and hydrogen within each pixel. For each pixel within the GdLS, the nGd spectra was fit to a double Crystal Ball function (along with an additional exponential tail, found to improve fit quality), and the location of the peak was divided by the mean nGd peak among all GdLS pixels, giving the correction factor. (This choice of denominator reflects the fact that the energy scale is determined using events uniformly distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit to the ``Daya Bay Function'' (a specific case of the general \emph{Calorimeter Function} developed by members of the collaboration \cite{dybfunction}):
+\begin{equation}
+  \label{eq:dybfunction}
+  \begin{aligned}
+    f_{\mathrm{DYB}}(E) = \; & N_\mathrm{peak} \cdot \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(E-\mu)^2}{2\sigma^2}} \\
+    & + N_{\mathrm{tail}} \cdot \left\{ \frac{\lambda}{2} e^{\frac{\sigma^2\lambda^2}{2}}
+    e^{\lambda E} \left[ \erf\left( \frac{\mu-(E+\sigma^2\lambda)}{\sqrt{2}\sigma} \right) - \erf \left( \frac{0 - (E+\sigma^2\lambda)}{\sqrt{2}\sigma} \right) \right] \right.\\
+    & \phantom{ + N_{\mathrm{tail}} \cdot } \left. \quad+\frac{a}{2} \left[ \erf\left( \frac{\mu-E}{\sigma\sqrt{2}} \right)  - \erf \left( \frac{0-E}{\sigma\sqrt{2}} \right)\right]\right \}.
+  \end{aligned}
+\end{equation}
+This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. In a given pixel, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels \cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor.
 
-Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex}) was looked up (using bilinear interpolation) in this nonuniformity map, and the resulting (time-invariant) correction factor was applied. However, it has been shown that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will proportionally affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by a simple analytical correction:
+Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex}) was looked up (using bilinear interpolation) in this nonuniformity map, and the resulting (time-invariant) correction factor was applied. However, it has been shown that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will proportionally affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by the simple analytical expression \cite[p. 16]{yuryNonUni2}:
 \begin{equation*}
-  \frac{\Delta E}{E} = (0.00149 - 0.00109 R^2) \Delta t,
+  \frac{\Delta E}{E} = (a + b R^2)\, \Delta t,
 \end{equation*}
-where $\Delta t$ is the time (in years) since the mean timestamp in the data period used when generating the static nonuniformity map. After applying the full (static $\times$ time-dependent) nonuniformity correction, the resulting reconstructed energy $\Erec$ was stored in the processed data file for use in analysis.
+where
+\begin{align*}
+  a &= -0.00149 \pm 0.00030,\\
+  b &= 0.00109 \pm 0.00013,
+\end{align*}
+$R$ is the radial coordinate (in meters) of the event, and $\Delta t$ is the time (in years) since the mean timestamp in the data period used when generating the static nonuniformity map. Computing the corrected energy $E_{\mathrm{corr}}$ from the uncorrected energy $E_{\mathrm{uncorr}}$ then involves simply undoing this energy shift:
+\begin{equation*}
+  E_{\mathrm{corr}} = \left( 1 - \left.\frac{\Delta E}{E}\right|_{E=E_{\mathrm{uncorr}}} \right) \cdot E_{\mathrm{uncorr}}
+\end{equation*}
+After applying the full (static $\times$ time-dependent) nonuniformity correction, the resulting reconstructed energy $\Erec$ was stored in the processed data file for use in analysis.
 
 \subsection{Nonlinearity correction}
 \label{sec:reconEnergyNL}
