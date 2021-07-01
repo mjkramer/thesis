@@ -1,5 +1,8 @@
 XXX switch to BCW binning?
 
+* Action items
+- [ ] Label all equations
+
 * Outline
 ** Neutrino oscillation
 ** Daya Bay experiment
