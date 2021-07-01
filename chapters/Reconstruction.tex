@@ -150,23 +150,34 @@ As was mentioned, the nonlinearity of the AD response can be divided into contri
   \label{fig:pmt2etrue}
 \end{figure}
 
-Within the scintillator, there are two primary sources of nonlinearity: \emph{quenching} (i.e. Birks' law) and \emph{Cerenkov radiation}. Quenching occurs when the local ionization density is high, allowing fluorescently excited molecules to be ``quenched'' by excited neighbors, preventing light emission. Ionization density is highest when a particle is moving slowly (especially when it is near the end of its range), so, for a low-energy particle, a greater fraction of light will be quenched in comparison to a higher-energy particle, leading to nonlinear light emission as a function of energy. For organic scintillators such as the Daya Bay LS, this behavior is quantitatively well described by \emph{Birks' law},
+Within the scintillator, there are two primary sources of nonlinearity: \emph{quenching} \cite{Birks_1951} and \emph{Cerenkov radiation} \cite{cerenkov}. Quenching occurs when the local ionization density is high, allowing fluorescently excited molecules to be ``quenched'' by excited neighbors, preventing light emission. Ionization density is highest when a particle is moving slowly (especially when it is near the end of its range), so, for a low-energy particle, a greater fraction of light will be quenched in comparison to a higher-energy particle, leading to nonlinear light emission as a function of energy. For organic scintillators such as the Daya Bay LS, this behavior is quantitatively well described by \emph{Birks' law} \cite{Birks_1951},
 \begin{equation}
   \frac{dQ}{dx} \propto \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}
   \label{eq:reconBirks}
 \end{equation}
-where $Q$ is the emitted light, $dE/dx$ is the linear density of \emph{ionization} energy deposition, and the scintillator-specific value $k_B$ is known as Birks' constant.
+where $Q$ is the amount of emitted light, $dE/dx$ is the linear density of \emph{ionization} energy deposition, and the scintillator-specific value $k_B$ is known as Birks' constant.
 
-If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \eqref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edep, k_B)$, where $k_B$ remained to be determined from data.
+If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \eqref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
+\begin{equation}
+  f_q(\Edepelec,k_B) = \int_0^{\Edepelec} \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}
+  \label{eq:reconBirksInt}
+\end{equation}
 
-Meanwhile, Cerenkov radiation is the optical equivalent of a supersonic shock wave, produced when a particle moves faster than the phase velocity of light in a medium. Although Cerenkov emission is the sole source of light in the Daya Bay water pools, it plays a subpercent role in the ADs. The energy dependence of Cerenkov emission was determined from Geant4 simulations (and independently confirmed by an analytic calculation), giving the function $f_c(\Edep)$, which was arbitrarily assigned a ($k_B$-dependent) normalization such that $f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$. 
+
+Although Cerenkov emission is the sole source of light in the Daya Bay water pools, it plays a subpercent role in the ADs. The energy dependence of Cerenkov emission was determined from Geant4 simulations (and independently confirmed by an analytic calculation), giving the tabulated function $f_c(\Edepelec)$ (\autoref{fig:cerenkovShape}), which was arbitrarily assigned a ($k_B$-dependent) normalization such that $f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$. 
+
+\begin{figure}[h]
+  \includegraphics[scale=0.5]{Reconstruction/s04_CerenkonContribution.pdf}
+  \caption{Energy dependence of the Cerenkov contribution to light emission by electrons in the LS (here, arbitrarily normalized at 1~MeV), from \cite{NonlinearityPaper}. The actual normalization of this function was determined by a fit to measurements of the nonlinearity, as described in \cite{NonlinearityPaper}.}
+  \label{fig:cerenkovShape}
+\end{figure}
 
 Altogether, the combined effects on electrons of quenching and Cerenkov emission are therfore described by the relation
 \begin{equation}
   \label{eq:reconScintNonlin}
-  \frac{E_{\mathrm{vis}}}{E_{\mathrm{true},e^-}} = \beta_{\mathrm{vis}}[f_q(\Edep, k_B) + k_c f_c(\Edep)].
+  \frac{E_{\mathrm{vis},e^-}}{\Edepelec} = \beta_{\mathrm{vis}}[f_q(\Edepelec, k_B) + k_c f_c(\Edepelec)],
 \end{equation}
-Here, we introduce the constant $k_c$, which describes the ratio of Cerenkov emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary normalization. The parameters $k_B$ and $k_c$ are determined from data, as will be described shortly.
+where $f_q$ is given by \autoref{eq:reconBirksInt}, and $f_c$ (which, being tabulated from simulation data, cannot be expressed as an equation) is, again, shown in \autoref{fig:cerenkovShape}. Here, we have introduced the constant $k_c$, which describes the ratio of the amount of Cerenkov emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary normalization. The parameters $k_B$ and $k_c$ are determined from data, as will be described shortly.
 
 Thus far we have only discussed the response of the scintillator to electrons. The end goal, however, is to characterize the response to positrons, since that is what will allow the measurement of the neutrino spectrum. Before the positron annihilates, it effectively ionizes the medium in the same manner as an electron would. Following ionization, we measure the response of the scintillator to two 511~keV gammas. Accordingly,
 \begin{equation}
