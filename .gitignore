@@ -21,3 +21,6 @@ oldorg/*.pdf
 oldorg/*.tex
 !images/**/*.pdf
 _region_.*
+.pdf-view-restore
+.~lock*#
+feedback/
