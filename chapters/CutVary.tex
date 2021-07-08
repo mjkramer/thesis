@@ -29,7 +29,7 @@ In order to carry out this study, significant modifications needed to be made to
 
 In addition to the IBD selection, the fitter also required a significant amount of work, although in this case a ground-up rewrite was not necessary. The only consideration here was computational efficiency, since each IBD selection must be followed by its own fit. Originally, the full fitting chain (including the toy Monte Carlo) took a couple of hours to run on NERSC's Cori cluster. After aggressively parallelizing the code, both by running independent steps in parallel processes, and by using OpenMP to harness multithreaded data parallelism within each process, the full chain was reduced to a runtime of around ten minutes. These changes, combined with the rewrite of the IBD selection, are what made this study possible.
 
-Our overall strategy here is fairly straightforward: We simply run the IBD selection and fitter for a variety of different cut values, observing the behavior of both the best-fit points as well as the final reported uncertainties. As an additional sanity check, we generate toy MC samples assuming modified cut values, to verify that our understanding of the experiment, as encapsulated in the toy MC, does not predict any variation of the best fit as a function of the cuts. We do not expect any such variation in the best fit; however, it is possible that the toy MC will predict a variation in the size of the error bar, which can be compared to the results from fitting to data. Each cut will be thus studied individually, using both real data and the toy MC\@. Having drawn conclusions (regarding analysis robustness and, potentially, cut optimization) from these individual studies, we will then perform an ultimately study in which these cuts are randomly varied jointly and applied to our dataset, with the aim of providing final confirmation that the analysis is not biased by our particular choice of cut values.
+Our overall strategy here is fairly straightforward: We simply run the IBD selection and fitter for a variety of different cut values, observing the behavior of both the best-fit points as well as the final reported uncertainties. As an additional sanity check, we generate toy MC samples assuming modified cut values, to verify that our understanding of the experiment, as encapsulated in the toy MC, does not predict any variation of the best fit as a function of the cuts. We do not expect any such variation in the best fit; however, it is possible that the toy MC will predict a variation in the size of the error bar, which can be compared to the results from fitting to data. Each cut will be thus studied individually, using both real data and the toy MC\@. Having drawn conclusions (regarding analysis robustness and, potentially, cut optimization) from these individual studies, we will then perform an ultimate study in which these cuts are randomly varied jointly and applied to our dataset, with the aim of providing final confirmation that the analysis is not biased by our particular choice of cut values.
 
 Unfortunately, running the IBD selection with modified cuts requires more than simply specifying the new cuts; depending on the cut in question, there may also be the need to account for changes in efficiencies and background rates. In some cases, such as the accidentals rate, the multiplicity cut efficiency, and the veto efficiency, the correct value is automatically calculated by the IBD selection. However, other values, such as the correlated background rates, were externally calculated under the assumption of the nominal cut values, and so we must derive corrections for each and apply them during the process of converting the output of the IBD selection into the input for the fitter. We detail these calculations in the discussion of the corresponding cuts.
 
@@ -60,7 +60,7 @@ The toy MC implementation of this study, then, requires taking the \texttt{Theta
 \subsection{Veto efficiency calculation}%
 \label{sec:cutVaryMuVetoEff}
 
-In order to use the toy MC for predicting and validating the data-driven optimization of the shower muon veto, we must provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). During the analysis of real data, the veto efficiency is computed as one of the outputs of the IBD selection. In principle, then, for the toy MC study we could simply run the IBD selection, with the desired veto parameters, in order to obtain the time-averaged efficiency for a given definition of the veto. However, this is computationally expensive, and more importantly, it would be ideal for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
+As was just mentioned, we must explicitly provide the overall muon veto efficiency as an input to the toy MC (and subsequently to the fitter). Since, again, the veto efficiency is computed as one of the outputs of the IBD selection, we could in principle simply run the IBD selection on real data, with the desired veto parameters, and then feed the resulting veto efficiency to the toy MC. However, this is computationally expensive, and more importantly, we would prefer for the toy MC cross check to be as decoupled as possible from the IBD selection and its associated data. Thus, we seek an independent method of determining the muon veto efficiency.
 
 The veto efficiency is, naturally, a function of the muon rate. In particular, it depends on the rates of the three types of muons: water pool, AD, and shower. The first step, then, is to measure these rates, while taking care to avoid double counting due to retriggers and multi-detector muons. For this purpose, a ``muon selector'' was written to extract all of the muon events in our dataset. This is the one place where actual data enters this process, but the code is independent of the IBD selection's second stage, where IBD cuts (including the veto) are normally applied. Once the muon sample has been obtained, the rates of the three classes can be calculated. The final step is to calculate the efficiency, which requires a proper treatment of the possible overlap of veto windows between closely spaced muons. In what follows we describe these steps in detail and demonstrate that the results agree well with the veto efficiency obtained from the IBD selection.
 
@@ -69,7 +69,7 @@ The veto efficiency is, naturally, a function of the muon rate. In particular, i
 
 The objective of the muon rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons which produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD\@. Given that the AD/shower veto windows are longer than the WP window, any AD+WP muon should be regarded as a single AD muon. The measurement of the AD muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``shower'' and ``non-shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower muon definition, without requiring a re-run of the muon selection.
 
-The muon selector runs on the output of the first stage of the IBD selection, i.e., the pre-selection, which does not depend on the IBD selection cuts. In particular, the muon selector reads the contents of the \texttt{muons} tree, which simply contains basic information (time, detector, and charge or energy) for each WP trigger with more than 12 above-threshold PMTs, and each AD trigger with more than 3000 p.e.\ of charge. We collectively refer to these events of muon-like triggers.
+The muon selector runs on the output of the first stage of the IBD selection, i.e., the pre-selection, which does not depend on the IBD selection cuts. In particular, the muon selector reads the contents of the \texttt{muons} tree, which simply contains basic information (time, detector, hit multipliticy, and charge) for each WP trigger with more than 12 above-threshold PMTs, and each AD trigger with more than 3000 p.e.\ of charge. We collectively refer to these events of muon-like triggers.
 
 If we were to naively count the number of events of each type in the \texttt{muons} tree, we would overestimate the muon rates, for two reasons: Muons that trigger more than one detector must still be only counted once, and muon-induced retriggers must be discarded. The strategy for handling these subtleties is similar to the one described in \autoref{sec:bkgLi9MuonSel} for the muon selection used in the $^9$Li rate study:
 
@@ -120,9 +120,20 @@ The final step is to calculate the veto efficiency from the three rates. Althoug
   \label{fig:cutVaryVetoEff2dNear}
 \end{figure}
 
-\autoref{fig:cutVaryVetoEffCompare} shows the daily efficiency of the nominal muon veto, both as reported by the IBD selection, and by performing the calculation above using the rates measured from data. As can be seen, there is a very small bias (on the order of 0.02\%) inherent in this approach. This is unsurprising, given that the IBD selection does not discard muon retriggers, which can therefore extend the veto window by O(10~\us). In any case, this bias is not large enough to meaningfully impact the toy MC study of the shower veto\footnote{And the whole purpose of the toy MC study is merely to show that we don't expect any variation of the fit results as we vary the veto parameters.}. \autoref{fig:cutVaryVetoEff2dNear} compares the dependence of the efficiency upon the two shower veto parameters, as determined both by running the full IBD selection, and by using the above calculation on the muon rates measured by the nominal selection. Excellent agreement can be seen.
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad_toymc.pdf}%
+  \end{minipage}%
+  \caption{Veto efficiency as a function of shower veto parameters in EH3-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right).}
+  \label{fig:cutVaryVetoEff2dFar}
+\end{figure}
 
-Having thus determined the expected veto efficiency for a modified shower veto, this value can be substituted into the \texttt{Theta13} file, along with the predicted $^9$Li rate. The toy MC can then be run as usual in order to generate the covariance and detector response matrices, etc., and then the Asimov toy spectra are fed to the fitter in order to extract the oscillation parameters. Meanwhile, for fits to data, the \texttt{Theta13} file is taken directly from the output of the IBD selection, and the fitter receives the prompt spectra from the data sample. In both cases, the toy samples (and hence the covariance matrices) are generated under the assumption of ``nominal'' oscillation parameters, namely $\SinSq = 0.084$ and $\Dmsqee = 0.00248$\footnote{As the covariance matrix has been shown to vary little under changes of the assumed oscillation parameters, we do not attempt to make the process more ``self-consistent'', such as by using an iterative procedure in which the covariance matrices are regenerated using the best-fit parameters, the fit is repeated, and so forth until convergence.}. In the following sections we discuss the fit results for both the toy and the real data samples.
+\autoref{fig:cutVaryVetoEffCompare} shows the daily efficiency of the nominal muon veto, both as reported by the IBD selection, and by performing the calculation above using the rates measured from data. As can be seen, there is a very small bias (on the order of 0.02\%) inherent in this approach. This is unsurprising, given that the IBD selection does not discard muon retriggers, which can therefore extend the veto window by O(10~\us). In any case, this bias is not large enough to meaningfully impact the toy MC study of the shower veto\footnote{And the whole purpose of the toy MC study is merely to provide a sanity check; ultimately, the results from data are of primary interest.}. \Autoref{fig:cutVaryVetoEff2dNear,fig:cutVaryVetoEff2dFar} compare (for a near and a far AD, respectively) the dependence of the efficiency upon the two shower veto parameters, as determined both by running the full IBD selection, and by using the above calculation on the muon rates measured by the nominal selection. Excellent agreement can be seen.
+
+Having thus determined the expected veto efficiency for a modified shower veto, this value can be substituted into the \texttt{Theta13} file, along with the predicted $^9$Li rate. The toy MC are then run as usual in order to generate the covariance and detector response matrices, etc., and then the Asimov toy spectra are fed to the fitter in order to extract the oscillation parameters. Meanwhile, for fits to data, the \texttt{Theta13} file is taken directly from the output of the IBD selection, and the fitter receives the prompt spectra from the data sample. In both cases, the toy samples (and hence the covariance matrices) are generated under the assumption of ``nominal'' oscillation parameters, namely $\SinSq = 0.084$ and $\Dmsqee = 0.00248$\footnote{As the covariance matrix has been shown to vary little under changes of the assumed oscillation parameters, we do not attempt to make the process more ``self-consistent'', such as by using an iterative procedure in which the covariance matrices are regenerated using the best-fit parameters, the fit is repeated, and so forth until convergence.}. In the following sections we discuss the fit results for both the toy and the real data samples.
 
 \begin{comment}
 Regarding results: Don't comment on ``structure'' until we've regenerated the 2D plots using the fix to SinglesCalc::calcSinglesHz. (Accidentals rate might have been biased, throwing off the fit.)
@@ -349,11 +360,35 @@ Compared to the delayed spectrum, it may be possible to more accurately measure 
 
 The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
 
-When varying the prompt cut, then, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$, we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
+When varying the prompt cut, then, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$ (\Autoref{fig:bkgspec_Li9,fig:bkgspec_fn,fig:bkgspec_AmC,fig:bkgspec_alphaN}), we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
 \[
   \frac{\int_{E_{\mathrm{cut}}}^{12} S_b(E)}{\int_{0.7}^{12} S_b(E)}.
 \]
 The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{cut}$, normalizes it to the specified rate, and subtracts it from the raw prompt spectrum. This adjustment of the correlated backgrounds is applied for both the cases of fitting data and toy samples. There are no further subtleties related to the variation of the prompt cut.
+
+\begin{figure}[h]
+  \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_Li9.png}
+  \caption{Prompt spectrum of the $^9$Li background. Generated from the input file used by the fitter.}
+  \label{fig:bkgspec_Li9}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_fn.png}
+  \caption{Prompt spectrum of the fast neutron background. Generated from the input file used by the fitter.}
+  \label{fig:bkgspec_fn}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_AmC.png}
+  \caption{Prompt spectrum of the AmC background. Generated from the input file used by the fitter.}
+  \label{fig:bkgspec_AmC}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_alphaN.png}
+  \caption{Prompt spectrum of the $\alpha$-$n$ background. Generated from the input file used by the fitter.}
+  \label{fig:bkgspec_alphaN}
+\end{figure}
 
 As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
 
@@ -372,7 +407,7 @@ AmC: Both. R distribution unknown but probably ``lumpy''. Z probably like what w
 
 Since our analysis is based on nGd IBDs, the delayed events of the IBDs will all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the prompt events will likewise occur in the GdLS\footnote{Those that don't are accounted for in the spill-in efficiency.}. The situation is the same for the three correlated backgrounds ($^9$Li, fast neutrons, and $\alpha$-n) that involve nGd captures.
 
-Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices; most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS. And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
+Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices; XXX XXX most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS. And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
 
 Based on these facts, it is obvious why the official nGd analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
 
