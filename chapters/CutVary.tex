@@ -300,10 +300,10 @@ In most of the results that follow, we show the outcome of using the \texttt{ori
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/s2t_mid_toymc.png}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/s2t_mid_toymc.png}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/dm2_mid_toymc.png}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/dm2_mid_toymc.png}%
   \end{minipage}%
   \caption{Fit results from simulating the variation of the delayed cut in the toy MC.}
   \label{fig:cutVaryDelCutToyResults}
@@ -338,13 +338,24 @@ The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant down
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/unc_s2t_toyVsData.png}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/unc_s2t_toyVsData.png}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/unc_dm2_toyVsData.png}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/unc_dm2_toyVsData.png}%
   \end{minipage}%
   \caption{Uncertainty as reported by the fitter under variations of the delayed cut for both the toy MC and P17B data.}
   \label{fig:cutVaryDelCutFitUnc}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/BCW/s2t_mid.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/DelayedCut/BCW/dm2_mid.png}%
+  \end{minipage}%
+  \caption{Comparison of delayed cut variation (when fitting for data) between LBNL and BCW binning.}
+  \label{fig:cutVaryDelCutDataResultsBCW}
 \end{figure}
 
 We end this section by showing the fitter's reported uncertainty under variations of the delayed cut (\autoref{fig:cutVaryDelCutFitUnc}). We do not expect perfect agreement here between the toy and the data, as the latter includes statistical fluctuations and systematic deviations, while the former uses the ``Asimov'' sample in which there are no statistical fluctuations and nominal assumptions are used for all systematics. Nevertheless, the overall scale of the uncertainty is in general agreement, as is the general form of a lopsided ``U'' shape. From these plots we can conclude that there is essentially no advantage, in terms of the fit uncertainty, to varying the standard 6~MeV cut.
@@ -550,12 +561,58 @@ As for the radial distribution, even though the AmC sources are located at three
 \subsection{Results}
 \label{sec:cutVaryVtxCutResults}
 
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best_labeled.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best_labeled.png}%
+  \end{minipage}%
+  \caption{Results of oscillation fit when applying a vertex cut to the otherwise-nominal selection}
+  \label{fig:cutVaryVtxCutJustVertex}
+\end{figure}
 
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best.png}%
+  \end{minipage}%
+  \caption{Results of oscillation fit when applying a vertex cut in tandem with a modified delayed cut.}
+  \label{fig:cutVaryVtxCutWithDelayed}
+\end{figure}
 
 \section{Joint variation of cuts}
 \label{sec:cutVaryJoint}
 
+\begin{figure}[h]
+  \includegraphics[scale=0.5]{CutVary/JointVary/cut_hists.png}
+  \caption{Histograms of random cut values used in the joint variation study.}
+  \label{fig:cutVaryJointVaryCutHists}
+\end{figure}
 
+\begin{figure}[ht]
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/JointVary/s2t_best.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[scale=0.48]{CutVary/JointVary/dm2_best.png}
+  \end{minipage}%
+  \caption{Histograms of oscillation fit results under joint variations of the cuts.}
+  \label{fig:cutVaryJointVaryResults}
+\end{figure}
 
+\begin{figure}[h]
+  \includegraphics[scale=0.5]{CutVary/JointVary/s2t_best_scatter.png}
+  \caption{Best-fit $\SinSq$ versus cut parameters.}
+  \label{fig:cutVaryJointVaryS2tScatter}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[scale=0.5]{CutVary/JointVary/dm2_best_scatter.png}
+  \caption{Best-fit $\Dmsqee$ versus cut parameters.}
+  \label{fig:cutVaryJointVaryDm2Scatter}
+\end{figure}
 
 \end{document}
