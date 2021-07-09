@@ -213,11 +213,13 @@ XXX We'd hope that both the LBNL and IHEP points give closer results. We'll see 
   \label{fig:cutVaryDelCutDelSpec}
 \end{figure}
 
-In the reconstructed energy spectrum from nGd captures, there is a long and tall tail below the nominal cut of 6~MeV (\autoref{fig:cutVaryDelCutDelSpec}). This tail is populated by events in which one or more gammas ``leak'' beyond the active volume of the AD, leaving some of the initial energy unreconstructed. Estimates (XXX?) suggest that some 10\% of nGd captures fall below the 6~MeV cut. Due to this potential of gaining O(10\%) in signal statistics, it is worthwhile to explore the variation of the 6~MeV cut. Here we study modified delayed cuts ranging from 4 to 7~MeV.
+In the reconstructed energy spectrum from nGd captures, there is a long and tall tail below the nominal cut of 6~MeV (\autoref{fig:cutVaryDelCutDelSpec}). This tail is populated by events in which one or more gammas ``leak'' beyond the active volume of the AD, leaving some of the initial energy unreconstructed. Fitting the delayed spectrum to a double Crystal Ball function (\autoref{eq:cbfunction}) suggests that some 10\% of nGd captures fall below the 6~MeV cut. Due to this potential of gaining O(10\%) in signal statistics, it is worthwhile to explore the variation of the 6~MeV cut. Here we study modified delayed cuts ranging from 4 to 7~MeV.
 
-Of course, there is a tradeoff: With an increase in signal comes an increase in backgrounds. For those correlated backgrounds that involve an actual delayed nGd capture ($^9$Li, fast neutrons, and $\alpha$-$n$), the rate will increase according to the same scaling factor as the signal rate. The AmC background possesses a different delayed energy spectrum (domninated by neutron captures in the AD's stainless steel vessel), and this spectrum is unknown (XXX); due to the small size of this background, we simply ignore it in the present discussion.
+Of course, there is a tradeoff: With an increase in signal comes an increase in backgrounds. For those correlated backgrounds that involve an actual delayed nGd capture ($^9$Li, fast neutrons, and $\alpha$-$n$), the rate will increase according to the same scaling factor as the signal rate.
 
-Although these correlated backgrounds do increase, the effect on the uncertainty is outweighed by the increase in signal statistics. Letting $k$ denote this scaling factor (i.e.\ the ratio of the new delayed efficiency to the old one):
+The AmC background possesses a different delayed energy spectrum (domninated by neutron captures in the AD's stainless steel vessel); unforunately, none of the available internal studies of the AmC background provide the delayed spectrum, neither from simulations nor from the runs with the strong AmC source. Due to the small size of this background, we simply ignore any potential dependence of its rate on the delayed cut. We will later see that, at least in the neighborhood of a 6~MeV delayed cut, the oscillation analysis is remarkably stable, in spite of this simplification.
+
+Although these correlated backgrounds do increase as the delayed cut is loosened, the effect on the uncertainty is outweighed by the increase in signal statistics. Letting $k$ denote this scaling factor (i.e.\ the ratio of the new delayed efficiency to the old one):
 \begin{align}
   \label{eq:cutVaryDelayedNcorrSigma}
   & N_{\mathrm{corr}} \equiv N_{\mathrm{obs}} - N_{\mathrm{bkg}} \\
@@ -226,28 +228,28 @@ Although these correlated backgrounds do increase, the effect on the uncertainty
 \end{align}
 that is, even though there is an increase in the absolute uncertainty on the background-subtracted rate, the \emph{relative} uncertainty actually decreases. Therefore, if these were the only backgrounds at Daya Bay, it would be advantageous to use a delayed cut that is as low as possible.
 
-Unfortunately, the accidental background is not as well-behaved. As shown in Fig.~XXX, the spectrum of delayed-like singles rises much more steeply below 5 (XXX?) MeV compared to the neutron capture spectrum, implying that the accidental background increases faster (percentage-wise) than the IBD rate. When this effect is large enough, the overall uncertainty on the background-subtracted IBD rate no longer decreases (as illustrated in \autoref{eq:cutVaryDelayedNcorrSigma}); instead, it \emph{increases}. In principle, then, it is the accidental background that serves to penalize overly loose definitions of the delayed energy cut.\footnote{In saying this, we are ignoring the possibility of new, unaccounted-for \emph{correlated} backgrounds appearing when we loosen the delayed cut. As we discuss later, this is in fact a likely issue.}
+Unfortunately, the accidental background is not as well-behaved. As shown in \autoref{fig:cutVaryDelCutNcapExample}, the spectrum of delayed-like singles rises much more steeply below 5  MeV compared to the neutron capture spectrum, implying that the accidental background increases faster (percentage-wise) than the IBD rate (as confirmed in \autoref{fig:cutVaryDelCutAccBkg}). When this effect is large enough, the overall uncertainty on the background-subtracted IBD rate no longer decreases (as illustrated in \autoref{eq:cutVaryDelayedNcorrSigma}); instead, it \emph{increases}. In principle, then, it is the accidental background that serves to penalize overly loose definitions of the delayed energy cut.\footnote{In saying this, we are ignoring the possibility of new, unaccounted-for \emph{correlated} backgrounds (or increased AmC backgrounds) appearing when we loosen the delayed cut. As we discuss later, this is in fact a likely issue.}
 
-A further downside of loosening the delayed cut is that the multiplicity cut (DMC) efficiency is reduced, as we are now more likely to reject an IBD candidate on the basis of an ``extra'' delayed-like event in the 200~\us\ post-delayed window. However, this effect is outweighed by the increase in the efficiency of the delayed cut, as shown (XXX) by the following argument. (Use Eq 6 of the AccAndDMC chapter, etc.).
+% A further downside of loosening the delayed cut is that the multiplicity cut (DMC) efficiency is reduced, as we are now more likely to reject an IBD candidate on the basis of an ``extra'' delayed-like event in the 200~\us\ post-delayed window. However, this effect is outweighed by the increase in the efficiency of the delayed cut, as  shown (XXX) by the following argument. (Use Eq 6 of the AccAndDMC chapter, etc.).
 
 In theory, the toy MC should be able to capture and quantify the \emph{known} effects of varying the delayed cut, that is, the effects on the delayed cut efficiency (and by extension the signal statistics), on the accidentals, and on the nominal set of correlated backgrounds. We expect the toy MC to show no variation in the best fit (again, as a confirmation of the self-consistency of the toy MC / fitter system), but we do expect the uncertainty on the oscillation parameters to vary, based on the balance of the competing effects described above.
 
-As with the shower muon veto, we carry out the toy MC study by taking the \texttt{Theta13} file from the nominal (i.e. 6~MeV) IBD selection, and altering those quantities that vary with the delayed cut. However, the toy MC does not have any built-in knowledge of how the signal efficiency and background rates vary with the delayed cut. As such, we must externally provide this knowledge, which we obtain from measurements down to 4~MeV of the neutron capture spectrum and the delayed-like singles spectrum. These measurements are described in Sec.~XXX.
+As with the shower muon veto, we carry out the toy MC study by taking the \texttt{Theta13} file from the nominal (i.e. 6~MeV) IBD selection, and altering those quantities that vary with the delayed cut. However, the toy MC does not have any built-in knowledge of how the signal efficiency and background rates vary with the delayed cut. As such, we must externally provide this knowledge, which we obtain from measurements down to 4~MeV of the neutron capture spectrum and the delayed-like singles spectrum. These measurements are described in \autoref{sec:cutVaryDelCutSpecMeas}.
 
-When we perform fits to actual data using a modified delayed cut, the correct accidentals rate is automatically calculated by the IBD selector, and of course there is no need to apply (as in the toy MC case) a scaling factor to the raw signal rate. However, the correlated background rates must still be corrected using the same formalism as that applied for the toy MC. Furthermore, an additional complication arises from the fact that the ADs differ among themselves in the shape of their neutron capture spectra (Fig.~XXX). As a result, when we modify the delayed cut, the efficiency of this cut will not necessarily vary in unison among the ADs, possibly altering the measured near-far ratio. There are multiple ways to deal with this issue, and we discuss them further in Sec.~XXX. First, however, we discuss our treatment of the backgrounds.
+When we perform fits to actual data using a modified delayed cut, the correct accidentals rate is automatically calculated by the IBD selector, and of course there is no need to apply (as in the toy MC case) a scaling factor to the raw signal rate. However, the correlated background rates must still be corrected using the same formalism as that applied for the toy MC. Furthermore, an additional complication arises from the fact that the ADs differ among themselves in the shape of their neutron capture spectra (\autoref{fig:cutVaryDelCutSpecOverlay}). As a result, when we modify the delayed cut, the efficiency of this cut will not necessarily vary in unison among the ADs, possibly altering the measured near-far ratio. There are multiple ways to deal with this issue, and we discuss them further in \autoref{sec:cutVaryDelCutEff}. First, however, we discuss our treatment of the backgrounds.
 
 \subsection{Treatment of backgrounds}
 \label{sec:cutVaryDelayedCutBkgTreatment}
 
 \subsubsection{Accidentals background}
 
-For fits to actual data, the accidentals background is calculated by the IBD selector as described in XXX AccAndDMC. This calculation is valid for any delayed energy cut, so no further correction is necessary.
+For fits to actual data, the accidentals background is calculated by the IBD selector as described in \autoref{sec:accratecalc}. This calculation is valid for any delayed energy cut, so no further correction is necessary.
 
 For fits to toy spectra, we use information from a special IBD selection run on the full P17B dataset. This special selection is simply the nominal selection with a loosened delayed cut of 4~MeV. From the spectrum of delayed-like singles measured by this selection, we can calculate the accidentals rate for any delayed cut of 4~MeV or greater. We do this by manually instantiating the relevant class from the IBD selector. The calculated rates are then substituted into the \texttt{Theta13} file.
 
 \subsubsection{Correlated backgrounds}
 
-For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutron, and $\alpha$-$n$ events all include a delayed neutron capture, we can employ the neutron capture spectrum $S_n(E)$obtained from IBDs, whose extraction we describe in Sec.~XXX. For a delayed cut of $q$~MeV, the backgrounds are then simply scaled according to the ratio
+For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutron, and $\alpha$-$n$ events all include a delayed neutron capture, we can employ the neutron capture spectrum $S_n(E)$ obtained from IBDs, whose extraction we describe in \autoref{sec:cutVaryDelCutSpecMeas}. For a delayed cut of $q$~MeV, the backgrounds are then simply scaled according to the ratio
 \begin{equation}
   \label{eq:cutVaryDelCutCorrBkgScale}
   \frac{\int_q^{12} S_n(E)\,dE}{\int_6^12 S_n(E)\,dE}
@@ -262,11 +264,11 @@ For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutro
   \label{fig:cutVaryDelCutSpecOverlay}
 \end{figure}
 
-As we show later (XXX), naively varying the delayed cut will cause a shift in the best-fit oscillation parameters (particularly $\SinSq$). This shift comes from slight AD-to-AD differences in the shape of the IBD delayed spectrum. In what follows, we will refer to this spectrum as the ``neutron capture'' or ``nGd'' spectrum.\footnote{Although the bulk of delayed triggers are indeed nGd captures, there is in fact a small peak around 5~MeV (Fig.~XXX) from neutron captures on carbon.} Due to these shape discrepancies, varying the delayed cut will cause its efficiency to vary by different amounts between the ADs.
+As we show later (\autoref{sec:cutVaryDelCutResults}), naively varying the delayed cut will cause a shift in the best-fit oscillation parameters (particularly $\SinSq$). This shift comes from slight AD-to-AD differences in the shape of the IBD delayed spectrum. In what follows, we will refer to this spectrum as the ``neutron capture'' or ``nGd'' spectrum.\footnote{Although the bulk of delayed triggers are indeed nGd captures, there is in fact a small peak around 5~MeV (\autoref{fig:cutVaryDelCutNcapExample}) from neutron captures on carbon.} Due to these shape discrepancies, varying the delayed cut will cause its efficiency to vary by different amounts between the ADs.
 
 In the published Daya Bay analyses, we have always assumed that all 8 ADs have the same delayed cut efficiency, to which we assign a nominal (and irrelevant) value of 0.88 in the \texttt{Theta13} file. However, from the observed differences in the nGd shape, it is clear that this assumption is inaccurate. Obviously, the efficiency of the 6~MeV cut cannot be measured by a direct comparison of the IBD rates between ADs, since this wouldn't account for all of the other effects (e.g., oscillation!) which affect the measured rate. However, the delayed cut efficiency\footnote{More accurately, the total detection efficiency, divided by those efficiencies (veto and DMC) that we treat individually.} \emph{could}, in principle, be measured by a fitter with 8 pull terms for the efficiencies and an additional pull term for the ``reactor antineutrino anomaly'' (the last of which already is included in the pull-based fitters used in the collaboration). Of course, including these 8 additional pulls could lead to a shift in the best-fit $\SinSq$, reflecting the fact that a particularly unfortunate combination of delayed cut efficiencies could be mistaken for an oscillation signal.
 
-Our fitter, however, does not support pull terms. Instead, we could take the measured IBD rates, correct them for baseline and oscillation effects, and then take the ratios to, say, AD1, giving the 8 \emph{relative} efficiencies, normalized to AD1. Again, though, such an approach would suffer from the ambiguity between the effects of oscillation and unequal efficiencies. Thus, we make no attempt to perform a corrected rate-based measurement of the 6~MeV cut's efficiency. Instead, our approach is to measure the shape of the neutron capture spectrum as best as possible (as described in Sec.~XXX), and use that as our sole source of information on the efficiency of the delayed cut. Since our study extends down to delayed cuts of 4~MeV, so does our measurement of the neutron capture spectrum. The soft end of this spectrum includes both events from the nGd tail as well as nC captures.
+Our fitter, however, does not support pull terms. Instead, we could take the measured IBD rates, correct them for baseline and oscillation effects, and then take the ratios to, say, AD1, giving the 8 \emph{relative} efficiencies, normalized to AD1. Again, though, such an approach would suffer from the ambiguity between the effects of oscillation and unequal efficiencies. Thus, we make no attempt to perform a corrected rate-based measurement of the 6~MeV cut's absolute efficiency. Instead, our approach is to measure the shape of the neutron capture spectrum as best as possible (as described in \autoref{sec:cutVaryDelCutSpecMeas}), and use that as our sole source of information on the efficiency of the delayed cut. Since our study extends down to delayed cuts of 4~MeV, so does our measurement of the neutron capture spectrum. The soft end of this spectrum includes both events from the nGd tail as well as nC captures.
 
 Once the neutron capture spectrum has been measured, there are three ways it can be used (or not) to apply a correction factor to the IBD rate. We name and define these approaches as follows:
 
@@ -276,14 +278,14 @@ Once the neutron capture spectrum has been measured, there are three ways it can
 \item \texttt{absolute}: We again integrate from $E_{\mathrm{cut}}$ to 12~MeV, but this time we divide by the total integral of the measured spectrum (i.e., from 4 to 12~MeV).
 \end{itemize}
 
-The \texttt{flat} method is obviously the simplest, and as we shall show (XXX), it produces the aforementioned shifts in $\SinSq$, demonstrating that the delayed cut efficiency varies among ADs. Meanwhile, the advantage of the \texttt{relative} correction is that it allows us to show that we can obtain constant results as we move the delayed cut away from 6~MeV, provided that we correct for differences in the neutron capture shape. This proves that we understand and can account for the implications of varying the cut. However, the \texttt{relative} method says nothing about the size of the bias caused by the assumption of equal efficiencies at 6~MeV. This is where the \texttt{absolute} method provides insight. From the difference in the best-fit values of $\SinSq$ at 6~MeV between the \texttt{relative} and \texttt{absolute} methods, we can infer the scale of the aforementioned bias. This measurement is still uncertain, since there is a degree of arbitrariness from the choice of the lower cutoff (in our case, 4~MeV), but as we show, there are not many neutron captures with such low energy, so that variations around 4~MeV can be expected to have minimal effect.
+The \texttt{flat} method is obviously the simplest, and as we shall show (~\autoref{sec:cutVaryDelCutResults}), it produces the aforementioned shifts in $\SinSq$, demonstrating that the delayed cut efficiency varies among ADs. Meanwhile, the advantage of the \texttt{relative} correction is that it allows us to show that we can obtain constant results as we move the delayed cut away from 6~MeV, provided that we correct for differences in the neutron capture shape. This proves that we understand and can account for the implications of varying the cut. However, the \texttt{relative} method says nothing about the size of the bias caused by the assumption of equal efficiencies at 6~MeV. This is where the \texttt{absolute} method provides insight. From the difference in the best-fit values of $\SinSq$ at 6~MeV between the \texttt{relative} and \texttt{absolute} methods, we can infer the scale of the aforementioned bias. This measurement is still uncertain, since there is a degree of arbitrariness from the choice of the lower cutoff (in our case, 4~MeV), but as shown in \autoref{fig:cutVaryDelCutNcapExample}, there are not many neutron captures with such low energy, so that variations around 4~MeV can be expected to have minimal effect.
 
-We will show the results of applying all three methods, ultimately demonstrating excellent stability in $\SinSq$ when the relative method is applied between 5 and 7~MeV.
+We will show (\autoref{sec:cutVaryDelCutResults}) the results of applying all three methods, ultimately demonstrating excellent stability in $\SinSq$ when the relative method is applied between 5 and 7~MeV.
 
 \subsubsection{Measurement of neutron capture spectra}
 \label{sec:cutVaryDelCutSpecMeas}
 
-Before we can integrate the neutron capture spectrum, we must, of course, measure it for each AD. It would be incorrect to use the raw delayed spectrum from the IBD candidates, since this includes contributions from backgrounds. Fortunately, all of the correlated backgrounds (except AmC, which we neglect due to its small rate) feature a neutron capture as the delayed event. On the other hand, accidental backgrounds will be drawn from the spectrum of delayed-like singles, which has a different shape from the neutron capture spectrum. Fortunately, both this spectrum and the accidentals rate can be measured quite accurately, so that we can obtain our final measurement simply by taking the delayed spectrum of IBD candidates, and subtracting the delayed-like singles spectrum scaled by the accidentals rate.
+Before we can integrate the neutron capture spectrum, we must, of course, measure it for each AD. It would be incorrect to use the raw delayed spectrum from the IBD candidates, since this includes contributions from backgrounds. Fortunately, all of the correlated backgrounds (except AmC, which we neglect due to its small rate) feature a neutron capture as the delayed event. On the other hand, accidental backgrounds will be drawn from the spectrum of delayed-like singles, which has a different shape from the neutron capture spectrum. Fortunately, both this spectrum and the accidentals rate can be measured quite accurately, so that we can obtain our final measurement simply by taking the delayed spectrum of IBD candidates, and subtracting the delayed-like singles spectrum (scaled by the accidentals rate).
 
 Although we did not diverge from this overall method, we implemented it in three different ways:
 
@@ -299,7 +301,7 @@ Although we did not diverge from this overall method, we implemented it in three
   \label{fig:cutVaryDelCutNcapExample}
 \end{figure}
 
-For all cut variations we study \emph{except for the application of a vertex cut}, these three methods generally give equivalent results. However, when we apply a vertex cut (as discussed in \autoref{sec:cutVaryVertexCut}), there can be some variation in the shape of the neutron capture spectrum. The latter two methods were implemented so as to enable direct measurement of the efficiency for each cut, without recourse to a reference spectrum that may have the wrong shape. Although \texttt{calc-then-add} and \texttt{add-then-calc} are equivalent in principle, the former can suffer from division-by-zero in EH3 on days where there are no events in a given bin, so in practice we reject it in favor of \texttt{add-then-calc}.
+For all cut variations we study \emph{except for the application of a vertex cut}, these three methods generally give equivalent results. However, when we apply a vertex cut (as discussed in \autoref{sec:cutVaryVertexCut}), there can be some variation in the shape of the neutron capture spectrum. The latter two methods were implemented so as to enable direct measurement of the efficiency for each vertex cut, without recourse to a reference spectrum that may have the wrong shape. Although \texttt{calc-then-add} and \texttt{add-then-calc} are equivalent in principle, the former can suffer from division-by-zero in EH3 on days where there are no events in a given bin, so in practice we reject it in favor of \texttt{add-then-calc}.
 
 \begin{comment}
 In most of the results that follow, we show the outcome of using the \texttt{original} method, but the other methods give the same results. When we later discuss the application of vertex cuts, we will switch to the \texttt{add-then-calc} method (and will show the difficulties that result when attempting to use the \texttt{original} method).
@@ -319,7 +321,9 @@ In most of the results that follow, we show the outcome of using the \texttt{ori
   \label{fig:cutVaryDelCutToyResults}
 \end{figure}
 
-As a sanity check, we begin by fitting toy samples. The toy MC does not simulate the delayed spectrum in any way whatsoever, but we can still adjust the efficiencies and background rates in the \texttt{Theta13} file to verify that the oscillation fit remains stable. In particular, for the results shown in \autoref{fig:cutVaryDelCutToyResults}, we inserted the delayed efficiencies calculated using the neutron capture spectra obtained from the nominal IBD selection (i.e., the \texttt{original} implementation), integrated according to the \texttt{relative} approach described previously. (TODO: Show results for flat/absolute. New impl???) The background rates were scaled as described in \autoref{eq:cutVaryDelCutCorrBkgScale}.
+As a sanity check, we begin by fitting toy samples. The toy MC does not simulate the delayed spectrum, but we can still adjust the efficiencies and background rates in the \texttt{Theta13} file to verify that the oscillation fit remains stable. In particular, for the results shown in \autoref{fig:cutVaryDelCutToyResults}, we inserted the delayed efficiencies calculated using the neutron capture spectra obtained from the nominal IBD selection (i.e., the \texttt{original} implementation), integrated according to the \texttt{relative} approach described previously.
+% (TODO: Show results for flat/absolute. New impl???)
+The background rates were scaled as described in \autoref{eq:cutVaryDelCutCorrBkgScale}.
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{CutVary/DelayedCut/acc_bkg.png}
@@ -331,10 +335,10 @@ The toy MC results are shown in \autoref{fig:cutVaryDelCutToyResults}. They demo
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/s2t_mid_methcomp.png}%
+    \includegraphics[scale=0.47]{CutVary/DelayedCut/s2t_mid_methcomp.png}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/DelayedCut/dm2_mid_methcomp.png}%
+    \includegraphics[scale=0.47]{CutVary/DelayedCut/dm2_mid_methcomp.png}%
   \end{minipage}%
   \caption{Fit results from actual data when varying the delayed cut. Shown are five different methods of measuring and correcting for the efficiency of the cut.}
   \label{fig:cutVaryDelCutDataResults}
@@ -342,7 +346,8 @@ The toy MC results are shown in \autoref{fig:cutVaryDelCutToyResults}. They demo
 
 In \autoref{fig:cutVaryDelCutDataResults} we show the results of varying the delayed cut for the P17B data sample. In the legend, \texttt{old} refers to the \texttt{original} method of measuring the nGd spectrum, while \texttt{new} refers to the \texttt{add-then-calc} method, as described previously. Meanwhile, \texttt{flat}, \texttt{rel} and \texttt{abs} refer, unsurprisingly, to the \texttt{flat}, \texttt{relative} and \texttt{absolute} approaches for integrating the nGd spectrum.
 
-The first thing to note is that there is almost no appreciable difference between \texttt{old} and \texttt{new}\footnote{This will not be the case when we apply a vertex cut, as shown later.}. Thus we focus on the differences between \texttt{flat}, \texttt{relative}, and \texttt{absolute}. In this discussion, we focus on $\SinSq$, since all five methods give essentially the same results for $\Dmsqee$. The \texttt{flat} approach shows by far the most variation in $\SinSq$, affirming the value of attempting to correct for AD-dependent variations in the delayed cut efficiency. Both the \texttt{relative} and \texttt{absolute} approaches are generally fairly stable; although some unexpected behavior is observed below 5~MeV, this amounts to only 10-20\% of the uncertainty. Unsurprisingly, an offset exists between the two approaches, as expected given that the \texttt{absolute} approach abandons the (arbitrary and unfounded) assumption that the ADs all have the same delayed efficiency at 6~MeV.
+The first thing to note is that there is almost no appreciable difference between \texttt{old} and \texttt{new}\footnote{This will not be the case when we apply a vertex cut, as shown in \autoref{sec:cutVaryVtxCutResults}.}. Thus we focus on the differences between \texttt{flat}, \texttt{relative}, and \texttt{absolute}. In this discussion, we focus on $\SinSq$, since all five methods give essentially the same results for $\Dmsqee$. The \texttt{flat} approach shows by far the most variation in $\SinSq$, affirming the value of attempting to correct for AD-dependent variations in the delayed cut efficiency. Both the \texttt{relative} and \texttt{absolute} approaches are generally fairly stable; although some unexpected behavior is observed below 5~MeV, this amounts to only 10-20\% of the uncertainty. Unsurprisingly, an offset exists between the two approaches, as expected given that the \texttt{absolute} approach abandons the (arbitrary and unfounded) assumption that the ADs all have the same delayed efficiency at 6~MeV. We regard this $\sim0.2\sigma$ offset as an additional systematic uncertainty on the fit result.%
+%\footnote{A worthwhile crosscheck would be to enhance the toy MC with the ability to fluctuate the absolute detection efficiency at this scale, to see whether the shift in the best-fit oscillation parameters is consistent with the results shown here.}
 
 The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant downtrend, culminating at approximately a third of the uncertainty. Moreover, two ``bumps'' are visible. These results suggest an unaccounted-for shape distortion for delayed cuts below 5~MeV. The most likely explanation is that this comes from backgrounds. Although the total background \emph{rate} calculation appears to remain generally correct, given the stability of $\SinSq$, the background shape is apparently being treated incorrectly. We further explore possible explanations of this effect in \autoref{sec:cutVaryVertexCut}. For the time being, we simply note that $\Dmsqee$ remains extremely stable between 5 and 7~MeV. Below 5~MeV, we are entering ``dangerous'' territory, where there was never any intention for the nGd analysis to tread, so anomalous behavior here is both unsurprising and unconcerning.
 
@@ -368,24 +373,35 @@ The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant down
   \label{fig:cutVaryDelCutDataResultsBCW}
 \end{figure}
 
-We end this section by showing the fitter's reported uncertainty under variations of the delayed cut (\autoref{fig:cutVaryDelCutFitUnc}). We do not expect perfect agreement here between the toy and the data, as the latter includes statistical fluctuations and systematic deviations, while the former uses the ``Asimov'' sample in which there are no statistical fluctuations and nominal assumptions are used for all systematics. Nevertheless, the overall scale of the uncertainty is in general agreement, as is the general form of a lopsided ``U'' shape. From these plots we can conclude that there is essentially no advantage, in terms of the fit uncertainty, to varying the standard 6~MeV cut.
+We end this section by showing the fitter's reported uncertainty under variations of the delayed cut (\autoref{fig:cutVaryDelCutFitUnc}). We do not expect perfect agreement here between the toy and the data, as the latter includes statistical fluctuations and systematic deviations, while the former uses the ``Asimov'' sample in which there are no statistical fluctuations and nominal assumptions are used for all systematics. Nevertheless, the overall scale of the uncertainty is in general agreement, as is the general form of a lopsided ``U'' shape. From these plots we can conclude that there is essentially no advantage, in terms of the fit uncertainty, to varying the standard 6~MeV.
 
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
 
-Unlike the delayed spectrum, the prompt spectrum of IBDs does not contain a long tail, so that varying the prompt cut is likely to have a smaller effect on the analysis, with minimal potential statistical gain. Although the minimum IBD energy deposition is 1.02~MeV (from positron annihilation), the finite detector resolution leads to the reconstruction of some events below this minimum energy. Since we can see that the prompt spectrum doesn't fall to zero at 0.7~MeV (Fig.~XXX), it is clear that events will be lost or gained upon variation of the cut. It is therefore worth verifying that the analysis is stable under such circumstances.
+Unlike the delayed spectrum, the prompt spectrum of IBDs does not contain a long tail, so that varying the prompt cut is likely to have a smaller effect on the analysis, with minimal potential statistical gain. Although the minimum IBD energy deposition is 1.0~MeV (from positron annihilation), the finite detector resolution leads to the reconstruction of some events below this minimum energy. Since we can see that the prompt spectrum doesn't fall to zero at 0.7~MeV (\autoref{fig:cutVaryPromptCutExampleSpectrum}), it is clear that events will be lost or gained upon variation of the cut. It is therefore worth verifying that the analysis is stable under such circumstances.
+
+\begin{figure}[h]
+  \includegraphics[scale=0.6]{CutVary/PromptCut/promptSpecExample.pdf}
+  \caption{Example prompt spectrum of IBD candidates (including backgrounds), showing the nonzero event count at the 0.7~MeV threshold.}
+  \label{fig:cutVaryPromptCutExampleSpectrum}
+\end{figure}
 
 \emph{A priori,} there is no reason to assume that the prompt cut has the same efficiency (and $d\epsilon/dE_{\mathrm{cut}}$) across all ADs. Just as with the delayed cut, it is possible that we may need to apply corrections for the AD-dependent prompt efficiency. In that case, we could extract the prompt spectrum analogously to the case of the delayed spectrum, and then integrate it using either the \texttt{absolute} or \texttt{relative} methods.
 
-Compared to the delayed spectrum, it may be possible to more accurately measure the absolute efficiency, given the lack of a long tail. Even though the rate of prompt-like singles rises very steeply around 0.7~MeV, the accidentals rate is bottlenecked by the rate of delayed-like singles, so the accidentals subtraction can still be performed accurately. However, the \emph{correlated} backgrounds each have their own externally supplied prompt spectra, which (as we describe XXX below) must be individually integrated (to scale the rate) and subtracted. Hence, the measured prompt spectrum could be skewed by any errors in the rates and spectra of the correlated backgrounds. Fortunately, the total rate of the correlated backgrounds is quite low, and in the case of the dominant one ($^9Li$), 0.7~MeV lies below its lower endpoint (XXX check and revise). We therefore don't expect the correlated backgrounds to pose a major difficulty in the prompt spectrum extraction.
+Compared to the delayed spectrum, it may be possible to more accurately measure the absolute efficiency, given the lack of a long tail. Even though the rate of prompt-like singles rises very steeply around 0.7~MeV, the accidentals rate is bottlenecked by the rate of delayed-like singles, so the accidentals subtraction can still be performed accurately. However, the \emph{correlated} backgrounds each have their own externally supplied prompt spectra, which (as described in \autoref{sec:cutVaryPromptCutBkg}) must be individually integrated (to scale the rate) and subtracted. Hence, the measured prompt spectrum could be skewed by any errors in the rates and spectra of the correlated backgrounds. Fortunately, the total rate of the correlated backgrounds is quite low.
+% , and in the case of the dominant one ($^9$Li), 0.7~MeV lies below its lower endpoint (XXX check and revise).
+We therefore don't expect the correlated backgrounds to pose a major difficulty in the prompt spectrum extraction.
 
 The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
 
-When varying the prompt cut, then, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$ (\Autoref{fig:bkgspec_Li9,fig:bkgspec_fn,fig:bkgspec_AmC,fig:bkgspec_alphaN}), we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
+\subsection{Background rate correction}
+\label{sec:cutVaryPromptCutBkg}
+
+When varying the prompt cut, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$ (\Autoref{fig:bkgspec_Li9,fig:bkgspec_fn,fig:bkgspec_AmC,fig:bkgspec_alphaN}), we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
 \[
   \frac{\int_{E_{\mathrm{cut}}}^{12} S_b(E)}{\int_{0.7}^{12} S_b(E)}.
 \]
-The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{cut}$, normalizes it to the specified rate, and subtracts it from the raw prompt spectrum. This adjustment of the correlated backgrounds is applied for both the cases of fitting data and toy samples. There are no further subtleties related to the variation of the prompt cut.
+The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{\mathrm{cut}}$, normalizes it to the specified rate, and subtracts it from the raw prompt spectrum. This adjustment of the correlated backgrounds is applied for both the cases of fitting data and toy samples. There are no further subtleties related to the variation of the prompt cut.
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_Li9.png}
@@ -411,15 +427,19 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
   \label{fig:bkgspec_alphaN}
 \end{figure}
 
-As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
+\subsection{Results}
+\label{sec:cutVaryPromptCutResults}
 
-Meanwhile, Fig.~XXX shows the results of fitting actual data. Happily, there is no significant change in the best-fit values of $\SinSq$ and $\Dmsqee$ when we vary the prompt cut. Likewise, the uncertainty remains stable. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
+% As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
+
+% Meanwhile,
+\autoref{fig:cutVaryPromptCutResultsData} shows the results of varying the prompt cut. Happily, there is no significant variation in the best-fit values of $\SinSq$ and $\Dmsqee$. Likewise, the uncertainty remains stable, as shown in \autoref{fig:cutVaryPromptCutUncData}. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
 \begin{figure}[ht]
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/s2t_mid.pdf}%
   \end{minipage}%
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/dm2_mid.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fits to data under variations of the prompt energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
@@ -427,13 +447,13 @@ Meanwhile, Fig.~XXX shows the results of fitting actual data. Happily, there is 
 \end{figure}
 
 \begin{figure}[ht]
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/unc_s2t.pdf}%
   \end{minipage}%
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/unc_dm2.pdf}%
   \end{minipage}%
-  \caption{Uncertainty on the oscillation parameters from fits to data under variations of the prompt energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
+  \caption{Uncertainty on the oscillation parameters from fits to data under variations of the prompt energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$. Note the scales on the vertical axes; the variation in the uncertainty is minuscule.}
   \label{fig:cutVaryPromptCutUncData}
 \end{figure}
 
@@ -448,34 +468,42 @@ Li9, fast-n, alpha-n: Only in GdLS, ???
 AmC: Both. R distribution unknown but probably ``lumpy''. Z probably like what we did.
 \end{comment}
 
-Since our analysis is based on nGd IBDs, the delayed events of the IBDs will all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the prompt events will likewise occur in the GdLS\footnote{Those that don't are accounted for in the spill-in efficiency.}. The situation is the same for the three correlated backgrounds ($^9$Li, fast neutrons, and $\alpha$-n) that involve nGd captures.
-
-Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices; XXX XXX most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS. And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
+Since our analysis is based on nGd IBDs, the delayed events of the IBDs will all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the prompt events will likewise occur in the GdLS.
+% XXX \footnote{Those that don't are accounted for in the spill-in efficiency.}
+The situation is the same for the three correlated backgrounds ($^9$Li, fast neutrons, and $\alpha$-n) that involve nGd captures.
+%
+Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices.
+% XXX XXX most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS.
+And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
 
 Based on these facts, it is obvious why the official nGd analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
 
-Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis and the reliability of the vertex reconstruction. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in Fig.~XXX, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In Sec.~XXX, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downard trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
+Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis and the reliability of the vertex reconstruction. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in \autoref{fig:cutVaryDelCutDataResults}, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In \autoref{sec:cutVaryDelCutResults}, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downward trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
 
 For these reasons, we choose to go beyond the official analysis and explore the use of vertex cuts. When applying a vertex cut, care must be taken in two areas: the detection efficiencies and the background rates. As was mentioned, a vertex cut may not have the same efficiency among all ADs, so this efficiency must be measured and corrected for. The accidental background rate calculation, being based on the singles selection (to which we apply the same vertex cut), accounts for the vertex cut automatically. As for the correlated backgrounds, we must assume a particular vertex distribution for each background, and then calculate the percentage of the distribution that lies within our fiducial volume.
 
 Throughout this study, we apply a given vertex cut to both the prompt and delayed vertex. This is to be distinguished from, say, the muon veto, which considers only the delayed trigger. We choose to cut on both triggers because it avoids the need to make an arbitrary choice between prompt and delayed, and it avoids the need to perform two separate singles selections with two different vertex cuts.
 
-In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts, and whether the observed variations are consistent with our statistical uncertainty.
+In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts.
+%, and whether the observed variations are consistent with our statistical uncertainty.
 
 \subsection{Implementation details}
 \label{sec:cutVaryVtxCutImplDet}
 
-Within the IBD selection, the vertex cut is implemented using the vertex provided by the \texttt{AdSimple} reconstruction, after conversion from Cartesian coordinates to the natural cylindrical coordinate system of the AD. The cut involves four parameters, corresponding to the minimum and maximum acceptable radial and vertical coordinates. Both the singles selection and the IBD selection apply the cut, in the latter case to both the prompt and delayed triggers. Furthermore, when applying the multplicity cut, any ``extra'' triggers are ignored if they do not pass the vertex cut (i.e., such triggers will not cause the single/IBD candidate to fail the multipliticy cut). In effect, any (non-muon) trigger that fails to pass the vertex cut is completely excluded from the analysis.
+Within the IBD selection, the vertex cut is implemented using the vertex provided by the \texttt{AdSimple} reconstruction (\autoref{sec:reconVertex}), after conversion from Cartesian coordinates to the natural cylindrical coordinate system of the AD. The cut involves four parameters, corresponding to the minimum and maximum acceptable radial and vertical coordinates. Both the singles selection and the IBD selection apply the cut, in the latter case to both the prompt and delayed triggers. Furthermore, when applying the multplicity cut, any ``extra'' triggers are ignored if they do not pass the vertex cut (i.e., such triggers will not cause the single/IBD candidate to fail the multipliticy cut). In effect, any (non-muon) trigger that fails to pass the vertex cut is completely excluded from the analysis.
 
-\subsection{Efficiency calculation}
-\label{sec:cutVaryVtxCutEffCalc}
-
+\begin{comment}
 Before going into the details of the efficiency calculation, it is worthwhile to demonstrate \emph{why} it is worthwhile to carry it out in the first place. First, we must define some vertex cuts to investigate. \autoref{tab:cutVaryVtxCutCutsTbl} lists five cuts along with the names we will use when referring to them in the remainder of this chapter. Using those definitions, Fig.~XXX shows the best-fit oscillation parameters obtained when applying these cuts without any efficiency correction. We expect some scatter, given that we are analyzing statistically independent subsamples.\footnote{More precisely, the three vertical cuts are statistically independent from each other, and likewise for the two radial cuts, but there \emph{is} a degree of overlap between each vertical and each radial cut. The overall point remains, however.}. Since we know that roughly half of the fit's uncertainty comes from statistics (as discussed in XXX fitting chapter), and since the vertical (radial) cuts approximately divide the sample into thirds (halves), we can estimate the statistical uncertainty on each subsample to be between $0.5\sqrt{2}$ and $0.5\sqrt{3}$ of the total (full sample statistical + systematic) uncertainty, i.e. 70--85\% of the total error bar. From Fig~XXX, it is apparent that the scale of the scatter is slightly larger than 1$\sigma$. While a mere statistical fluctuation cannot be ruled out, this result suggests that we should attempt to determine whether an AD-dependent efficiency variation may be playing a role (in which case a correction should be applied). As we will shortly show, when we measure the vertex efficiency, we do in fact find different values among the ADs, and applying a correction indeed reduces the scatter between the fit results.
+\end{comment}
 
 \begin{comment}
 (XXX note we haven't actually plotted the results of applying no efficiency correction. The scatter might be well above 1sigma in which case we need to reword the above.)
 \end{comment}
 
+\subsection{Vertex cuts investigated}
+\label{sec:cutVaryVtxCutDescOfCuts}
+
+For this study, five different vertex cuts were investigated: Three ``vertical'' cuts, and two ``cylindrical'' cuts. Their details are listed in \autoref{tab:cutVaryVtxCutCutsTbl}, along with the names used in referring to them. It is worth noting that these cuts do \emph{not} produce five statistically independent subsamples of the data. In particular, there is an overlap between each vertical sample and each cylindrical sample. However, the three vertical samples are independent from each other, as are the two cylindrical samples.
 
 \begin{table}[h]
   \begin{tabular}{lc}
@@ -497,19 +525,21 @@ Before going into the details of the efficiency calculation, it is worthwhile to
   TODO Try doing vertex efficiency with background subtraction. Oh wait we already do.
 \end{comment}
 
-\subsubsection{Procedure}
-\label{sec:cutVaryVtxCutProc}
+\subsection{Efficiency calculation}
+\label{sec:cutVaryVtxCutEffCalc}
 
 The vertex cut efficiency is determined by taking the ``corrected'' IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed cut) while applying the vertex cut, we must perform a reference IBD selection with those same modifications (minus the vertex cut). This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
 
-The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We simply take the total number of IBD candidates $N_{\mathrm{raw}}$, subtract the total predicted number of backgrounds, and divide by the livetime, the veto efficiency, and the multiplicity efficiency. Since the IBD selection's convention is to output the background prediction $R_{\mathrm{bkg}}$ as an efficiency- and livetime-corrected daily rate, we must undo these corrections before performing the subtraction. In summary:
+The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We simply take the total number of IBD candidates $N_{\mathrm{raw}}$, subtract the total predicted number of backgrounds, and divide by the livetime, the veto efficiency, and the multiplicity efficiency.
+% Ideally, we should also correct for the delayed cut efficiency, which may change when a vertex cut is applied.
+Since the IBD selection's convention is to output the background prediction $R_{\mathrm{bkg}}$ as an efficiency- and livetime-corrected daily rate, we must undo these corrections before performing the subtraction. In summary:
 \begin{align*}
   N_{\mathrm{bkg}} &= R_{\mathrm{bkg}} \cdot T \cdot \epsilon_\mu \cdot \epsilon_m\\
   R_{\mathrm{corr}} &= (N_{\mathrm{raw}} - N_{\mathrm{bkg}}) \;/\; (T \cdot \epsilon_\mu \cdot \epsilon_m)
 \end{align*}
 
 The efficiency of the vertex cut is then obtained by simply taking the ratio with respect to the reference selection:
-$$ \epsilon_v = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}. $$
+$$ \epsilon_{\mathrm{vtx}} = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}. $$
 
 \subsection{Background rate adjustment}
 \label{sec:cutVaryVtxCutBkgRate}
@@ -522,7 +552,7 @@ The accidental background is calculated, as usual, directly from the prompt- and
 
 \subsubsection{$^9$Li, fast neutrons, and $\alpha$-$n$}
 
-These ``neutronic'' backgrounds are assumed to be uniformly distributed throughout the GdLS. Since fast neutrons arrive from above and stop inside the AD, some bias toward the top is expected, but this effect has been shown to be small (XXX cite; see Beda's email). Meanwhile, since $^9$Li-producing shower muons pass through the AD, no such bias is expected. Likewise, $\alpha$ activity is uniformly distributed throughout the AD.
+These ``neutronic'' backgrounds are assumed to be uniformly distributed throughout the GdLS. Since fast neutrons arrive from above and stop inside the AD, some bias toward the top is known to exist (\cite{jianrunHERA}, p.\@ 9), but for our present purposes, we make no attempt to model this effect. Meanwhile, since $^9$Li-producing shower muons pass through the AD, no such bias is expected. Likewise, $\alpha$ activity is uniformly distributed throughout the AD.
 
 Based on this uniformity assumption, we define a ``radial'' factor $f_r$ to account for the minimum and maximum radii accepted in the cut, and likewise a ``vertical'' factor $f_z$ corresponding to the minimum and maximum acceptable vertical coordinates. In order to account for the finite resolution of the vertex reconstruction, we ``extend'' the dimensions of the IAV by 200~mm in every direction, leading to the following definitions of the nominal minimum and maximum coordinates:
 \begin{align*}
@@ -557,7 +587,9 @@ Each of these three backgrounds is then adjusted according to
 
 \subsubsection{AmC background}
 
-Since the AmC backgrounds are produced near the top of the AD, the assumption of uniformity is clearly invalid. Based on the results in XXX AmC paper, we assume a linearly rising vertical profile terminating at the center of the AD; see Fig.~XXX. For the purpose of this calculation, then, we clamp $z_{\mathrm{min}}$ at the center:
+Since the AmC backgrounds are produced near the top of the AD, the assumption of uniformity is clearly invalid. Based on the results in \cite{Gu_2016}, we assume a linearly rising vertical profile terminating at the center of the AD.
+% ; see Fig.~XXX.
+For the purpose of this calculation, then, we clamp $z_{\mathrm{min}}$ at the center:
 \[
   z''_{\mathrm{min}} = \max(z_{\mathrm{min}}, 0)
 \]
@@ -571,22 +603,32 @@ As for the radial distribution, even though the AmC sources are located at three
 \subsection{Results}
 \label{sec:cutVaryVtxCutResults}
 
+% \begin{figure}[ht]
+%   \begin{minipage}{0.5\linewidth}%
+%     \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best_labeled.png}%
+%   \end{minipage}%
+%   \begin{minipage}{0.5\linewidth}%
+%     \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best_labeled.png}%
+%   \end{minipage}%
+%   \caption{Results of oscillation fit when applying a vertex cut to the otherwise-nominal selection}
+%   \label{fig:cutVaryVtxCutJustVertex}
+% \end{figure}
+
+\autoref{fig:cutVaryVtxCutJustVertex} shows the results obtained when a vertex cut is applied on top of the nominal IBD selection. For the most part, each cut produces a result that lies less than $1\sigma$ from the full-AD result. This is encouraging, especially given the crude simplifications employed in correcting the background rates (particularly for the fast neutron). Moreover, statistically independent subsamples are not overly biased toward either side of the nominal result, providing a reassuring sign of internal consistency. The deviations are not entirely symmetric about the nominal result, suggesting (unsurpsingly) the introduction of new systematics, likely from the efficiency measurement or background corrections.\footnote{Although, due to the complex nature of the fitter, it is not obvious that two statistically independent subsamples, even generated using identical IBD cuts, will necessarily give results symmetrically distributed around the nominal one.}
+
 \begin{figure}[ht]
-  \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best_labeled.png}%
-  \end{minipage}%
-  \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best_labeled.png}%
-  \end{minipage}%
+  \includegraphics[scale=0.35]{CutVary/VertexCut/both_labeled.png}%
   \caption{Results of oscillation fit when applying a vertex cut to the otherwise-nominal selection}
   \label{fig:cutVaryVtxCutJustVertex}
 \end{figure}
 
+In \autoref{fig:cutVaryVtxCutWithDelayed}, we show the results of applying these five vertex cuts in tandem with modifications of the delayed cuts. One of the main goals of this study is to investigate possible explanations (particularly, localized correlated backgrounds) for the behavior of $\Dmsqee$ shown in \autoref{fig:cutVaryDelCutDataResults} for delayed cuts below 5~MeV. Indeed, we observe that the \texttt{rInside1000} and \texttt{zMidThird} cuts produce remarkably flat behavior for both $\SinSq$ and $\Dmsqee$. (\texttt{zTopThird} is also flat for $\Dmsqee$, but shows a trend for $\SinSq$.) One possible conclusion is that the sub-5~MeV behavior of $\Dmsqee$ (for the full-AD sample) is simply a statistical fluke which goes away when fitting particular subsamples. However, based on these results, it is also quite possible that the behavior is caused by events localized near the edge and/or the bottom of the AD. We therefore conclude that it is unwise to apply a delayed cut below 5~MeV due to the possibility of introducing uncharacterized backgrounds to the IBD sample; if, for some reason, such a low delayed cut is ever warranted in a particular analysis, then it may be prudent to apply a vertex cut to only select events near the centers of the ADs.
+
 \begin{figure}[ht]
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best.png}%
   \end{minipage}%
-  \begin{minipage}{0.5\linewidth}%
+  \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best.png}%
   \end{minipage}%
   \caption{Results of oscillation fit when applying a vertex cut in tandem with a modified delayed cut.}
@@ -595,6 +637,8 @@ As for the radial distribution, even though the AmC sources are located at three
 
 \section{Joint variation of cuts}
 \label{sec:cutVaryJoint}
+
+Thus far, we have largely studied each cut independently of the others. (The exceptions are the shower muon threshold and veto window, which we have varied jointly, as well as the simultaneous application of a vertex cut and a modified delayed cut). The results have indicated that our analysis is acceptably stable under such variations. However, it is hypothetically possible that problems may arise when more than one cut is varied at the same time. As such, we conclude these studies by exploring the effects of jointly modifying all of these cuts (the two shower veto parameters, the minimum delayed energy, and the minimum prompt energy). 
 
 \begin{figure}[h]
   \includegraphics[scale=0.5]{CutVary/JointVary/cut_hists.png}
