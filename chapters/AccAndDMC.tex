@@ -208,18 +208,18 @@ or, after rearranging and multiplying the top and bottom equations by $\tL$ and 
   \end{split}
 \end{align*}
 Adding these two coupled equations gives
-\begin{equation*}
+\begin{equation}
   e^{\RL \tL + \RR \tR} (\NL \tL + \NR \tR) = \emu (\RL \tL + \RR \tR) T
-\end{equation*}
+\end{equation}
 which, after some rearrangement, gives:
-\begin{equation*}
+\begin{equation}
   (-\RL \tL - \RR \tR) e^{-\RL \tL - \RR \tR} = -\frac{\NL \tL + \NR \tR}{\emu T}.
-\end{equation*}
+\end{equation}
 This equation takes the form $we^w = z$, which cannot be solved for $w$  using elementary functions. Instead we employ the Lambert $W$ function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w) = w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches. We know that, for an O(1~ms) isolation window, $\RL \tL \ll 1$ (and likewise for $\RR$), implying that the correct choice is the upper branch $W_0$. Then
-\begin{equation*}
+\begin{equation}
   % \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
   \RL \tL + \RR \tR = - W_0\left(-\frac{\NL \tL + \NR \tR}{\emu T}\right)
-\end{equation*}
+\end{equation}
 Finally, inserting this into \eqref{eq:ident1}, we obtain the isolation cut
 efficiency:
 \begin{equation}

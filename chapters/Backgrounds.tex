@@ -26,26 +26,26 @@ The flasher identification criteria were developed in a somewhat ad-hoc fashion,
 \newcommand\fPSD{f_{\mathrm{PSD}}}
 
 Early in the experiment, this prolonged and interative process eventually gave rise to the \emph{ellipse cut} (based on the charge distribution) and the \emph{PSD cut} (based on the time distribution), which demonstrated excellent performance, and these cuts continue to be used in this analysis. The ellipse cut is based on two quantities, termed $\fmax$ and $\fquad$. The first, $\fmax$, is simply the ratio of $Q_{\mathrm{max}}$ (the maximum individual PMT charge across all PMTs) over the total charge $Q_{\mathrm{tot}}$:
-\begin{equation*}
+\begin{equation}
   \fmax = \frac{Q_{\mathrm{max}}}{Q_{\mathrm{tot}}}.
-\end{equation*}
+\end{equation}
 For flasher events, $Q_{\mathrm{max}}$ belongs to the flashing PMT itself, and $\fmax$ is typically higher for flashers than for physics events. However, physical events near the edge of the detector can exhibit high $\fmax$, so this variable alone is insufficient to cleanly discriminate flashers. As such, we also consider $\fquad$, which is based on dividing the AD into four quadrants: ``Quadrant 1'' (q1) is the one that is centered on the highest-charge PMT; q3 is the one across from q1; and q2 and q4 are the two ``to the side.'' $\fquad$ than captures the conical nature of the light emission:
-\begin{equation*}
+\begin{equation}
   \fquad = \frac{Q_{\mathrm{q3}}}{Q_{\mathrm{q2}} + Q_{\mathrm{q4}}}.
-\end{equation*}
+\end{equation}
 Like $\fmax$, $\fquad$ alone is not a good discriminator, due to overlap between flashers and physics events. However, their combination
-\begin{equation*}
+\begin{equation}
   \fID = \log_{10} \left[ \fquad^2 + \left( \frac{\fmax}{0.45} \right)^2 \right]
-\end{equation*}
+\end{equation}
 turns out to be an excellent discriminator. Indeed, as shown by (XXX Fig. 21 of the long paper), requiring
 \begin{equation}
   \label{eq:ellipseCut}
   \fID < 0
 \end{equation}
 reduces the flasher rate to a negligible level, and many analyses have relied on $\fID$ alone to identify flashing 8" PMTs. Still, even further flasher reduction can be achieved by incorporating timing information. To capture the broadening of the time distribution shown by flashers, we use the variable(s) $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$), defined as the ratio of the number of hits in the first 200 (150)~ns of the signal, over the number of hits in the first 400~ns. The discriminator $\fPSD$ is then defined as
-\begin{equation*}
+\begin{equation}
   \fPSD = \log_{10} [4 \cdot (1 - f_{\mathrm{t}1})^2 + 1.8 \cdot (1 - f_{\mathrm{t}2})^2].
-\end{equation*}
+\end{equation}
 By requiring both $\fID < 0$ and $\fPSD < 0$, we eliminate virtually all 8" PMT flashers from the analysis. However, in addition to the 192 8" PMTs, there are six 2" PMTs located at the top and bottom of each AD along the calibration axes, and these can also flash. Such events were easily identified as those in which a 2" PMT saw an extreme amount of charge, with a cut of 100 PE providing essentially perfect separation between 2" PMT flashers and other events.
 
 The exact efficiency of these cuts, in terms of identifying flashers, is unimportant, as long as it is high enough. Any residual flashers will automatically be counted in the singles rate, and thus so will their contribution to the accidental background rate.\footnote{There is a small second-order correction due to the fact that an accidental cannot be formed by two flashers in the same PMT, given that it takes on the order of a second for a PMT to ``recharge'' after flashing. However, this correction is negigible given the extremely low rate of residual flashers.} On the other hand, it \emph{is} important to study the signal inefficiency, i.e. the probability of improperly rejecting an IBD prompt or delayed trigger. If this inefficiency differs significantly among the ADs, it could bias the oscillation result. The inefficiency was estimated by taking a sample of IBD-like events (without the flasher cut) (XXX Xin's flasher slides), and making a 2D histogram of $(f_{\mathrm{prompt}},f_{\mathrm{delayed}})$, where $f$ is $\fID$ or $\fPSD$. The IBD-like sample consists of a small number of accidentals that contain a flasher (or two), and a much larger number of flasher-free pairs (including true IBDs, accidentals, and correlated backgrounds). The use of IBD-like events has the effect of diluting the presence of flashers in the sample, since a coincident pair is much more likely to come from an IBD than an accidental (which furthermore is more likely to have two physical singles rather than a flasher). The inefficiency was then determined by the degree to which the flasher-free ``blob'' extended into the regions rejected by the discriminator. These studies found that $\fID$ and $\fPSD$ each introduce an inefficiency of 0.02\%, with uncertainties of 0.01\% correlated and 0.01\% uncorrelated. Since we use both of them in this analysis, our estimated inefficiency is 0.04\%, with an uncertainty of 0.02\% correlated and 0.02\% uncorrelated.
@@ -97,9 +97,9 @@ and
   P_2 = \int_t^\infty \frac{1}{\tau}e^{-t'/\tau}\,dt' \cdot R_\mu e^{-R_\mu t} = e^{-t/\tau} \cdot R_\mu e^{-R_\mu t} = R_\mu e^{-(R_\mu + 1/\tau)t}.
 \end{align*}
 Letting
-\begin{equation*}
+\begin{equation}
   \lambda = R_\mu + 1/\tau,
-\end{equation*}
+\end{equation}
 we finally add $P_1$ and $P_2$ to obtain the PDF of time-to-last-muon for \linine\ decays:
 \begin{equation}
   \label{eq:cosmoBkgPdfLi}
@@ -107,9 +107,9 @@ we finally add $P_1$ and $P_2$ to obtain the PDF of time-to-last-muon for \linin
 \end{equation}
 
 Comparing \autoref{eq:cosmoBkgPdfLi} and \autoref{eq:cosmoBkgPdfIbd}, we see that, if $\lambda$ is sufficiently different from $R_\mu$ (in other words, if $R_\mu$ is sufficiently small relative to $1/\tau$), then there will be a measurable difference between the time-to-last-muon PDFs of \linine\ and IBD events. In this case, the separate event counts can be obtained by constructing a histogram of time-to-last-muon from a mixed sample of IBDs and \linine\ events. This histogram can then be fit to a weighted sum of \autoref{eq:cosmoBkgPdfLi} and \autoref{eq:cosmoBkgPdfIbd}, with the weights (as detemined by the fit) corresponding to the number of events in the two categories:
-\begin{equation*}
+\begin{equation}
   f(t) = N_{\mathrm{Bkg}} \lambda e^{-\lambda t} + N_{\mathrm{IBD}} R_\mu e^{-R_\mu t}.
-\end{equation*}
+\end{equation}
 
 If the fit is allowed to extend down to $t$ of a couple dozen ms, an additional correlated component must be considered resulting from accidental double coincidences of $^{12}$B and/or $^{12}$N decays. These two isotopes, with respective lifetimes of 29 and 16~ms, and $\beta^\pm$ endpoints of 13.7 and 16.3~MeV, can be produced multiple times by a single muon shower, and their decays extend well into the delayed energy region. Their double coincidences are already considered as part of the accidental background estimation\footnote{There is some bias owing to the fact that the prompt and delayed $^{12}$B/$^{12}$N are not uncorrelated in time (as assumed in the accidentals calculation), but are in fact correlated by virtue of their usually coming from the same parent muon. However, the rate of such events is extremely low (relative to the total accidentals rate), as can be seen in the fits shown later in this chapter, so there is no need to attempt a correction to the accidentals rate.}, so we are not concerned with measuring them here as a separate background; however, they do distort the time-to-last-muon histogram at low times, and thus they must be considered in order to extract the \linine\ component accurately. Past fits (XXX cite) to the spectrum of muon-correlated singles have indicated that $^{12}$B is by far the dominant of these isotopes, so in what follows we treat it as the only one of relevance.
 
@@ -431,9 +431,9 @@ The first experimental suggestion of this background came from an observed exces
 At first glance, the AmC background could be measured simply by removing the AmC sources from one detector and comparing the IBD candidate rate to an adjacent detector. However, given the low rate of this process (0.2--0.3 events/day/AD when all three AmC sources are installed) and the substantial ``background'' from IBDs, it would take an impractical amount of time to accumulate sufficient statistics, and the AdScaled calibration would be impaired in the meantime. On the other hand, it \emph{is} possible to directly measure the rate ($\sim$230/day, initially) of \emph{uncorrelated} events from neutron capture in the stainless steel. Furthermore, MC simulations can be used to relate the rates of uncorrelated and correlated events. Finally, a high-activity AmC source (HAS) can be used to benchmark the MC. These three insights together enable a relatively precise (i.e. to within 45\%) determination of the AmC background.
 
 The following is the fundamental relationship used in the AmC background estimation:
-\begin{equation*}
+\begin{equation}
   R_{\mathrm{corr}} = R_{\mathrm{uncorr}} \times \xi = R_{\mathrm{uncorr}} \times \int_{0.7}^{\SI{12}{MeV}} f(E)\,dE.
-\end{equation*}
+\end{equation}
 Here, $R_{\mathrm{uncorr}}$ is the rate of uncorrelated neutron-like events produced by the AmC source, as measured directly from ordinary data. Meanwhile, $\xi$ is the ratio of correlated to uncorrelated events, as determined from a combination of simulations and HAS data. $f(E)$ is simply the differential value of $\xi$ as a function of prompt energy; i.e. $f(E)\,dE$ is the number of correlated events with $E_{\mathrm{p}}$ in [$E$, $E + dE$], per uncorrelated neutron-like event.
 
 $R_{\mathrm{uncorr}}$ was measured trivially, simply by taking the difference in the number of neutron-like events between the top and bottom halves of each AD. All of the complexity lay in the determination of $\xi$. In principle, $\xi$ could be extracted directly from a MC simulation. Although the Daya Bay MC contains a detailed and accurate modeling of the detector materials and geometry (including the ACUs and the AmC sources themselves), any inaccuracies in the simulated physics could bias the obtained value of $\xi$. Accordingly, the HAS was designed and deployed in order to validate the simulations.
@@ -445,9 +445,9 @@ Meanwhile, the number of \emph{correlated} AmC events was measured by taking the
 Compared to the HAS, the ordinary, i.e. low-intensity, AmC source (LAS) is expected to have a lower $\xi$, since it lies farther from the AD and has a lower density of surrounding stainless steel. For the LAS, the MC predicted a $\xi$ of $0.9\times10^{-3}$. Based on the MC/data comparison for the HAS, this value was scaled up by 25\% to $1.125\times10^{-3}$, with an uncertainty of 30\%. 
 
 In addition to the rates, the prompt spectrum of the AmC background also required determination. Fortunately, excellent agreement was found between the data and MC prompt spectra for the HAS. Furthermore, similar agreement was found between the MC HAS and MC LAS prompt spectra, in spite of the differences in geometry and material between the HAS and the LAS. As such, any one of these spectra could have been chosen as a reference. The choice was made to use the measured HAS spectrum, which was fit to an exponential function,
-\begin{equation*}
+\begin{equation}
   f(E) = p_0 \times e^{-E/p_1}.
-\end{equation*}
+\end{equation}
 The fit gave $p_1 = \SI{0.783}{MeV}$ with a 10\% statistical uncertainty, compared to \SI{0.794}{MeV} and \SI{0.830}{MeV} for the LAS and HAS MC samples, respectively. This 5\% spread, in combination with the 10\% statisical uncertainty, gave a conservative total uncertainty of 15\% on $p_1$ (essentially a shape uncertainty). Meanwhile, $p_0$ was fixed by the normalization condition $\int f(E)\,dE = \xi$, giving (for $\xi = 1.125\times10^{-3}$) $p_0 = \SI[parse-numbers = false]{3.606\times10^{-3}}{/MeV}$. Conservatively combining the 30\% uncertainty on $\xi$ with the 15\% uncertainty on $p_1$ gave a total uncertainty of 45\% on the AmC background. Given the identical design of the ADs, identical behavior was assumed with respect to the AmC background, and no attempt was made to calculate AD-specific quantities.
 
 After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to leakage of scintillator into the source enclosures. This led to an ultimate background rate of only 0.05\% and 0.03\%, near and far (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher.)

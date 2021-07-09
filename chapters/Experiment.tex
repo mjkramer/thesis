@@ -122,9 +122,9 @@ Thus, the raw information collected from each AD consists of a set of triggers. 
 The vast majority of events recorded by the ADs are unrelated to neutrinos. Most events come from natural radioactivity in the detector and scintillator materials, as well as from cosmic ray muons and the byproducts of muon-nucleon reactions. Fortunately, it is possible to exploit the double-trigger nature of antineutrino events in order to effectively extract them from the data, as we explain here.
 
 Antineutrinos can interact with the GdLS target in a number of ways. Their interactions can be mediated either by the $W^-$ boson (corresponding to a \emph{charged current}, or CC, interaction), in which case the antineutrino becomes a positron, or they can be mediated by the $Z$ boson (corresponding to a \emph{neutral current}, or NC, interaction), in which case the antineutrino escapes from the detector after depositing some recoil energy in the target. Furthermore, the interaction may take place between the antineutrino and either an electron, a proton, a neutron, or (coherently) an entire nucleus. Among these many possibilities, however, only one channel provides a signature that allows for efficient discrimination from background: inverse beta decay (IBD),
-\begin{equation*}
+\begin{equation}
   \nubar_e + p \rightarrow e^+ + n.
-\end{equation*}
+\end{equation}
 This interaction is illustrated in \autoref{fig:expIBD}. An initial \emph{prompt} scintillation signal is produced by the positron (first from direct ionization, then from the gamma rays produced by annihilation). Meanwhile, the free neutron thermalizes and is then captured by a nucleus, which quickly de-excites, emitting gamma rays that provide a second, \emph{delayed,} signal, closely correlated in time with the prompt signal. This ``double-pulse'' signature effectively distringuishes IBDs from events produced by natural radioactivity, as the latter largely consists of single pulses. Meanwhile, muon-induced double-pulse events can be eliminated by simply vetoing for a sufficient length of time after each muon, as described in \autoref{chap:selection}. The use of gadolinium further improves background separation: Without gadolinium, most neutrons would be captured on hydrogen, with a time constant of $\sim$200~$\mu$s and a release of 2.2~MeV in gamma ray energy. However, in the GdLS, some 85\% of neutrons are captured on gadolinium \cite{spectrum2017}; compared to hydrogen captures, gadolinium captures have a much shorter time constant of $\sim$30$\mu$s and a much higher delayed gamma ray energy of 8~MeV. These two properties significantly reduce the probability of accidentally identifying a pair of uncorrelated events as an IBD, especially since the rate of uncorrelated events drops dramatically above 5~MeV. Thanks to the use of gadolinium captures, such ``accidental'' backgrounds make up only 1-2\% of the selected IBD sample. Further details regarding background measurement and subtraction can be found in \autoref{chap:bkg}.
 
 \begin{figure}[ht]
@@ -134,18 +134,18 @@ This interaction is illustrated in \autoref{fig:expIBD}. An initial \emph{prompt
 \end{figure}
 
 The kinematics of the IBD reaction are fairly straightforward. Essentially all of the antineutrino's energy $E_{\nubar}$ comes from its kinetic energy. During the interaction, some of this energy, equal to the neutron-proton mass difference $m_n - m_p$ (1.3~MeV) goes toward the conversion of the target proton into a neutron. An additional small amount of energy, on the order of 10~keV \cite{An_2017}, provides the recoil kinetic energy $K_n$ of the neutron. The conversion of the antineutrino into a positron consumes additional energy equal to the positron mass $m_e$ (511~keV). All of the remaining energy takes the form of the positron's kinetic energy $K_{e^+}$. Thus,
-\begin{equation*}
+\begin{equation}
   K_{e^+} = E_{\nubar} - (m_n - m_p) - m_e - K_n
-\end{equation*}
+\end{equation}
 After depositing its kinetic energy via ionization of the scintillator, the positron annihilates with an electron, releasing a pair of gamma rays with a total energy of $2m_e$. These gamma rays then undergo Compton scattering and/or photoelectric absorption, and the scintillator is further ionized by the kinetic energy of the resulting electrons. The total deposited energy $E_{\mathrm{dep}}$ is then
 \begin{align*}
   E_{\mathrm{dep}} &= K_{e^+} + 2m_e \\
              &= E_{\nubar} + m_e - (m_n - m_p) - K_n.
 \end{align*}
 Since the energy resolution of the AD is, in the worst case (i.e. around 1~MeV), about 10\% (or 100~keV) \cite{An_2017}, the O(10~keV) kinetic energy of the neutron can be safely neglected. Using the fact that
-\begin{equation*}
+\begin{equation}
   (m_n - m_p) - m_e \approx \SI{0.8}{MeV},
-\end{equation*}
+\end{equation}
 we finally find that
 \begin{equation}
   \label{eq:enuToEdep}
@@ -158,9 +158,9 @@ The energy threshold for the IBD reaction is equal to the amount of energy neede
                     &= \SI{1.8}{MeV}.
 \end{align*}
 Using \autoref{eq:enuToEdep}, it then follows that
-\begin{equation*}
+\begin{equation}
   E_{\mathrm{dep},\mathrm{min}} = \SI{1.0}{MeV}.
-\end{equation*}
+\end{equation}
 Of course, this is also apparent from the simple fact that a threshold positron, with zero kinetic energy, will deposit an energy equal to $2m_e$, or $\sim$1.0~MeV. Given the finite energy resolution of the detector, some of these events will be reconstructed below 1.0~MeV. As such, a standard prompt energy cut of 0.7~MeV is used in the official Daya Bay oscillation analyses, corresponding to about 3$\sigma$ below the 1.0~MeV peak. In \autoref{chap:cutVary}, we explore the effects of modifying this 0.7~MeV cut.
 
 \section{Water pools and muon system}

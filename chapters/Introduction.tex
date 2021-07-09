@@ -29,13 +29,13 @@ Since neutrinos have only ever been observed via their weak interactions, which 
 Neutrino oscillations are the consequence of two facts: First, that the flavor eigenstates are not the same as the mass eigenstates (\emph{mixing}), and second, that the mass eigenvalues aren't fully degenerate (implying that at least one is nonzero). As a result, a flavor eigenstate is a superposition of mass eigenstates which each undergo phase rotation at their own rates; the mass components thus interfere to produce different flavor compositions over time, leading to the observation of oscillations.
 
 The neutrino fields in the flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, $\upmns$ (or simply $U$):
-\begin{equation*}
+\begin{equation}
   \nu_\alpha = U_{\alpha i} \nu_i,
-\end{equation*}
+\end{equation}
 that is, for three generations,
-\begin{equation*}
+\begin{equation}
   \flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol.
-\end{equation*}
+\end{equation}
 It can then be shown that the \emph{states} (as opposed to the fields) are related by the complex conjugate of $U$:
 \begin{equation}
   \label{eq:nuStateRel}
@@ -54,18 +54,18 @@ where \(c_{12} \equiv \cos\theta_{12}\) and \(s_{12} \equiv \sin\theta_{12}\), e
 Physically speaking, neutrinos are produced in processes that are localized in space and time. A fully microscopic treatment of neutrino oscillation would therefore involve modeling each neutrino as a wave packet of definite initial flavor. However, given a bulk flux of neutrinos from a spatially extensive source, the oscillation probability for neutrinos of energy $E$ can be calculated by simply considering a spacetime-filling plane wave. This approach ignores effects caused by interference and decoherence of wave packet components; however, these effects were shown to be completely insignificant under the experimental conditions at Daya Bay \cite{DayaBayWavePacket}.
 
 To calculate the oscillation probability over baseline $L$ for a neutrino of energy $E$ and initial flavor $\alpha$, we first redefine the problem slightly and consider a neutrino plane wave $\ket{\nu(t)}$ of initial flavor $\alpha$ and well-defined \emph{momentum} $\vec{p}$, such that \(E = |\vec{p}|\).\footnote{One could instead assume a well-defined \emph{energy}, or even \emph{velocity}, and the end result would be the same to leading order. The advantage of fixing the momentum is that it provides a spatially uniform flavor composition at all times, so we need only worry about the time dependence.} This state contains components of three different energies, one for each mass eigenstate. For clarity, flavor and mass eigenstates will be labeled with the superscripts F and M, respectively. Following \cite{Giunti_2007}, we have
-\begin{equation*}
+\begin{equation}
   \ket{\nu(0)} = \ket{\nuF_\alpha} = U^*_{\alpha i} \ket{\nuM_i}. 
-\end{equation*}
+\end{equation}
 In natural units ($c = \hbar = 1$), this state evolves in time like
-\begin{equation*}
+\begin{equation}
   \ket{\nu(t)} = e^{-i E_i t} U^*_{\alpha i} \ket{\nuM_i}.
-\end{equation*}
+\end{equation}
 Given that we've fixed the momentum $\vec{p}$, the energy $E_i$ of the $i$th mass eigenstate component of $\ket{\nu}$ is
-\begin{equation*}
+\begin{equation}
   E_i = \sqrt{p^2 + m_i^2} \approx p + \frac{m_i^2}{2p} \equiv E +
   \frac{m_i^2}{2E}.
-\end{equation*}
+\end{equation}
 Here, we assume that the masses are very small, below an eV$^2$, which at the O(MeV) energy scales we consider, allows for the use of the Taylor expansion.\footnote{In the case of the electron neutrino, this smallness was obvious from the earliest observations of beta decay kinematics. For the muon neutrino, direct measurements of pion decay \cite{BOOTH196739} provided a less-stringent upper limit on the mass of O(1~MeV), but later oscillation measurements of the mass-squared splittings showed that all three eigenstates indeed possess similarly tiny masses.} This gives, after we discard the global phase evolution $e^{-iEt}$,
 \begin{align*}
   \ket{\nu(t)} &= \exp\left(-i\frac{m_i^2t}{2E}\right) U^*_{\alpha i} \ket{\nuM_i} \\
@@ -87,14 +87,14 @@ where \(\Delta m^2_{ji} \equiv m^2_j - m^2_i\). This can be rewritten by separat
   \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{equation}
 where, for clarity, we are explicitly indicating the summations. Going further, we can employ the unitarity relation
-\begin{equation*}
+\begin{equation}
   U_{\alpha j} U^*_{\beta j} = \delta_{\alpha \beta}
-\end{equation*}
+\end{equation}
 which, upon squaring, gives
-\begin{equation*}
+\begin{equation}
   \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta}
   - 2 \sum_{j > i} \Re(U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}).
-\end{equation*}
+\end{equation}
 Substituting this into \eqref{eq:oscSepSums}, and using Euler's identity, along with the trigonometric identity \(1 - \cos 2\varphi = 2\sin^2 \varphi\), we finally get
 \begin{align}
   \label{eq:oscReIm}
@@ -106,9 +106,9 @@ Substituting this into \eqref{eq:oscSepSums}, and using Euler's identity, along 
   \end{split}
 \end{align}
 Note that this result applies to \emph{neutrinos,} not antineutrinos. For the latter, we have, analogously to \eqref{eq:nuStateRel},
-\begin{equation*}
+\begin{equation}
   \ket{\nubar_\alpha} = U_{\alpha i}\ket{\nubar_i}
-\end{equation*}
+\end{equation}
 (note the lack of complex conjugation on the matrix element). The preceding derivation then produces \eqref{eq:oscReIm} with the complex conjugations swappped.
 
 Now that we have defined the mixing angles and mass-squared splittings, it is worthwhile to enumerate the global best-fit values of these parameters, since the values will be alluded to in subsequent discussions. \autoref{tab:pdgOscPars} lists the values as compiled by the Particle Data Group \cite{PDG}. Currently, it is unknown whether the neutrino mass spectrum consists of two ``light'' states and one ``heavy'' state, or vice versa. This issue is discussed further in \autoref{sec:majorana}. The two possible \emph{orderings} (or \emph{hierarchies}) are labelled ``normal'' and ``inverted'', respectively, as illustrated in \autoref{fig:massOrdering}. Since the ordering affects the existing measurements of $\theta_{23}$ and $\Delta m^2_{23}$, \autoref{tab:pdgOscPars} gives values for both cases.
@@ -139,10 +139,10 @@ Now that we have defined the mixing angles and mass-squared splittings, it is wo
 \end{figure}
 
 In an experiment like Daya Bay, where we are looking for the \emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and antineutrinos is the same, and \eqref{eq:oscReIm} simplifies to
-\begin{equation*}
+\begin{equation}
   P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
     i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). 
-\end{equation*}
+\end{equation}
 The matrix elements from \eqref{eq:upmnsParam} can then be inserted in order to derive the disappearance probability for a particular flavor. For electron antineutrinos, as at Daya Bay, the survival probability is
 \begin{align}
   \label{eq:survProbDybFull}
@@ -161,14 +161,14 @@ where we've introduced the notation
 \end{align*}
 
 Based on the value of $\Delta m^2_{21}$ given in \autoref{tab:pdgOscPars}, at Daya Bay \(\sin^2 \Delta_{21}\) is so small that the experiment has no ability to constrain $\theta_{12}$ (nor \(\Delta m^2_{21}\) itself). In this analysis, then, $\theta_{12}$ and $\Delta m^2_{21}$ are fixed to the global values. This leaves $\theta_{13}$, \(\abs{\Delta m^2_{31}}\), and \(\abs{\Delta m^2_{32}}\). However, given that the difference between \(\abs{\Delta m^2_{31}}\) and \(|\Delta m^2_{32}|\) is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient for resolving the difference. Therefore, Daya Bay cannot measure the two splittings jointly. On the other hand, since \(\Delta m^2_{21}\) is well constrained and known to be positive, we can tightly relate \(\abs{\Delta m^2_{31}}\) and \(\abs{\Delta m^2_{32}}\):
-\begin{equation*}
+\begin{equation}
   \label{eq:hierarchy}
   \abs{\Delta m^2_{31}} =
   \begin{cases*}
     \abs{\Delta m^2_{32}} + \Delta m^2_{21}, & normal hierarchy ($\Delta m^2_{32} > 0$), \\
     \abs{\Delta m^2_{32}} - \Delta m^2_{21}, & inverted hierarchy ($\Delta m^2_{32} < 0$), \\
   \end{cases*}
-\end{equation*}
+\end{equation}
 Thus, by using this relation to eliminate one parameter, it is possible to perform a two-parameter fit of \eqref{eq:survProbDybFull} directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported; furthermore, they are subject to change if an improved determination of \(\Delta m^2_{21}\) is ever published.
 
 Alternatively, we can recast \eqref{eq:survProbDybFull} in a form that refers only to an empirical \emph{effective} mass splitting \(\Delta m^2_{ee}\):
@@ -178,9 +178,9 @@ Alternatively, we can recast \eqref{eq:survProbDybFull} in a form that refers on
   - \sin^2 2\theta_{13}\sin^2\Delta_{ee},
 \end{equation}
 where
-\begin{equation*}
+\begin{equation}
   \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. 
-\end{equation*}
+\end{equation}
 It must be noted that \eqref{eq:survProbDybEE} is not an exact reparameterization of \eqref{eq:survProbDybFull}, since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve between $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to \(\Delta m^2_{21}\).
 
 \(\Delta m^2_{ee}\), as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into \eqref{eq:survProbDybEE}, gives the best fit to the data.
@@ -196,19 +196,19 @@ In Daya Bay's case, however, \(\Delta m^2_{ee}\) can be related to physical quan
   \approx \sin^2 (\Delta_{32} \pm \phi),
 \end{equation}
 where
-\begin{equation*}
+\begin{equation}
   \phi \equiv \arctan\left( \frac{\sin2\Delta_{21}}{\cos2\Delta_{21}+ \tan^2
       \theta_{12}} \right),
-\end{equation*}
+\end{equation}
 and ``+'' (``--'') corresponds to the normal (inverted) hierarchy. Inserting \eqref{eq:dmPhi} into \eqref{eq:survProbDybFull} and comparing to \eqref{eq:survProbDybEE} gives the approximate relation
 \begin{equation}
   \label{eq:dmPhiApprox}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{32}} \pm \Delta m^2_\phi/2,
 \end{equation}
 where
-\begin{equation*}
+\begin{equation}
   \Delta m^2_\phi = \frac{4\phi E}{L}.
-\end{equation*}
+\end{equation}
 Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to \(\cos^2\theta_{12}\Delta m^2_{21}\). Inserting that into \eqref{eq:dmPhiApprox}, we find that, for both mass hierarchies,
 \begin{equation}
   \label{eq:dmPhysical}
@@ -230,9 +230,9 @@ Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m
 \label{sec:history}
 
 In the late 1960s, deep in the Homestake mine located in South Dakota, Ray Davis filled a large tank with tetrachloroethylene, a common dry-cleaning agent, and waited as solar neutrinos interacted with chlorine-37 atoms via the reaction
-\begin{equation*}
+\begin{equation}
   \mathrm{\nu_e + \ ^{37}Cl \longrightarrow \ ^{37}Ar + e^-.}  
-\end{equation*}
+\end{equation}
 Every few weeks, from 1970 to 1994, the helium atmosphere was bubbled through the liquid in order to extract the few dozen argon atoms thaat were produced in the time since the previous extraction. Each extraction was then placed in a gas-filled proportional chamber, where the $^{37}$Ar decays (roughly one per week) were counted over the course of a year or so (long enough to count effectively all of the atoms, given the 35-day half-life of $^{37}$Ar). By the early 1970s, the measurements were clearly indicating a reaction rate that was one-third of the prediction derived from the Standard Solar Model (SSM) \cite{DAVIS199413}. This ``solar neutrino problem'' was interpreted to mean that either the SSM or the experiment was in error, and neutrinos remained, according to the wisdom of the day, massless.
 
 Despite the prevailing belief in masslessness, the possibility of massive neutrinos was considered as early as 1962, soon after the discovery that neutrinos come in separate electron and muon flavors. That year, in the ``MNS'' paper by Maki, Nakagawa, and Sakata \cite{10.1143/PTP.28.870}, the authors considered the possibility of neutrino flavor mixing, possibly from a nonzero mass. Neutrino mixing had been considered previously by Pontecorvo in 1957 \cite{Pontecorvo:1957cp}, but in the form of neutrino-antineutrino mixing, in analogy with the the then-recently discovered phenomenon of neutral kaon mixing \cite{PhysRev.105.1925.2}. Pontecorvo revisited the subject in 1967, building upon the MNS formalism to describe how oscillations could occur in travelling neutrinos, going so far as to suggest that solar neutrinos could oscillate (well before the first experimental hints of such by the Davis experiment). Still, it would take decades of further obervations to prove that these four theorists were correct.
