@@ -640,11 +640,30 @@ In \autoref{fig:cutVaryVtxCutWithDelayed}, we show the results of applying these
 
 Thus far, we have largely studied each cut independently of the others. (The exceptions are the shower muon threshold and veto window, which we have varied jointly, as well as the simultaneous application of a vertex cut and a modified delayed cut). The results have indicated that our analysis is acceptably stable under such variations. However, it is hypothetically possible that problems may arise when more than one cut is varied at the same time. As such, we conclude these studies by exploring the effects of jointly modifying all of these cuts (the two shower veto parameters, the minimum delayed energy, and the minimum prompt energy). 
 
+To carry out this study, 100 sets of cut values were randomly generated from Gaussian distributions whose parameters were chosen to cover the same ranges of values used when studying the cuts individually. Each distribution also included hard cutoffs at both ends in order to exclude extreme values. The parameters of these distributions are given in \autoref{tab:cutVaryJointVaryGaussTbl}. Individual histograms of the generated values are shown in \autoref{fig:cutVaryJointVaryCutHists}.
+
+\begin{table}[ht]
+  \begin{tabular}{lrrrr}
+    \toprule
+    Cut & Min & Max & Mean & Sigma \\
+    \midrule
+    Shower muon threshold ($\times 10^5$ p.e.) & 2.2 & 4.6 & 3.4 & 0.6\\
+    Shower veto time (s) & 0.25 & 2 & 1.125 & 0.4375\\
+    Min delayed energy (MeV) & 5 & 7 & 6 & 0.5\\
+    Min prompt energy (MeV) & 0.5 & 1 & 0.75 & 0.125\\
+    \bottomrule
+  \end{tabular}
+  \caption{Parameters of the Gaussian distributions (with cutoffs) used in generating random cut values for the joint variation study.}
+  \label{tab:cutVaryJointVaryGaussTbl}
+\end{table}
+
 \begin{figure}[h]
   \includegraphics[scale=0.5]{CutVary/JointVary/cut_hists.png}
   \caption{Histograms of random cut values used in the joint variation study.}
   \label{fig:cutVaryJointVaryCutHists}
 \end{figure}
+
+\autoref{fig:cutVaryJointVaryResults} shows the histograms of the best-fit values of $\SinSq$ and $\Dmsqee$ for these 100 sets of cuts. From visual inspection, the spread of $\SinSq$ is $\sim0.0005$, significantly smaller than the error on $\SinSq$ of $\sim0.004$. Similarly, the spread of $\Dmsqee$ is $\sim2\times10^{-5}$, again a fraction of the uncertainty of $\sim9\times10^{-5}$. In \Autoref{fig:cutVaryJointVaryS2tScatter,fig:cutVaryJointVaryDm2Scatter}, we simultaneously plot each best-fit oscillation parameter along with the corresponding cut values, illustrating again that the scale of variation is much smaller than the error bar, and that there are no obvious correlations between the cut values and the best-fit parameters. From these results, we conclude that our analysis is stable against variations in the IBD selection cuts, even when multiple cuts are varied at the same time.
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
