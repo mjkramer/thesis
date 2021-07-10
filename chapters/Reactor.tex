@@ -5,6 +5,7 @@
 \chapter{Reactor prediction}
 \label{chap:reactor}
 
+NB: Much of the work described here was performed by C.~Lewis in \cite{Lewis}. Need to provide references throughout this chapter.
 
 In principle, a reactor-based near/far experiment can measure the oscillation parameters without any recourse to reactor physics: Simply measure the spectrum at the near site, ``unoscillate'' it back to the reactor, and then oscillate it out to the far site. The oscillation parameters are then those that give the best fit to the far-site data. No information is needed on reactor power, fission fractions, or theoretical antineutrino spectra.
 
@@ -113,7 +114,7 @@ Each core's average daily thermal power is provided as a fraction of the full no
 
 The fission fractions of a core can be expressed as a function of \emph{burnup}. Burnup is defined as the total energy extracted from each unit mass of fuel, typically given in units of MWd/(megaton uranium). The power company has performed simulations to determine the fission fractions versus burnup of each core\footnote{Data is provided for a full fuel cycle; for cycles that haven't yet run their course, nominal projections of thermal power are used for the ``future'' fractions.}, and this information is provided to the collaboration in intervals of $\sim$1000~MWd/MTU. The company also provides the burnup of each core at two-week intervals; using daily thermal power to interpolate between the provided points, the daily burnup, and hence fission fractions, can be calculated.
 
-[XXX How do we deal with the fact that each core contains three batches at different burnups? See Christine's code.]
+% [XXX How do we deal with the fact that each core contains three batches at different burnups? See Christine's code.]
 
 \section{Final AD spectrum}
 \label{sec:adspectra}
@@ -132,6 +133,6 @@ Putting it all together, the predicted IBD spectrum at a given detector, from a 
 \section{Uncertainties and correlations}
 \label{sec:reacunccorr}
 
-To be continued.
+A covariance matrix (across energy bins and ADs) for the predicted reactor spectrum was produced in \cite{Lewis} by repeatedly generating predicted spectra under random variations of the parameters of the reactor model. TODO: Details!
 
 \end{document}
