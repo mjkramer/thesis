@@ -307,12 +307,12 @@ The accidentals rate, as calculated using \autoref{eq:accRate}, carries a statis
 
 In spite of these complications, it is still possible to undertake a theoretical calculation of the statistical uncertainty on the accidentals rate. This would involve expanding \autoref{eq:accRate} in terms of the various event counts $N_{\mathrm{p}}$, $N_{\mathrm{d}}$, etc., and then reexpressing the event counts (such as the prompt-like and delayed-like counts) as sums of counts of \emph{disjoint} event classes $N_1$, $N_2$, etc. (e.g., an 0.7--6 MeV class and a 6--12 MeV class). This complicated function $R_{\mathrm{acc}}(N_1, N_2, \ldots)$ could then be expanded in a power series using computer algebra. From that, an expression for the variance $\braket{R_{\mathrm{acc}}^2} - \braket{R_{\mathrm{acc}}}^2$ could be obtained up to any desired order, and evaluated using the known cumulants of the Poisson distribution.
 
-Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance, particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate. For this reason, a simple Monte Carlo was developed for calculating this uncertainty.
+Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance, particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate. For this reason, a simple Monte Carlo was developed for calculating this uncertainty. It gave results consistent with the uncertainty published in \cite{An_2017}. (TODO: Include details; show my histogram of accidentals rates under random variations of the prompt/delayed-like rates.)
 
-\section{Conclusions}
-\label{sec:accdmcconcl}
+% \section{Conclusions}
+% \label{sec:accdmcconcl}
 
-The most subtle part of this calculation is the efficiency of the isolation cut.
-I hope that there isn't any circular logic lurking in my derivation.
+% The most subtle part of this calculation is the efficiency of the isolation cut.
+% I hope that there isn't any circular logic lurking in my derivation.
 
 \end{document}

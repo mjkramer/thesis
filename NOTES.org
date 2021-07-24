@@ -225,6 +225,7 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[https://arxiv.org/abs/1707.03699][{1707.03699} The Flash ADC system and PMT waveform reconstruction]]
 ** Neutral kaon mixing
 - http://hitoshi.berkeley.edu/129A/Cahn-Goldhaber/chapter7.pdf
+  - doc-10421 (yury/pedro AdSimple collab mtng)
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software

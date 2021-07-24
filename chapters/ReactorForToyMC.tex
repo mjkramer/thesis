@@ -98,7 +98,8 @@ It is this $F_c(E)$ that is fed into the fitter (for extrapolation) and the toy 
 \section{Fluctuated spectra}
 \label{sec:reactoyFluct}
 
-Use the Cholesky decomposition of Lewis's covariance matrix \cite{Lewis}. Generate an array x of Gaus(1), multiply by L from Cholesky, fluctuate each bin of the nominal spectrum by the relative amount contained in Lx. Do this four times, once for each isotope. Now we have fluctuated spectra. The covariance matrix accounts for uncertainties in the published spectra (both correlated and uncorrelated between isotopes), fission fraction uncertainty (5\%), relative reactor power uncertainty, and non-equilibrium uncertainty. (XXX What about SNF uncertainty? Check \cite{Lewis}.)
+Use the Cholesky decomposition of Lewis's covariance matrix \cite{Lewis}. Generate an array x of Gaus(1), multiply by L from Cholesky, fluctuate each bin of the nominal spectrum by the relative amount contained in Lx. Do this four times, once for each isotope. Now we have fluctuated spectra. The covariance matrix accounts for uncertainties in the published spectra (both correlated and uncorrelated between isotopes), fission fraction uncertainty (5\%), relative reactor power uncertainty, and non-equilibrium uncertainty.
+% (XXX What about SNF uncertainty? Check \cite{Lewis}.)
 
 The actual generation of the covariance matrix is discussed in \autoref{sec:reacunccorr}, with the full details available in \cite{Lewis}.
 
