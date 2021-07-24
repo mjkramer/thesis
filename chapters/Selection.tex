@@ -105,6 +105,17 @@ IBD candidates that pass the DMC are stored in an output tree containing the run
 
 After the $\sim$5,500 hall-daily files have been fully produced, they are merged with \texttt{hadd} into nine files, the product of three halls and three periods (the 6AD, 8AD, and 7AD periods, whose names reference the number of operating ADs). The splitting into periods is done for convenience in preparing the input files required by the fitter, which expects separate files for each period. The fitter's input files, which consist of the IBD spectra, the accidentals spectra, and textual tables of rates, efficiencies, backgrounds, uncertainties, etc., are prepared by a simple script from these nine hall-period files.
 
+\subsubsection{Extracted prompt spectra}
+\label{sec:selPromptSpec}
+
+Altogether, these steps produce a set of IBD candidates (including backgrounds) for each AD. The prompt energies of these candidates are then used to generate the prompt spectra (in the form of histograms) \autoref{fig:selPromptSpec} shows the total prompt spectrum for each hall obtained using the nominal IBD selection cuts. Although backgrounds have not been subtracted, the total relative background rate at Daya Bay is only 1--2\%, so these spectra provide a reasonable measurement of the true IBD spectral shape, and will be referenced for this purpose throughout this text.
+
+\begin{figure}[h]
+  \includegraphics[scale=0.8]{Selection/prompt_spec_3halls.pdf}
+  \caption{Reconstructed prompt energy of the nominal set of IBD candidates for each hall.}
+  \label{fig:selPromptSpec}
+\end{figure}
+
 \section{Singles selection}
 \label{sec:selSingles}
 
