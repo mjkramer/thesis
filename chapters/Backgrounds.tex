@@ -603,7 +603,13 @@ To study the response of the detectors to neutrons, each AD was initially config
 
 In spite of these precautions, a rare mechanism can still produce correlated backgrounds: A neutron may scatter inelastically in the stainless steel against Fe, Cr, Mn, or Ni, producing prompt gammas (generally totalling less than 3 visible MeV), before thermalizing and being captured either by one of these four elements or by Gd in the GdLS overflow tank (producing a signal between 6 and 12 visible MeV). Although many of these gammas do not reach the scintillator, some do, and when this happens for both the prompt and delayed gammas, the resulting pair can sometimes pass the IBD selection criteria.
 
-The first experimental suggestion of this background came from an observed excess of neutron-like (i.e. 6--12 MeV) \emph{uncorrelated} events in the top half of the detector. The expected neutron-like events (primarily fast neutrons and decays of cosmogenic $^{12}$B) are predicted to display vertical symmetry (as was explicitly confirmed for a high-purity sample of $^{12}$B candidates), so the asymmetric nature of this excess implicated the \AmC\ source as the origin. Subsequent MC simulations showed that these uncorrelated events (from neutron capture in the SS or Gd overflow tank) are associated with a correlated background. The evaluation of this so-called AmC background is detailed in \cite{Gu_2016}; here we briefly summarize the procedure and its results.
+The first experimental suggestion of this background came from an observed excess of neutron-like (i.e. 6--12 MeV) \emph{uncorrelated} events in the top half of the detector (\autoref{fig:amc_z_dist}). The expected neutron-like events (primarily fast neutrons and decays of cosmogenic $^{12}$B) are predicted to display vertical symmetry (as was explicitly confirmed for a high-purity sample of $^{12}$B candidates), so the asymmetric nature of this excess implicated the \AmC\ source as the origin. Subsequent MC simulations showed that these uncorrelated events (from neutron capture in the SS or Gd overflow tank) are associated with a correlated background. The evaluation of this so-called AmC background is detailed in \cite{Gu_2016}; here we briefly summarize the procedure and its results.
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/z_dist.png}
+  \caption{Vertical distribution of uncorrelated neutron-like events, illustrating an excess in the upper half of the AD due to the AmC source in the ACUs \cite{Gu_2016}.}
+  \label{fig:amc_z_dist}
+\end{figure}
 
 At first glance, the AmC background could be measured simply by removing the AmC sources from one detector and comparing the IBD candidate rate to an adjacent detector. However, given the low rate of this process (0.2--0.3 events/day/AD when all three AmC sources are installed) and the substantial ``background'' from IBDs, it would take an impractical amount of time to accumulate sufficient statistics, and the AdScaled calibration would be impaired in the meantime. On the other hand, it \emph{is} possible to directly measure the rate ($\sim$230/day, initially) of \emph{uncorrelated} events from neutron capture in the stainless steel. Furthermore, MC simulations can be used to relate the rates of uncorrelated and correlated events. Finally, a high-activity AmC source (HAS) can be used to benchmark the MC. These three insights together enable a relatively precise (i.e. to within 45\%) determination of the AmC background.
 
@@ -615,17 +621,48 @@ Here, $R_{\mathrm{uncorr}}$ is the rate of uncorrelated neutron-like events prod
 
 $R_{\mathrm{uncorr}}$ was measured trivially, simply by taking the difference in the number of neutron-like events between the top and bottom halves of each AD. All of the complexity lay in the determination of $\xi$. In principle, $\xi$ could be extracted directly from a MC simulation. Although the Daya Bay MC contains a detailed and accurate modeling of the detector materials and geometry (including the ACUs and the AmC sources themselves), any inaccuracies in the simulated physics could bias the obtained value of $\xi$. Accordingly, the HAS was designed and deployed in order to validate the simulations.
 
-Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was much more intense, producing $\sim$59 neutrons/s. Furthermore, the enclosure of the HAS consisted of a nearly solid cylinder of stainless steel, in order to maximize the rate of neutron captures and inelastic scatters. The HAS was placed on the lid of EH3-AD1 (AD4) in the summer of 2012, and data was collected for ten days. The number of uncorrelated HAS-induced neutron-like events was determined by subtracting the neutron-like samples between AD4 and the adjacent AD5, which observed $\sim$50,000 and $\sim$4,000 events, respectively.
+Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was much more intense, producing $\sim$59 neutrons/s. Furthermore, the enclosure of the HAS consisted of a nearly solid cylinder of stainless steel, in order to maximize the rate of neutron captures and inelastic scatters. The HAS was placed on the lid of EH3-AD1 (AD4) in the summer of 2012, and data was collected for ten days. The number of uncorrelated HAS-induced neutron-like events was determined by subtracting the neutron-like samples between AD4 and the adjacent AD5, which observed $\sim$50,000 and $\sim$4,000 events, respectively (\autoref{fig:amc_single_spec_2ad})
 
-Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5.\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/single_spec_2ad.png}
+  \caption{Spectra of uncorrelated events (singles) in the HAS-deployed AD and an adjacent AD, showing a clear excess of neutron-like events from the HAS (\cite{Gu_2016}).}
+  \label{fig:amc_single_spec_2ad}
+\end{figure}
+
+Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/prompt_spec_data.png}
+  \caption{Prompt spectrum of IBD-like events in the HAS-deployed detector, along with the spectrum of accidentals (determined from the singles spectrum) and the (background-subtracted) reactor IBD spectrum from an adjacent AD. From \cite{Gu_2016}.}
+  \label{fig:amc_prompt_spec_data}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/ncap_spec_mc.png}
+  \caption{Comparison of the AmC delayed spectrum between data and the MC, showing the latter's contributions from the individual neutron capture peaks. From \cite{Gu_2016}.}
+  \label{fig:amc_ncap_spec_mc}
+\end{figure}
 
 Compared to the HAS, the ordinary, i.e. low-intensity, AmC source (LAS) is expected to have a lower $\xi$, since it lies farther from the AD and has a lower density of surrounding stainless steel. For the LAS, the MC predicted a $\xi$ of $0.9\times10^{-3}$. Based on the MC/data comparison for the HAS, this value was scaled up by 25\% to $1.125\times10^{-3}$, with an uncertainty of 30\%. 
 
-In addition to the rates, the prompt spectrum of the AmC background also required determination. Fortunately, excellent agreement was found between the data and MC prompt spectra for the HAS. Furthermore, similar agreement was found between the MC HAS and MC LAS prompt spectra, in spite of the differences in geometry and material between the HAS and the LAS. As such, any one of these spectra could have been chosen as a reference. The choice was made to use the measured HAS spectrum, which was fit to an exponential function,
+In addition to the rates, the prompt spectrum of the AmC background also required determination. Fortunately, excellent agreement was found between the data and MC prompt spectra for the HAS (\autoref{fig:amc_prompt_fit_data}). Furthermore, similar agreement was found between the MC HAS and MC LAS prompt spectra (\autoref{fig:amc_prompt_fit_mc}), in spite of the differences in geometry and materials between the HAS and the LAS. As such, any one of these spectra could have been chosen as a reference. The choice was made to use the measured HAS spectrum, which was fit to an exponential function,
 \begin{equation}
   f(E) = p_0 \times e^{-E/p_1}.
+  \label{eq:amc_fit_func}
 \end{equation}
 The fit gave $p_1 = \SI{0.783}{MeV}$ with a 10\% statistical uncertainty, compared to \SI{0.794}{MeV} and \SI{0.830}{MeV} for the LAS and HAS MC samples, respectively. This 5\% spread, in combination with the 10\% statisical uncertainty, gave a conservative total uncertainty of 15\% on $p_1$ (essentially a shape uncertainty). Meanwhile, $p_0$ was fixed by the normalization condition $\int f(E)\,dE = \xi$, giving (for $\xi = 1.125\times10^{-3}$) $p_0 = \SI[parse-numbers = false]{3.606\times10^{-3}}{/MeV}$. Conservatively combining the 30\% uncertainty on $\xi$ with the 15\% uncertainty on $p_1$ gave a total uncertainty of 45\% on the AmC background. Given the identical design of the ADs, identical behavior was assumed with respect to the AmC background, and no attempt was made to calculate AD-specific quantities.
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/prompt_fit_data.png}
+  \caption{Comparison of HAS prompt spectra from data and MC, showing the results of fitting the data to \autoref{eq:amc_fit_func}. From \cite{Gu_2016}.}
+  \label{fig:amc_prompt_fit_data}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AmC/prompt_fit_mc.png}
+  \caption{Comparison of HAS and LAS prompt spectra from the MC, showing the results of fitting the HAS spectrum to \autoref{eq:amc_fit_func}. From \cite{Gu_2016}.}
+  \label{fig:amc_prompt_fit_mc}
+\end{figure}
 
 After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to leakage of scintillator into the source enclosures. This led to an ultimate background rate of only 0.05\% and 0.03\%, near and far (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher.)
 
