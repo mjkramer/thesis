@@ -669,24 +669,71 @@ After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the unce
 \section{$\CanO$}
 \label{sec:bkgCanO}
 
-A final and relatively minor ($\lesssim$ 0.01\%/0.07\% near/far) correlated background arises from $\alphN$ reactions initiated by natural radioactivity within the detector. In these reactions, an alpha from natural radioactivity is captured by a nucleus, which then emits a neutron. A prompt signal arises from a number of sources of energy deposition, including the kinetic energy of the alpha, gammas from nuclear deexcitation (including potentially those from inelastic scattering of the neutron), and proton recoils caused by the neutron. This prompt signal is then followed by capture of the neutron, mimicking the signature of an IBD.
+A final and relatively minor ($\lesssim$ 0.01\%/0.07\% near/far) correlated background arises from $\alphN$ reactions initiated by natural radioactivity within the detector. In these reactions, an alpha from natural radioactivity is captured by a nucleus, which then emits a neutron. A prompt signal arises from a number of sources of energy deposition, including the kinetic energy of the alpha, gammas from nuclear deexcitation (including potentially those from inelastic scattering of the neutron), and proton recoils caused by the neutron. This prompt signal is then followed by capture of the neutron, mimicking the signature of an IBD. Our treatment of this background is based on that described in \cite{Zhao_2014} and \cite{An_2017}.
 
 Based on the chemical composition of the scintillator and the known cross sections of $\alphN$ reactions, it was determined that $\CanO$ is the only such reaction to occur in the ADs at any significant rate. Meanwhile, there are three natural decay chains that can lead to alpha activity in the AD: The so-called uranium, thorium, and actinium chains, which begin, respectively, with the long-lived isotopes $^{238}$U, $^{232}$Th, and $^{235}$U\footnote{In practice, the rate of the thorium chain is determined by the concentration of the shorter-lived $^{228}$Th ($t_{1/2}$ = 1.9~yr), and likewise, for the actinium chain by $^{227}$Ac ($t_{1/2}$ = 21.8~yr).}. Given that U, Th, and Ac all have similar chemical properties to Gd, a small amount of contamination is difficult to avoid during the Gd-doping process. In addition to these three decay chains, additional alpha activity comes from the decay of $^{210}$Po, a moderately stable ($t_{1/2}$ = 138~d) daughter of $^{222}$Rn (which itself comes from the uranium chain). $^{210}$Po was deposited on detector surfaces by $^{222}$Rn during detector construction, and is essentially the only significant alpha emitter outside the GdLS region.
 
-Quantifying the $\CanO$ background consists of two parallel tasks. One task is to determine the level of alpha activity produced by the three decay chains and by $^{210}$Po. The other task is to determine, for the set of alphas produced by a given chain, the probability and prompt spectrum of $\CanO$ events. These two pieces of knowledge can then be combined to yield a predicted rate and spectrum for the $\CanO$ background.
+Quantifying the $\CanO$ background consists of two parallel tasks. One task is to determine the level of alpha activity produced by the three decay chains and by $^{210}$Po. The other task is to determine, for the set of alphas produced by a given chain (see \autoref{fig:aln_alpha_energy_dist}), the probability and prompt spectrum of $\CanO$ events. These two pieces of knowledge can then be combined to yield a predicted rate and spectrum for the $\CanO$ background.
 
-The three chains all share a fortuitious property that enables a straightforward estimation of their rates. Namely, they each contain a rapid $\alpha$-$\alpha$ or $\beta$-$\alpha$ cascade whose time correlation and energy distribution allow for clean extraction from the data. For the uranium, thorium, and actinium chains, these cascades are, respectively, $^{214}$Bi $\to$ $^{214}$Po $\to$ $^{210}$Pb, $^{212}$Bi $\to$ $^{212}$Po $\to$ $^{208}$Pb, and $^{219}$Rn $\to$ $^{215}$Po $\to$ $^{211}$Pb, with Po half-lives of \SI{164.3}{\micro s}, \SI{0.3}{\micro s}, and \SI{1.781}{ms}.
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/alpha_energy_dist.png}
+  \caption{Distribution of $\alpha$ particle energies in the $^{238}$U, $^{232}$Th, $^{227}$Ac, and $^{210}$Po decay chains. From \cite{Zhao_2014}.}
+  \label{fig:aln_alpha_energy_dist}
+\end{figure}
 
-To extract these events, time coincidence windows of [10, 400]~\us, [1, 3]~\us, and [1, 4]~ms were used, respectively. Accidentals (most significant for the actinium chain's Po cascade) could be subtracted via the usual procedure (XXX check that this was actually done, at least for actinium), and for the uranium chain's Po cascade, contamination with nH IBDs was not an issue given that the (quenched) delayed alpha energy for these events is around 1-1.5~MeV, significantly below the 2.2~MeV nH peak. For the thorium chain, the prompt spectrum had to be extrapolated below 0.5~MeV in order to determine the total rate; otherwise, there were no major complications. Under the assumption that each chain is in equilibrium\footnote{Up to $^{228}$Th and $^{227}$Ac for the thorium and actinium chains, rather than all the way up to $^{232}$Th and $^{235}$U, as noted previously.}, the rate of the polonium cascade gives the rate of the entire chain.
+The three chains all share a fortuitious property that enables a straightforward estimation of their rates. Namely, they each contain a rapid $\alpha$-$\alpha$ or $\beta$-$\alpha$ cascade whose time correlation and energy distribution allow for clean extraction from the data (\autoref{fig:aln_longpaper_bipo_sel}). For the uranium, thorium, and actinium chains, these cascades are, respectively, $^{214}$Bi $\to$ $^{214}$Po $\to$ $^{210}$Pb, $^{212}$Bi $\to$ $^{212}$Po $\to$ $^{208}$Pb, and $^{219}$Rn $\to$ $^{215}$Po $\to$ $^{211}$Pb, with Po half-lives of \SI{164.3}{\micro s}, \SI{0.3}{\micro s}, and \SI{1.781}{ms}.
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/longpaper_bipo_sel.png}
+  \caption{Illustration of the prompt and delayed energy distributions for the Bi-Po cascades used in determining the rates of the $^{238}$U, $^{232}$Th, $^{227}$Ac, and $^{210}$Po decay chains. From \cite{An_2017}.}
+  \label{fig:aln_longpaper_bipo_sel}
+\end{figure}
+
+To extract these events, time coincidence windows of [10, 400]~\us, [1, 3]~\us, and [1, 4]~ms were used, respectively. Accidentals (most significant for the actinium chain's Po cascade) could be subtracted via the usual procedure,
+% (XXX check that this was actually done, at least for actinium),
+and for the uranium chain's Po cascade, contamination with nH IBDs was not an issue given that the (quenched) delayed alpha energy for these events is around 1-1.5~MeV, significantly below the 2.2~MeV nH peak. For the thorium chain, the prompt spectrum had to be extrapolated below 0.5~MeV in order to determine the total rate; otherwise, there were no major complications. Under the assumption that each chain is in equilibrium\footnote{Up to $^{228}$Th and $^{227}$Ac for the thorium and actinium chains, rather than all the way up to $^{232}$Th and $^{235}$U, as noted previously.}, the rate of the polonium cascade gives the rate of the entire chain.
 
 For the first two years of data, this procedure determined rates of 0.009, 0.16, and 0.2~Bq for U, Th, and Ac. Since the U chain is initiated by $^{238}$U in the AD, its rate is essentially constant, given the $^{238}$U half-life of 4.5~Gyr. On the other hand, the Th and Ac rates do decrease over time, since the parent half-lives (i.e. those of $^{228}$Th and $^{227}$Ac) are 1.9 and 21.8~yr. To determine the average Th and Ac rates for the 5+ year dataset used in this analysis, we account for this decrease and obtain XXX.
 
 For $^{210}$Po, a single decay instead of a chain, time correlations could not be exploited. Instead, 5.3~MeV alphas produced by this isotope were, after quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting this peak gave an average rate, for the first two years, of 0.7~Hz. Based on the $^{210}$Po half-life of 138~d, this was extrapolated to give an average rate in our dataset of XXX.
 
-For a given decay chain (or $^{210}$Po), the set of emitted alphas is known. For each of these alphas, in turn, simulations can be used to determine the rate and prompt spectrum of $\CanO$ events. At each step in the simulation, the alpha loses some energy and travels some distance according to its $dE/dx$ profile in the LS. With some probability (i.e. cross section), during this step the alpha may be captured, producing one of the excited states of $^{17}$O. If this happens, the $^{17}$O will emit a neutron, whose energy depends on both the initial excited state of $^{17}$O and the final (excited or ground) state of $^{16}$O. The neutron produces prompt energy through proton recoils and, if it is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a $\sim$5~MeV gamma. Additional prompt energy will come from deexcitation gammas if the $^{16}$O had been produced in an excited state. Repeating this procedure in a large Monte Carlo sample then gives the desired rate and prompt spectrum of $\CanO$ events for each alpha source.
+For a given decay chain (or $^{210}$Po), the set of emitted alphas is known (\autoref{fig:aln_alpha_energy_dist}). For each of these alphas, in turn, simulations (using Geant4 XXX cite and SRIM) can be used to determine the rate and prompt spectrum of $\CanO$ events. At each step in the simulation, the alpha loses some energy and travels some distance according to its $dE/dx$ profile in the LS. With some probability (i.e. cross section), during this step the alpha may be captured, producing one of the excited states of $^{17}$O. If this happens, the $^{17}$O will emit a neutron, whose energy depends on both the initial excited state of $^{17}$O and the final (excited or ground) state of $^{16}$O. The neutron produces prompt energy through proton recoils and, if it is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a $\sim$5~MeV gamma. Additional prompt energy will come from deexcitation gammas if the $^{16}$O had been produced in an excited state.
 
-Uncertainties in the $\CanO$ prediction arise from a number of sources. The uncertainty coming from the $\alphN$ cross section was estimated by repeating the MC procedure using two different cross section tables, JENDL and EXFOR. This suggested an uncertainty ranging from 6.6\% (for $^{210}$Po) up to 27.5\% (for $^{232}$Ac) \cite{Zhao_2014}. Additional uncertainty could come from the fundamentals of the MC simulation, i.e., the $dE/dx$ table and the numerical integration of discrete steps. This was evaluated by comparing the results of GEANT4 and SRIM, which differed at a negligible level of less than a percent. Finally, the assumption of decay chain equilibrium, and the efficiency of the cascade selection, both could introduce additional uncertainty. These are difficult to explicitly quantify, and given the relative unimportance of the $\CanO$ background, the decision was made to simply assign a conservative 50\% total uncertainty to the $\CanO$ estimation
+For a given decay chain, the simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$ reaction occurring for a single cascade of alpha particles (Table XXX). The simulation also produces, for the $(\alpha,\mathrm{N})$ reactions from a given chain, the 2D probability distribution function (PDF) of (a) the amount of energy deposited in the scintillator and (b) the kinetic energy of the emitted neutron (illustrated in \autoref{fig:aln_energy_pdf}). Finally, the prompt energy spectrum (\autoref{fig:aln_longpaper_prompt_spec}) is obtained by sampling this PDF and performing MC simulations of the detector's response to the alpha particle, the neutron's recoil protons, and any gamma rays from $^{12}$C inelastic scattering and $^{16}$O$^*$ deexcitation.
 
-XXX refer to CPC alpha-n paper.
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/energy_pdf.png}
+  \caption{2D probability distribution function of alpha particle energy deposition and neutron kinetic energy for $(\alpha,\mathrm{n})$ reactions from the $^{232}$Th chain. From \cite{Zhao_2014}.}
+  \label{fig:aln_energy_pdf}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/longpaper_prompt_spec}
+  \caption{Prompt energy spectra, as determined by simulation, for $(\alpha,\mathrm{n})$ reactions produced by the four decay chains. From \cite{An_2017}.}
+  \label{fig:aln_longpaper_prompt_spec}
+\end{figure}
+
+Uncertainties in the $\CanO$ prediction arise from a number of sources. The uncertainty coming from the $\alphN$ cross section was estimated by repeating the MC procedure using two different cross section tables, JENDL and EXFOR XXX cite (\autoref{fig:aln_xsec}). This suggested an uncertainty ranging from 6.6\% (for $^{210}$Po) up to 27.5\% (for $^{232}$Ac) \cite{Zhao_2014}. Meanwhile, there was negligible effect on the predicted neutron reconstructed energy spectrum from switching between the cross section tables and the assumed neutron angular distribution (\autoref{fig:aln_n_vis_spectra}). Additional uncertainty could come from the fundamentals of the MC simulation, i.e., the $dE/dx$ table and the numerical integration of discrete steps. This was evaluated by comparing the results of GEANT4 and SRIM (\autoref{fig:aln_n_kin_spectra}), which differed, overall, at a negligible level of less than a percent. Finally, the assumption of decay chain equilibrium, and the efficiency of the cascade selection, both could introduce additional uncertainty. These are difficult to explicitly quantify, and given the relative unimportance of the $\CanO$ background, the decision was made to simply assign a conservative 50\% total uncertainty to the $\CanO$ estimation.
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/xsec.png}
+  \caption{Cross section of the $\CanO$ reaction as reported by the JENDL and EXFOR tables. From \cite{Zhao_2014}.}
+  \label{fig:aln_xsec}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/n_vis_spectra.png}
+  \caption{Predicted neutron reconstructed energy for different cross section tables (JENDL and EXFOR) and different neutron angular distributions (``theta'', $d\sigma/d\Omega \sim 1/\sin\theta$, and ``isotropic'', $d\sigma/d\Omega \sim 1$). The differences are negligible. From \cite{Zhao_2014}. (The particular decay chain is not specified.)}
+  \label{fig:aln_n_vis_spectra}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{Backgrounds/AlN/n_kin_spectra.png}
+  \caption{Neutron kinetic energy as predicted by Geant4 and SRIM. From \cite{Zhao_2014}. (The particular decay chain is not specified.)}
+  \label{fig:aln_n_kin_spectra}
+\end{figure}
+
+% \section{Summary of backgrounds}
+% \label{sec:bkgSummary}
 
 \end{document}
