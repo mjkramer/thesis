@@ -488,7 +488,7 @@ In the scaling method, we assume that the shape of the tagged spectrum is an acc
 \def\emax{\ensuremath{E_\mathrm{max}}} \def\ntag{\ensuremath{N_\mathrm{tag}}}
 \def\nuntag{\ensuremath{N_\mathrm{untag}}}
 
-We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. Essentially, $F$ represents the efficiency of the OWS-tagging procedure. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). Hu quantifies this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}), resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:fastn_unc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
+We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. Essentially, $F$ represents the efficiency of the OWS-tagging procedure. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). Hu quantifies this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}), resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:bkgFastnUnc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
 \[ \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
     \emax]},
 \]
@@ -659,7 +659,7 @@ Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was
   \label{fig:amc_single_spec_2ad}
 \end{figure}
 
-Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
+Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:amc_ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/AmC/prompt_spec_data.png}
@@ -748,7 +748,22 @@ For $^{210}$Po, a single decay instead of a chain, time correlations could not b
 
 For a given decay chain (or $^{210}$Po), the set of emitted alphas is known (\autoref{fig:aln_alpha_energy_dist}). For each of these alphas, in turn, simulations (using Geant4 XXX cite and SRIM) can be used to determine the rate and prompt spectrum of $\CanO$ events. At each step in the simulation, the alpha loses some energy and travels some distance according to its $dE/dx$ profile in the LS. With some probability (i.e. cross section), during this step the alpha may be captured, producing one of the excited states of $^{17}$O. If this happens, the $^{17}$O will emit a neutron, whose energy depends on both the initial excited state of $^{17}$O and the final (excited or ground) state of $^{16}$O. The neutron produces prompt energy through proton recoils and, if it is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a $\sim$5~MeV gamma. Additional prompt energy will come from deexcitation gammas if the $^{16}$O had been produced in an excited state.
 
-For a given decay chain, the simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$ reaction occurring for a single cascade of alpha particles (Table XXX). The simulation also produces, for the $(\alpha,\mathrm{N})$ reactions from a given chain, the 2D probability distribution function (PDF) of (a) the amount of energy deposited in the scintillator and (b) the kinetic energy of the emitted neutron (illustrated in \autoref{fig:aln_energy_pdf}). Finally, the prompt energy spectrum (\autoref{fig:aln_longpaper_prompt_spec}) is obtained by sampling this PDF and performing MC simulations of the detector's response to the alpha particle, the neutron's recoil protons, and any gamma rays from $^{12}$C inelastic scattering and $^{16}$O$^*$ deexcitation.
+For a given decay chain, the simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$ reaction occurring for a single cascade of alpha particles (\autoref{tab:bkgAlnNeutronYield}). The simulation also produces, for the $(\alpha,\mathrm{n})$ reactions from a given chain, the 2D probability distribution function (PDF) of (a) the amount of energy deposited in the scintillator and (b) the kinetic energy of the emitted neutron (illustrated in \autoref{fig:aln_energy_pdf}). Finally, the prompt energy spectrum (\autoref{fig:aln_longpaper_prompt_spec}) is obtained by sampling this PDF and performing MC simulations of the detector's response to the alpha particle, the neutron's recoil protons, and any gamma rays from $^{12}$C inelastic scattering and $^{16}$O$^*$ deexcitation.
+
+\begin{table}[ht]
+  \begin{tabular}{lcccc}
+    \toprule
+    Chain & $N_{\mathrm{ground}}$ & $N_{\mathrm{excited}}$ & $N_{\mathrm{total}}$ & Uncertainty  \\
+    \midrule
+    $^{210}$Po & 5.26e-8 & 4.90e-9 & 5.75e-8 & 7.2\%  \\
+    $^{238}$U  & 4.34e-7 & 2.96e-7 & 7.30e-7 & 16.9\% \\
+    $^{232}$Th & 4.49e-7 & 4.92e-7 & 9.41e-7 & 27.7\% \\
+    $^{227}$Ac & 4.72e-7 & 6.18e-7 & 1.09e-6 & 25.9\% \\
+    \bottomrule
+  \end{tabular}
+  \caption{Neutron yield (i.e., number of $(\alpha,\mathrm{n})$ events) per decay chain. $N_{\mathrm{ground}}$ and $N_{\mathrm{excited}}$ refer to the number of events that leave $^{16}$O in the ground and excited states, respectively. $N_{\mathrm{total}}$ is their sum, whose uncertainty is given in the final column. From \cite{Zhao_2014}.}
+  \label{tab:bkgAlnNeutronYield}
+\end{table}
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/AlN/energy_pdf.png}
@@ -781,6 +796,25 @@ Uncertainties in the $\CanO$ prediction arise from a number of sources. The unce
   \caption{Neutron kinetic energy as predicted by Geant4 and SRIM. From \cite{Zhao_2014}. (The particular decay chain is not specified.)}
   \label{fig:aln_n_kin_spectra}
 \end{figure}
+
+For the P17B data set used in this analysis, the $\CanO$ background rates were re-estimated by Wei in \cite{lianghongBkg} using updated measurements of the rates of alpha activity. The values are listed in \autoref{tab:bkgAlnDailyRates}.
+
+\begin{table}[ht]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lcccccccccc}
+      \toprule
+      & \multicolumn{2}{c}{EH1} & & \multicolumn{2}{c}{EH2} & & \multicolumn{4}{c}{EH3} \\
+      \cmidrule{2-3} \cmidrule{5-6} \cmidrule{8-11}
+      Period & AD1 & AD2 & & AD1 & AD2 & & AD1 & AD2 & AD3 & AD4 \\
+      \midrule
+      6AD & 0.09 $\pm$ 0.04 & 0.07 $\pm$ 0.04 & & 0.05 $\pm$ 0.02 & & & 0.05 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & \\
+      8AD & 0.08 $\pm$ 0.04 & 0.06 $\pm$ 0.03 & & 0.04 $\pm$ 0.02 & 0.06 $\pm$ 0.03 & & 0.04 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & 0.03 $\pm$ 0.02 &  0.04 $\pm$ 0.02 \\
+      7AD & & 0.05 $\pm$ 0.03 & & 0.03 $\pm$ 0.02 & 0.06 $\pm$ 0.03 & & 0.03 $\pm$ 0.02 & 0.03 $\pm$ 0.02 & 0.03 $\pm$ 0.01 & 0.03 $\pm$ 0.02 \\
+      \bottomrule
+    \end{tabular}}
+  \caption{$\CanO$ background rates for the P17B data set \cite{lianghongBkg}.}
+  \label{tab:bkgAlnDailyRates}
+\end{table}
 
 % \section{Summary of backgrounds}
 % \label{sec:bkgSummary}
