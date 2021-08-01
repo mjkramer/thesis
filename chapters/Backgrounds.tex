@@ -475,7 +475,7 @@ The tagged sample is obtained by extending the upper cut to 300~MeV (as in the u
 The prompt spectra from the two samples (scaled to have equal normalization above 12~MeV) are overlaid in \autoref{fig:fastn_prompt_energy_both_bz}, showing excellent agreement in the region above 12~MeV. Both samples are employed by the scaling method, as described next. Meanwhile, the extrapolation method only makes direct use of the tagged sample; however, the untagged sample still serves a role in validating the form of the fitting function used.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Background/FastN/prompt_energy_both_bz.png}
+  \includegraphics[scale=0.5]{Backgrounds/FastN/prompt_energy_both_bz.png}
   \caption{Prompt spectra of the tagged (blue) and untagged (black) samples, as measured by Hu in \cite{fastn}. The tagged spectrum has been rescaled to match the normalization of the untagged spectrum above 12~MeV.}
   \label{fig:fastn_prompt_energy_both_bz}
 \end{figure}
@@ -495,7 +495,7 @@ We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\nta
 which also contributes to the final uncertainty.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Background/FastN/scaling_factor.png}
+  \includegraphics[scale=0.5]{Backgrounds/FastN/scaling_factor.png}
   \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$ \cite{fastn}. The blue points are those of Hu, whose IBD selection matches ours.}
   \label{fig:fastn_scaling_factor}
 \end{figure}
@@ -592,7 +592,37 @@ Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fi
 
 In total, Hu obtained a total of eight estimates of \rfn\ for each hall, derived from four scaling ranges in the scaling method, and four fitting ranges in the extrapolation method. She arbitrarily chose the 12-100~MeV scaling method as the source her nominal fast neutron rates, and it is those numbers that we employ in our own analysis.
 
-Six uncertainties were added in quadrature to obtain the total. The first is the statistical uncertainty on the scaling factor $F$, described by \eqref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-neutron rates across the four ranges used. The third is the analogue for the choice of fitting range. The fourth is the statistical uncertainty in the fitted value of $N_\mathrm{fid}$. The fifth is the systematic uncertainty resulting from the dependence of fit results on the choice of binning, which was determined by varying the bin widths and repeating the fits. Finally, the sixth component was obtained from the difference in results between the scaling and extrapolation methods. These uncertainties are summarized in Table~XXX, and the final results given in Table~XXX.
+Six uncertainties were added in quadrature to obtain the total. The first is the statistical uncertainty on the scaling factor $F$, described by \eqref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-neutron rates across the four ranges used. The third is the analogue for the choice of fitting range. The fourth is the statistical uncertainty in the fitted value of $N_\mathrm{fid}$. The fifth is the systematic uncertainty resulting from the dependence of fit results on the choice of binning, which was determined by varying the bin widths and repeating the fits. Finally, the sixth component was obtained from the difference in results between the scaling and extrapolation methods. These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final results given in \autoref{tab:bkgFastnFinalRates}.
+
+\begin{table}[ht]
+  \begin{tabular}{lccc}
+    \toprule
+    Uncertainty                 & EH1  & EH2  & EH3 \\
+    \midrule
+    $\sigma_{\mathrm{statistical}}$ (\%)   & 4.56 & 5.49 & 14.65 \\
+    $\sigma_{\mathrm{scaling-range}}$ (\%) & 2.41 & 0.77 & 1.21 \\
+    $\sigma_{\mathrm{fit-range}}$ (\%)     & 2.90 & 0.61 & 0.84 \\
+    $\sigma_{\mathrm{fit-result}}$ (\%)    & 1.48 & 1.81 & 3.95 \\
+    $\sigma_{\mathrm{bin-width}}$ (\%)     & 0.38 & 0.40 & 1.96 \\
+    $\sigma_{\mathrm{methods}}$ (\%)       & 7.67 & 7.67 & 7.67 \\
+    $\sigma_{\mathrm{all}}$ (\%)           & 9.81 & 9.66 & 17.18 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Uncertainty budget for the fast-neutron rates calculated by Hu in \cite{fastn}.}
+  \label{tab:bkgFastnUnc}
+\end{table}
+
+\begin{table}[ht]
+  \begin{tabular}{lccc}
+    \toprule
+    EH1 & EH2 & EH3 \\
+    \midrule
+    0.843 $\pm$ 0.083 & 0.638 $\pm$ 0.062 & 0.053 $\pm$ 0.009 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Hu's final estimated fast-neutron rates from \cite{fastn}.}
+  \label{tab:bkgFastnFinalRates}
+\end{table}
 
 \newcommand\AmC{$^{241}$Am-$^{13}$C}
 
@@ -665,6 +695,25 @@ The fit gave $p_1 = \SI{0.783}{MeV}$ with a 10\% statistical uncertainty, compar
 \end{figure}
 
 After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to leakage of scintillator into the source enclosures. This led to an ultimate background rate of only 0.05\% and 0.03\%, near and far (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher.)
+
+For the P17B data set used in this analysis, the AmC background rates were re-estimated by Wei in \cite{lianghongBkg} using updated measurements of the uncorrelated event rates from the AmC sources. The values are listed in \autoref{tab:bkgAmcDailyRates}.
+
+\begin{table}[ht]
+  \resizebox{\textwidth}{!}{%
+   \begin{tabular}{lcccccccccc}
+    \toprule
+    & \multicolumn{2}{c}{EH1} & & \multicolumn{2}{c}{EH2} & & \multicolumn{4}{c}{EH3} \\
+    \cmidrule{2-3} \cmidrule{5-6} \cmidrule{8-11}
+    Period & AD1 & AD2 & & AD1 & AD2 & & AD1 & AD2 & AD3 & AD4 \\
+    \midrule
+    6AD & 0.29 $\pm$ 0.13 & 0.27 $\pm$ 0.12 & & 0.30 $\pm$ 0.14 & & & 0.24 $\pm$ 0.11 & 0.23 $\pm$ 0.10 & 0.23 $\pm$ 0.10 & \\
+    8AD & 0.15 $\pm$ 0.07 & 0.15 $\pm$ 0.07 & & 0.12 $\pm$ 0.06 & 0.14 $\pm$ 0.06 & & 0.04 $\pm$ 0.02 & 0.03 $\pm$ 0.01 & 0.03 $\pm$ 0.02 & 0.04 $\pm$ 0.02 \\
+    7AD & & 0.11 $\pm$ 0.05 & & 0.09 $\pm$ 0.04 & 0.08 $\pm$ 0.04 & & 0.02 $\pm$ 0.01 & 0.02 $\pm$ 0.01 & 0.03 $\pm$ 0.01 & 0.02 $\pm$ 0.01 \\ 
+    \bottomrule
+  \end{tabular}}
+  \caption{AmC background rates for the P17B data set \cite{lianghongBkg}.}
+  \label{tab:bkgAmcDailyRates}
+\end{table}
 
 \section{$\CanO$}
 \label{sec:bkgCanO}
