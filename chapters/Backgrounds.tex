@@ -45,7 +45,7 @@ turns out to be an excellent discriminator. Indeed, as shown by \autoref{fig:fID
 reduces the flasher rate to a negligible level, and many analyses have relied on $\fID$ alone to identify flashing 8" PMTs.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/Flasher/example_event.png}
+  \includegraphics[width=\textwidth]{Backgrounds/Flasher/example_event.png}
   \caption{PMT charge distribution of a flasher candidate, illustrating the division of the AD into four azimuthal quadrants, with Quadrant 1 being centered around the PMT with the highest charge. From \cite{An_2017}.}
   \label{fig:flasher_example}
 \end{figure}
@@ -380,7 +380,7 @@ where $\epsilon_\mu$ is the muon veto efficiency (without the shower muon veto),
 
 When we experiment with modified parameters of the shower muon veto (i.e., the charge threshold and veto time), as described in \autoref{chap:cutVary}, the $^9$Li rate must be recalculated using \autoref{eq:bkgLi9DailyRate} for each case. Although the modified value of $\tau$ can simply be inserted into the equation, there is also an implicit dependence on the charge threshold, which determines the division of muons between the mid- and high-energy bins. Although it would be possible to repeat the $^9$Li selection for each value of the threshold, this would be a rigid and time-consuming approach. Instead, we perform the selection at 44 evenly-spaced values of the mid/high dividing line, ranging from 1.7e5 to 6.0e5 PE\@. When our threshold lies in between these grid points, we must interpolate somehow.
 
-Our initial approach was to simply perform a linear interpolation between the two points on each side of the threshold. This would be done once for the mid-energy bin, and again for the high-energy bin. However, the results of the $^9$Li selection/fit demonstrate a fair amount of random jitter between adjacent values of the mid/high threshold, as shown in \autoref{fig:bkgLi9Linreg} Although this variation is well below the systematic uncertainty on the $^9$Li rate, it does introduce artificial structure to the results of the shower veto variation. Fortunately, the $^9$Li rates show a conveniently linear dependence on the threshold, as illustrated in \autoref{fig:bkgLi9Linreg}. Therefore, our approach is to calculate the $^9$Li using \autoref{eq:bkgLi9DailyRate} at each of the 44 grid points for the charge threshold (using the same modified veto time in each case), fit the results to a line, and then evaluate this line at the desired value for the threshold. This produces the final $^9$Li rate that is used in the oscillation fit.
+Our initial approach was to simply perform a linear interpolation between the two points on each side of the threshold. This would be done once for the mid-energy bin, and again for the high-energy bin. However, the results of the $^9$Li selection/fit demonstrate a fair amount of random jitter between adjacent values of the mid/high threshold, as shown in \autoref{fig:bkgLi9Linreg} Although this variation is well below the systematic uncertainty on the $^9$Li rate, it does introduce artificial structure to the results of the shower veto variation. Fortunately, the $^9$Li rates show a conveniently linear dependence on the threshold, as illustrated in \autoref{fig:bkgLi9Linreg}. Therefore, our approach is to calculate the $^9$Li rate using \autoref{eq:bkgLi9DailyRate} at each of the 44 grid points for the charge threshold (using the same modified veto time in each case), fit the results to a line, and then evaluate this line at the desired value for the threshold. This produces the final $^9$Li rate that is used in the oscillation fit for arbitrary shower-muon veto parameters in \autoref{chap:cutVary}.
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{Backgrounds/li9_linreg.pdf}
@@ -451,9 +451,9 @@ Finally, to obtain the predicted spectrum in terms of prompt energy (i.e. recons
 
 As cosmic muons travel through the rock and other materials surrounding the ADs, they can eject energetic neutrons from the medium. If a fast neutron of the appropriate energy thermalizes and stops inside the AD, it will produce an IBD-like coincidence pair, in which the prompt signal consists largely of scintillation from scattered protons, and the delayed signal results from n-Gd capture. This process leads to a significant correlated background, amounting to some 20-30\% of that produced by cosmogenic isotopes. Two methods have been developed for estimating this background, the so-called \emph{extrapolation} and \emph{scaling} methods.
 
-In the extrapolation method, the prompt energy cut of the IBD selection is extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent and the (largely flat) spectrum consists almost entirely of fast neutrons. This spectrum is then extrapolated below 12~MeV to estimate the fast neutron component of the IBD sample, using a fit to a well-motivated model of the fast-neutron spectrum.
+In the extrapolation method, the prompt energy cut of the IBD selection is extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent and the (largely flat) spectrum consists almost entirely of fast neutrons. This spectrum is then extrapolated below 12~MeV to estimate the fast-neutron component of the IBD sample, using a fit to a well-motivated model of the fast-neutron spectrum.
 
-In the scaling method, a search is performed for ``muon-tagged'' IBD-like events in the immediate aftermath of ``peripheral'' muons that only trigger the outer water pool and/or RPC. As with the extrapolation method, the prompt energy cut is significantly extended. In the region above 12 MeV, where true IBDs are absent, the muon-tagging efficiency can be determined from the ratio of muon-tagged to untagged events. Then, below 12 MeV, the tagged spectrum (which contains very few true IBDs due to the short post-muon time searched) is rescaled according to the tagging efficiency, yielding an estimate of the fast neutron spectrum within in the sub-12~MeV region.
+In the scaling method, a search is performed for ``muon-tagged'' IBD-like events in the immediate aftermath of ``peripheral'' muons that only trigger the outer water pool. As with the extrapolation method, the prompt energy cut is significantly extended. In the region above 12 MeV, where true IBDs are absent, the muon-tagging efficiency can be determined from the ratio of muon-tagged to untagged events. Then, below 12 MeV, the tagged spectrum (which contains very few true IBDs due to the short post-muon time searched) is rescaled according to the tagging efficiency, yielding an estimate of the fast neutron spectrum in the sub-12~MeV region.
 
 The two methods are consistent to within 1--3\% (an order of magnitude smaller than the estimated uncertainty of each method), providing a high level of confidence in the estimation. In the following sections, we describe these methods and their results, as obtained in \cite{fastn} by Hu, Ji, and Treskov. Those three authors each independently carried out the two methods, using slightly different event selection criteria. The criteria used by Hu are essentially identical to our own IBD selection, so it is ultimately her results that we use in this analysis.
 
@@ -488,7 +488,7 @@ In the scaling method, we assume that the shape of the tagged spectrum is an acc
 \def\emax{\ensuremath{E_\mathrm{max}}} \def\ntag{\ensuremath{N_\mathrm{tag}}}
 \def\nuntag{\ensuremath{N_\mathrm{untag}}}
 
-We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. Essentially, $F$ represents the efficiency of the OWS-tagging procedure. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). Hu quantifies this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}), resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:bkgFastnUnc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
+We define the \emph{scaling factor} $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). Hu quantifies this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}), resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:bkgFastnUnc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
 \[ \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
     \emax]},
 \]
@@ -496,7 +496,7 @@ which also contributes to the final uncertainty.
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Backgrounds/FastN/scaling_factor.png}
-  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$ \cite{fastn}. The blue squares are those of Hu, whose IBD selection matches ours.}
+  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$, from \cite{fastn}. The blue squares are the results of Hu, whose IBD selection matches ours.}
   \label{fig:fastn_scaling_factor}
 \end{figure}
 
@@ -546,12 +546,12 @@ In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $N_\m
 Here, the denominator represents the fiducial region's fraction of the total spectrum. Substituting this form of $N$ into \autoref{eq:bkgFastnScaledPDF}, and allowing the floated parameter to be $N_{\mathrm{fid}}$ instead of $N$, we obtain the form
 \begin{equation}
   \label{eq:fastn_extrap_form}
-  S(E) = N_\mathrm{fid} \cdot \frac{\left( \frac{E}{E_0} \right)^{-a-E/E_0}}
-  {\int_{0.7}^{12} \left( \frac{E}{E_0} \right)^{-a-E/E_0} },
+  S(E; N_{\mathrm{fid}}, E_0, a) = \frac{N_\mathrm{fid}}%
+  {\int_{0.7}^{12} E'^{-a-E'/E_0} \, dE'} E^{-a-E/E_0}.
 \end{equation}
-(in which $A$ cancels out). When \autoref{eq:fastn_extrap_form} is then fit to the measured fast-neutron spectrum , the best fit $N_\mathrm{fid}$ indicates the number of events in the fiducial region, that is, the number of fast-neutrons which satisfy the IBD selection. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-neutron sample is uncontaminated.
+When \autoref{eq:fastn_extrap_form} is then fit to the measured fast-neutron spectrum , the best fit $N_\mathrm{fid}$ indicates the number of events in the fiducial region, that is, the number of fast-neutrons which satisfy the IBD selection. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-neutron sample is uncontaminated.
 
-Prior to carrying out the extrapolation procedure, Hu verified the validity and robustness of \eqref{eq:fastn_extrap_form} by fitting it to her OWS-tagged samples (\autoref{fig:fastn_ows_fit_bz}). She used four fitting ranges, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. In all cases, she obtained satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). The disabling of the $a$ parameter was found to introduce negligible differences.
+Prior to carrying out the extrapolation procedure, Hu verified the validity and robustness of \eqref{eq:fastn_extrap_form} by fitting it to her OWS-tagged samples (\autoref{fig:fastn_ows_fit_bz}). She used four fitting ranges, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. In all cases, she obtained satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). Disabling of the $a$ parameter was found to introduce negligible differences.
 
 \begin{figure}[ht]
   \begin{minipage}{0.333\textwidth}%
@@ -569,7 +569,7 @@ Prior to carrying out the extrapolation procedure, Hu verified the validity and 
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/FastN/par_E0_ows.png}
-  \caption{Values of $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}, from \cite{fastn}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. Hu's results are plotted with the blue squares.}
+  \caption{Values of $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}, from \cite{fastn}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. The blue squares are the results of Hu.}
   \label{fig:fastn_par_E0_ows}
 \end{figure}
 
@@ -663,9 +663,10 @@ At first glance, the AmC background could be measured simply by removing the AmC
 
 The following is the fundamental relationship used in the AmC background estimation:
 \begin{equation}
+  \label{eq:bkgAmcFundamental}
   R_{\mathrm{corr}} = R_{\mathrm{uncorr}} \times \xi = R_{\mathrm{uncorr}} \times \int_{0.7}^{\SI{12}{MeV}} f(E)\,dE.
 \end{equation}
-Here, $R_{\mathrm{uncorr}}$ is the rate of uncorrelated neutron-like events produced by the AmC source, as measured directly from ordinary data. Meanwhile, $\xi$ is the ratio of correlated to uncorrelated events, as determined from a combination of simulations and HAS data. The factor $f(E)$ is simply the differential value of $\xi$ as a function of prompt energy; i.e. $f(E)\,dE$ is the number of correlated events with $E_{\mathrm{p}}$ in [$E$, $E + dE$], per uncorrelated neutron-like event.
+Here, $R_{\mathrm{uncorr}}$ is the rate of uncorrelated neutron-like events produced by the AmC source, as measured directly from ordinary data. Meanwhile, $\xi$ is the ratio of correlated to uncorrelated events, as determined from a combination of simulations and HAS data. The factor $f(E)$ is simply the differential value of $\xi$ as a function of prompt energy; i.e. $f(E)\,dE$ is the number of correlated events with a prompt energy in [$E$, $E + dE$], per uncorrelated neutron-like event.
 
 $R_{\mathrm{uncorr}}$ was measured trivially, simply by taking the difference in the number of neutron-like events between the top and bottom halves of each AD. All of the complexity lay in the determination of $\xi$. In principle, $\xi$ could be extracted directly from a MC simulation. Although the Daya Bay MC contains a detailed and accurate modeling of the detector materials and geometry (including the ACUs and the AmC sources themselves), any inaccuracies in the simulated physics could bias the obtained value of $\xi$. Accordingly, the HAS was designed and deployed in order to validate the simulations.
 
@@ -673,11 +674,11 @@ Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was
 
 \begin{figure}[ht]
   \includegraphics[scale=0.4]{Backgrounds/AmC/single_spec_2ad.png}
-  \caption{Spectra of uncorrelated events (singles) in the HAS-deployed AD and an adjacent AD, showing a clear excess of neutron-like events from the HAS (\cite{Gu_2016}).}
+  \caption{Spectra of uncorrelated events (singles) in the HAS-deployed AD and an adjacent AD, showing a clear excess of neutron-like events from the HAS \cite{Gu_2016}.}
   \label{fig:amc_single_spec_2ad}
 \end{figure}
 
-Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:amc_ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
+Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:amc_ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as the uncertainty (and bias) of the MC. With the addition in quadrature of the 20\% statistical uncertainty in the data, a total uncertainty of 30\% was assigned to $\xi$.
 
 \begin{figure}[ht]
   \includegraphics[scale=0.4]{Backgrounds/AmC/prompt_spec_data.png}
@@ -712,7 +713,7 @@ The fit gave $p_1 = \SI{0.783}{MeV}$ with a 10\% statistical uncertainty, compar
   \label{fig:amc_prompt_fit_mc}
 \end{figure}
 
-After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to leakage of scintillator into the source enclosures. This led to an ultimate background rate of only 0.03\% and 0.05\%\footnote{Within the single-digit precision of these percentages, the same value is obtained regardless of whether the denominator is chosen to be the signal rate or signal+background.}, near and far, respectively (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher---0.05\% and 0.3\%, near and far, respectively.)
+After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$ according to \autoref{eq:bkgAmcFundamental}, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to leakage of scintillator into the source enclosures. This led to an ultimate background rate of only 0.03\% and 0.05\%\footnote{Within the single-digit precision of these percentages, the same value is obtained regardless of whether the denominator is chosen to be the signal rate or signal+background.}, near and far, respectively (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher---0.05\% and 0.3\%, near and far, respectively.)
 
 For the P17B data set used in this analysis, the AmC background rates were re-estimated by Wei in \cite{lianghongBkg} using updated measurements of the uncorrelated event rates from the AmC sources. The values are listed in \autoref{tab:bkgAmcDailyRates}.
 
@@ -744,7 +745,7 @@ Quantifying the $\CanO$ background consists of two parallel tasks. One task is t
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/AlN/alpha_energy_dist.png}
-  \caption{Distribution of $\alpha$ particle energies in the $^{238}$U, $^{232}$Th, $^{227}$Ac, and $^{210}$Po decay chains. From \cite{Zhao_2014}.}
+  \caption{Distribution of $\alpha$ particle energies from decays of $^{238}$U, $^{232}$Th, $^{227}$Ac, and $^{210}$Po. From \cite{Zhao_2014}.}
   \label{fig:aln_alpha_energy_dist}
 \end{figure}
 
@@ -752,22 +753,22 @@ The three chains all share a fortuitious property that enables a straightforward
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/AlN/longpaper_bipo_sel.png}
-  \caption{Illustration of the prompt and delayed energy distributions for the Bi-Po cascades used in determining the rates of the $^{238}$U, $^{232}$Th, $^{227}$Ac, and $^{210}$Po decay chains. From \cite{An_2017}.}
+  \caption{Illustration of the prompt and delayed energy distributions for the Bi-Po cascades used in determining the rates of the $^{238}$U, $^{228}$Th, and $^{227}$Ac decay chains. From \cite{An_2017}.}
   \label{fig:aln_longpaper_bipo_sel}
 \end{figure}
 
-To extract these events, time coincidence windows of [10, 400]~\us, [1, 3]~\us, and [1, 4]~ms were used, respectively \cite{An_2017}.\footnote{It is curious that, for the case of $^{212}$Po (i.e. $^{232}$Th, the time window used is significantly larger, relative to the half-life, compared to the other two isotopes. As shown in \autoref{fig:aln_longpaper_bipo_sel}, the $^{212}$Po sample is the ``cleanest'' (in terms of accidental backgrounds), enabling the use of a (perhaps excessively) wide window in order to maximize the statistics. Since Th is the most active chain, maximal statistics are desirable.)} Accidentals (most significant for the actinium chain's Po cascade) could be subtracted via the usual procedure,
+To extract these events, time coincidence windows of [10, 400]~\us, [1, 3]~\us, and [1, 4]~ms were used, respectively \cite{An_2017}.\footnote{It is curious that, for the case of $^{212}$Po (i.e. $^{232}$Th), the time window used is significantly larger, relative to the half-life, compared to the other two isotopes. As shown in \autoref{fig:aln_longpaper_bipo_sel}, the $^{212}$Po sample is the ``cleanest'' (in terms of accidental backgrounds), enabling the use of a (perhaps excessively) wide window in order to maximize the statistics. Since Th is the most active chain, maximal statistics are desirable.} Accidentals (most significant for the actinium chain's Po cascade) were subtracted via the usual procedure,
 % (YYY check that this was actually done, at least for actinium),
 and for the uranium chain's Po cascade, contamination with nH IBDs was not an issue given that the (quenched) delayed energy of the alpha particle for these events is around 1-1.5~MeV, significantly below the 2.2-MeV gamma ray from nH capture. For the thorium chain, the prompt spectrum had to be extrapolated below 0.5~MeV in order to determine the total rate; otherwise, there were no major complications. Under the assumption that each chain is in equilibrium\footnote{Up to $^{228}$Th and $^{227}$Ac for the thorium and actinium chains, rather than all the way up to $^{232}$Th and $^{235}$U, as noted previously.}, the rate of the polonium cascade gives the rate of the entire chain.
 
 At the point in time when Daya Bay began taking data, this procedure determined average (across ADs) rates of 0.009, 0.2, and 0.02~Bq for U, Th, and Ac, respectively \cite{lianghongBkg}. Since the U chain is initiated by $^{238}$U in the AD, its rate is essentially constant, given the $^{238}$U half-life of 4.5~Gyr. On the other hand, the Th and Ac rates do decrease over time, since the parent half-lives (i.e. those of $^{228}$Th and $^{227}$Ac) are 1.9 and 21.8~yr, respectiely. To determine the average Th and Ac rates for the P17B dataset used in this analysis, Wei in \cite{lianghongBkg} repeated the Bi-Po cascade selection and obtained AD-averaged rates of 0.136 and 0.0178~Bq for $^{228}$Th and $^{227}$Ac, respectively.
 % \footnote{Given the difference in half-lives between the two isotopes, one would expect a greater difference in the rate decrease than that measured by Wei. However, this discrepancy is encompassed by the uncertainty of the rate measurement procedure.}
 
-For $^{210}$Po, a single decay instead of a chain, time correlations could not be exploited. Instead, the 5.3~MeV alpha particle produced by this isotope was, after quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting this peak gave rates ranging from 4--10~Hz for each AD \cite{zeyuanAln}. Although the $^{210}$Po half-life is only 138 days, its parent, $^{210}$Pb, has a 22.3-year half-life. Within the precision of the measurement procedure, the decrease of the $^{210}$Po rate was unobservable.
+For $^{210}$Po, a single decay instead of a chain, time correlations could not be exploited. Instead, the 5.3~MeV alpha particle produced by this isotope was, after quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting this peak gave rates ranging from 4--10~Hz for each AD \cite{zeyuanAln}. Although the $^{210}$Po half-life is only 138 days, its parent, $^{210}$Pb (which determines the $^{210}$Po rate decrease over time), has a 22.3-year half-life. Within the precision of the measurement procedure, the decrease of the $^{210}$Po rate was unobservable.
 
 For a given decay chain (or $^{210}$Po decay), the set of emitted alpha particles is known (\autoref{fig:aln_alpha_energy_dist}). For each of these alpha particles, in turn, simulations (using Geant4 \cite{Geant4} and SRIM \cite{SRIM}) can be used to determine the rate and prompt spectrum of the $\CanO$ events. At each step in the simulation, the alpha particle loses some energy and travels some distance according to its $dE/dx$ profile in the LS. With some probability (i.e. cross section), during this step the alpha particle may be captured, producing one of the excited states of $^{17}$O. If this happens, the $^{17}$O will emit a neutron, whose energy depends on both the initial excited state of $^{17}$O and the final (excited or ground) state of $^{16}$O. The neutron produces prompt energy through proton recoils and, if it is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a $\sim$5~MeV gamma ray. Additional prompt energy will come from deexcitation gamma rays if the $^{16}$O had been produced in an excited state.
 
-The simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$ reaction occurring for a single cascade of alpha particles in a given chain (\autoref{tab:bkgAlnNeutronYield}). The simulation also produces, for the $(\alpha,\mathrm{n})$ reactions from a given chain, the 2D probability distribution function (PDF) of (a) the amount of energy deposited in the scintillator and (b) the kinetic energy of the emitted neutron (illustrated in \autoref{fig:aln_energy_pdf}). Finally, the prompt energy spectrum (\autoref{fig:aln_longpaper_prompt_spec}) is obtained by sampling this PDF and performing MC simulations of the detector's response to the alpha particle, the neutron's recoil protons, and any gamma rays from $^{12}$C inelastic scattering and $^{16}$O$^*$ deexcitation.
+The simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$ reaction occurring for a single cascade of alpha particles in a given chain (\autoref{tab:bkgAlnNeutronYield}). The simulation also produces, for the $(\alpha,\mathrm{n})$ reactions from a given chain, the 2D PDF of (a) the amount of energy deposited in the scintillator and (b) the kinetic energy of the emitted neutron (illustrated in \autoref{fig:aln_energy_pdf}). Finally, the prompt energy spectrum (\autoref{fig:aln_longpaper_prompt_spec}) is obtained by sampling this PDF and performing MC simulations of the detector's response to the alpha particle, the neutron's recoil protons, and any gamma rays from $^{12}$C inelastic scattering and $^{16}$O$^*$ deexcitation.
 
 \begin{table}[ht]
   \begin{tabular}{lcccc}
@@ -776,7 +777,7 @@ The simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$
     \midrule
     $^{210}$Po & 5.26e-8 & 4.90e-9 & 5.75e-8 & 7.2\%  \\
     $^{238}$U  & 4.34e-7 & 2.96e-7 & 7.30e-7 & 16.9\% \\
-    $^{232}$Th & 4.49e-7 & 4.92e-7 & 9.41e-7 & 27.7\% \\
+    $^{228}$Th & 4.49e-7 & 4.92e-7 & 9.41e-7 & 27.7\% \\
     $^{227}$Ac & 4.72e-7 & 6.18e-7 & 1.09e-6 & 25.9\% \\
     \bottomrule
   \end{tabular}
@@ -786,7 +787,7 @@ The simulation calculates the (very low) probability of an $(\alpha,\mathrm{n})$
 
 \begin{figure}[ht]
   \includegraphics[scale=0.45]{Backgrounds/AlN/energy_pdf.png}
-  \caption{2D probability distribution function of alpha particle energy deposition and neutron kinetic energy for $(\alpha,\mathrm{n})$ reactions from the $^{232}$Th chain. From \cite{Zhao_2014}.}
+  \caption{2D probability distribution function of alpha particle energy deposition and neutron kinetic energy for $(\alpha,\mathrm{n})$ reactions from the $^{228}$Th chain. From \cite{Zhao_2014}.}
   \label{fig:aln_energy_pdf}
 \end{figure}
 
