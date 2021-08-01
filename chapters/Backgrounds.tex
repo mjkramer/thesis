@@ -432,7 +432,7 @@ For the prediction, three types of reference tables were consulted: nuclear stru
 
 \begin{figure}[h]
   \includegraphics[scale=0.5]{Backgrounds/li9_levels.png}
-  \caption{The decay of $^9$Li. From \cite{pedroLi9Spec2}.}
+  \caption{The decay of $^9$Li. Not all decays are shown with arrows. From \cite{pedroLi9Spec2}.}
   \label{fig:li9_levels}
 \end{figure}
 
@@ -467,7 +467,7 @@ The other, ``tagged,'' sample contains IBD-like events that occur right after a 
 The tagged sample is obtained by extending the upper cut to 300~MeV (as in the untagged sample) while disabling the standard muon veto. An additional requirement (see \autoref{fig:fastn_selection_diagram}) is that the prompt signal be timestamped within (-300, 600)~ns of an OWS trigger (defined by NHit $>$ 15, in this case). Furthermore, the delayed signal must occur at least 15 $\mu$s after the muon (to eliminate Michel electrons), and there must be no AD or IWS muons within 600 $\mu$s of the OWS muon. This selection results in fairly low statistics (amounting to a few hundred events in the near halls), but the size of the sample is still sufficient to provide strong constraints on the fast-neutron background. This sample is statistically independent from the untagged sample, as all of its events would have been excluded by the (OWS) muon veto in the untagged selection.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/selection_diagram.png}
+  \includegraphics[scale=0.35]{Backgrounds/FastN/selection_diagram.png}
   \caption{Diagram illustrating the event selection scheme for the tagged fast-neutron sample. From \cite{fastn}.}
   \label{fig:fastn_selection_diagram}
 \end{figure}
@@ -475,7 +475,7 @@ The tagged sample is obtained by extending the upper cut to 300~MeV (as in the u
 The prompt spectra from the two samples (scaled to have equal normalization above 12~MeV) are overlaid in \autoref{fig:fastn_prompt_energy_both_bz}, showing excellent agreement in the region above 12~MeV. Both samples are employed by the scaling method, as described next. Meanwhile, the extrapolation method only makes direct use of the tagged sample; however, the untagged sample still serves a role in validating the form of the fitting function used.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/prompt_energy_both_bz.png}
+  \includegraphics[width=\textwidth]{Backgrounds/FastN/prompt_energy_both_bz.png}
   \caption{Prompt spectra of the tagged (blue) and untagged (black) samples, as measured by Hu in \cite{fastn}. The tagged spectrum has been rescaled to match the normalization of the untagged spectrum above 12~MeV.}
   \label{fig:fastn_prompt_energy_both_bz}
 \end{figure}
@@ -495,8 +495,8 @@ We define the scaling factor $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\nta
 which also contributes to the final uncertainty.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/scaling_factor.png}
-  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$ \cite{fastn}. The blue points are those of Hu, whose IBD selection matches ours.}
+  \includegraphics[width=\textwidth]{Backgrounds/FastN/scaling_factor.png}
+  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$ \cite{fastn}. The blue squares are those of Hu, whose IBD selection matches ours.}
   \label{fig:fastn_scaling_factor}
 \end{figure}
 
@@ -519,8 +519,8 @@ where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime, m
 % This value is then combined with the extrapolation result, described next, and a total uncertainty is assigned to the combination.
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/rate_vs_scaling.png}
-  \caption{Daily fast-neutron rate from the scaling method, as a function of $E_{\mathrm{max}}$, from \cite{fastn}. The blue points are the results of Hu.}
+  \includegraphics[width=\textwidth]{Backgrounds/FastN/rate_vs_scaling.png}
+  \caption{Daily fast-neutron rate from the scaling method, as a function of $E_{\mathrm{max}}$, from \cite{fastn}. The blue squares are the results of Hu.}
   \label{fig:fastn_rate_vs_scaling}
 \end{figure}
 
@@ -546,14 +546,14 @@ In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $N_\m
 Prior to carrying out the extrapolation procedure, Hu verified the validity and robustness of \eqref{eq:fastn_extrap_form} by fitting it to her OWS-tagged samples (\autoref{fig:fastn_ows_fit_bz}). She used four fitting ranges, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. In all cases, she obtained satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). The disabling of the $a$ parameter was found to introduce negligible differences.
 
 \begin{figure}[ht]
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ows_fit_eh1_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ows_fit_eh1_bz.png}%
   \end{minipage}%
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ows_fit_eh2_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ows_fit_eh2_bz.png}%
   \end{minipage}%
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ows_fit_eh3_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ows_fit_eh3_bz.png}%
   \end{minipage}%
   \caption{Hu's fits of her OWS-tagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right), from \cite{fastn}.}
   \label{fig:fastn_ows_fit_bz}
@@ -568,22 +568,22 @@ Prior to carrying out the extrapolation procedure, Hu verified the validity and 
 Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fit_bz}), using the same four upper limits as before, but with the lower limit set to 12~MeV.  As with the scaling method, each value of $\nfn$ was converted to a livetime- and efficiency-normalized daily rate according to \eqref{eq:fastn_rate} (\autoref{fig:fastn_rate_vs_fit_range}). The spread between the resulting four values was incorporated into the total uncertainty, as described in the next section.
 
 \begin{figure}[ht]
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ibd_fit_eh1_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ibd_fit_eh1_bz.png}%
   \end{minipage}%
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ibd_fit_eh2_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ibd_fit_eh2_bz.png}%
   \end{minipage}%
-  \begin{minipage}{0.333\linewidth}%
-    \includegraphics[scale=0.5]{Backgrounds/FastN/ibd_fit_eh3_bz.png}%
+  \begin{minipage}{0.333\textwidth}%
+    \includegraphics[width=\textwidth]{Backgrounds/FastN/ibd_fit_eh3_bz.png}%
   \end{minipage}%
   \caption{Hu's fits of her untagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right), from \cite{fastn}.}
   \label{fig:fastn_ibd_fit_bz}
 \end{figure}
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/rate_vs_fit_range.png}
-  \caption{Daily fast-neutron rates from the extrapolation method, as a function of the upper limit of the fit range, from \cite{fastn}. The blue points are the results of Hu.}
+  \includegraphics[width=\textwidth]{Backgrounds/FastN/rate_vs_fit_range.png}
+  \caption{Daily fast-neutron rates from the extrapolation method, as a function of the upper limit of the fit range, from \cite{fastn}. The blue squares are the results of Hu.}
   \label{fig:fastn_rate_vs_fit_range}
 \end{figure}
 
@@ -592,20 +592,30 @@ Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fi
 
 In total, Hu obtained a total of eight estimates of \rfn\ for each hall, derived from four scaling ranges in the scaling method, and four fitting ranges in the extrapolation method. She arbitrarily chose the 12-100~MeV scaling method as the source her nominal fast neutron rates, and it is those numbers that we employ in our own analysis.
 
-Six uncertainties were added in quadrature to obtain the total. The first is the statistical uncertainty on the scaling factor $F$, described by \eqref{eq:fastn_scal_unc}. The second is the uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-neutron rates across the four ranges used. The third is the analogue for the choice of fitting range. The fourth is the statistical uncertainty in the fitted value of $N_\mathrm{fid}$. The fifth is the systematic uncertainty resulting from the dependence of fit results on the choice of binning, which was determined by varying the bin widths and repeating the fits. Finally, the sixth component was obtained from the difference in results between the scaling and extrapolation methods. These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final results given in \autoref{tab:bkgFastnFinalRates}.
+Six uncertainties were added in quadrature to obtain the total:
+\begin{itemize}
+\item Statistical: The statistical uncertainty on the scaling factor $F$, described by \eqref{eq:fastn_scal_unc}.
+\item Scaling range: The uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-neutron rates across the four ranges used.
+\item Fit range: The analogue for the choice of fitting range.
+\item Fit result: The statistical uncertainty in the fitted value of $N_\mathrm{fid}$.
+\item Bin width: From the dependence of the fit results on the choice of binning, which was determined by varying the bin widths and repeating the fits.
+\item Methods: From the difference in results between the scaling and extrapolation methods.
+\end{itemize}
+These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final results given in \autoref{tab:bkgFastnFinalRates}.
 
 \begin{table}[ht]
   \begin{tabular}{lccc}
     \toprule
-    Uncertainty                 & EH1  & EH2  & EH3 \\
+    Uncertainty (\%)            & EH1  & EH2  & EH3 \\
     \midrule
-    $\sigma_{\mathrm{statistical}}$ (\%)   & 4.56 & 5.49 & 14.65 \\
-    $\sigma_{\mathrm{scaling-range}}$ (\%) & 2.41 & 0.77 & 1.21 \\
-    $\sigma_{\mathrm{fit-range}}$ (\%)     & 2.90 & 0.61 & 0.84 \\
-    $\sigma_{\mathrm{fit-result}}$ (\%)    & 1.48 & 1.81 & 3.95 \\
-    $\sigma_{\mathrm{bin-width}}$ (\%)     & 0.38 & 0.40 & 1.96 \\
-    $\sigma_{\mathrm{methods}}$ (\%)       & 7.67 & 7.67 & 7.67 \\
-    $\sigma_{\mathrm{all}}$ (\%)           & 9.81 & 9.66 & 17.18 \\
+    Statistical & 4.56 & 5.49 & 14.65 \\
+    Scaling range & 2.41 & 0.77 & 1.21 \\
+    Fit range & 2.90 & 0.61 & 0.84 \\
+    Fit result & 1.48 & 1.81 & 3.95 \\
+    Bin width & 0.38 & 0.40 & 1.96 \\
+    Methods & 7.67 & 7.67 & 7.67 \\
+    \midrule
+    Total & 9.81 & 9.66 & 17.18 \\
     \bottomrule
   \end{tabular}
   \caption{Uncertainty budget for the fast-neutron rates calculated by Hu in \cite{fastn}.}
@@ -636,7 +646,7 @@ In spite of these precautions, a rare mechanism can still produce correlated bac
 The first experimental suggestion of this background came from an observed excess of neutron-like (i.e. 6--12 MeV) \emph{uncorrelated} events in the top half of the detector (\autoref{fig:amc_z_dist}). The expected neutron-like events (primarily fast neutrons and decays of cosmogenic $^{12}$B) are predicted to display vertical symmetry (as was explicitly confirmed for a high-purity sample of $^{12}$B candidates), so the asymmetric nature of this excess implicated the \AmC\ source as the origin. Subsequent MC simulations showed that these uncorrelated events (from neutron capture in the SS or Gd overflow tank) are associated with a correlated background. The evaluation of this so-called AmC background is detailed in \cite{Gu_2016}; here we briefly summarize the procedure and its results.
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AmC/z_dist.png}
+  \includegraphics[scale=0.4]{Backgrounds/AmC/z_dist.png}
   \caption{Vertical distribution of uncorrelated neutron-like events, illustrating an excess in the upper half of the AD due to the AmC source in the ACUs \cite{Gu_2016}.}
   \label{fig:amc_z_dist}
 \end{figure}
@@ -654,7 +664,7 @@ $R_{\mathrm{uncorr}}$ was measured trivially, simply by taking the difference in
 Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was much more intense, producing $\sim$59 neutrons/s. Furthermore, the enclosure of the HAS consisted of a nearly solid cylinder of stainless steel, in order to maximize the rate of neutron captures and inelastic scatters. The HAS was placed on the lid of EH3-AD1 (AD4) in the summer of 2012, and data was collected for ten days. The number of uncorrelated HAS-induced neutron-like events was determined by subtracting the neutron-like samples between AD4 and the adjacent AD5, which observed $\sim$50,000 and $\sim$4,000 events, respectively (\autoref{fig:amc_single_spec_2ad})
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AmC/single_spec_2ad.png}
+  \includegraphics[scale=0.4]{Backgrounds/AmC/single_spec_2ad.png}
   \caption{Spectra of uncorrelated events (singles) in the HAS-deployed AD and an adjacent AD, showing a clear excess of neutron-like events from the HAS (\cite{Gu_2016}).}
   \label{fig:amc_single_spec_2ad}
 \end{figure}
@@ -662,13 +672,13 @@ Compared to the AmC calibration source, with a rate of $\sim$0.7~Hz, the HAS was
 Meanwhile, the number of \emph{correlated} AmC events was measured by taking the spectrum of IBD candidates in AD4, subtracting the accidental background, and then subtracting the (background-subtracted) IBD sample measured by AD5 (\autoref{fig:amc_prompt_spec_data}).\footnote{This procedure doesn't account for other correlated backgrounds in AD4, such as $^9$Li and fast neutrons, but their rates of $< 0.2$/d are insignificant compared to the 63 correlated events per day produced by the HAS.} The delayed spectrum from this sample, consisting of the sum of neutron capture peaks from Fe, Ni, Cr, and Mn, demonstrated excellent agreement with the prediction of the MC, proviing further validation of the MC's predictions (\autoref{fig:amc_ncap_spec_mc}). Relating the uncorrelated and correlated rates gave a value of $\xi$, \emph{for the HAS}, of $(1.5\pm0.3)\times10^{-3}$. The Geant4 MC, on the other hand, returned a $\xi$ of $(1.2\pm0.1)\times10^{-3}$ for the HAS. The 25\% difference versus data was then assigned as an uncertainty of the MC. With the addition of the 20\% statistical uncertainty on the data, a total uncertainty of 30\% was assigned to $\xi$.
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AmC/prompt_spec_data.png}
+  \includegraphics[scale=0.4]{Backgrounds/AmC/prompt_spec_data.png}
   \caption{Prompt spectrum of IBD-like events in the HAS-deployed detector, along with the spectrum of accidentals (determined from the singles spectrum) and the (background-subtracted) reactor IBD spectrum from an adjacent AD. From \cite{Gu_2016}.}
   \label{fig:amc_prompt_spec_data}
 \end{figure}
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AmC/ncap_spec_mc.png}
+  \includegraphics[scale=0.4]{Backgrounds/AmC/ncap_spec_mc.png}
   \caption{Comparison of the AmC delayed spectrum between data and the MC, showing the latter's contributions from the individual neutron capture peaks. From \cite{Gu_2016}.}
   \label{fig:amc_ncap_spec_mc}
 \end{figure}
@@ -767,7 +777,7 @@ For a given decay chain, the simulation calculates the (very low) probability of
 \end{table}
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AlN/energy_pdf.png}
+  \includegraphics[scale=0.45]{Backgrounds/AlN/energy_pdf.png}
   \caption{2D probability distribution function of alpha particle energy deposition and neutron kinetic energy for $(\alpha,\mathrm{n})$ reactions from the $^{232}$Th chain. From \cite{Zhao_2014}.}
   \label{fig:aln_energy_pdf}
 \end{figure}
@@ -793,7 +803,7 @@ Uncertainties in the $\CanO$ prediction arise from a number of sources. The unce
 \end{figure}
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/AlN/n_kin_spectra.png}
+  \includegraphics[scale=0.45]{Backgrounds/AlN/n_kin_spectra.png}
   \caption{Neutron kinetic energy as predicted by Geant4 and SRIM. From \cite{Zhao_2014}. (The particular decay chain is not specified.)}
   \label{fig:aln_n_kin_spectra}
 \end{figure}
