@@ -8,11 +8,11 @@
 \section{Uncorrelated detection efficiency uncertainty}
 \label{sec:miscDetEff}
 
-In order to calculate proper errors on the oscillation parameters (particularly $\SinSq$), it is necessary to account for possible AD-to-AD variations in the IBD detection efficiency, as any such variations could potentially bias the measured rate deficit at the far site. As with the other systematics, this one is treated by the fitter's toy MC (\autoref{sec:toymc}): For each random set of toy prompt spectra, a random value is generated for each AD's efficiency, and its prompt spectrum is scaled accordingly. The covariance matrix generated from these prompt spectra then encodes the effects of the relative efficiency uncertainty. Here we briefly describe the determination of this uncertainty.
+In order to calculate proper errors on the oscillation parameters (particularly $\SinSq$), it is necessary to account for possible AD-to-AD variations in the IBD detection efficiency, as any such variations could potentially bias the measured rate deficit at the far site. As with the other systematics, this one is treated by the fitter's toy MC (\autoref{sec:toymc}): For each random set of toy prompt spectra, a random value is generated for each AD's efficiency, and its prompt spectrum is scaled accordingly. The covariance matrix generated from these prompt spectra then encodes the effects of the relative efficiency uncertainty. Here we briefly describe the determination of this uncertainty and its implementation in the toy MC.
 
 The detection efficiency can be decomposed into various components, as detailed in \autoref{tab:detEff}. With the exception of the (dominant) first two rows (the delayed energy cut efficiency and the Gd capture fraction), the measurements of these components (and their AD-to-AD uncertainties) have remained unchanged since they were first described in \cite{SideBySide} and compiled in \cite{PhysRevLett.108.171803}.
 
-Meanwhile, the first two rows of \autoref{tab:detEff} were updated in 2016 by Lebanowski in \cite{loganDetEff}, taking advantage of the increase in statistics since 2012. For the delayed energy cut, the uncorrelated efficiency uncertainty was evaluated by loosening the delayed cut to 3.6~MeV and comparing, between ADs, the percentage of delayed energies lying in the [6, 12]~MeV region. And for the nGd capture fraction, the prompt-delayed time difference for each AD was fit to an exponential in order to determine each AD's average capture time, which in turn gives the capture fraction. The spread of these capture fractions then gave the uncorrelated uncertainty.
+Meanwhile, the first two rows of \autoref{tab:detEff} were updated in 2016 by Lebanowski in \cite{loganDetEff}, taking advantage of the increase in statistics since 2012. For the delayed energy cut, the uncorrelated efficiency uncertainty was evaluated by loosening the delayed cut to 3.6~MeV and comparing, between ADs, the percentage of delayed energies lying in the [6, 12]~MeV region. And for the nGd capture fraction, the prompt-delayed time difference for each AD was fit to an exponential in order to determine each AD's average capture time, which in turn gave the capture fraction. The spread of these capture fractions then gave the uncorrelated uncertainty.
 
 \begin{table}[ht]
   \begin{tabular}{lc}
@@ -37,14 +37,14 @@ Meanwhile, the first two rows of \autoref{tab:detEff} were updated in 2016 by Le
 
 An additional complication arises due to the correlation between the energy scale and the detection efficiency (via the delayed energy cut efficiency). When, in the toy MC, the energy scale is fluctuated, the detection efficiency must reflect this fluctuation, in addition to \emph{independent} fluctuations of the fraction of the efficiency that is \emph{not} correlated with the energy scale. The task is then to decompose the efficiency uncertainty into two parts, one correlated and one uncorrelated with the energy scale.
 
-Nakajima carried out this decomposition in \cite{P15A_inputs}. His reasoning was as follows. First, the total efficiency uncertainty $\sigma_{\mathrm{tot}}$ of 0.132\% can be broken down into two parts: The 0.075\% uncertainty due to the delayed energy cut (which we denote $\sigma_{E_d}$), and the remainder ($\sigma_{\mathrm{other}}$):
+Nakajima carried out this decomposition in \cite{P15A_inputs}. His reasoning was as follows. First, the total efficiency uncertainty $\sigma_{\mathrm{tot}}$ (0.132\%) can be broken down into two parts: The 0.075\% uncertainty due to the delayed energy cut (which we denote $\sigma_{E_d}$), and the remainder ($\sigma_{\mathrm{other}}$):
 \begin{equation}
   \sigma_{\mathrm{tot}} = 0.132\% = \sqrt{\sigma^2_{E_d} + \sigma^2_{\mathrm{other}}},
 \end{equation}
 where (\autoref{tab:detEff})
 \begin{equation}
   \begin{aligned}
-    \sigma_{E_d} &= 0.075\%, \\
+    \sigma_{E_d} &= 0.075\%. \\
     % \sigma_{\mathrm{other}} &= \sqrt{\sigma^2_{\mathrm{tot}} - \sigma^2_{E_d}} = 0.109\%
   \end{aligned}
 \end{equation}
@@ -56,15 +56,15 @@ In turn, $\sigma_{E_d}$ is \emph{partially} correlated to the energy scale.
 According to \cite{loganDetEff}, 91.4\% of the AD-to-AD variance in the delayed energy cut efficiency is due to variance of the energy scale (\autoref{tab:delayedEffVariance}). Thus,
 \begin{equation}
   \begin{aligned}
-    \sigma_{\mathrm{corr}} &= \sqrt{0.914 \times \sigma^2_{E_d}} = 0.072\%, \\
+    \sigma_{\mathrm{corr}} &= \sqrt{0.914 \times \sigma^2_{E_d}} = 0.072\%. \\
     % \sigma_{E_d,\mathrm{uncorr}} &= \sqrt{(1 - 0.914) \times \sigma^2_{E_d}} = 0.022\%
   \end{aligned}
 \end{equation}
-We can then subtract (in quadrature) $\sigma_{\mathrm{corr}}$ from $\sigma_{\mathrm{tot}}$ to obtain the energy-scale-uncorrelated part of the detection efficiency uncertainty:
+We can then subtract (in quadrature) $\sigma_{\mathrm{corr}}$ from $\sigma_{\mathrm{tot}}$ to obtain the part of the detection efficiency uncertainty that is uncorrelated with the energy scale:
 \begin{equation}
   \sigma_{\mathrm{uncorr}} = \sqrt{\sigma^2_{\mathrm{tot}} - \sigma^2_{\mathrm{\mathrm{corr}}}} = 0.11\%.
 \end{equation}
-In conclusion,
+In summary,
 \begin{equation}
   \begin{aligned}
     \sigma_{\mathrm{tot}} &= \sqrt{\sigma^2_{\mathrm{corr}} + \sigma^2_{\mathrm{uncorr}}} \\
@@ -86,7 +86,7 @@ In conclusion,
   \label{tab:delayedEffVariance}
 \end{table}
 
-As described in \cite[Sec.\@ III B 5 b]{An_2017}, the AD-to-AD variation of the energy scale, $\delta_E$, is $\sim$0.20\%. It is then assumed that this 0.20\% variation leads to the 0.072\% energy-scale-correlated detection efficiency variation $\delta_{\epsilon_d}$:
+As described in \cite[Sec.\@ III B 5 b]{An_2017}, the AD-to-AD variation of the energy scale, $\delta_E$, is $\sim$0.20\%. It is then assumed that this 0.20\% variation leads to the observed 0.072\% energy-scale-correlated detection efficiency variation $\delta_{\epsilon_d}$:
 \begin{equation}
   0.072\% = \frac{\delta_{\epsilon_d}}{\delta_E} \times 0.20\%,
 \end{equation}
@@ -99,9 +99,9 @@ Therefore,
   \delta_{\epsilon_d} = 0.36 \times \delta_E.
 \end{equation}
 
-In the toy MC, after a fractional energy scale fluctuation $\delta_E$ is generated ($\Gaus(0, 0.0020)$), the nominal\footnote{And arbitrary, since we are performing a relative measurement.} detection efficiency is first multiplied by $1 + 0.36 \times \delta_E$. It is then multipled by an additional factor of $1 + \Gaus(0, 0.0011)$ to account for the detection efficiency variance that is uncorrelated with the energy scale. That is,
+In the toy MC, after a fractional energy scale fluctuation $\delta_E$ is generated via $\Gaus(0, 0.0020)$, the nominal\footnote{And arbitrary, since we are performing a relative measurement.} detection efficiency is first multiplied by $1 + 0.36 \times \delta_E$. The result is then multipled by an additional factor of $1 + \Gaus(0, 0.0011)$ to account for the detection efficiency variance that is uncorrelated with the energy scale. That is,
 \begin{equation}
-  \epsilon_d = \epsilon_{d,\mathrm{nom}} \times (1 + 0.36 \times \Gaus(0, 0.0020)) \times (1 + \Gaus(0, 0.0011)),
+  \epsilon_d = \epsilon_{d,\mathrm{nom}} \cdot (1 + 0.36 \times \Gaus(0, 0.0020)) \cdot (1 + \Gaus(0, 0.0011)),
 \end{equation}
 where the first Gaussian random variable is the same one used in fluctuating the energy scale. This gives the final detection efficiency used by the toy MC. The prompt spectrum is uniformly scaled by this factor in generating the toy sample.
 
