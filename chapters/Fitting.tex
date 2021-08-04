@@ -67,12 +67,12 @@ The toy MC chain begins with the prediction of the livetime-averaged antineutrin
 \end{equation}
 where $T_i$ is the livetime, $N_i$ is the number of target protons, and $L_{ci}$ is the baseline.
 
-The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\% \autoref{sec:miscDetEff}, with the latter component fully correlated with the variation in the energy scale of the AD.
+The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\% (\autoref{sec:miscDetEff}), with the latter component fully correlated with the variation in the energy scale of the AD.
 % \footnote{The relative energy scale uncertainty is 0.2\%, as described later. Studies have shown \cite{P15A_inputs} that a 1\% energy scale variation leads to a 0.36\% shift in detection efficiency (largely due to the delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.%
   % Also see doc-8027.
 % }
 
-The cross section $\sigma(E_\nu)$ is calculated by performing a $4\pi$ numerical integration of the differential cross section (to first order in the inverse nucleon mass $1/M$) \cite{Vogel_1999},
+The cross section $\sigma(E_\nu)$ is calculated by performing a $4\pi$ numerical integration of the differential cross section (to first order in the inverse nucleon mass $1/M$) \cite{Vogel_1999}. Letting $\theta$ be the angle between the antineutrino and the positron in the lab frame (with the proton initially at rest),
 \begin{equation}
   \label{eq:ibdXsec}
   \frac{d\sigma}{d\cos\theta} = \frac{\sigma_0}{2}
@@ -115,7 +115,7 @@ and
   v_e^{(i)} &= \frac{p_e^{(i)}}{E_e^{(i)}}, \\
   \Delta &= M_n - M_p, \\
   M &= \frac{M_n + M_p}{2}, \\
-  y &= \frac{\Delta^2 - m_e^2}{2}.
+  y^2 &= \frac{\Delta^2 - m_e^2}{2}.
 \end{align}
 The various constants that enter this cross section are taken from \cite{pdg2011} (unless noted otherwise) and summarized in \autoref{tab:xsecConstants}.\footnote{It is often stated (e.g., in \cite{spectrum2017}) that the cross section is calculated using the neutron lifetime $\tau_n$ from a particular edition of the PDG tables. However, $\tau_n$ can only be directly used when calculating $\sigma$ to zeroth-order in $1/M$ \cite{Vogel_1999}. In the first-order calculation \autoref{eq:ibdXsec}, $\tau_n$ does not appear explicitly. Nevertheless, other constants, such as $g$, are connected to $\tau_n$ and are thus modified by updated measurements of the latter.}
 
@@ -174,19 +174,21 @@ Once the toy MC has determined each AD's IBD spectrum (in terms of the antineutr
 
 \subsubsection{Positron energy}
 
-This discussion follows the treatment in \cite{berkeley_toymc}, which in turn is based on \cite{Vogel_1999}. Here, the relatively minuscule kinetic energy of the neutron is included perturbatively (i.e. as an expansion in 1/$m$, where $m$ is the nucleon mass scale). The zeroth-order energy $E_e^{(0)}$ is simply
+As with the IBD cross section discussed previously, the positron energy is calculated to first order in the inverse nucleon mass scale $1/M$. \autoref{eq:firstOrderEnergy} gives the first-order positron energy $E_e^{(1)}$ as a function of the lab-frame antineutrino-positron angle $\theta$. Meanwhile, the mean value of $\cos\theta$, weighted by the differential cross section \autoref{eq:ibdXsec}, is \cite{Vogel_1999}
+% Since \autoref{eq:firstOrderEnergy} depends linearly on $\cos \theta$, the mean positron energy can then be obtained by replacement in \autoref{eq:firstOrderEnergy} of $\cos\theta$ with $\langle \cos \theta \rangle$, the mean value (weighted by the differential cross section \autoref{eq:ibdXsec}) of $\cos \theta$. Computing this mean gives \cite{Vogel_1999}
 \begin{equation}
-  E_e^{(0)} = E_\nu - \Delta,
+  \label{eq:meanIbdAngle}
+  \langle \cos \theta \rangle = -0.034 v_e^{(0)} + 2.4 \frac{E_\nu}{M}.
 \end{equation}
-where $\Delta \equiv m_n - m_p$. Then the first-order positron energy is
+Since $E_e^{(1)}$ is a linear function of $\cos\theta$, the mean positron energy is then simply obtained by inserting $\langle \cos\theta \rangle$ into \autoref{eq:firstOrderEnergy} in place of $\cos\theta$:
 \begin{equation}
-  E_e^{(1)} = E_e^{(0)} \left[ 1 - \frac{E_\nu}{m_p}(1 - \beta_e^{(0)}\cos\theta) \right]
-  - \frac{\Delta^2 - m_e^2}{m_p},
+  \label{eq:firstOrderEnergyMean}
+  \langle E_e^{(1)} \rangle = E_e^{(0)}
+  \left[1 - \frac{E_{\nu}}{M}[1 - v_e^{(0)} (-0.034 v_e^{(0)} + 2.4 \frac{E_\nu}{M})] \right]
+  - \frac{y^2}{M},
 \end{equation}
-where $\beta_e^{(0)}$ is the positron velocity corresponding to $E_e^{(0)}$. The mean energy can then be obtained by using the mean value of $\cos \theta$, given by \cite{Vogel_1999}
-\begin{equation}
-  \langle \cos \theta \rangle = -0.034 \beta_e^{(0)} + 2.4 \frac{E_\nu}{m_p}.
-\end{equation}
+where $E_e^{(0)}$, $M$, etc.\@ were defined in \autoref{sec:fitToyFluxPred}.
+
 It is safe to neglect the energy spread caused by the angular distribution, as it is negligible in comparison to the dominant factors in the energy resolution (primarily photon statistics, as well as detector nonuniformity and noise). Likewise, there is no need to extend the calculation to higher order, given that the neutron carries away only $\mathcal{O}$(10~keV) of kinetic energy.
 
 \subsubsection{IAV effect}
