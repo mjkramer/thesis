@@ -104,30 +104,19 @@ where
     \Delta\right] v_e^{(0)} \cos\theta,
 \end{aligned}
 \end{equation}
-\begin{equation*}
-  \sigma_0 = \frac{G_F^2 \cos^2\theta_C}{\pi}\; (1 + \Delta^R_{\mathrm{inner}}),
-\end{equation*}
-\begin{equation*}
-  E_e^{(1)} =
-  E_e^{(0)}
+and
+\begin{align}
+  \sigma_0 &= \frac{G_F^2 \cos^2\theta_C}{\pi}\; (1 + \Delta^R_{\mathrm{inner}}), \\
+  \label{eq:firstOrderEnergy}
+  E_e^{(1)} &= E_e^{(0)}
   \left[1 - \frac{E_{\nu}}{M}(1 - v_e^{(0)} \cos \theta) \right]
-  - \frac{y^2}{M},
-\end{equation*}
-\begin{equation*}
-  E_e^{(0)} = E_\nu - \Delta,
-\end{equation*}
-\begin{equation*}
-  v_e^{(i)} = \frac{p_e^{(i)}}{E_e^{(i)}},
-\end{equation*}
-\begin{equation*}
-  \Delta = M_n - M_p,
-\end{equation*}
-\begin{equation*}
-  M = \frac{M_n + M_p}{2},
-\end{equation*}
-\begin{equation*}
-  y = \frac{\Delta^2 - m_e^2}{2}.
-\end{equation*}
+              - \frac{y^2}{M}, \\
+  E_e^{(0)} &= E_\nu - \Delta, \\
+  v_e^{(i)} &= \frac{p_e^{(i)}}{E_e^{(i)}}, \\
+  \Delta &= M_n - M_p, \\
+  M &= \frac{M_n + M_p}{2}, \\
+  y &= \frac{\Delta^2 - m_e^2}{2}.
+\end{align}
 The various constants that enter this cross section are taken from \cite{pdg2011} (unless noted otherwise) and summarized in \autoref{tab:xsecConstants}.\footnote{It is often stated (e.g., in \cite{spectrum2017}) that the cross section is calculated using the neutron lifetime $\tau_n$ from a particular edition of the PDG tables. However, $\tau_n$ can only be directly used when calculating $\sigma$ to zeroth-order in $1/M$ \cite{Vogel_1999}. In the first-order calculation \autoref{eq:ibdXsec}, $\tau_n$ does not appear explicitly. Nevertheless, other constants, such as $g$, are connected to $\tau_n$ and are thus modified by updated measurements of the latter.}
 
 \begin{table}[ht]
@@ -147,19 +136,37 @@ The various constants that enter this cross section are taken from \cite{pdg2011
     $m_e$ & Electron mass & 0.51099891 MeV \\
     \bottomrule
   \end{tabular}
-  \caption{Constants used in the evaluation of \autoref{eq:XXX} \cite{pdg2011}.}
+  \caption{Constants used in the evaluation of \autoref{eq:ibdXsec} \cite{pdg2011}.}
   \label{tab:xsecConstants}
 \end{table}
 
-$\Posc$, meanwhile, is calculated according to \autoref{eq:survProbDybFull}, which of course depends on $\SinSq$ and $\Dmsqee$.\footnote{By default, the toy MC assumes the normal hierarchy when converting $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} For generating the covariance and response matrices, ``nominal'' values of 0.085 and 0.00248~eV$^2$ are used.\footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum. XXX is the matrix stable even out to the 3$\sigma$ contours?} Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
+Returning to \autoref{eq:fitTrueIbdSpec}, $\Posc$ is calculated according to \autoref{eq:survProbDybFull}, which of course depends on the oscillation parameters.\footnote{By default, the toy MC assumes the normal hierarchy when using \autoref{eq:hierarchy} to convert $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} \autoref{tab:toyNomOscPars} summarizes the nominal oscillation parameters used in generating the covariance and response matrices.\footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum.%
+  % XXX is the matrix stable even out to the 3$\sigma$ contours?
+}
+Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
+
+\begin{table}[ht]
+  \begin{tabular}{lc}
+    \toprule
+    Parameter & Value \\
+    \midrule
+    $\SinSq$ & 0.084 \\
+    $\Dmsqee$ & $2.48 \times 10^{-3}$ eV$^2$ \\
+    $\sin^2 2\theta_{12}$ & 0.851 \\
+    $\Delta m^2_{21}$ & $7.53 \times 10^{-5}$ eV$^2$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Nominal oscillation parameters used by the toy Monte Carlo.}
+  \label{tab:toyNomOscPars}
+\end{table}
 
 \subsection{Detector response}
 \label{sec:fitToyDetResponse}
 
-Once the toy MC has determined each AD's IBD spectrum (in terms of antineutrino energy), the next step is to convert it into a prompt energy spectrum. This entails four steps:
+Once the toy MC has determined each AD's IBD spectrum (in terms of the antineutrino energy), the next step is to convert it into a prompt energy spectrum. This entails four steps:
 
 \begin{enumerate}
-\item Converting neutrino energy into positron energy
+\item Converting antineutrino energy into positron energy
 \item Accounting for the ``loss'' of visible energy incurred when positrons deposit some of their energy in the acrylic wall of the IAV
 \item Converting scintillator-deposited energy into mean visible energy, according to the absolute energy scale and the nonlinearity model
 \item Smearing the visible energy according to the resolution of the AD
