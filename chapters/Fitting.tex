@@ -463,7 +463,7 @@ It also produces a map of chi2 in parameter space for derivation of contours.
 As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, making for a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
 
 \begin{enumerate}
-\item The detector response matrix $\Miav$ \autoref{eq:Miav} is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
+\item The reverse response matrix $\mathbf{M}$ from \autoref{eq:revRespMtx} is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
 \item For each bin of $\Enu$, the contribution from each core is determined via \autoref{eq:fitFluxFactor} below, based on the predicted flux (according to power, fission fractions, and isotope spectra), the baselines, and the oscillation parameters.
 \item For a single core's contribution to a single $\Enu$ bin, the extrapolation factor of \autoref{eq:fitExtrapFactor} is applied to obtain the predicted contribution at the far AD.
 \item This is repeated for all cores, over all bins of $\Enu$, to generate a predicted $\Enu$ spectrum at the far AD \emph{for the single bin of $\Erec$ in question}.
@@ -475,19 +475,19 @@ This process is illustrated by the cartoon in \autoref{fig:fitExtrapCartoon}, an
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=0.5]{extrap_cartoon.png}
-  \caption{Conceptual illustration of the procedure for extrapolating a near AD measurement to a far AD. From \cite{berkeley_shapefit}.}
+  \caption{Conceptual illustration of the procedure for extrapolating a near AD measurement to a far AD. In the bottom-right panel, the dashed curve represents the unoscillated prediction. From \cite{berkeley_shapefit}.}
   \label{fig:fitExtrapCartoon} 
 \end{figure}
 
 \subsubsection{Mathematical details}
 
-For near AD $i$ and neutrino energy $\Enu$, the fraction of the flux coming from core $k$ is given by the flux factor
+For a near AD $i$ and a given antineutrino energy $\Enu$, the fraction of the flux coming from core $k$ is given by the flux factor
 \begin{equation}
   \label{eq:fitFluxFactor}
   f_{ik}(\Enu) = \frac{F_k(\Enu) \times P^{\mathrm{osc}}_{ik}(\Enu) \times 1/L^2_{ik}}
   {\sum_c F_c(\Enu) \times P^{\mathrm{osc}}_{ic}(\Enu) \times 1/L^2_{ic}},
 \end{equation}
-where $F_c(\Enu)$ is the flux from core $c$, given by \autoref{eq:reacToyFinalPred}, and $L_{ic}$ is the baseline from core $c$ to AD $i$.
+where $F_c(\Enu)$ is the antineutrino flux from core $c$, given by \autoref{eq:reacToyFinalPred}, and $L_{ic}$ is the baseline from core $c$ to AD $i$.
 
 The observation at near AD $i$, attributable to core $k$, in true energy bin $\Enu$, for the extrapolation of reconstructed energy bin $\Erec$, is then simply
 \begin{equation}
@@ -495,9 +495,9 @@ The observation at near AD $i$, attributable to core $k$, in true energy bin $\E
 \end{equation}
 where $N_i(\Enu; \Erec)$ is the background-subtracted count in the $\Enu$ bin:
 \begin{equation}
-  N_i(\Enu; \Erec) = M(\Erec, \Enu) \times N_i(\Erec).
+  N_i(\Enu; \Erec) = \mathbf{M}(\Erec, \Enu) \times N_i(\Erec),
 \end{equation}
-For clarity, here we express the detector response matrix $M$ as a function of $\Erec$ and $\Enu$ rather than of bin indices.
+and $N_i(\Erec)$ is the (background-subtracted) number of observed events in reconstructed energy bin $\Erec$. For clarity, here we express the reverse response matrix $\mathbf{M}$ (from \autoref{eq:revRespMtx}) as a function of $\Erec$ and $\Enu$ rather than of bin indices.
 
 In order to take near AD $i$'s observation of core $k$ and calculate the predicted observation at far AD $j$, we use the extrapolation factor
 \begin{equation}
@@ -537,9 +537,9 @@ In this way we get 16 predictions.
 \subsection{Statistical covariance matrix}
 \label{sec:fitStatCovMat}
 
-The near-to-far extrapolation produces multiple predictions for each far AD, one per near AD. Likewise, each near AD furnishes multiple predictions, one per far AD. Accordingly, statistical fluctuations in the near and far AD data will produce correlated fluctuations (across multiple near/far pairs) in the deviation between prediction and measurement. These correlations are encoded in the statistical covariance matrix, whose calculation we describe here.
+The near-to-far extrapolation produces multiple predictions for each far AD, one per near AD. Likewise, each near AD furnishes multiple predictions, one per far AD. Accordingly, statistical fluctuations in the near and far AD data will produce correlated fluctuations (across multiple near/far pairs) in the deviation between prediction and measurement. These correlations are encoded in the statistical covariance matrix, of which we describe the calculation here.
 
-Technically speaking, fluctuations in the near site data will produce fluctuations in $\Fpred$, while fluctuations in the far site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
+Technically speaking, fluctuations in the near-site data will produce fluctuations in $\Fpred$, while fluctuations in the far-site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
 
 Given this convention, the statistical uncertainty on $\Fpred$ that arises from near site fluctuations is
 \begin{equation}
@@ -553,7 +553,9 @@ Meanwhile, the ``transferred'' statistical uncertainty on $\Fpred$ from far site
 \end{equation}
 where $F^{\mathrm{bkg}}$ is the predicted background at the far AD. The total uncertainty on $\Fpred$ is then the sum of $\snear$ and $\sfar$, in quadrature.
 
-As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown (XXX how???) that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
+As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown
+% (XXX how???)
+that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
 
 \begin{comment}
 In the fit, we compare the far site measurement to the far site prediction as obtained from the near sites. Statistical uncertainty arises from both the near sites (in the form of fluctuations in the far site prediction) and from the far site data itself. We have the two expressions for each component.
@@ -574,15 +576,16 @@ From this we can straightforwardly generalize to the full statistical covariance
 
 As was noted, the extrapolation process produces multiple predictions, many of which are highly correlated by virtue of sharing a near or far AD. For the basic case of a single 8AD data period, we are essentially turning four observations (one from each far AD) into 16 variables (one per prediction). Due to this correlation, the full covariance matrix is non-invertible. In order to obtain an invertible matrix, the dimensionality must be reduced down to the level of the original input data (or smaller). This is done by combining data between ADs.
 
-There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2. (XXX is this really true and if so, why?)
+There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2.
+% (XXX is this really true and if so, why?)
 
-By convention, the far ADs are added, while the near ADs are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
+By convention, the far ADs are added, while the ADs of each near hall are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
 \begin{equation}
-  F^{\mathrm{obs},\,\mathrm{comb}}(\Erec) = \sum_b F^{\mathrm{obs}}_b(\Erec),
+  F^{\mathrm{obs},\,\mathrm{comb}}(\Erec) = \sum_{b=1}^4 F^{\mathrm{obs}}_b(\Erec),
 \end{equation}
 where the index $b$ runs over the far ADs. Likewise, we have the two near-site predictions, where the index $i$ now runs over the two near sites:
 \begin{equation}
-  F^{\mathrm{pred},\,\mathrm{comb}}_i (\Erec) = \frac{1}{n_i} \sum_a \sum_b F^{\mathrm{pred}}_{ab}.
+  F^{\mathrm{pred},\,\mathrm{comb}}_i (\Erec) = \frac{1}{n_i} \sum_{a=1}^{n_i} \sum_{b=1}^4 F^{\mathrm{pred}}_{ab}.
 \end{equation}
 Here, the index $a$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
 \begin{equation}
