@@ -56,6 +56,18 @@ In addition, the toy MC provides a method of validating the fitter, since toys c
   The toy MC also generates a ``PredictedIBD'' file which contains the background-free no-oscillation IBD spectra of each detector. As far as I can tell, this is only used in order to calculate a `summed' covariance matrix in which the matrices of the three stages (6, 8, 7AD) are combined, with the weighting determined by the PredictedIBD counts. (Oscillations shouldn't affect this weighting between ADs in the same hall, or the weighting between different stages.) In turn, the summed matrix is not used during the fit, but is only produced as a diagnostic. 
 \end{comment}
 
+\subsection{Binning}
+\label{sec:fitBinning}
+
+In the fitter and toy MC, two (somewhat arbitrary) options are available for the reconstructed energy binning:
+
+\begin{enumerate}
+\item ``LBNL'' binning: One bin from 0.7 to 1~MeV, 35 bins of 0.2~MeV from 1 to 8~MeV, and one bin from 8 to 12~MeV, for a total of 37 bins.
+\item ``BCW'' binning: One bin from 0.7 to 1.3~MeV, 24 bins of 0.25~MeV from 1.3 to 7.3~MeV, and one bin from 7.3 to 12~MeV, for a total of 26 bins.
+\end{enumerate}
+
+The spectrum below 1.3~MeV is particularly susceptible to distortion from the IAV effect. In turn, if the IAV effect (\autoref{sec:fitIavEffect}) is imperfectly modeled, this can lead to a $\sim1\sigma$ bias in the extraction of $\Dmsqee$, as was indeed observed during comparisons of the results between the independent analysis groups. The use of a coarser binning at low energies thus removes any sensitivity to this distortion. For this reason, the BCW binning is preferred (at least pending improvements to the IAV matrix).
+
 \subsection{IBD spectrum at each AD}
 \label{sec:fitToyFluxPred}
 
@@ -192,6 +204,7 @@ where $E_e^{(0)}$, $M$, etc.\@ were defined in \autoref{sec:fitToyFluxPred}.
 It is safe to neglect the energy spread caused by the angular distribution, as it is negligible in comparison to the dominant factors in the energy resolution (primarily photon statistics, as well as detector nonuniformity and noise). Likewise, there is no need to extend the calculation to higher order, given that the neutron carries away only $\mathcal{O}$(10~keV) of kinetic energy.
 
 \subsubsection{IAV effect}
+\label{sec:fitIavEffect}
 
 \newcommand\Miav{\mathbf{M}^{\mathrm{IAV}}}
 \newcommand\Eetrue[1]{E^{\mathrm{true}}_{e#1}}
@@ -199,6 +212,7 @@ It is safe to neglect the energy spread caused by the angular distribution, as i
 
 For IBDs that occur near the edge of the inner acrylic vessel, some of the positron's kinetic energy may be deposited in the acrylic, rendering that energy invisible.\footnote{Some of the energy from the annihilation gammas can also disappear in this way. The Daya Bay MC accounts for this.} In order to model this effect, it was simulated in the full Daya Bay MC \cite{TruePromptSpec}, producing a matrix $\Miav_{ij}$ which converts ``true'' positron energy $\Eetrue{}$ into ``LS-deposited'' positron energy $\Eels{}$,
 \begin{equation}
+  \label{eq:Miav}
   \Eels{,i} = \Miav_{ij} \Eetrue{,j}
 \end{equation}
 where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the conversion preserves the total neutrino count, as it should). Each axis of $\Miav$ contains 240 bins of width 50~keV ranging from 0 to 12~MeV.
@@ -312,20 +326,11 @@ The so-called \emph{super histograms} $S_c$ are essentially the cross section-we
 \begin{equation}
   S_c(E_\nu) \propto \sigma(E_\nu)\,F_c(E_\nu).
 \end{equation}
-The calculation of the cross section $\sigma(E_\nu)$ is described in \autoref{sec:fitToyFluxPred}, and the core spectrum $F_c(E_\nu)$ is given by \autoref{eq:reacToyFinalPred}. As an implementation detail, these histograms are calculated in the toy MC by applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific quantities (baseline, etc. )set to unity (or an arbitrary constant), and $\theta_{13}$ set to zero (likewise for $\theta_{12}$). The super histograms are used to calculate the fraction of each AD's spectrum that is attributable to each core, as needed when extrapolating near-site measurements to the far site. The normalization is unimportant, since only the ratios matter in this calculation.
+The calculation of the cross section $\sigma(E_\nu)$ is described in \autoref{sec:fitToyFluxPred}, and the core spectrum $F_c(E_\nu)$ is given by \autoref{eq:reacToyFinalPred}. As an implementation detail, these histograms are calculated in the toy MC by applying \autoref{eq:fitTrueIbdSpec} for a single core, with all of the AD-specific quantities (baseline, etc.) set to unity (or an arbitrary constant), and $\theta_{13}$ set to zero (likewise for $\theta_{12}$). The super histograms are used to calculate the fraction of each AD's spectrum that is attributable to each core, as needed when extrapolating near-site measurements to the far site. The normalization is unimportant, since only the ratios matter in this calculation.
 
-\subsubsection{Response matrix}
+\subsubsection{Reverse response matrix}
 
-As discussed in \autoref{eq:bkgFastnShape}, a number of effects contribute to the relationship between the antineutrino energy and the reconstructed prompt energy. The overall response can be encapsulated by a single matrix that relates the two energies. In the fitter, discussed later, this matrix is used to convert the prompt energy to the antineutrino energy, for extrapolation to the far site.
-
-This matrix is initially generated as a two-dimensional ROOT histogram, in which the $x$ axis represents neutrino energy in 240 bins from 0 to 12~MeV, and the $y$ axis represents prompt energy. Two (somewhat arbitrary) options are available for the prompt energy binning:
-
-\begin{enumerate}
-\item ``LBNL'' binning: One bin from 0.7 to 1~MeV, 35 bins of 0.2~MeV from 1 to 8~MeV, and one bin from 8 to 12~MeV, for a total of 37 bins.
-\item ``BCW'' binning: One bin from 0.7 to 1.3~MeV, 24 bins of 0.25~MeV from 1.3 to 7.3~MeV, and one bin from 7.3 to 12~MeV, for a total of 26 bins.
-\end{enumerate}
-
-The spectrum below 1.3~MeV is particularly susceptible to distortion from the IAV effect. In turn, if the IAV effect is imperfectly modeled, this can lead to a $\sim1\sigma$ bias in the extraction of $\Dmsqee$, as was indeed observed during comparisons of the results between the independent analysis groups. The use of a coarser binning at low energies thus removes any sensitivity to this distortion. For this reason, the BCW binning is preferred (at least pending improvements to the IAV matrix).
+In the fitter (\autoref{sec:fitFitter}), we require a ``reverse response'' matrix $\mathbf{M}$ to convert the prompt energy to the antineutrino energy for extrapolation to the far site. This matrix is generated as a two-dimensional ROOT histogram, in which the $x$ axis represents neutrino energy in 240 bins from 0 to 12~MeV, and the $y$ axis represents prompt energy (in either the LBNL or BCW binning).\footnote{In our mathematical treatment here, we ``flip'' the axes in accordance with the normal convention for matrices: For an element $\mathbf{M}_{ij}$, the ``vertical'' index $i$ refers to a particular antineutrino energy (the ``output''), and the ``horizontal'' index $j$ refers to a particular reconstructed energy (the ``input''). It is merely a historical implementation detail that the ROOT histogram uses the opposite convention.}
 
 \begin{comment}
   I don't see any reason to mention the fact that a finer binning (2880 instead of 240) is used internally by the toy MC when generating this matrix. With the standard 240 bins, the edges line up with both the LBNL and BCW edges, so there shouldn't be any benefit from using a finer binning.
@@ -333,17 +338,20 @@ The spectrum below 1.3~MeV is particularly susceptible to distortion from the IA
   deleted: Internally, the toy MC normally represents both neutrino and prompt energy using 240 bins (of 50~keV) from 0 to 12~MeV.
 \end{comment}
 
-For the near-to-far extrapolation, we require the ability to convert from $\Erec$ to $E_\nu$. However, the toy MC can only go in the opposite direction, from $E_\nu$ to $\Erec$. Therefore, the intuitive way to produce the response matrix would be loop over $E_\nu$ bins and populate their columns with the corresponding (normalized) $\Erec$ spectra. The result could then be directly used for converting $E_\nu$ to $\Erec$:
+For the near-to-far extrapolation, we require the ability to convert from $\Erec$ to $E_\nu$. However, the toy MC can only go in the opposite direction, from $E_\nu$ to $\Erec$. We could thus easily produce a ``forward'' response matrix $\mathbf{M_{fwd}}$ by looping over $E_\nu$ bins and populating their columns with the corresponding (normalized) $\Erec$ spectra. The result could then be trivially used for converting $E_\nu$ to $\Erec$:
 \begin{equation}
-  \mathbf{S_{\mathrm{rec}}} = \mathbf{M} \mathbf{S_\nu} 
+  \mathbf{S_{rec}} = \mathbf{M_{fwd}} \mathbf{S_\nu} 
 \end{equation}
-where the $\mathbf{S}$ are the spectra and $\mathbf{M}$ is the matrix.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use this method to convert $E_\nu$ to $\Erec$ at the end of the extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each $\Erec$ bin, and the result is then integrated back into the original $\Erec$ bin. This method is perhaps not quite as rigorous, but there is no evidence of any resulting bias as long as the binning is sufficiently fine, as is the case for both the LBNL and BCW binnings.} Unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation that we need. Meanwhile, use of the transpose, as in
+where the $\mathbf{S}$ are the spectra.\footnote{\label{foot:fitEnuToErec}In practice, the fitter does not use this method to convert $E_\nu$ to $\Erec$ at the end of the extrapolation. Instead, a separate $E_\nu$ spectrum is extrapolated for each $\Erec$ bin, and the result is then integrated back into the original $\Erec$ bin. This method is perhaps not quite as rigorous, but there is no evidence of any resulting bias as long as the binning is sufficiently fine, as is the case for both the LBNL and BCW binnings.} Unfortunately, this matrix would not be directly invertible, greatly complicating the reverse transformation that we need. Meanwhile, use of the transpose, as in
 \begin{equation}
-  \mathbf{S_\nu} = \mathbf{M^{\mathrm{T}}} \mathbf{S_{\mathrm{rec}}},
+  \mathbf{S_\nu} = \mathbf{M_{fwd}^{T}} \mathbf{S_{rec}},
 \end{equation}
 would only be valid if the antineutrino spectrum were flat, which is obviously not the case.
 
-The solution to these difficulties is to weight the $\Erec$ spectrum in each $E_\nu$ column according to the expected shape (in $E_\nu$) of the IBD spectrum. This effectively gives a prediction of the 2D joint distribution of $E_\nu$ and $\Erec$. Each \emph{row} can then be normalized to give an $E_\nu$ spectrum for each $\Erec$ bin. Under the assumption that the measured spectrum reasonably matches this shape, it is then valid to use the result for converting an $\Erec$ bin to an $E_\nu$ distribution.
+The solution to these difficulties is to reweight the $\Erec$ spectrum in each $E_\nu$ column of $\mathbf{M_{fwd}}$ according to the expected shape (in $E_\nu$) of the IBD spectrum.
+% , and then take the transpose.
+% This effectively gives a prediction of the 2D joint distribution of $E_\nu$ and $\Erec$.
+Each \emph{row} of this $\mathbf{M_{fwd}^{reweight}}$ (corresponding to an $\Erec$ bin) can then be normalized to give an $E_\nu$ spectrum for each $\Erec$ bin. Under the assumption that the measured spectrum reasonably matches this shape, it is then valid to use the (transposed) result for converting an $\Erec$ bin to an $E_\nu$ distribution.
 
 \begin{comment}
 \footnote{Given that the shape is distorted both by oscillations and by differences in the fission fractions, it is important to verify that the analysis is insensitive to such variations in the spectral shape. XXX, was this done?}
@@ -353,7 +361,13 @@ The solution to these difficulties is to weight the $\Erec$ spectrum in each $E_
   We should fix genEvisToEnuMatrix.C to turn off the theta13 oscillation, and then note below that oscillations are disabled.
 \end{comment}
 
-To produce the response matrix, the toy MC first generates a nominal spectrum (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 antineutrino energy bins.\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} For each bin $i$, it produces the corresponding p.d.f. of prompt energy (assuming a flat distribution within bin $i$), then scales it by the height of the $E_\nu$ spectrum at bin $i$; the result is then assigned to the $i$th column of the matrix. Finally, each \emph{row} of the matrix is normalized to unity.
+Accordingly, to construct the reverse response matrix, the toy MC first generates a nominal antineutrino energy spectrum $\mathbf{S^{nom}_\nu}$ (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 antineutrino energy bins.\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} For each antineutrino energy bin $i$ (centered about $E_{\nu,i}$), it produces the corresponding PDF $f(\Erec; E_{\nu,i})$ of reconstructed energy (assuming a flat distribution of antineutrino energies within bin $i$), then scales it by the value of $\mathbf{S}^{\mathbf{nom}}_{\mathbf{\nu},i}$; the result is then assigned to the $i$th row of the matrix. Finally, each column of the matrix is normalized to unity:
+\begin{align}
+  \label{eq:revRespMtxUnNorm}
+  \mathbf{M}^{\textbf{un-norm}}_{ij} &= \mathbf{S}^{\mathbf{nom}}_{\mathbf{\nu},i} \; f(E_{\mathrm{rec},j}; E_{\nu,i}), \\
+  \label{eq:revRespMtx}
+  \mathbf{M}_{ij} &= \frac{\mathbf{M}^{\textbf{un-norm}}_{ij}}{\sum_{j'=0}^{240} \mathbf{M}^{\textbf{un-norm}}_{ij'}}.
+\end{align}
 
 \subsubsection{Covariance matrices}
 
@@ -370,27 +384,30 @@ To generate the covariance matrix for signal systematics, a sample of $M =$~1,00
 \item IAV thickness (4\%, AD-to-AD uncorrelated)
 \item Nonlinearity model, fluctuated according to \autoref{eq:fitRandomNL} (correlated)
 \item Relative energy scale (0.2\%, uncorrelated)
-\item Energy resolution (0.2\%, correlated $\oplus$ 0.2\%, uncorrelated)
+\item Energy resolution (0.2\%, correlated $\oplus$ 0.2\%, uncorrelated). The two parts are treated as \emph{absolute} shifts to the (relative) resolution, and combined additively: $\sigma/E = \sigma_{\mathrm{nominal}}/E + \Gaus_1(0, 0.002) + \Gaus_2(0, 0.002)$.
 \end{itemize}
 
-From this sample of toys, a ``normalized'' signal covariance matrix is constructed according to
+From this sample of $M$ toys, a ``normalized'' signal covariance matrix is constructed according to
 \begin{equation}
-  (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  \label{eq:covmatSigNorm}
+  (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} = \frac{1}{M} \sum_t^{M}
   \frac{(F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)}%
        {F^{\mathrm{pred},t}_i \cdot F^{\mathrm{pred},t}_j}
 \end{equation}
-Here, $F^{\mathrm{obs}}$ ($F^{\mathrm{pred}}$) is the observed (predicted) far site data, and the indices $i$ and $j$ can potentially\footnote{Depending on how data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a) far ADs, (b) the near site(s)/AD(s) used for the prediction, (c) energy bins, and (d) data periods with different detector configurations. When the fitter calculates the $\chi^2$ at a given set of oscillation parameters, it scales $V^{\mathrm{norm}}_{\mathrm{sys}}$ according to the predicted signal at the far site:
+Here, $F^{\mathrm{obs}}$ is the observed far-site data (after background subtraction), and $F^{\mathrm{pred}}$ is the predicted far-site data, as given by \autoref{eq:FPred}, based on the near-site observations. The denominator carries out the normalization, enabling the matrix to be rescaled according to the size of the signal in data, as described next. The indices $i$ and $j$ can potentially\footnote{Depending on how data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a) far ADs, (b) the near site(s)/AD(s) used for the prediction, (c) energy bins, and (d) data periods with different detector configurations. When the fitter calculates the $\chi^2$ at a given set of oscillation parameters, it rescales $(V^{\mathrm{norm}}_{\mathrm{sys}})_{ij}$ according to the predicted signal at the far site:
 \begin{equation}
-  (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}}) \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
+  (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
   \cdot F^{\mathrm{pred}}_j(\SinSq, \Dmsqee).
 \end{equation}
 This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit, so long as the assumed nominal parameters are reasonable.
 
-For the background systematics, another set of 1,000 toys is generated (again with nominal oscillation parameters), subject to the rate and shape fluctuations described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance matrix is calculated as
+For the background systematics, another set of $M = $ 1,000 toys is generated (again with nominal oscillation parameters), subject to the rate and shape fluctuations described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance matrix is calculated as
 \begin{equation}
-  (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{\mathrm{toys}}
+  \label{eq:covmatBG}
+  (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{M}
   (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)
 \end{equation}
+Note that this matrix is not ``normalized'' (i.e., there is no denominator, unlike in \autoref{eq:covmatSigNorm}), and thus there is no need to rescale it (i.e., multiply it by $F^{\mathrm{pred}}$). This difference in treatment between the signal and background matrices is due to the fact that the backgrounds (and hence their uncertainties) do not vary as a function of the oscillation parameters, while the converse is true for the signal.
 
 \subsection{Handling of multiple data periods}
 \label{sec:fitToyPeriods}
@@ -420,7 +437,7 @@ Some additional complexity arises from the fact that Daya Bay has operated under
 \section{Fitter}
 \label{sec:fitFitter}
 
-Fundamentally, the task of the fitter \cite{berkeley_shapefit} is simply to find the oscillation parameters that best fit the observed data, where the quality of fit is given by
+Fundamentally, the task of the fitter \cite{berkeley_shapefit} is simply to find the oscillation parameters that best fit the observed data, where the quality of the fit is given by
 \begin{equation}
   \chi^2 = \sum_{i,j} (\Fobs_i - \Fpred_i) V^{-1}_{ij} (\Fobs_j - \Fpred_j),
 \end{equation}
@@ -430,7 +447,7 @@ with the total covariance matrix $V$ defined as
 \end{equation}
 $V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency. Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
 
-The bulk of the fitter's complexity lies in the determination of the far site prediction $\Fpred$ based on the near site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
+The bulk of the fitter's complexity lies in the determination of the far-site prediction $\Fpred$ based on the near-site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
 
 \begin{comment}
 Compared to the toy Monte Carlo, the LBNL shape fitter is a relatively simple thing.
@@ -440,13 +457,13 @@ Its job is just to find the oscillation parameters that best fit the data, i.e. 
 It also produces a map of chi2 in parameter space for derivation of contours.
 \end{comment}
 
-\subsection{Far site prediction from near sites}
+\subsection{Far-site prediction from near sites}
 \label{sec:fitNearToFarPred}
 
-As was mentioned, the far site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, making for a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor information must be used to decompose each near site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
+As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, making for a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
 
 \begin{enumerate}
-\item The detector response matrix (\autoref{sec:fitToyOutputs}) is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
+\item The detector response matrix $\Miav$ \autoref{eq:Miav} is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
 \item For each bin of $\Enu$, the contribution from each core is determined via \autoref{eq:fitFluxFactor} below, based on the predicted flux (according to power, fission fractions, and isotope spectra), the baselines, and the oscillation parameters.
 \item For a single core's contribution to a single $\Enu$ bin, the extrapolation factor of \autoref{eq:fitExtrapFactor} is applied to obtain the predicted contribution at the far AD.
 \item This is repeated for all cores, over all bins of $\Enu$, to generate a predicted $\Enu$ spectrum at the far AD \emph{for the single bin of $\Erec$ in question}.
@@ -497,6 +514,7 @@ We then have the predicted flux contribution at the far AD:
 
 Then to get the final prediction at far AD $j$ from near AD $i$, we sum over all cores $k$ and integrate all $\Enu$ bins into the original $\Erec$ bin:
 \begin{equation}
+  \label{eq:FPred}
   F^{\mathrm{pred}}_{ij}(\Erec) = \sum_k \sum_{\Enu} F_{ij,k}(\Enu; \Erec)
 \end{equation}
 
