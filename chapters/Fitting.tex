@@ -71,7 +71,7 @@ The spectrum below 1.3~MeV is particularly susceptible to distortion from the IA
 \subsection{IBD spectrum at each AD}
 \label{sec:fitToyFluxPred}
 
-The toy MC chain begins with the prediction of the livetime-averaged antineutrino spectrum $F_c(E_\nu)$ produced (per unit time) at each reactor core $c$, as specified by \autoref{eq:reacToyFinalPred}.\footnote{The technical details of this prediction are described in \autoref{chap:reactoy}, and the underlying theory is discussed in \autoref{chap:reactor}.} This is then used to calculate the IBD spectrum at each AD $i$ as
+The toy MC chain begins with the prediction of the livetime-averaged antineutrino spectrum $F_c(E_\nu)$ produced (per unit time) at each reactor core $c$, as specified by \autoref{eq:reacToyFinalPred}.\footnote{The technical details of this prediction are described in \autoref{sec:reactoy}, and the underlying theory is discussed in \autoref{chap:reactor}.} This is then used to calculate the IBD spectrum at each AD $i$ as
 \begin{equation}
   \label{eq:fitTrueIbdSpec}
   R_i(E_\nu) = T_i\,N_i\,\epsilon_i\,\sigma(E_\nu) \sum_c F_c(E_\nu) \frac{1}{4\pi L_{ci}^2}
@@ -261,6 +261,7 @@ and the $\Delta$ are the bin widths.
 
 As described in \cite{An_2017}, the Daya Bay detector resolution has been characterized as taking the form
 \begin{equation}
+  \label{eq:resolution}
   \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E_{\mathrm{rec}}}
     + \frac{(2.6\%)^2}{E_{\mathrm{rec}}^2}},
 \end{equation}
@@ -390,13 +391,13 @@ To generate the covariance matrix for signal systematics, a sample of $M =$~1,00
 From this sample of $M$ toys, a ``normalized'' signal covariance matrix is constructed according to
 \begin{equation}
   \label{eq:covmatSigNorm}
-  (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} = \frac{1}{M} \sum_t^{M}
+  (V^{\mathrm{norm}}_{\mathrm{sig}})_{ij} = \frac{1}{M} \sum_t^{M}
   \frac{(F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)}%
        {F^{\mathrm{pred},t}_i \cdot F^{\mathrm{pred},t}_j}
 \end{equation}
-Here, $F^{\mathrm{obs}}$ is the observed far-site data (after background subtraction), and $F^{\mathrm{pred}}$ is the predicted far-site data, as given by \autoref{eq:FPred}, based on the near-site observations. The denominator carries out the normalization, enabling the matrix to be rescaled according to the size of the signal in data, as described next. The indices $i$ and $j$ can potentially\footnote{Depending on how data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a) far ADs, (b) the near site(s)/AD(s) used for the prediction, (c) energy bins, and (d) data periods with different detector configurations. When the fitter calculates the $\chi^2$ at a given set of oscillation parameters, it rescales $(V^{\mathrm{norm}}_{\mathrm{sys}})_{ij}$ according to the predicted signal at the far site:
+Here, $F^{\mathrm{obs}}$ is the observed far-site data (after background subtraction), and $F^{\mathrm{pred}}$ is the predicted far-site data, as given by \autoref{eq:FPred}, based on the near-site observations. The denominator carries out the normalization, enabling the matrix to be rescaled according to the size of the signal in data, as described next. The indices $i$ and $j$ can potentially\footnote{Depending on how data is combined among ADs, as described in \autoref{sec:fitCombo}.} span (a) far ADs, (b) the near site(s)/AD(s) used for the prediction, (c) energy bins, and (d) data periods with different detector configurations. When the fitter calculates the $\chi^2$ at a given set of oscillation parameters, it rescales $(V^{\mathrm{norm}}_{\mathrm{sis}})_{ij}$ according to the predicted signal at the far site:
 \begin{equation}
-  (V_{\mathrm{sys}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sys}})_{ij} \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
+  (V_{\mathrm{sig}})_{ij} = (V^{\mathrm{norm}}_{\mathrm{sig}})_{ij} \cdot F^{\mathrm{pred}}_i(\SinSq, \Dmsqee)
   \cdot F^{\mathrm{pred}}_j(\SinSq, \Dmsqee).
 \end{equation}
 This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit, so long as the assumed nominal parameters are reasonable.
@@ -555,7 +556,7 @@ where $F^{\mathrm{bkg}}$ is the predicted background at the far AD. The total un
 
 As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown
 % (XXX how???)
-that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
+that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. The tedious details depend on the way that the data is merged between ADs and on the technical definition of the indices $i$ and $j$; the code can be seen at \cite[ShapeFit/Predictor.C, Calculate(NearSite)StatError]{DybBerkFit}. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
 
 \begin{comment}
 In the fit, we compare the far site measurement to the far site prediction as obtained from the near sites. Statistical uncertainty arises from both the near sites (in the form of fluctuations in the far site prediction) and from the far site data itself. We have the two expressions for each component.
@@ -589,7 +590,7 @@ where the index $b$ runs over the far ADs. Likewise, we have the two near-site p
 \end{equation}
 Here, the index $a$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
 \begin{equation}
-  V^{\mathrm{comb}}_{ij} = \frac{1}{n_i} \frac{1}{n_j} \sum_{i',j'} V_{i'j'}
+  V^{\mathrm{comb}}_{ij} = \frac{1}{n_i} \frac{1}{n_j} \sum_{i',j'} (V_{\mathrm{sig}} + V_{\mathrm{bkg}} + V_{\mathrm{stat}})_{i'j'},
 \end{equation}
 where the indices $i'$ and $j'$ run over all predictions from the $i$th near site to all far ADs.
 
