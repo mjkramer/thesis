@@ -67,12 +67,91 @@ The toy MC chain begins with the prediction of the livetime-averaged antineutrin
 \end{equation}
 where $T_i$ is the livetime, $N_i$ is the number of target protons, and $L_{ci}$ is the baseline.
 
-The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\%, with the latter component fully correlated with the variation in energy scale of the AD \autoref{sec:miscDetEff}.
+The detection efficiency $\epsilon_i$ includes the calculated efficiencies of the muon veto and the multiplicity cut (both of which are considered to have negligible uncertainty), as well as an additional factor which accounts for all of the remaining efficiency components. This factor is identical for all ADs in the nominal case, but when allowing fluctuations (as when generating toy samples for the construction of the covariance matrix), the efficiency is assigned an AD-to-AD uncorrelated uncertainty of 0.11\% $\oplus$ 0.072\% \autoref{sec:miscDetEff}, with the latter component fully correlated with the variation in the energy scale of the AD.
 % \footnote{The relative energy scale uncertainty is 0.2\%, as described later. Studies have shown \cite{P15A_inputs} that a 1\% energy scale variation leads to a 0.36\% shift in detection efficiency (largely due to the delayed energy cut), so we have 0.36 $\times$ 0.20\% $\sim$ 0.072\%.%
   % Also see doc-8027.
 % }
 
-The cross section $\sigma(E_\nu)$ is integrated over $4\pi$ based on the treatment in \cite{Vogel_1999}, recalculated with updated PDG constants for the phase factor $f^R$, the axial-vector coupling $g_A$, and the neutron lifetime. $\Posc$, meanwhile, is calculated according to \autoref{eq:survProbDybFull}, which of course depends on $\SinSq$ and $\Dmsqee$.\footnote{By default, the toy MC assumes the normal hierarchy when converting $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} For generating the covariance and response matrices, ``nominal'' values of 0.085 and 0.00248~eV$^2$ are used.\footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum. XXX is the matrix stable even out to the 3$\sigma$ contours?} Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
+The cross section $\sigma(E_\nu)$ is calculated by performing a $4\pi$ numerical integration of the differential cross section (to first order in the inverse nucleon mass $1/M$) \cite{Vogel_1999},
+\begin{equation}
+  \label{eq:ibdXsec}
+  \frac{d\sigma}{d\cos\theta} = \frac{\sigma_0}{2}
+  \left[\vphantom{\frac{\sigma_0}{2}}
+    (f^2 + 3g^2) + (f^2 - g^2) v_e^{(1)} \cos\theta\right]
+  E_e^{(1)} p_e^{(1)} 
+  - \frac{\sigma_0}{2}
+  \left[\frac{\Gamma}{M}\right]
+  E_e^{(0)} p_e^{(0)}, 
+\end{equation}
+where
+\begin{equation}
+  \begin{aligned}
+  \Gamma & =
+  2 (f + f_2) g
+  \left[ (2 E_e^{(0)} + \Delta ) ( 1 - v_e^{(0)}\cos\theta)
+    -\frac{m_e^2}{E_e^{(0)}} \right] \\
+  & +
+  (f^2 + g^2)
+  \left[ \Delta( 1 + v_e^{(0)}\cos\theta)
+    + \frac{m_e^2}{E_e^{(0)}} \right] \\
+  & + 
+  (f^2 + 3g^2)
+  \left[ (E_e^{(0)} + \Delta) (1 - \frac{1}{v_e^{(0)}}\cos\theta) - 
+    \Delta\right] \\
+  & +
+  (f^2 - g^2)
+  \left[ (E_e^{(0)} + \Delta) (1 - \frac{1}{v_e^{(0)}}\cos\theta) - 
+    \Delta\right] v_e^{(0)} \cos\theta,
+\end{aligned}
+\end{equation}
+\begin{equation*}
+  \sigma_0 = \frac{G_F^2 \cos^2\theta_C}{\pi}\; (1 + \Delta^R_{\mathrm{inner}}),
+\end{equation*}
+\begin{equation*}
+  E_e^{(1)} =
+  E_e^{(0)}
+  \left[1 - \frac{E_{\nu}}{M}(1 - v_e^{(0)} \cos \theta) \right]
+  - \frac{y^2}{M},
+\end{equation*}
+\begin{equation*}
+  E_e^{(0)} = E_\nu - \Delta,
+\end{equation*}
+\begin{equation*}
+  v_e^{(i)} = \frac{p_e^{(i)}}{E_e^{(i)}},
+\end{equation*}
+\begin{equation*}
+  \Delta = M_n - M_p,
+\end{equation*}
+\begin{equation*}
+  M = \frac{M_n + M_p}{2},
+\end{equation*}
+\begin{equation*}
+  y = \frac{\Delta^2 - m_e^2}{2}.
+\end{equation*}
+The various constants that enter this cross section are taken from \cite{pdg2011} (unless noted otherwise) and summarized in \autoref{tab:xsecConstants}.\footnote{It is often stated (e.g., in \cite{spectrum2017}) that the cross section is calculated using the neutron lifetime $\tau_n$ from a particular edition of the PDG tables. However, $\tau_n$ can only be directly used when calculating $\sigma$ to zeroth-order in $1/M$ \cite{Vogel_1999}. In the first-order calculation \autoref{eq:ibdXsec}, $\tau_n$ does not appear explicitly. Nevertheless, other constants, such as $g$, are connected to $\tau_n$ and are thus modified by updated measurements of the latter.}
+
+\begin{table}[ht]
+  \begin{tabular}{llc}
+    \toprule
+    Symbol & Description & Value \\
+    \midrule
+    $G_F$ & Fermi coupling constant & $1.16637 \times 10^{-5}\; (\hbar c)^3$ GeV$^{-2}$ \\
+    $\hbar c$ & Planck constant times speed of light & $197.3269631$ MeV fm \\
+    $f$ & Vector coupling $g_V/g_V$ & 1 \\
+    $g$ & Axial coupling $g_A/g_V$ & 1.2701 \\
+    $f_2$ & Anomalous isovector magnetic moment $\mu_p - \mu_n$ & 3.70589 \\
+    $\cos \theta_C$ & Cabbibo angle & 0.974 \\
+    $\Delta^R_{\mathrm{inner}}$ & Inner radiative correction \cite{doi:10.1063/1.59543} & 0.024 \\
+    $M_p$ & Proton mass & 938.272013 MeV \\
+    $M_n$ & Neutron mass & 939.565345 MeV \\
+    $m_e$ & Electron mass & 0.51099891 MeV \\
+    \bottomrule
+  \end{tabular}
+  \caption{Constants used in the evaluation of \autoref{eq:XXX} \cite{pdg2011}.}
+  \label{tab:xsecConstants}
+\end{table}
+
+$\Posc$, meanwhile, is calculated according to \autoref{eq:survProbDybFull}, which of course depends on $\SinSq$ and $\Dmsqee$.\footnote{By default, the toy MC assumes the normal hierarchy when converting $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} For generating the covariance and response matrices, ``nominal'' values of 0.085 and 0.00248~eV$^2$ are used.\footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum. XXX is the matrix stable even out to the 3$\sigma$ contours?} Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
 
 \subsection{Detector response}
 \label{sec:fitToyDetResponse}
