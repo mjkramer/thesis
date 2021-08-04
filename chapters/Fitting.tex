@@ -42,7 +42,7 @@ In addition to the choice between using pull terms or a covariance matrix (or so
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
-The LBNL toy MC essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics.\footnote{In practice, statistical fluctuations are disabled, since the statistical covariance matrix is calculated analytically as described in \autoref{sec:fitStatCovMat}.} As detailed later, a given systematic is incorporated by, first, describing it (analogously to a pull term) by a parameter (such as the detection efficiency), and then fluctuating the parameter; the value of the parameter is then used by the toy MC's model for generating the prompt spectra. This basic functionality enables the production of three essential inputs used by the fitter:
+The LBNL toy MC \cite{berkeley_toymc} essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics.\footnote{In practice, statistical fluctuations are disabled, since the statistical covariance matrix is calculated analytically as described in \autoref{sec:fitStatCovMat}.} As detailed later, a given systematic is incorporated by, first, describing it (analogously to a pull term) by a parameter (such as the detection efficiency), and then fluctuating the parameter; the value of the parameter is then used by the toy MC's model for generating the prompt spectra. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
 \item The covariance matrices for signal and background systematics, used in calculating the $\chi^2$ during the fit. As will be explained, the signal covariance matrix is rescaled according to the signal size, and then added to the background covariance matrix to produce the full systematic matrix, which is finally added to the statistical covariance matrix (generated on the fly by the fitter).
@@ -152,11 +152,11 @@ Other values of the oscillation parameters can be used for benchmarking the fitt
     \midrule
     $\SinSq$ & 0.084 \\
     $\Dmsqee$ & $2.48 \times 10^{-3}$ eV$^2$ \\
-    $\sin^2 2\theta_{12}$ & 0.851 \\
-    $\Delta m^2_{21}$ & $7.53 \times 10^{-5}$ eV$^2$ \\
+    $\sin^2 2\theta_{12}$ & 0.851 $\pm$ 0.021\\
+    $\Delta m^2_{21}$ & (7.53 $\pm$ 0.18) $\times$ $10^{-5}$ eV$^2$ \\
     \bottomrule
   \end{tabular}
-  \caption{Nominal oscillation parameters used by the toy Monte Carlo.}
+  \caption{Nominal oscillation parameters used by the toy Monte Carlo. For the solar parameters, the indicated errors are used for generating random fluctuations about the nominal values.}
   \label{tab:toyNomOscPars}
 \end{table}
 
@@ -201,50 +201,67 @@ For IBDs that occur near the edge of the inner acrylic vessel, some of the posit
 \begin{equation}
   \Eels{,i} = \Miav_{ij} \Eetrue{,j}
 \end{equation}
-where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the conversion preserves the total neutrino count, as it should).
+where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the conversion preserves the total neutrino count, as it should). Each axis of $M^{\mathrm{IAV}}$ contains 240 bins of width 50~keV ranging from 0 to 12~MeV.
 
 The uncertainty of the IAV wall thickness is assigned a conservative 4\%, which is assumed to translate to a 4\% uncertainty on the elements of $\Miav$. As implemented, the matrix is fluctuated by applying an independent 4\% Gaussian variation to each off-diagonal element, and then setting the diagonal elements so as to restore the normalization condition.
 
 \subsubsection{Positron to mean reconstructed energy}
 
-As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affected by nonlinearity in the scintillator (quenching, Cerenkov radiation) and in the electronics. Within the Daya Bay collaboration, a great deal of widespread effort went toward characterizing this behavior, as described in \cite{NonlinearityPaper}. The sum of this work was distilled in April 2018 by Yongbo Huang \cite{EnergyModelUpdateYongbo} to produce a ``unified'' nonlinearity model for use in analysis. This model is used in the toy MC.
+As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affected by nonlinearity in the scintillator (quenching, Cerenkov radiation) and in the electronics. Our analysis makes use of the ``unified'' nonlinearity model described in \cite{EnergyModelUpdateYongbo}.
+% Within the Daya Bay collaboration, a great deal of widespread effort went toward characterizing this behavior, as described in \cite{NonlinearityPaper}. The sum of this work was distilled in April 2018 by Yongbo Huang \cite{EnergyModelUpdateYongbo} to produce a ``unified'' nonlinearity model for use in analysis. This model is used in the toy MC.
+The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The nominal curve and the $\pm68\%$ CI bands were shown in \autoref{fig:reconPositronNominal}. All curves (nominal and pulls) were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis. \autoref{fig:nonlinPullCurves} shows the nominal curve along with the four pulls. The model parameters for these five curves were never published, and cannot easily be recovered from a fit (since the Cerenkov nonlinearity function $f_c$ was tabulated numerically and was also never published). Instead, the author and other Daya Bay analyzers were simply provided with tabulated values of the five curves for use in analysis.
 
-The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The curves were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis.
+\begin{figure}[ht]
+  \includegraphics[width=\textwidth]{Fitting/eplusNLpulls.pdf}
+  \caption{The nominal curve (black) from the unified nonlinearity model, along with the four pull curves (red, blue, magenta, green). The green curve only differs noticeably from the nominal curve at the lowest energies.}
+  \label{fig:nonlinPullCurves}
+\end{figure}
+% XXX should show pulls minus nominals
 
-Based on the unified model, a random nonlinearity curve is generated according to
+Based on the unified model, a nonlinearity curve is generated according to
 \begin{equation}
   \label{eq:fitRandomNL}
   f_{\mathrm{ran}}(E_e) = f_{\mathrm{nom}}(E_e) + \sum_p^4 a_p [ f_p(E_e) - f_{\mathrm{nom}}(E_e)],
 \end{equation}
-where the $a_p$ are standard Gaussian random variables. (We will continue using $a$ to denote such variables.) The same curve is used in all detectors. However, where the ADs \textit{can} differ is in their overall energy scales. The relative energy scale uncertainty has been estimated to be 0.2\% \cite{berkeley_shapefit_P14A}. Accordingly, for each toy, and each AD $d$, a scaling factor $k_d$ is calculated as
+where $E_e$ is the positron energy, and the $a_p$ are standard Gaussian random variables. (We will continue using $a$ to denote such variables.) The same curve is used in all detectors. However, where the ADs \textit{can} differ is in their overall energy scales. The relative energy scale uncertainty has been estimated to be 0.2\% \cite{berkeley_shapefit_P14A}. Accordingly, for each toy, and each AD $d$, a scaling factor $k_d$ is calculated as
 \begin{equation}
   k_d = 1 + a_d \cdot 0.002.
 \end{equation}
-The final relationship between positron and reconstructed energy, for AD $d$, is then
+The final relationship between the positron and reconstructed energy, for AD $d$, is then
 \begin{equation}
   \Erec = F_d(E_e) = k_d \cdot f_{\mathrm{ran}}(E_e) \cdot E_e.
 \end{equation}
 
-Using this relationship, the number of events $N_{\mathrm{rec},i}$in the $i$th bin of reconstructed energy (centered at $E_{\mathrm{rec},i}$) is calculated as
+Using this relationship, the number of events $N_{\mathrm{rec},i}$ in the $i$th bin of reconstructed energy (centered at $E_{\mathrm{rec},i}$) is calculated as
 \begin{equation}
   \label{eq:fitNrec}
-  N_{\mathrm{rec},i} = N_{e,j} \frac{1}{F'(E_{e,j})} \frac{\Delta_{\mathrm{rec}}}{\Delta_{\mathrm{e}}}
+  N_{\mathrm{rec},i}(E_{\mathrm{rec},i}) = N_{e,j} \left( \frac{dF}{dE_e} \Bigr|_{E_{e,j}} \right)^{-1} \frac{\Delta_{\mathrm{rec}}}{\Delta_{\mathrm{e}}}
 \end{equation}
-where $j$ is the index of the positron energy bin containing $F^{-1}(E_{\mathrm{rec},i})$, and the $\Delta$ are the bin widths.
+where the index $j$ is such that
+\begin{equation}
+  F(E_{e,j}) = E_{\mathrm{rec},i},
+\end{equation}
+and the $\Delta$ are the bin widths.
 
 \subsubsection{Detector resolution}
 
 As described in \cite{An_2017}, the Daya Bay detector resolution has been characterized as taking the form
 \begin{equation}
-  \frac{\sigma(E)}{E} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E}
-    + \frac{(2.6\%)^2}{E^2}},
+  \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E_{\mathrm{rec}}}
+    + \frac{(2.6\%)^2}{E_{\mathrm{rec}}^2}},
 \end{equation}
-where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. This fractional resolution is given a conservative uncertainty of 0.2\% correlated and 0.2\% uncorrelated, with fluctuations applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma$ is fluctuated according to
+where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. The coefficients were determined by performing a fit the to peaks from various calibration sources, neutron captures, and $\alpha$ radioactivity, as shown in \autoref{fig:resolutionFit}. In official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in energy reconstruction nonuniformity \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
 \begin{equation}
-  \frac{\sigma_{\mathrm{ran},d}(E)}{E} = \frac{\sigma(E)}{E} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
+  \frac{\sigma_{\mathrm{ran},d}(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
 \end{equation}
 
-Application of the detector resolution begins with the $\Erec$ histogram produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty) ``destination'' histogram is then constructed, and for each destination bin centered at $E_i$, we loop over the ``source'' bins that span $E_i \pm 8\,\sigma(E_i)$, and increase the count in the destination bin by the contents of the source bin, times the appropriate Gaussian factor. This produces the final, smeared, IBD spectrum.
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/cal_energy_resolution.pdf}
+  \caption{Results of fitting a large collection of energy peaks in order to obtain the resolution curve \autoref{eq:resolution}. From \cite{An_2017}.}
+  \label{fig:resolutionFit}
+\end{figure}
+
+Application of the detector resolution begins with the ``source'' $\Erec$ histogram produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty) ``destination'' histogram is then constructed, and for each destination bin centered at $E_{\mathrm{rec},i}$, we loop over the ``source'' bins that span $E_{\mathrm{rec}i} \pm 8\,\sigma(E_{\mathrm{rec},i})$,\footnote{8 standard deviations was chosen in order to ensure ``almost all'' relevant events would be included. In practice, 4 or 5 standard deviations would have been more than sufficient.} and increase the count in the destination bin by the contents of the source bin, times the appropriate Gaussian factor. This produces the final, smeared, IBD spectrum.
 
 \subsection{Backgrounds}
 \label{sec:fitToyBackgrounds}
@@ -253,11 +270,14 @@ The toy MC's treatment of backgrounds is based on the discussion in \autoref{cha
 
 \subsubsection{Accidentals}
 
-The accidental background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. A conservative 10\% uncertainty (XXX update) is assigned to the rate in order to account for the possibility of low-energy correlated processes (e.g. $\alpha$-$\alpha$) that could slightly bias the rate calculation. Rate fluctuations are applied independently for each AD. No shape uncertainty is assigned, given the substantial statistics of the background sample and the fact that the uncertainty in each energy bin is more than covered by the overall rate uncertainty. (XXX should show that the shape doesn't vary much for different isolation cuts.)
+The accidental background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. The statistical uncertainty of the accidentals rate is dominated by the $\sim$0.2\% ($\sim$0.4\%) near (far) uncertainty in the delayed-like singles rate. (In \autoref{sec:accStatUnc}, we obtain a consistent total uncertainty in the accidentals rate using a simple Monte Carlo). However, the calculated accidentals rate could be systematically biased by low-energy correlated processes (e.g. $\alpha$-$\alpha$). To study this possibility, studies within the collaboration cross-checked the accidental rate measurement using samples of artificial accidentals obtained by requiring an additional time offset between the prompt and delayed triggers \cite{An_2017}. These gave rates that were consistent with the standard calculation, up to the 1\% statistical uncertainty of the cross checks. This 1\% is thus conservatively defined to be the uncertainty of the accidentals rate.
+
+Rate fluctuations are applied independently for each AD. No shape uncertainty is assigned, given the substantial statistics of the background sample and the fact that the uncertainty in each energy bin is more than covered by the overall rate uncertainty.
+% (XXX should show that the shape doesn't vary much for different isolation cuts.)
 
 \subsubsection{\LiHe}
 
-The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Rate fluctuations are applied to each \emph{hall} independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching.) For each fluctuated toy, a spectrum is chosen at random from this set. The same random spectrum is used among all ADs.
+The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Given the limited statistics of the $^9$Li selection, it is not possible to measure statistically significant differences in the $^9$Li rate within a given hall. Accordingly, all ADs in a hall are treated identically. Rate fluctuations are thus applied to each \emph{hall} independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching.) For each fluctuated toy, a spectrum is chosen at random from this set. The same random spectrum is used among all ADs.
 
 \subsubsection{Fast neutrons}
 
@@ -333,10 +353,10 @@ The covariance matrix, which encodes the scale of fluctuations between the far s
 
 Although the toy MC is capable of simultaneously varying the signal and background systematics, the two categories are treated separately due to differences in their scaling behaviors: The signal uncertainties scale with the size of the signal (which depends on the oscillation parameters), while the background uncertainties are constant.
 
-To generate the covariance matrix for signal systematics, a sample of $M =$~1,000 toy experiments is generated, using nominal oscillation parameters of $\SinSq = 0.084$ and $\Dmsqee = \SI{2.48e-3}{eV^2}$, subject to the following fluctuations:
+To generate the covariance matrix for signal systematics, a sample of $M =$~1,000 toy experiments is generated, using the nominal values of $\SinSq$ and $\Dmsqee$ from \autoref{tab:toyNomOscPars}, subject to the following fluctuations:
 
 \begin{itemize}
-\item Solar oscillation parameters (\autoref{tab:fitSolarPars})
+\item Solar oscillation parameters (fluctuated according to the uncertainties listed in \autoref{tab:toyNomOscPars})
 \item Reactor power (0.5\% core-to-core uncorrelated)
 \item Fission fractions (uncorrelated), isotope $\nubar$ spectra, non-equilibrium corrections, and spent fuel contributions (all correlated), as encapsulated by the covariance matrix from \cite{Lewis} (see \autoref{sec:reacunccorr})
 \item IAV thickness (4\% AD-to-AD uncorrelated)
@@ -344,18 +364,6 @@ To generate the covariance matrix for signal systematics, a sample of $M =$~1,00
 \item Relative energy scale (0.2\% uncorrelated)
 \item Energy resolution (0.2\% correlated $\oplus$ 0.2\% uncorrelated)
 \end{itemize}
-
-\begin{table}[h]
-  \centering
-  \begin{tabular}{cc}
-    \toprule
-    $\sin^2 2\theta_{12}$ & 0.851 $\pm$ 0.021 \\
-    $\Delta m^2_{21}$ & (7.53 $\pm$ 0.18) $\times$ $10^{-5}$ eV$^2$ \\
-    \bottomrule
-  \end{tabular}
-  \caption{Solar oscillation parameters used by the toy Monte Carlo}
-  \label{tab:fitSolarPars}
-\end{table}
 
 From this sample of toys, a ``normalized'' signal covariance matrix is constructed according to
 \begin{equation}
@@ -404,7 +412,7 @@ Some additional complexity arises from the fact that Daya Bay has operated under
 \section{Fitter}
 \label{sec:fitFitter}
 
-Fundamentally, the task of the fitter is simply to find the oscillation parameters that best fit the observed data, where the quality of fit is given by
+Fundamentally, the task of the fitter \cite{berkeley_shapefit} is simply to find the oscillation parameters that best fit the observed data, where the quality of fit is given by
 \begin{equation}
   \chi^2 = \sum_{i,j} (\Fobs_i - \Fpred_i) V^{-1}_{ij} (\Fobs_j - \Fpred_j),
 \end{equation}
