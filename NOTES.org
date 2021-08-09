@@ -1,3 +1,8 @@
+XXX switch to BCW binning?
+
+* Action items
+- [ ] Label all equations
+
 * Outline
 ** Neutrino oscillation
 ** Daya Bay experiment
@@ -104,6 +109,9 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - Use inverse square law to predict near site rate for θ13 = 0
 - Draw random subsample of near site data, matching predicted rate above
 - Ensure fit recovers θ13 = 0 and is stable against variations in cuts, repeat for other values of θ13
+** Notes on Li9
+*** Regarding [Li9_2006]
+- The time constant T' = 1/(R_mu + R_nu) applies when we're considering only IBD candidates that are preceded "immediately" by a muon, i.e. requiring no intervening IBD candidate (so we're throwing away cases where the IBD was preceded more recently by another IBD than by a muon). See reMarkable. If we ignore intervening IBDs and just take the time-to-last-muon for all IBDs, we just get T = 1/R_mu, regardless of the IBD rate.
 * Sources of images
 - [[https://www.forbes.com/sites/startswithabang/2018/12/05/is-there-really-a-fourth-neutrino-out-there-in-the-universe/#7d2e9da833d0][Neutrino masses]]
 * References
@@ -142,6 +150,10 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - doc 11486, 11611, 11646 (Yongbo)
 - We use the root files from doc-11611
 - How do those differ from the ones in 11646?
+*** Error budget
+- doc-11724 (P17B, Beda)
+- doc-10804 (P15A, Henoch)
+- docs 8774, 9999 (shapefit technotes)
 ** Statistics
 - [[https://arxiv.org/abs/physics/9711021][A Unified Approach to the Classical Statistical Analysis of...]] (FC, 1997)
 - [[https://cds.cern.ch/record/451614/files/open-2000-205.pdf][Modified frequentist analysis of search results]] (Read, 2000)
@@ -159,6 +171,7 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - [[http://dbpubs.stanford.edu:8091/~klein/lagrange-multipliers.pdf][Lagrange Multipliers Without Permanent Scarring]]
 - [[https://math.stackexchange.com/questions/63238/why-do-we-use-a-least-squares-fit][statistics - Why do we use a Least Squares fit? - Mathematics SO]]
 - Raster scan? See Feldman-Cousins paper.
+- [[https://www.slac.stanford.edu/econf/C030908/papers/TUAT004.pdf][Definition and Treatment of Systematic Uncertainties]] (PhyStat2003)
 **** Supermisc
 - [[https://www.mcs.anl.gov/~tpeterka/papers/2018/sousa-chep18-paper.pdf][Implementation of Feldman-Cousins in HPC for NOvA]]
 ** (Parallel?) fitting
@@ -210,6 +223,9 @@ difference, i.e., each major axis increment corresponds to a factor of ten.
 - https://indico.ihep.ac.cn/event/6655/contribution/62/material/slides/0.pdf
 ** Missing from DybPublications
 - [[https://arxiv.org/abs/1707.03699][{1707.03699} The Flash ADC system and PMT waveform reconstruction]]
+** Neutral kaon mixing
+- http://hitoshi.berkeley.edu/129A/Cahn-Goldhaber/chapter7.pdf
+  - doc-10421 (yury/pedro AdSimple collab mtng)
 * Software
 ** Uncertainty propagation
 - https://en.wikipedia.org/wiki/List_of_uncertainty_propagation_software
@@ -285,6 +301,11 @@ Should properly fix helm-bibtex and submit a PR (see #266, #267)
 
 (advice-add #'bibtex-completion-get-value :around #'my//ad/fix-bibtex-completion-author-abbrev)
 #+end_src
+** Multiple bibliographies (for figures, etc.)
+- Google latex separate bibliography for figures
+- [[https://tex.stackexchange.com/questions/430518/how-to-create-two-separate-bibliographies-in-the-same-document][biblatex - How to create two separate bibliographies in the same document? - ...]]
+- Google multibib, multibib biblatex
+- [[https://texblog.org/2012/10/22/multiple-bibliographies-with-biblatex/][Multiple bibliographies with biblatex – texblog]]
 * DYB misc
 ** Coordinates and baselines
 The caption of Table 1 in the long paper is wrong. It says that X is due north. Actually, X is due "west" and Y is due "south" (right-handed coordinates), and the axes are rotated an additional ~8.5deg clockwise from "true" (i.e. Google Maps) north, so that D1 and D2 have the same Y coordinate (i.e., we get these axes by rotating the "standard" axes by 188.5deg clockwise). Also, every published diagram I've seen of the site layout is totally not to scale. The only trusted source is Table 1 (mislabeled axes notwithstanding). I've (partially) verified that the coordinates in that table give the proper baselines.

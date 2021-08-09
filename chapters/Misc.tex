@@ -1,0 +1,210 @@
+\documentclass[../thesis.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Miscellaneous notes}
+\label{chap:misc}
+
+\section{Uncorrelated detection efficiency uncertainty}
+\label{sec:miscDetEff}
+
+In order to calculate proper errors on the oscillation parameters (particularly $\SinSq$), it is necessary to account for possible AD-to-AD variations in the IBD detection efficiency, as any such variations could potentially bias the measured rate deficit at the far site. As with the other systematics, this one is treated by the fitter's toy MC (\autoref{sec:toymc}): For each random set of toy prompt spectra, a random value is generated for each AD's efficiency, and its prompt spectrum is scaled accordingly. The covariance matrix generated from these prompt spectra then encodes the effects of the relative efficiency uncertainty. Here we briefly describe the determination of this uncertainty and its implementation in the toy MC.
+
+The detection efficiency can be decomposed into various components, as detailed in \autoref{tab:detEff}. With the exception of the (dominant) first two rows (the delayed energy cut efficiency and the Gd capture fraction), the measurements of these components (and their AD-to-AD uncertainties) have remained unchanged since they were first described in \cite{SideBySide} and compiled in \cite{PhysRevLett.108.171803}.
+
+Meanwhile, the first two rows of \autoref{tab:detEff} were updated in 2016 by Lebanowski in \cite{loganDetEff}, taking advantage of the increase in statistics since 2012. For the delayed energy cut, the uncorrelated efficiency uncertainty was evaluated by loosening the delayed cut to 3.6~MeV and comparing, between ADs, the percentage of delayed energies lying in the [6, 12]~MeV region. And for the nGd capture fraction, the prompt-delayed time difference for each AD was fit to an exponential in order to determine each AD's average capture time, which in turn gave the capture fraction. The spread of these capture fractions then gave the uncorrelated uncertainty.
+
+\begin{table}[ht]
+  \begin{tabular}{lc}
+    \toprule
+    Efficiency & Uncorrelated unc. (\%) \\
+    \midrule
+    Delayed energy & 0.075 \\
+    Gd capture fraction & 0.1 \\
+    Target protons & 0.03 \\
+    Flasher cut & 0.01 \\
+    Multiplicity cut & 0.01 \\
+    Spill-in & 0.02 \\
+    Capture time & 0.01 \\
+    Prompt energy & 0.01 \\
+    \midrule
+    Total & 0.132 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Uncorrelated detection efficiency uncertainties \cite{loganDetEff}. Uncertainties were added in quadrature to obtain the total.}
+  \label{tab:detEff}
+\end{table}
+
+An additional complication arises due to the correlation between the energy scale and the detection efficiency (via the delayed energy cut efficiency). When, in the toy MC, the energy scale is fluctuated, the detection efficiency must reflect this fluctuation, in addition to \emph{independent} fluctuations of the fraction of the efficiency that is \emph{not} correlated with the energy scale. The task is then to decompose the efficiency uncertainty into two parts, one correlated and one uncorrelated with the energy scale.
+
+Nakajima carried out this decomposition in \cite{P15A_inputs}. His reasoning was as follows. First, the total efficiency uncertainty $\sigma_{\mathrm{tot}}$ (0.132\%) can be broken down into two parts: The 0.075\% uncertainty due to the delayed energy cut (which we denote $\sigma_{E_d}$), and the remainder ($\sigma_{\mathrm{other}}$):
+\begin{equation}
+  \sigma_{\mathrm{tot}} = 0.132\% = \sqrt{\sigma^2_{E_d} + \sigma^2_{\mathrm{other}}},
+\end{equation}
+where (\autoref{tab:detEff})
+\begin{equation}
+  \begin{aligned}
+    \sigma_{E_d} &= 0.075\%. \\
+    % \sigma_{\mathrm{other}} &= \sqrt{\sigma^2_{\mathrm{tot}} - \sigma^2_{E_d}} = 0.109\%
+  \end{aligned}
+\end{equation}
+In turn, $\sigma_{E_d}$ is \emph{partially} correlated to the energy scale.
+% We therefore break it down into two components:
+% \begin{equation}
+%   \sigma_{E_d} = \sqrt{\sigma^2_{E_d,\mathrm{corr}} + \sigma^2_{E_d,\mathrm{uncorr}}}.
+% \end{equation}
+According to \cite{loganDetEff}, 91.4\% of the AD-to-AD variance in the delayed energy cut efficiency is due to variance of the energy scale (\autoref{tab:delayedEffVariance}). Thus,
+\begin{equation}
+  \begin{aligned}
+    \sigma_{\mathrm{corr}} &= \sqrt{0.914 \times \sigma^2_{E_d}} = 0.072\%. \\
+    % \sigma_{E_d,\mathrm{uncorr}} &= \sqrt{(1 - 0.914) \times \sigma^2_{E_d}} = 0.022\%
+  \end{aligned}
+\end{equation}
+We can then subtract (in quadrature) $\sigma_{\mathrm{corr}}$ from $\sigma_{\mathrm{tot}}$ to obtain the part of the detection efficiency uncertainty that is uncorrelated with the energy scale:
+\begin{equation}
+  \sigma_{\mathrm{uncorr}} = \sqrt{\sigma^2_{\mathrm{tot}} - \sigma^2_{\mathrm{\mathrm{corr}}}} = 0.11\%.
+\end{equation}
+In summary,
+\begin{equation}
+  \begin{aligned}
+    \sigma_{\mathrm{tot}} &= \sqrt{\sigma^2_{\mathrm{corr}} + \sigma^2_{\mathrm{uncorr}}} \\
+    &= \sqrt{(0.072\%)^2 + (0.11\%)^2}.
+  \end{aligned}
+\end{equation}
+
+\begin{table}[ht]
+  \begin{tabular}{lc}
+    \toprule
+    Component & Fraction (\%) \\
+    \midrule
+    Energy scale & 91.4 \\
+    OAV thickness & 7.8 \\
+    Nonuniformity & 0.8 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Decomposition of the variance of the delayed energy cut efficiency \cite{loganDetEff}.}
+  \label{tab:delayedEffVariance}
+\end{table}
+
+As described in \cite[Sec.\@ III B 5 b]{An_2017}, the AD-to-AD variation of the energy scale, $\delta_E$, is $\sim$0.20\%. It is then assumed that this 0.20\% variation leads to the observed 0.072\% energy-scale-correlated detection efficiency variation $\delta_{\epsilon_d}$:
+\begin{equation}
+  0.072\% = \frac{\delta_{\epsilon_d}}{\delta_E} \times 0.20\%,
+\end{equation}
+or
+\begin{equation}
+  \frac{\delta_{\epsilon_d}}{\delta_E} = \frac{0.072}{0.20} = 0.36.
+\end{equation}
+Therefore,
+\begin{equation}
+  \delta_{\epsilon_d} = 0.36 \times \delta_E.
+\end{equation}
+
+In the toy MC, after a fractional energy scale fluctuation $\delta_E$ is generated via $\Gaus(0, 0.0020)$, the nominal\footnote{And arbitrary, since we are performing a relative measurement.} detection efficiency is first multiplied by $1 + 0.36 \times \delta_E$. The result is then multipled by an additional factor of $1 + \Gaus(0, 0.0011)$ to account for the detection efficiency variance that is uncorrelated with the energy scale. That is,
+\begin{equation}
+  \epsilon_d = \epsilon_{d,\mathrm{nom}} \cdot (1 + 0.36 \times \Gaus(0, 0.0020)) \cdot (1 + \Gaus(0, 0.0011)),
+\end{equation}
+where the first Gaussian random variable is the same one used in fluctuating the energy scale. This gives the final detection efficiency used by the toy MC. The prompt spectrum is uniformly scaled by this factor in generating the toy sample.
+
+\section{Reactor spectrum prediction in toy MC}
+\label{sec:reactoy}
+
+An important input to both the fitter and the toy MC is the prediction of the flux from each of the six reactors. The fitter uses the nominal prediction in order to decompose the near-site spectra into their reactor components for extrapolation to the far site. Meanwhile, the toy MC uses randomly-fluctuated spectra to determine the covariance matrix employed in the fit. This appendix describes the prediction procedure in detail. By convention, we define these spectra in terms of true neutrino energy, and omit any weighting by the IBD cross section. The spectra are divided into 220 bins, 50~keV wide, ranging from 1.85 to 12.8~MeV.
+% The result is stored separately for each isotope.
+To produce this prediction, a number of basic inputs are required:
+
+\begin{itemize}
+\item Weekly average thermal power and fission fractions for each reactor, as reported by the Reactor Working Group using data provided by the power company. The fission fractions are determined from simulations, as described in \autoref{chap:reactor}.
+\item Weekly detector livetimes, in order to properly weight the spectra for each week. Given that we only use data where all three halls were operating (and passing data quality requirements) simultaneously, there is only a single value for each week, not three values.
+\item Nominal fission spectra, in 10~keV increments of $E_\nu$ from 1.8 to 13~MeV, and in units of $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$. For $^{235}$U, $^{239}$Pu, and $^{241}$Pu, Huber's spectra are used, whereas the French spectrum is used for $^{238}$U. We rebin these into 50~keV bins by sampling the midpoints.
+\item Nominal corrections to account for the ILL measurements having been made out of equilibrium. These consist of five correction per isotope (none for $^{238}$U) defined at evenly spaced $E_\nu$ points from 2 to 4~MeV (see \autoref{tab:noneqcorr}).
+\item A nominal spectrum for spent nuclear fuel (SNF).
+\item The IBD cross section as a function of $E_\nu$. At this stage, this is only used in calculating the normalization of the SNF contribution, as described below.
+\end{itemize}
+
+\subsection{Nominal spectra}
+\label{sec:nomspectra}
+
+For each core $c$, the first step is to sum over each week $w$ and calculate the time-averaged nominal flux $F^{\mathrm{nom}}_{ci}(E)$ from isotope $i$ at energy $E$. By convention, this quantity is specified in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, and calculated as:
+% \[ F_{ie} = \frac{S_{ie} \sum_w \frac{\widebar P P_w}{q\widebar E_w}
+%   f_{iw}T_w}{N \sum_w T_w}, \]
+% \[ F_{ie} = \frac{1}{N} S_{ie} \frac{1}{\sum_wT_w} \sum_w \frac{\widebar P
+%   P_w}{q \widebar E_w} f_{iw} T_w, \]
+% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w \frac{\widebar P P_w}{q \widebar
+%   E_w} f_{iw} T_w, \]
+% \[ F_{ie} = \frac{S_{ie}}{N\sum_wT_w} \sum_w T_w f_{iw} \frac{\widebar P
+%   P_w}{q \widebar E_w}, \]
+\[ F^\mathrm{nom}_{ci}(E) = \frac{S_{i}(E)}{N\sum_wT_w} \sum_w T_w f_{wci}
+  R_{wc}, \]
+\begin{flalign*}
+  \text{where } S_{i}(E) & \text{ is the theoretical spectrum, in $\widebar\nu_e$~MeV$^{-1}$~fission$^{-1}$,} & \\
+  N & \equiv 10^{18} \text{ is a normalization factor,} \\
+  T_{w} & \text{ is the weekly total detector livetime (i.e. weekly weighting factor), in days,} \\
+  f_{wci} & \text{ is the weekly average fission fraction of isotope $i$, and} \\
+  R_{wc} & \text{ is the weekly average fission rate, in s$^{-1}$.}
+\end{flalign*}
+
+In turn, the weekly fission rate $R_{wc}$ is
+\[ R_{wc} = \frac{\widebar P P_{wc}}{q \widebar E_{wc}}, \]
+\begin{flalign*}
+  \text{where } \widebar P & \text{ is the nominal core power, 2895~MW, } & \\
+  P_{wc} & \text{ is the actual core power, as a fraction of $\widebar P$,} \\
+  q & \text{ is 1.602$\times10^{-19}$ J/eV,} \\
+  \widebar E_{wc} & \equiv \textstyle{\sum_i} f_{wci} E_i
+  \text{ is the weekly average energy per fission, in MeV, and} \\
+  E_i & \text{ is the average energy per fission of isotope $i$, in MeV.}
+\end{flalign*}
+
+Thus, from data files containing $T_w$, $P_{wc}$, and $f_{wci}$, along with static definitions of $S_i(E)$ and $E_i$, the livetime-weighted average nominal flux emitted by each core is calculated.
+
+\subsection{Corrected spectra}
+\label{sec:corrspectra}
+
+\subsubsection{Non-equilibrium correction}
+\label{sec:noneqcorrspectra}
+
+As discussed in \autoref{chap:reactor}, the nominal spectra are derived from measurements taken with foils irradiated for a few dozen hours. Since, in such experiments, longer-lived fission fractions are not given enough time to reach their equilibrium concentrations, the measured spectra deviate slightly from those emitted by long-running nuclear reactors. \autoref{tab:noneqcorr} shows the percentage corrections to the spectra of the three fissile isotopes, which were tabulated by Lewis \cite{Lewis} based on \cite{Mueller_2011}. At energies between the five tabulated points, the corrections are linearly interpolated. Above 4.0~MeV, no correction is applied. Below 2.0~MeV, the corrections at 2.0 and 2.5~MeV are linearly extrapolated. This procedure results in a continuous, piecewise linear correction function, $C^\mathrm{ne}_i(E)$ for each isotope $i$. For U-238, the function is identically zero. Applying the correction and summing over isotopes then gives the intermediate result $F^\mathrm{ne}_c(E)$,
+\[ F^\mathrm{ne}_c(E) = \sum_i \Bigl(1 + C^\mathrm{ne}_i(E)\Bigr)\,
+  F^\mathrm{nom}_{ci}(E). \]
+
+\begin{table}
+  \centering
+  \begin{tabular}{lrrrrr}
+    \toprule
+    $E$ (MeV) & 2.0 & 2.5 & 3.0 & 3.5 & 4.0 \\
+    \midrule
+    U-235 & 5.7 & 4.4 & 1.5 & 0.7 & 0.1 \\
+    Pu-239 & 2.1 & 1.7 & 0.5 & 0.0 & 0.0 \\
+    Pu-241 & 1.9 & 1.5 & 0.5 & 0.0 & 0.0 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Non-equilibrium corrections to antineutrino spectra, in percentage terms. The corrections are linearly interpolated when applied at intermediate energies. No correction is defined for U-238.}
+  \label{tab:noneqcorr}
+\end{table}
+
+\subsubsection{Spent nuclear fuel}
+\label{sec:snfcorrspectra}
+
+An additional term must be added to the reactor prediction due to the presence of spent nuclear fuel in storage pools near the reactor cores. Based on studies described in \cite{Lewis}, it was determined that a fraction $R^\mathrm{snf}$ of 0.3\% of the \emph{total, cross-section weighted} antineutrino flux must come from spent nuclear fuel. The uncertainty on this percentage is unspecified (FIXME?), but the oscillation analysis is largely insensitive even to large errors in the reactor prediction, so the impact of the SNF uncertainty is essentially negligible. A core-dependent SNF spectrum $S^\mathrm{snf}_c(E)$ (also described in \cite{Lewis}), with arbitrary normalization, is added to $F^\mathrm{ne}(E)$ (after non-equilibrium correction), subject to the aforementioned constraint on the measured rate. This constraint determines the normalization factor $A^\mathrm{snf}_c$,
+\[ A^\mathrm{snf}_c = \frac{\frac{1}{6}\sum_{c'} \int
+    F^\mathrm{ne}_{c'}(E)\,\sigma(E)\, dE}{\int S^\mathrm{snf}_c(E)\,\sigma(E)\,
+    dE} \; R^\mathrm{snf},
+\]
+where $\sigma(E)$ is the IBD cross section and the integrals are understood to represent sums over binned spectra. The factor of 1/6 is included because $R^\mathrm{snf}$ is defined with respect to the \emph{total} flux, while $A^\mathrm{snf}_c$ is specific to the core $c$. Essentially, this procedure divides the total integrated SNF flux evenly among the six cores, while still allowing for a different shape in each core. In the current implementation, a single shape is used for all six cores.
+
+At this point, the final, fully-corrected reactor prediction can be written simply as
+\begin{equation}
+  \label{eq:reacToyFinalPred}
+  F_c(E) = F^\mathrm{ne}_c(E) + A^\mathrm{snf}_c \, S^\mathrm{snf}_c(E)
+\end{equation}
+It is this $F_c(E)$ that is fed into the fitter (for extrapolation) and the toy MC. The spectra are specified in 220 bins (50-keV wide) of $E_\nu$ from 1.85 to 12.8~MeV, in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, with one such spectrum per core per data period (6AD, 8AD, or 7AD). The livetime weighting uses the average weekly livetime across the three halls, rather than treating each hall individually; this is valid, since the data sample only includes periods where all three halls were running.
+
+\subsection{Fluctuated spectra}
+\label{sec:reactoyFluct}
+
+Use the Cholesky decomposition of Lewis's covariance matrix \cite{Lewis}. Generate an array x of Gaus(1), multiply by L from Cholesky, fluctuate each bin of the nominal spectrum by the relative amount contained in Lx. Do this four times, once for each isotope. Now we have fluctuated spectra. The covariance matrix accounts for uncertainties in the published spectra (both correlated and uncorrelated between isotopes), fission fraction uncertainty (5\%), relative reactor power uncertainty, and non-equilibrium uncertainty.
+% (XXX What about SNF uncertainty? Check \cite{Lewis}.)
+
+The actual generation of the covariance matrix is discussed in \autoref{sec:reacunccorr}, with the full details available in \cite{Lewis}.
+
+
+\end{document}

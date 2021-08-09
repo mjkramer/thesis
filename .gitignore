@@ -19,5 +19,8 @@ auto/
 chapters/auto
 oldorg/*.pdf
 oldorg/*.tex
-!images/*.pdf
+!images/**/*.pdf
 _region_.*
+.pdf-view-restore
+.~lock*#
+feedback/

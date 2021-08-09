@@ -15,24 +15,25 @@
 % \usepackage{caption}            % see memoir doc p. 206
 \usepackage{graphicx}
 % \usepackage[backend=biber,citestyle=numeric-comp,firstinits=true]{biblatex}
-\usepackage[backend=biber,citestyle=numeric-comp]{biblatex}
-\usepackage{hyperref}
+\usepackage[backend=biber,citestyle=numeric-comp,giveninits,sorting=none]{biblatex}
+\usepackage[bookmarksdepth=3]{hyperref}
 \hypersetup{colorlinks=true,allcolors=blue,bookmarksnumbered=true}
 \usepackage{xspace}
 \usepackage{changepage}
 \usepackage{braket}
 % \usepackage{multirow}
 \usepackage{xstring}
-\usepackage{subfiles}
+% \usepackage{subfig}
+\usepackage[v1]{subfiles}
 
 \input{macros.tex}
 
 \addbibresource{biblio.bib}
 
-\title{Precision Measurement of $\theta_{13}$\\ from Reactor Antineutrino
+\title{Precision Measurement of $\theta_{13}$ and $\Delta m^2_{ee}$\\ from Reactor Antineutrino
   Oscillation\\ at Daya Bay}
 \author{Matthew Jacob Kramer}
-\date{Spring 2019}
+\date{Summer 2021}
 
 \begin{document}
 
@@ -70,12 +71,12 @@
 \subfile{chapters/Backgrounds.tex}
 \subfile{chapters/Reactor.tex}
 \subfile{chapters/Fitting.tex}
-\subfile{chapters/CutOptim.tex}
+\subfile{chapters/CutVary.tex}
 \subfile{chapters/Conclusion.tex}
 
 \appendix
 \subfile{chapters/AccAndDMC.tex}
-\subfile{chapters/ReactorForToyMC.tex}
+\subfile{chapters/Misc.tex}
 
 \backmatter
 

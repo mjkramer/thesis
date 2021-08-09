@@ -7,8 +7,7 @@
 % \chapter*{Accidentals rate and DMC efficiency}
 % \stepcounter{chapter}
 
-XXX this still needs to be updated in some areas to account for our use of a
-DMC-like isolation cut instead of a symmetric one.
+% XXX this still needs to be updated in some areas to account for our use of a DMC-like isolation cut instead of a symmetric one. Does it? Looks like we updated it.
 
 \def\Emin{\ensuremath{E_\mathrm{min}}} \def\Emax{\ensuremath{E_\mathrm{max}}}
 \def\Rs{\ensuremath{R_\mathrm{s}}} \def\Rplu{\ensuremath{R_\mathrm{+}}}
@@ -70,8 +69,7 @@ singles selection), and $T$ be the raw DAQ livetime of the sample.
 \section{Singles selection}
 \label{sec:singsel}
 
-We begin with a sample of singles. As described in \autoref{sec:selSingles},
-these are events that meet the following criteria:
+We begin with a sample of singles. As described in \autoref{sec:selSingles}, these are events that meet the following criteria:
 
 \begin{comment}
   This is the current state of the code:
@@ -96,18 +94,10 @@ these are events that meet the following criteria:
 \item AdSimple energy of at least 0.7~MeV.
 \item Charge of less than 3,000 p.e. (i.e., not muon-like)
 \item No other such events within 400~\us\ before the event
-\item No other such events \emph{between 6 and 12~MeV} within 200~\us\ after the
-  event
+\item No other such events \emph{between 6 and 12~MeV} within 200~\us\ after the event
 \end{enumerate}
 
-The muon veto conditions need not be the same as those used in the IBD
-selection, as long as they are sufficiently stringent (as explained in
-\autoref{sec:avoidmuoncorr}). Likewise, the final two conditions (the
-\emph{isolation cut}) can be chosen somewhat arbitrarily, provided that the
-window is large enough to remove correlated triggers and small enough to provide
-sufficient statistics. The actual employed isolation cut is designed to mimic
-the IBD selection's multiplicity cut as closely as possible, as discussed in
-\autoref{sec:selSingles}.
+The muon veto conditions need not be the same as those used in the IBD selection, as long as they are sufficiently stringent (as explained in \autoref{sec:avoidmuoncorr}). Likewise, the final two conditions (the \emph{isolation cut}) can be chosen somewhat arbitrarily, provided that the window is large enough to remove correlated triggers and small enough to provide sufficient statistics. The actual employed isolation cut is designed to mimic the IBD selection's multiplicity cut as closely as possible, as discussed in \autoref{sec:selSingles}.
 
 \section{Muon veto considerations}
 \label{sec:muonventoconsider}
@@ -115,9 +105,9 @@ the IBD selection's multiplicity cut as closely as possible, as discussed in
 \subsection{Avoiding muon-correlated events}
 \label{sec:avoidmuoncorr}
 
-In the selection criteria described in \autoref{sec:singsel}, the final one (the
-isolation cut) requires ``no other events passing the above cuts within time
-window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto
+In the selection criteria described in \autoref{sec:singsel}, the final one
+(the isolation cut) requires ``no other events passing the above cuts within
+time window $\pm t$''. Since ``the above cuts'' includes ``not in a muon veto
 window'', this implies that an extra \emph{muon-correlated} trigger will
 \emph{not} lead to event rejection by the isolation cut.
 
@@ -181,45 +171,61 @@ isolation cut efficiency is described next.
 \section{Isolation cut efficiency}
 \label{sec:isolcuteff}
 
-As a starting point, we have the following identity:
-\begin{equation}
+\newcommand\NL{\ensuremath{N_{\mathrm{L}}}}
+\newcommand\RL{\ensuremath{R_{\mathrm{L}}}}
+\newcommand\tL{\ensuremath{t_{\mathrm{L}}}}
+\newcommand\NR{\ensuremath{N_{\mathrm{R}}}}
+\newcommand\RR{\ensuremath{R_{\mathrm{R}}}}
+\newcommand\tR{\ensuremath{t_{\mathrm{R}}}}
+
+Let ``L'' and ``R'' (i.e. left and right) refer to the two classes of events that would lead to rejection of a singles candidate, should such an event be measured within a time window of (respectively) $\tL$ before or $\tR$ after the candidate. Let $\NL$ and $\RL$ denote, respectively, the raw measured count and the true rate of L-class events, and likewise for $\NR$ and $\RR$. Also let $T$ denote the total livetime.
+
+As a starting point, we have the following identities:
+\begin{align}
   \label{eq:ident0}
-  \Nplu = \emu \eisol \Rplu T,
-\end{equation}
-in which \Nplu, \emu, and $T$ are known, and \eisol\ and \Rplu\ are not. In
-addition, the Poisson distribution implies that
+  \begin{split}
+    \NL &= \emu \eisol \RL T \\
+    \NR &= \emu \eisol \RR T
+  \end{split}
+\end{align}
+in which \emu\ and $T$ and each $N$ are known, while the unknowns are \eisol\ and each $R$. In addition, the Poisson distribution implies that
 \begin{equation}
   \label{eq:ident1}
-  \eisol = e^{-2\Rplu t}.
+  \eisol = e^{-\RL \tL -\RR \tR}.
 \end{equation}
-This is simply the probability of observing zero prompt-plus events in two time
-windows (one preceding, one following) each of length $t$. Combining these two
-equations and eliminating \eisol, we have:
+This is simply the probability of observing zero L-class events in a time window of length $\tL$, and zero R-class events in a $\tR$-length window. Combining \autoref{eq:ident0} and \autoref{eq:ident1}, we have:
+\begin{align*}
+  \begin{split}
+    \NL &= \emu e^{-\RL \tL -\RR \tR} \RL T \\
+    \NR &= \emu e^{-\RL \tL -\RR \tR} \RR T \\
+\end{split}
+\end{align*}
+or, after rearranging and multiplying the top and bottom equations by $\tL$ and $\tR$, respectively,
+\begin{align*}
+  \begin{split}
+    e^{\RL \tL + \RR \tR} \NL \tL &= \emu \RL \tL T \\
+    e^{\RL \tL + \RR \tR} \NR \tR &= \emu \RR \tR T. \\
+  \end{split}
+\end{align*}
+Adding these two coupled equations gives
 \begin{equation}
-  \Nplu = \emu e^{-2\Rplu t} \Rplu T,
+  e^{\RL \tL + \RR \tR} (\NL \tL + \NR \tR) = \emu (\RL \tL + \RR \tR) T
 \end{equation}
 which, after some rearrangement, gives:
 \begin{equation}
-  (-2 \Rplu t) e^{-2 \Rplu t} = - \frac{2 \Nplu t}{\emu T}.
+  (-\RL \tL - \RR \tR) e^{-\RL \tL - \RR \tR} = -\frac{\NL \tL + \NR \tR}{\emu T}.
 \end{equation}
-This equation takes the form $we^w = z$, which cannot be solved for $w$ (or, in
-our case, \Rplu) using elementary functions. Instead we employ the Lambert $W$
-function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w)
-= w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches.
-We know that, for a 1~ms isolation window, $\Rplu t \ll 1$, implying that the
-correct choice is the upper branch $W_0$. Then
+This equation takes the form $we^w = z$, which cannot be solved for $w$  using elementary functions. Instead we employ the Lambert $W$ function, defined as the inverse of the map $w \mapsto we^w$ (that is, $W(we^w) = w$). As shown in \autoref{fig:lambertW}, the $W$ function has two branches. We know that, for an O(1~ms) isolation window, $\RL \tL \ll 1$ (and likewise for $\RR$), implying that the correct choice is the upper branch $W_0$. Then
 \begin{equation}
-  \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
+  % \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
+  \RL \tL + \RR \tR = - W_0\left(-\frac{\NL \tL + \NR \tR}{\emu T}\right)
 \end{equation}
 Finally, inserting this into \eqref{eq:ident1}, we obtain the isolation cut
 efficiency:
 \begin{equation}
-  \eisol = \exp \, W_0 \left( -\frac{2\Nplu t}{\emu T} \right).
+  \label{eq:accIsolEff}
+  \eisol = \exp \, W_0 \left( -\frac{\NL \tL + \NR \tR}{\emu T} \right).
 \end{equation}
-
-TODO: Describe generalization to case where different time periods and/or energy
-ranges are used before/after the event. Hint: Take the two coupled equations,
-move all exponentials to the left side, add the two equations.
 
 \begin{figure}
   \centering \includegraphics[scale=0.7]{../images/lambertW.png}
@@ -233,10 +239,11 @@ move all exponentials to the left side, add the two equations.
 Once the isolation cut efficiency is known, it is trivial to calculate the
 prompt- and delayed-like singles rates:
 \begin{equation}
+  \label{eq:accSingRates}
   \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
   \Rdel = \frac{\Ndel}{\eisol \emu T},
 \end{equation}
-and so on.
+and so on. These quantities are essential for calculating the DMC efficiency and accidentals rate, as described below.
 
 \section{DMC efficiency}
 \label{sec:dmceffcalc}
@@ -252,6 +259,7 @@ and no extra prompt-plus events\footnote{Formerly, in the LBNL analysis, only
 \begin{align}
   \edmc &= P(0; \Rplu \cdot 2\tau)\;P(0; \Rdel \cdot \tau) \nonumber \\
         &= \exp [-(2\Rplu\tau + \Rdel\tau)],
+          \label{eq:dmcEff}
 \end{align}
 where $\tau$ = 200~$\mu$s.
 
@@ -273,13 +281,13 @@ conditions:
 \item No prompt-plus (prompt-like or sub-muon) events in [-400, -200]~$\mu$s.
 \item No delayed-like events in [0, 200]~$\mu$s.
 \end{enumerate}
-The accidentals rate is then simply the product of these probabilities with the
-delayed-like singles rate:
+The accidentals rate is then simply the product of these probabilities multiplied by the delayed-like singles rate:
 \begin{align}
+  \label{eq:accRate}
   \Racc &= \Rdel \cdot P(1; \Rpro \tau)\cdot P(0; \Rsub \tau)
-          \cdot P(0; \Rplu \tau)\cdot P(0; \Rdel \tau) \nonumber \\
+           \cdot P(0; \Rplu \tau)\cdot P(0; \Rdel \tau) \nonumber \\
         &= \Rdel\cdot\Rpro\tau e^{-\Rpro\tau}\cdot e^{-\Rsub\tau}
-          \cdot e^{-\Rplu\tau} \cdot e^{-\Rdel\tau}
+           \cdot e^{-\Rplu\tau} \cdot e^{-\Rdel\tau}
 \end{align}
 
 Note that this calculation incorporates the inefficiency of the DMC (but not of
@@ -292,10 +300,19 @@ when providing the accidentals rate to the fitter:
   \Racc' = \frac{\Racc}{\edmc}.
 \end{equation}
 
-\section{Conclusions}
-\label{sec:accdmcconcl}
+\subsection{Statistical uncertainty}
+\label{sec:accStatUnc}
 
-The most subtle part of this calculation is the efficiency of the isolation cut.
-I hope that there isn't any circular logic lurking in my derivation.
+The accidentals rate, as calculated using \autoref{eq:accRate}, carries a statistical uncertainty which derives from that of the rates that enter the calculation: the prompt-like rate, delayed-like rate, etc. In turn, these rates, as specified by \autoref{eq:accSingRates}, derive their own uncertainties from those of the event counts in each classification. The uncertainties of the counts are trivial, being merely the Poisson uncertainty of $\sqrt{N}$. However, once we consider the \emph{rates} rather than the \emph{counts}, we begin to encounter complications. Most notably, the isolation cut efficiency $\epsilon_{\mathrm{i}}$ in \autoref{eq:accSingRates} is \emph{also} a function of the event counts, as indicated by \autoref{eq:accIsolEff}. This nonlinear dependence on the event counts is only made more complicated when the rates are inserted into \autoref{eq:accRate}. Furthermore, the event classifications in question are not always statistically independent: For instance, the prompt-like and delayed-like counts are correlated by virtue of the fact that they both include events in the 6--12 MeV region.
+
+In spite of these complications, it is still possible to undertake a theoretical calculation of the statistical uncertainty on the accidentals rate. This would involve expanding \autoref{eq:accRate} in terms of the various event counts $N_{\mathrm{p}}$, $N_{\mathrm{d}}$, etc., and then reexpressing the event counts (such as the prompt-like and delayed-like counts) as sums of counts of \emph{disjoint} event classes $N_1$, $N_2$, etc. (e.g., an 0.7--6 MeV class and a 6--12 MeV class). This complicated function $R_{\mathrm{acc}}(N_1, N_2, \ldots)$ could then be expanded in a power series using computer algebra. From that, an expression for the variance $\braket{R_{\mathrm{acc}}^2} - \braket{R_{\mathrm{acc}}}^2$ could be obtained up to any desired order, and evaluated using the known cumulants of the Poisson distribution.
+
+Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance, particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate. For this reason, a simple Monte Carlo was developed for calculating this uncertainty. It gave results consistent with the uncertainty published in \cite{An_2017}. (TODO: Include details; show my histogram of accidentals rates under random variations of the prompt/delayed-like rates.)
+
+% \section{Conclusions}
+% \label{sec:accdmcconcl}
+
+% The most subtle part of this calculation is the efficiency of the isolation cut.
+% I hope that there isn't any circular logic lurking in my derivation.
 
 \end{document}
