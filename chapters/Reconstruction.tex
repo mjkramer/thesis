@@ -158,7 +158,9 @@ In the case of AdSimple, the current nonuniformity map was produced from three y
     & \phantom{ + N_{\mathrm{tail}} \cdot } \left. \quad+\frac{a}{2} \left[ \erf\left( \frac{\mu-E}{\sigma\sqrt{2}} \right)  - \erf \left( \frac{0-E}{\sigma\sqrt{2}} \right)\right]\right \}.
   \end{aligned}
 \end{equation}
-This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. For a given pixel $i$, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels\footnote{Since the energy scale was determined using GdLS events (spallation nGd captures), the GdLS region is used for the denominator in the correction factor, even though this nH-derived correction is applied \emph{outside} the GdLS.} \cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor:
+This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. For a given pixel $i$, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels
+% \footnote{Since the energy scale was determined using GdLS events (spallation nGd captures), the GdLS region is used for the denominator in the correction factor, even though this nH-derived correction is applied \emph{outside} the GdLS.}
+\cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor:
 \begin{equation}
   \begin{aligned}
     \widebar E^{\mathrm{nH}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nH}}_i \\
@@ -166,7 +168,9 @@ This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_
   \end{aligned}
 \end{equation}
 
-The appropriate correction factor is used, based on whether each pixel lies in the GdLS or the LS. For those pixels that contain the boundary of the IAV, the average of the two factors is used:
+Although it may seem strange that the GdLS-wide average is used for the nH-based correction (which only gets applied in the LS), this choice is in fact essential to the validity of the correction. As was discussed earlier, spallation neutron nGd captures are used for defining the AdSimple energy scale, and these events occur only in the GdLS (where their distribution is essentially uniform). Since each pixel's correction factor represents a correction to the energy scale for events inside that pixel, the pixel must be compared to the region used for defining the energy scale, that is, the GdLS.
+
+Each pixel is finally assigned its correction factor based on whether it lies in the GdLS or the LS. For those pixels that contain the boundary of the IAV, the average of the two factors is used:
 \begin{equation}
   f_i =
   \begin{cases}
@@ -175,6 +179,7 @@ The appropriate correction factor is used, based on whether each pixel lies in t
     (f^{\mathrm{GdLS}} + f^{\mathrm{LS}})/2, & \text{IAV boundary.}
   \end{cases}
 \end{equation}
+
 
 Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex}) was looked up (using bilinear interpolation) in this nonuniformity map, and the resulting (time-invariant) correction factor was applied. However, it has been shown that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will proportionally affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by the simple analytical expression \cite[p. 16]{yuryNonUni2}:
 \begin{equation}
