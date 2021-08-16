@@ -74,8 +74,8 @@ At a given operating voltage, every PMT will produce a unique amount of charge p
 Prior to data taking, each PMT underwent benchtop tests in order to estimate an operating voltage that would deliver a PMT gain of $1 \times 10^7 \pm 5\%$. At this gain, the peak voltage of the shaped pulse corresponds to approximately 19 ADC counts, based on the inherent (and fixed) calibration of the ADC. This voltage then remained fixed as long as the gain didn't deviate excessively from the intended range. Minor deviations were acceptable and expected, and were effectively compensated by the gain calibration, provided that the drift occurred over time scales longer than the typical calibration period of $\sim$6 hours. This was indeed the case: Gain drifts were found to occur on a scale of a few percent per year (\autoref{fig:gainDrift}).
 
 \begin{figure}[h]
-  \includegraphics[width=0.65\textwidth]{Calibration/gains_p17b.png}
-  \caption{Average PMT gain in each AD, as a function of time. From \cite{gainsP21A}.}
+  \includegraphics[width=0.65\textwidth]{Calibration/gain_nuwa.pdf}
+  \caption{PMT gain over time, averaged over 8" PMTs (excluding bad channels) in each AD. The jump in 2016 for EH1-AD2 was due to a miscabling issue which caused certain channels to receive the incorrect HV.}
   \label{fig:gainDrift}
 \end{figure}
 

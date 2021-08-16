@@ -103,12 +103,52 @@ These histograms are stored in files that correspond one-to-one with Daya Bay DA
 \item The two $\sigma$ (width) parameters are related by the square root of the aforementioned ratio of peak locations.
 \end{enumerate}
 
-After the fit is performed, the location parameter $\mu$ of the first peak (generally between 1200 and 1350~PE) is assumed to correspond to 7.937~MeV (from $^{157}$Gd), and so, in this convention, the energy scale constant is simply $\mu/7.937$ PE/MeV. However, due to the PMT afterpulsing that occurs after a high-energy muon event, this value is biased upward compared to the energy scale for the IBD nGd captures. This would not be issue if the bias were the same size in all halls (since it could then simply be absorbed into a common nonlinearity correction), but because the muon rate and spectrum differ between halls, so does this bias. Such a systematic difference in energy scales could bias the oscillation fit. Accordingly, the energy scales are corrected by an AD-specific factor (ranging from 0.9895 to 0.9934), empirically determined in order to match the IBD-nGd energy scale in the extrapoloated limit of zero muon energy \cite{spallScaleCorr}. These corrected energy scales are stored in the database for use by the AdSimple reconstruction.
+After the fit is performed (as illustrated in \autoref{fig:escale_fit}), the location parameter $\mu$ of the first peak (generally between 1200 and 1350~PE) is assumed to correspond to 7.937~MeV (from $^{157}$Gd), and so, in this convention, the energy scale constant is simply $\mu/7.937$ PE/MeV. However, due to the PMT afterpulsing that occurs after a high-energy muon event, this value is biased upward compared to the energy scale for the IBD nGd captures. This would not be an issue if the bias were the same size in all halls (since it could then simply be absorbed into a common nonlinearity correction), but because the muon rate and spectrum differ between the halls, so does this bias. Such a systematic difference in energy scales could bias the oscillation fit. Accordingly, the energy scales are corrected by an AD-specific factor (\autoref{tab:ibdSpallCorrs}), empirically determined in order to match the IBD-nGd energy scale in the extrapolated limit of zero muon energy \cite{spallScaleCorr}. These corrected energy scales are stored in the database for use by the AdSimple reconstruction. In \autoref{fig:energy_scales} we plot the energy scale for each AD as a function of time.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.65\textwidth]{Reconstruction/escale_fit.pdf}
+  \caption{Example of a fit used for determining the AdSimple energy scale.}
+  \label{fig:escale_fit}
+\end{figure}
+
+\begin{table}[ht]
+  \begin{tabular}{lc}
+    \toprule
+    AD & Correction \\
+    \midrule
+    EH1-AD1 & 0.9927 \\
+    EH1-AD2 & 0.9934 \\
+    EH2-AD1 & 0.9921 \\
+    EH2-AD2 & 0.9922 \\
+    EH3-AD1 & 0.9901 \\
+    EH3-AD2 & 0.9904 \\
+    EH3-AD3 & 0.9899 \\
+    EH3-AD4 & 0.9895 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Correction factors ($E_{\mathrm{IBD}}/E_{\mathrm{spall}}$) relating the energies of n-Gd captures from IBDs to those from spallation neutrons \cite{spallScaleCorr}.}
+  \label{tab:ibdSpallCorrs}
+\end{table}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.65\textwidth]{Reconstruction/energy_scale.pdf}
+  \caption{AdSimple energy scale in each AD as a function of time. Deviations from the trend (most notable in EH1-AD2) were caused by application of the incorrect HV (see \autoref{fig:gainDrift}); although the effects of this were canceled to first-order by the gain calibration, some channels with low gain were often unable to exceed the threshold of the discriminator, leading to an effective decrease in the energy scale. This decrease had no significant detrimental impact on the energy reconstruction.}
+  \label{fig:energy_scales}
+\end{figure}
 
 \subsection{Nonuniformity correction}
 \label{sec:reconEnergyNU}
 
-Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible energy} $\Eraw$ is simply $Q/S$. Given that the light collection efficiency differs as a function of position within the AD, the effective energy resolution would be degraded if $\Eraw$ were directly used in physics analysis. Fortunately, this nonuniformity can be measured and corrected for. In the case of AdSimple, the current nonuniformity map was produced from three years of data by dividing the AD into pixels (in $R^2$ and $Z$) and selecting spallation neutron captures on both gadolinium and hydrogen within each pixel. For each pixel within the GdLS, the nGd spectra was fit to a double Crystal Ball function (along with an additional exponential tail, found to improve fit quality), and the location of the peak was divided by the mean nGd peak among all GdLS pixels, giving the correction factor. (This choice of denominator reflects the fact that the energy scale is determined using events uniformly distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit to the ``Daya Bay Function'' (a specific case of the general \emph{Calorimeter Function} developed by members of the collaboration \cite{dybfunction}):
+Given the nominal charge $Q$ and the energy scale $S$, we define the \emph{raw visible energy} $\Eraw$ as simply $Q/S$. By construction, $\Eraw$ is anchored to zero and to 7.937~MeV (for n-Gd captures uniformly distributed in the GdLS). At other energies, $\Eraw$ is biased due to the nonlinearity of the scintillator and electronics. The correction for this nonlinearity is discussed in \autoref{sec:reconEnergyNL}. However, since the light collection efficiency varies as a function of position within the AD, we must first correct for this geometric \emph{nonuniformity}. Otherwise, the energy resolution would be degraded. Fortunately, this nonuniformity can be measured and corrected for.
+
+In the case of AdSimple, the current nonuniformity map was produced from three years of data by dividing the AD into pixels (10 in $R^2$ $\times$ 10 in $Z$) and selecting spallation neutron captures on both gadolinium and hydrogen within each pixel. For each pixel $i$ within the GdLS, the nGd spectra was fit to a double Crystal Ball function (along with an additional exponential tail to improve fit quality), and the location of the peak was divided by the mean nGd peak among all $N^{\mathrm{GdLS}}$ GdLS pixels, giving the correction factor $f^{\mathrm{GdLS}}_i$:
+\begin{equation}
+  \begin{aligned}
+    \widebar E^{\mathrm{nGd}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nGd}}_i \\
+    f^{\mathrm{GdLS}}_i &= \frac{E^{\mathrm{nGd}}_i}{\widebar E^{\mathrm{nGd}}}
+  \end{aligned}
+\end{equation}
+(This choice of denominator reflects the fact that the energy scale is determined using events uniformly distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit to the ``Daya Bay Function'' (a specific case of the general \emph{Calorimeter Function} developed by members of the collaboration \cite{dybfunction}):
 \begin{equation}
   \label{eq:dybfunction}
   \begin{aligned}
@@ -118,7 +158,23 @@ Given the nominal charge $Q$ and the energy scale $S$, the \emph{raw visible ene
     & \phantom{ + N_{\mathrm{tail}} \cdot } \left. \quad+\frac{a}{2} \left[ \erf\left( \frac{\mu-E}{\sigma\sqrt{2}} \right)  - \erf \left( \frac{0-E}{\sigma\sqrt{2}} \right)\right]\right \}.
   \end{aligned}
 \end{equation}
-This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. In a given pixel, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels \cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor.
+This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. For a given pixel $i$, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels\footnote{Since the energy scale was determined using GdLS events (spallation nGd captures), the GdLS region is used for the denominator in the correction factor, even though this nH-derived correction is applied \emph{outside} the GdLS.} \cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor:
+\begin{equation}
+  \begin{aligned}
+    \widebar E^{\mathrm{nH}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nH}}_i \\
+    f^{\mathrm{LS}}_i &= \frac{E^{\mathrm{nH}}_i}{\widebar E^{\mathrm{nH}}}
+  \end{aligned}
+\end{equation}
+
+The appropriate correction factor is used, based on whether each pixel lies in the GdLS or the LS. For those pixels that contain the boundary of the IAV, the average of the two factors is used:
+\begin{equation}
+  f_i =
+  \begin{cases}
+    f^{\mathrm{GdLS}}_i, & \text{inside IAV,} \\
+    f^{\mathrm{LS}}_i, & \text{outside IAV,} \\
+    (f^{\mathrm{GdLS}} + f^{\mathrm{LS}})/2, & \text{IAV boundary.}
+  \end{cases}
+\end{equation}
 
 Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex}) was looked up (using bilinear interpolation) in this nonuniformity map, and the resulting (time-invariant) correction factor was applied. However, it has been shown that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will proportionally affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by the simple analytical expression \cite[p. 16]{yuryNonUni2}:
 \begin{equation}
