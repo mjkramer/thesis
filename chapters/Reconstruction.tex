@@ -21,6 +21,22 @@ Daya Bay has developed multiple independent reconstruction algorithms. The two t
 \section{Energy reconstruction}
 \label{sec:reconEnergy}
 
+The energy reconstruction begins with the total measured charge, and proceeds through a series of corrections to produce a best estimate of the true deposited energy, as illustrated in \autoref{fig:pmt2etrue}. In the sections that follow, we will be repeatedly referring to various estimated energies:
+\begin{itemize}
+\item $\mathbf{E_{raw}}$\textbf{:} The \emph{raw} energy, i.e., the total measured charge from the PMTs, divided by the energy scale.
+\item $\mathbf{E_{cor}}$\textbf{:} The \emph{corrected} energy, calculated from $E_{\mathrm{raw}}$ by applying a \emph{time-independent} correction for the geometric nonuniformity of the AD's response (\autoref{sec:reconEnergyNU}).
+\item $\mathbf{E_{rec}}$\textbf{:} The final \emph{reconstructed energy}, obtained from $E_{\mathrm{cor}}$ by applying an additional correction for the time-dependence of the geometric nonuniformity\footnote{Caused by, e.g., the gradual increase in the attenuation length of the scintillator.} This is stored as the output of the AdSimple reconstruction. Two events which occur at different positions/times, but which are othewise identical, will produce the same $E_{\mathrm{rec}}$. The energy scale is defined such that $E_{\mathrm{rec}} = \SI{7.94}{MeV}$ for spallation neutrons.
+\item $\mathbf{E_{vis}}$\textbf{:} The \emph{visible} energy, obtained from $E_{\mathrm{rec}}$ by applying a correction for the nonlinearity of the electronics (i.e., correcting the charge such that it is directly proportional to the number of photoelectrons). In physical terms, $E_{\mathrm{vis}}$ is proportional to the number of photons produced in the scintillator.\footnote{In practice, $E_{\mathrm{rec}}$ is converted into $E_{\mathrm{dep}}$ in a single step using the combined (scintillator + electronics) nonlinearity model described in \autoref{sec:reconEnergyNL}. Hence, $E_{\mathrm{vis}}$ never explicitly appears.}
+\item $\mathbf{E_{dep}}$\textbf{:} The \emph{deposited} energy, obtained from $E_{\mathrm{vis}}$ by correcting for the (particle-dependent) nonlinearity of the scintillator. This is the final estimate of the actual energy physically deposited.
+\item $\mathbf{E_{\nu}}$\textbf{:} The \emph{neutrino} energy, calculated from $E_{\mathrm{dep}}$ based on the kinematics of the IBD interaction.
+\end{itemize}
+
+\begin{figure}[h]
+  \includegraphics[scale=1.0]{Reconstruction/pmt2etrue_flow.pdf}
+  \caption{Conceptual flowchart of the AdSimple energy reconstruction process. In practice, the electronics and scintillator nonlinearity corrections are applied in a single step, using the correction function described in \cite{NonlinearityPaper}. An alternative reconstruction, known as AdSimpleNL, corrects for the electronics nonlinearity at the level of individual channels, prior to summing of the charges to obtain the nonlinearity-corrected nominal charge (``NominalChargeNL''). Both methods produce consistent results. Here, we use the more ``traditional'' AdSimple algorithm.}
+  \label{fig:pmt2etrue}
+\end{figure}
+
 \subsection{Event charge determination}
 \label{sec:reconEnergyCharge}
 
@@ -144,8 +160,8 @@ Given the nominal charge $Q$ and the energy scale $S$, we define the \emph{raw v
 In the case of AdSimple, the current nonuniformity map was produced from three years of data by dividing the AD into pixels (10 in $R^2$ $\times$ 10 in $Z$) and selecting spallation neutron captures on both gadolinium and hydrogen within each pixel. For each pixel $i$ within the GdLS, the nGd spectra was fit to a double Crystal Ball function (along with an additional exponential tail to improve fit quality), and the location of the peak was divided by the mean nGd peak among all $N^{\mathrm{GdLS}}$ GdLS pixels, giving the correction factor $f^{\mathrm{GdLS}}_i$:
 \begin{equation}
   \begin{aligned}
-    \widebar E^{\mathrm{nGd}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nGd}}_i \\
-    f^{\mathrm{GdLS}}_i &= \frac{E^{\mathrm{nGd}}_i}{\widebar E^{\mathrm{nGd}}}
+    \widebar E_{\mathrm{raw}}^{\mathrm{nGd}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nGd}}_{\mathrm{raw},i} \\
+    f^{\mathrm{GdLS}}_i &= \frac{E_{\mathrm{raw},i}^{\mathrm{nGd}}}{\widebar E^{\mathrm{nGd}}}
   \end{aligned}
 \end{equation}
 (This choice of denominator reflects the fact that the energy scale is determined using events uniformly distributed within the GdLS). Meanwhile, for each LS pixel, the nH peak was fit to the ``Daya Bay Function'' (a specific case of the general \emph{Calorimeter Function} developed by members of the collaboration \cite{dybfunction}):
@@ -155,16 +171,16 @@ In the case of AdSimple, the current nonuniformity map was produced from three y
     f_{\mathrm{DYB}}(E) = \; & N_\mathrm{peak} \cdot \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(E-\mu)^2}{2\sigma^2}} \\
     & + N_{\mathrm{tail}} \cdot \left\{ \frac{\lambda}{2} e^{\frac{\sigma^2\lambda^2}{2}}
     e^{\lambda E} \left[ \erf\left( \frac{\mu-(E+\sigma^2\lambda)}{\sqrt{2}\sigma} \right) - \erf \left( \frac{0 - (E+\sigma^2\lambda)}{\sqrt{2}\sigma} \right) \right] \right.\\
-    & \phantom{ + N_{\mathrm{tail}} \cdot } \left. \quad+\frac{a}{2} \left[ \erf\left( \frac{\mu-E}{\sigma\sqrt{2}} \right)  - \erf \left( \frac{0-E}{\sigma\sqrt{2}} \right)\right]\right \}.
+    & \phantom{ + N_{\mathrm{tail}} \cdot } \left. \quad+\frac{a}{2} \left[ \erf\left( \frac{\mu-E}{\sigma\sqrt{2}} \right)  - \erf \left( \frac{0-E}{\sigma\sqrt{2}} \right)\right]\right \},
   \end{aligned}
 \end{equation}
-This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. For a given pixel $i$, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels
+where $E \equiv E_{\mathrm{raw}}$. This function has six parameters: The normalizations $N_{\mathrm{peak}}$ and $N_{\mathrm{tail}}$, the peak location $\mu$, the peak width $\sigma$, and the two tail shape parameters $\lambda$ and $a$. For a given pixel $i$, the fitted peak $\mu$ was divided by the mean nH peak among all \emph{GdLS} pixels
 % \footnote{Since the energy scale was determined using GdLS events (spallation nGd captures), the GdLS region is used for the denominator in the correction factor, even though this nH-derived correction is applied \emph{outside} the GdLS.}
 \cite[p. 20]{yuryNonUni} to obtain the pixel's nonuniformity factor:
 \begin{equation}
   \begin{aligned}
-    \widebar E^{\mathrm{nH}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nH}}_i \\
-    f^{\mathrm{LS}}_i &= \frac{E^{\mathrm{nH}}_i}{\widebar E^{\mathrm{nH}}}
+    \widebar E_{\mathrm{raw}}^{\mathrm{nH}} &= \frac{1}{N^{\mathrm{GdLS}}} \sum_i^{\mathrm{GdLS}} E^{\mathrm{nH}}_{\mathrm{raw},i} \\
+    f^{\mathrm{LS}}_i &= \frac{E^{\mathrm{nH}}_{\mathrm{raw},i}}{\widebar E_{\mathrm{raw}}^{\mathrm{nH}}}
   \end{aligned}
 \end{equation}
 
@@ -179,20 +195,24 @@ Each pixel is finally assigned its correction factor based on whether it lies in
     (f^{\mathrm{GdLS}} + f^{\mathrm{LS}})/2, & \text{IAV boundary.}
   \end{cases}
 \end{equation}
-
-
-Within AdSimple, the reconstructed vertex position (\autoref{sec:reconVertex}) was looked up (using bilinear interpolation) in this nonuniformity map, and the resulting (time-invariant) correction factor was applied. However, it has been shown that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will proportionally affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by the simple analytical expression \cite[p. 16]{yuryNonUni2}:
+$E_{\mathrm{cor}}$ is then obtained by applying the correction factor:
 \begin{equation}
-  \frac{\Delta E}{E} = (a + b R^2)\, \Delta t,
+  E_{\mathrm{cor}} = f \cdot E_{\mathrm{raw}},
 \end{equation}
-where
+where $f$ is calculated by performing bilinear interpolation between the four values of $f_i$ located nearest to the reconstructed position of the event (\autoref{sec:reconVertex}).
+
+An additional complication is the fact that the nonuniformity of the AD changes over time (along with the energy scale), presumably because decreases in the attenuation length of the scintillator will disproportionately affect events located near the edge of the AD, compared with events near the center. This behavior was found to be consistent between all ADs, and adequately captured by the simple analytical expression \cite[p. 16]{yuryNonUni2}:
+\begin{equation}
+  \frac{\Delta E_{\mathrm{cor}}}{E_{\mathrm{cor},t_0}} = (a + b R^2)\, (t - t_0),
+\end{equation}
+where $R$ is the radial coordinate (in meters) of the event, $t$ is the time of the event (in units of years, relative to an atbitrary reference point), $t_0$ is the (livetime--weighted) average time for the dataset used in constructing the static nonuniformity corrections $f_i$, and
 \begin{align*}
   a &= -0.00149 \pm 0.00030,\\
   b &= 0.00109 \pm 0.00013,
 \end{align*}
-$R$ is the radial coordinate (in meters) of the event, and $\Delta t$ is the time (in years) since the mean timestamp in the data period used when generating the static nonuniformity map. Computing the corrected energy $E_{\mathrm{corr}}$ (i.e. $\Erec$) from the uncorrected energy $E_{\mathrm{uncorr}}$ then involves simply undoing this energy shift:
+Computing the final reconstructed energy $E_{\mathrm{rec}}$ from $E_{\mathrm{cor}}$ then involves simply undoing this energy shift:
 \begin{equation}
-  E_{\mathrm{corr}} = \left( 1 - \left.\frac{\Delta E}{E}\right|_{E=E_{\mathrm{uncorr}}} \right) \cdot E_{\mathrm{uncorr}}
+  E_{\mathrm{rec}} = \left[ 1 - (a + b R^2) (t - t_0) \right] \cdot E_{\mathrm{cor}}
 \end{equation}
 After applying the full (static $\times$ time-dependent) nonuniformity correction, the resulting reconstructed energy $\Erec$ was stored in the processed data file for use in analysis.
 
@@ -206,12 +226,6 @@ After applying the full (static $\times$ time-dependent) nonuniformity correctio
 Note that, in what follows, the phrase ``positron energy'' refers not to the positron kinetic energy $E_{\mathrm{kin}}$, nor to to the relativistic (i.e. mass + kinetic) energy $E_{\mathrm{rel}}$, but rather to the total \emph{deposited} energy (including annihilation gammas); that is, ``positron energy'' = $\Edep = E_{\mathrm{kin}} + 2m_e = E_{\mathrm{rel}} + m_e$. Henceforth, $\Edep$ will refer to the true deposited energy of positrons, unless a different particle is indicated in the subscript.
 
 As was mentioned, the nonlinearity of the AD response can be divided into contributions from the scintillator and from the electronics. Both effects are on the scale of 10\%, and work in opposite directions: The scintillator response is suppressed for low-energy events, while the electronics show a reduced response for high-energy events. Nevertheless, they do not cancel each other very effectively, so each must be treated separately and carefully. We begin with the scintillator. In what follows, we define $\Evis$ to be (proportional to) the amount of light produced in the scintillator. In terms of physical processes, the (particle and energy-dependent) scintillator nonlinearity determines $\Evis$ from $\Edep$, and then the (charge-dependent) electronics nonlinearity determines $\Erec$ from $\Evis$. In analysis, this logic is reversed in order to determine $\Edep$ given $\Erec$\footnote{Recall that any effects from geometric nonuniformity have already been removed in the computation of $\Erec$.}.
-
-\begin{figure}[h]
-  \includegraphics[scale=1.0]{Reconstruction/pmt2etrue_flow.pdf}
-  \caption{Conceptual flowchart of the AdSimple energy reconstruction process. In practice, the electronics and scintillator nonlinearity corrections are applied in a single step, using the correction function described in \cite{NonlinearityPaper}. An alternative reconstruction, known as AdSimpleNL, corrects for the electronics nonlinearity at the level of individual channels, prior to summing of the charges to obtain the nonlinearity-corrected nominal charge (``NominalChargeNL''). Both methods produce consistent results. Here, we use the more ``traditional'' AdSimple algorithm.}
-  \label{fig:pmt2etrue}
-\end{figure}
 
 Within the scintillator, there are two primary sources of nonlinearity: \emph{quenching} \cite{Birks_1951} and \emph{Cerenkov radiation} \cite{cerenkov}. Quenching occurs when the local ionization density is high, allowing fluorescently excited molecules to be ``quenched'' by excited neighbors, preventing light emission. Ionization density is highest when a particle is moving slowly (especially when it is near the end of its range), so, for a low-energy particle, a greater fraction of light will be quenched in comparison to a higher-energy particle, leading to nonlinear light emission as a function of energy. For organic scintillators such as the Daya Bay LS, this behavior is quantitatively well described by \emph{Birks' law} \cite{Birks_1951},
 \begin{equation}
