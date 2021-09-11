@@ -285,7 +285,43 @@ For each hall, three histograms were constructed, corresponding to three muon vi
   \label{tab:bkgLi9Cuts}
 \end{table}
 
-After constructing the histogram, we fit it to \autoref{eq:bkgLi9FullExpr}. For the nominal result, we fix the $^8$He fraction $r$ to be 5.5\% (an inherited ``reasonable guess'', as discussed further in \autoref{sec:bkgLi9Spectrum}), and include the $^{12}$B component. Later we discuss the effects of varying the $^8$He fraction and the inclusion of $^{12}$B. The best-fit value of $N_{\mathrm{Bkg}}$, as determined by \texttt{MINUIT}, corresponds to the raw number of (muon-correlated) $^9$Li/$^8$He events present in the sample used for filling the histogram. As discussed in \cite{ChrisLi9}, the fit does not suffer from any appreciable correlation between $N_{\mathrm{Bkg}}$ and $N_{\mathrm{IBD}}$, as the latter is strongly constrained by the tail at high time-to-last-muon. This was verified in \cite{ChrisLi9} by hand-scanning the variation of $\chi^2$ as a function of $N_{\mathrm{Bkg}}$. Thus, \texttt{MINUIT's} reported statistical uncertainty on $N_{\mathrm{Bkg}}$ can be safely taken at face value and propagated into our final uncertainty. Our fit results are summarized in \autoref{tab:bkgLi9Rates}. As discussed further in \autoref{chap:cutVary}, the fit was also performed using alternative muon energy ranges, in order to characterize the dependence of the $^9$Li rate on the choice of shower-muon threshold.
+After constructing the histogram, we fit it to \autoref{eq:bkgLi9FullExpr}. The results are shown in Figures~\ref{fig:li9_fits_eh1}--\ref{fig:li9_fits_eh3}. For the nominal result, we fix the $^8$He fraction $r$ to be 5.5\% (an inherited ``reasonable guess'', as discussed further in \autoref{sec:bkgLi9Spectrum}), and include the $^{12}$B component. Later we discuss the effects of varying the $^8$He fraction and the inclusion of $^{12}$B. The best-fit value of $N_{\mathrm{Bkg}}$, as determined by \texttt{MINUIT}, corresponds to the raw number of (muon-correlated) $^9$Li/$^8$He events present in the sample used for filling the histogram. As discussed in \cite{ChrisLi9}, the fit does not suffer from any appreciable correlation between $N_{\mathrm{Bkg}}$ and $N_{\mathrm{IBD}}$, as the latter is strongly constrained by the tail at high time-to-last-muon. This was verified in \cite{ChrisLi9} by hand-scanning the variation of $\chi^2$ as a function of $N_{\mathrm{Bkg}}$. Thus, \texttt{MINUIT's} reported statistical uncertainty on $N_{\mathrm{Bkg}}$ can be safely taken at face value and propagated into our final uncertainty. Our fit results are summarized in \autoref{tab:bkgLi9Rates}. As discussed further in \autoref{chap:cutVary}, the fit was also performed using alternative muon energy ranges, in order to characterize the dependence of the $^9$Li rate on the choice of shower-muon threshold.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.5\linewidth]{Backgrounds/Li9/fits/EH1_range1_CV_logx.png} \\[0.5em]
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH1_range2_CV_logx.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH1_range3_CV_logx.png}%
+  \end{minipage}%
+  \caption{Time-to-last-muon fits for IBD-like events in EH1.}
+  \label{fig:li9_fits_eh1}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.5\linewidth]{Backgrounds/Li9/fits/EH2_range1_CV_logx.png} \\[0.5em]
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH2_range2_CV_logx.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH2_range3_CV_logx.png}%
+  \end{minipage}%
+  \caption{Time-to-last-muon fits for IBD-like events in EH2.}
+  \label{fig:li9_fits_eh2}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.5\linewidth]{Backgrounds/Li9/fits/EH3_range1_CV_logx.png} \\[0.5em]
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH3_range2_CV_logx.png}%
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}%
+    \includegraphics[width=\linewidth]{Backgrounds/Li9/fits/EH3_range3_CV_logx.png}%
+  \end{minipage}%
+  \caption{Time-to-last-muon fits for IBD-like events in EH3.}
+  \label{fig:li9_fits_eh3}
+\end{figure}
 
 \begin{table}[h]
   \centering
@@ -293,20 +329,20 @@ After constructing the histogram, we fit it to \autoref{eq:bkgLi9FullExpr}. For 
     \toprule
     Hall & PE range ($\times10^3$) & $N_{\mathrm{Bkg}}$ \\
     \midrule
-    EH1  & 5-160   & 164.0 $\pm$ 51.4 \\
-         & 160-300 & 554.9 $\pm$ 0.2 \\
-         & 300-inf & 6969.2 $\pm$ 675.4 \\
+    EH1  & Low (5-160)   & 164.0 $\pm$ 51.4 \\
+         & Mid (160-300) & 554.9 $\pm$ 0.2 \\
+         & High (300-inf) & 6969.2 $\pm$ 675.4 \\
     \midrule
-    EH2  & 5-160   & 95.8 $\pm$ 27.4 \\
-         & 160-300 & 301.7 $\pm$ 0.1 \\
-         & 300-inf & 6282.7 $\pm$ 733.3 \\
+    EH2  & Low (5-160)   & 95.8 $\pm$ 27.4 \\
+         & Mid (160-300) & 301.7 $\pm$ 0.1 \\
+         & High (300-inf) & 6282.7 $\pm$ 733.3 \\
     \midrule
-    EH3  & 5-160   & 66.8 $\pm$ 25.5 \\
-         & 160-300 & 280.1 $\pm$ 67.5 \\
-         & 300-inf & 1915.1 $\pm$ 182.4 \\
+    EH3  & Low (5-160)   & 66.8 $\pm$ 25.5 \\
+         & Mid (160-300) & 280.1 $\pm$ 67.5 \\
+         & High (300-inf) & 1915.1 $\pm$ 182.4 \\
     \bottomrule
   \end{tabular}
-  \caption{Measured number of $^9$Li events, as determined by the time-to-last-muon fit, for each hall and range of muon energies. Quoted errors are the statistical uncertainties reported by the fitter. No efficiency corrections have been applied.}
+  \caption{Measured number of $^9$Li+$^8$He events, as determined by the time-to-last-muon fit, for each hall and range of muon energies. Quoted errors are the statistical uncertainties reported by the fitter. No efficiency corrections have been applied.}
   \label{tab:bkgLi9Rates}
 \end{table}
 
