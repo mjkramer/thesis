@@ -40,13 +40,13 @@
   \def\chapterautorefname{Chapter}%
   \def\sectionautorefname{Section}%
   \def\subsectionautorefname{Section}%
-  \def\equationautorefname{}%
+  \def\equationautorefname{Equation}%
 }
 
 %% google "autoref equation parentheses"
-\makeatletter
-\def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
-\let\orgtheequation\theequation
-% We add the \unskip since we don't prepend e.g. "Equation"
-\def\theequation{\unskip(\orgtheequation)}
-\makeatother
+% \makeatletter
+% \def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
+% \let\orgtheequation\theequation
+% % We add the \unskip since we don't prepend e.g. "Equation"
+% \def\theequation{\unskip(\orgtheequation)}
+% \makeatother
