@@ -380,15 +380,18 @@ The efficiencies and uncertainties for the three prompt-energy cuts are summariz
   \label{eq:bkgLi9PromptEffUnc}
   \sigma_p = \frac{w^{\mathrm{low}} \sigma_p^{\mathrm{low}} + w^{\mathrm{mid}} \sigma_p^{\mathrm{mid}} + w^{\mathrm{high}} \sigma_p^{\mathrm{high}}}{w^{\mathrm{low}} + w^{\mathrm{mid}} + w^{\mathrm{high}}},
 \end{equation}
-where
+where the weights $w$ are proportional to the contribution of each range to the predicted daily rate (see \autoref{eq:bkgLi9DailyRate}):
 \begin{equation}
+  \label{eq:bkgLi9Weights}
   \begin{aligned}
     w^{\mathrm{low}} &= \frac{N^{\mathrm{low}}}{\epsilon_p^{\mathrm{low}}\epsilon_n} \\
     w^{\mathrm{mid}} &= \frac{N^{\mathrm{mid}}}{\epsilon_p^{\mathrm{mid}}} \\
-    w^{\mathrm{high}} &= \frac{N^{\mathrm{high}}}{\epsilon_p^{\mathrm{high}}} e^{t_{\mathrm{sh}/\tau_{\mathrm{Li}}}},
+    w^{\mathrm{high}} &= \frac{N^{\mathrm{high}}}{\epsilon_p^{\mathrm{high}} e^{t_{\mathrm{sh}/\tau_{\mathrm{Li}}}}}.
   \end{aligned}
 \end{equation}
-$N^{\mathrm{low}}$ etc.\ are the values of $N_{\mathrm{bkg}}$ for the three PE ranges in \autoref{tab:bkgLi9Rates}, $\epsilon_p^{\mathrm{low}}$ etc.\ are the corresponding prompt efficiencies (Tables~\ref{tab:bkgLi9Cuts} and \ref{tab:bkgLi9PromptCutEffs}), $\epsilon_n$ is the neutron tagging efficiency (discussed in \autoref{sec:bkgLi9NeuTagEff}), $t_{\mathrm{sh}}$ is the shower veto time (0.4004~s), and $\tau_{\mathrm{Li}}$ is the $^9$Li lifetime\footnote{We do not consider the insignificant effect of the $^8$He fraction.}. The results are shown in \autoref{tab:bkgLi9NetPromptCutUnc}.
+Here, $N^{\mathrm{low}}$ etc.\ are the values of $N_{\mathrm{bkg}}$ for the three PE ranges in \autoref{tab:bkgLi9Rates}, $\epsilon_p^{\mathrm{low}}$ etc.\ are the corresponding prompt efficiencies (Tables~\ref{tab:bkgLi9Cuts} and \ref{tab:bkgLi9PromptCutEffs}), $\epsilon_n$ is the neutron tagging efficiency (discussed in \autoref{sec:bkgLi9NeuTagEff}), $t_{\mathrm{sh}}$ is the shower veto time (0.4004~s), and $\tau_{\mathrm{Li}}$ is the $^9$Li lifetime\footnote{We do not consider the insignificant effect of the $^8$He fraction.}. The results are shown in
+% \autoref{tab:bkgLi9NetPromptCutUnc}.
+\autoref{tab:bkgLi9UncSumm}.
 
 \begin{table}[h]
   \centering
@@ -405,26 +408,26 @@ $N^{\mathrm{low}}$ etc.\ are the values of $N_{\mathrm{bkg}}$ for the three PE r
   \label{tab:bkgLi9PromptCutEffs}
 \end{table}
 
-\begin{table}[ht]
-  \begin{tabular}{lc}
-    \toprule
-    Hall & $\sigma_p$ \\
-    \midrule
-    EH1 & 2.7\% \\
-    EH2 & 3.3\% \\
-    EH3 & 4.0\% \\
-    \bottomrule
-  \end{tabular}
-  \caption{Uncertainty of the $^9$Li rate arising from the efficiency of the prompt energy cut, per \autoref{eq:bkgLi9PromptEffUnc}.}
-  \label{tab:bkgLi9NetPromptCutUnc}
-\end{table}
+% \begin{table}[ht]
+%   \begin{tabular}{lc}
+%     \toprule
+%     Hall & $\sigma_p$ \\
+%     \midrule
+%     EH1 & 2.7\% \\
+%     EH2 & 3.3\% \\
+%     EH3 & 4.0\% \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{Uncertainty of the $^9$Li rate arising from the efficiency of the prompt energy cut, per \autoref{eq:bkgLi9PromptEffUnc}.}
+%   \label{tab:bkgLi9NetPromptCutUnc}
+% \end{table}
 
 \subsubsection{Neutron tagging}
 \label{sec:bkgLi9NeuTagEff}
 
-Historically, the largest contribution to the overall $^9$Li rate uncertainty has come from the neutron tagging efficiency. In previous analyses, the prompt-energy cut was 3.5~MeV, for which the IBD ``background'' was so large as to require neutron tagging for all muons below 300,000~pe. Given that some 60-70\% of the total $^9$Li rate (in the oscillation analysis) comes from muons below 300,000~pe, this uncertainty applied to that entire subsample. Making matters worse, this uncertainty is quite large, as the efficiency can only be directly measured for higher-energy muons (where neutron tagging is not necessary in order to obtain a valid time-to-last-muon fit). The efficiency must thus be extrapolated (with considerable uncertainty) for lower-energy muons. Owing to our use of a stricter prompt-energy cut (of 8~MeV and 6~MeV in the near and far halls, respectively) for muons below 300,000~pe, neutron tagging is no longer necessary for muons above 160,000~pe, significantly reducing the total uncertainty from neutron tagging. However, for 5,000--160,000~pe (which contributes 12--16\% of the final $^9$Li rates), where neutron tagging remains unavoidable, the extrapolated efficiency must still be used.
+Historically, the largest contribution to the overall $^9$Li rate uncertainty has come from the neutron tagging efficiency. In previous analyses, the prompt-energy cut was 3.5~MeV, for which the IBD ``background'' was so large as to require neutron tagging for all muons below 300,000~pe. Given that some 60-70\% of the total $^9$Li rate \footnote{In the oscillation analysis, i.e., with the shower-muon veto.} comes from muons below 300,000~pe, this uncertainty applied to that entire subsample. Making matters worse, this uncertainty is quite large, as the efficiency can only be directly measured for higher-energy muons (where neutron tagging is not necessary in order to obtain a valid time-to-last-muon fit). The efficiency must thus be extrapolated (with considerable uncertainty) for lower-energy muons. Owing to our use of a stricter prompt-energy cut (of 8~MeV and 6~MeV in the near and far halls, respectively) for muons below 300,000~pe, the neutron tagging requirement has been eliminated in the range of 160,000--300,000~pe, significantly reducing the total uncertainty from neutron tagging. However, for 5,000--160,000~pe (which contributes 12--16\% of the final $^9$Li rates), where neutron tagging remains unavoidable, the extrapolated efficiency must still be used.
 
-In \cite{WeiLi9}, the efficiency was found to range from about 60 to 100\% within the energy ranges where it could be measured directly. As such, an uncertainty of 45\% was assigned in \cite{ChrisLi9} to the efficiency, with a nominal value of unity. This latter choice can be post-hoc justified by the results in \cite{MaWuLi9}, where an efficiency of 93.9\% was found for 160,000 to 400,000~pe in EH1, but values closer to 70\% were found in the other two halls, and the efficiency is expected to decrease for lower muon energies. % Based on these results, we deviate from Marshall in assuming an efficiency of 60\%.
+In \cite{WeiLi9}, the efficiency was found to range from about 60 to 100\% within the energy ranges where it could be measured directly. As such, an uncertainty of 45\% was assigned in \cite{ChrisLi9} to the efficiency, with a nominal value of unity. This latter choice can be post-hoc justified by the results in \cite{MaWuLi9}, where an efficiency of 93.9\% was found for 160,000 to 400,000~pe in EH1; nevertheless, values closer to 70\% were found in the other two halls, and the efficiency is expected to decrease for lower muon energies. % Based on these results, we deviate from Marshall in assuming an efficiency of 60\%.
 % (YYY need to update numbers; previously used 100\%.)
 Although a lower efficiency might be more accurate, we use unity for the sake of consistency with \cite{ChrisLi9}. In any case,
 % the efficiency is only relevant for the $^9$Li nuclei produced by sub-160,000 muons, which contribute merely 2--10\% of the final $^9$Li rate in our IBD candidate sample,\footnote{See \autoref{tab:bkgLi9Rates}. Note that the shower muon veto in the IBD selection results in a reduction of $\sim$80\% for the events in the ``High'' PE range.} The value chosen for this efficiency thus has only marginal impact on the calculated rate. Furthermore,
@@ -432,13 +435,21 @@ the 45\% uncertainty encompasses the range of values observed in \cite{MaWuLi9}.
 
 % Owing to our use of much stricter prompt-energy cut for muons below 300,000~pe (8 MeV and 6 MeV in the near and far halls, respectively), neutron tagging is no longer necessary in the muon energy range of 160,000 to 300,000~pe. This range contributes to about 60\% of the total $^9$Li background, out of the 80\% that previously required neutron reduction. The more stringent prompt-energy cut thereby reduces the total uncertainty by some 25\% in the near halls. In the far halls, where the mean muon energy is significantly higher (and thus the muons that require neutron tagging contribute a relatively minor proportion of the total $^9$Li rate), the stricter prompt-energy cut has a relatively minor effect.
 
+The uncertainty on the final $^9$Li rate resulting from the neutron tagging efficiency, for each hall, is equal to 45\% scaled by the proportion of $^9$Li events that come from muons of 5,000--160,000~pe (the ``low'' range):
+\begin{equation}
+  \sigma_n = \frac{w^{\mathrm{low}}}{w^{\mathrm{low}} + w^{\mathrm{mid}} + w^{\mathrm{high}}} 0.45,
+\end{equation}
+where the weights $w$ were given previously in \autoref{eq:bkgLi9Weights}. The values for each hall are shown in \autoref{tab:bkgLi9UncSumm}.
+
+% 7.1%, 6.3%, 5.3%
+
 \subsection{Other systematics}
 \label{sec:bkgLi9FitSyst}
 
 \subsubsection{Variation of neutron tagging cutoff}
 \label{sec:bkgLi9NeuTagCutoff}
 
-In the nominal $^9$Li fit, neutron tagging is applied for muons below 160,000~pe. To study the effects of varying this dividing line, Marshall repeated the analysis for various values between 150,000 and 180,000~pe. The resulting variation in the final estimated rate of $^9$Li in the oscillation analysis sample was found to be of order 10\%, which was assigned as an additional systematic uncertainty on the final rate.
+In our $^9$Li fit, neutron tagging is applied for muons below 160,000~pe. To study the effects of varying this dividing line, the analysis was repeated in \cite{ChrisLi9} for various values of this cutoff, ranging from 150,000 to 180,000~pe. The resulting variation in the final estimated rate of $^9$Li in the oscillation analysis sample was found to be of order 10\%. We assign this value verbatim as an additional systematic uncertainty on the final rate.
 
 \subsubsection{Binning}
 \label{sec:bkgLi9Binning}
