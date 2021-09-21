@@ -671,11 +671,11 @@ The tagged sample is obtained by extending the upper cut to 300~MeV (as in the u
   \label{fig:fastn_selection_diagram}
 \end{figure}
 
-The prompt spectra from the two samples (scaled to have equal normalization above 12~MeV) are overlaid in \autoref{fig:fastn_prompt_energy_both_bz}, showing excellent agreement in the region above 12~MeV. Both samples are employed by the scaling method, as described next. Meanwhile, the extrapolation method only makes direct use of the tagged sample; however, the untagged sample still serves a role in validating the form of the fitting function used.
+The prompt spectra from the two samples (scaled to have equal normalization above 12~MeV) are overlaid in \autoref{fig:fastn_prompt_energy_both_bz}, showing excellent agreement in the region between 12 and 150~MeV. Both samples are employed by the scaling method, as described next. Meanwhile, the extrapolation method only makes direct use of the tagged sample; however, the untagged sample still serves a role in validating the form of the fitting function used.
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Backgrounds/FastN/prompt_energy_both_bz.png}
-  \caption{Prompt spectra of the tagged (blue) and untagged (black) samples, as measured by Hu in \cite{fastn}. The tagged spectrum has been rescaled to match the normalization of the untagged spectrum above 12~MeV.}
+  \caption{Prompt spectra of the tagged (blue) and untagged (black) samples. The tagged spectrum has been rescaled to match the normalization of the untagged spectrum above 12~MeV. From \cite{fastn}.}
   \label{fig:fastn_prompt_energy_both_bz}
 \end{figure}
 
@@ -687,22 +687,30 @@ In the scaling method, we assume that the shape of the tagged spectrum is an acc
 \def\emax{\ensuremath{E_\mathrm{max}}} \def\ntag{\ensuremath{N_\mathrm{tag}}}
 \def\nuntag{\ensuremath{N_\mathrm{untag}}}
 
-We define the \emph{scaling factor} $F$ as \[ F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]}, \] i.e., the ratio of the integral of the two samples between 12~MeV and \emax. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). Hu quantifies this uncertainty by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}), resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:bkgFastnUnc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
-\[ \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
-    \emax]},
-\]
+We define the \emph{scaling factor} $F$ as
+\begin{equation}
+  F(\emax) = \frac{\nuntag[12, \emax]}{\ntag[12, \emax]},
+\end{equation}
+i.e., the ratio of the integral of the two samples between 12~MeV and \emax. The dependence on \emax\ reflects the arbitrary choice of the upper energy limit, which contributes to the uncertainty on the result (primarily due to stastical fluctuations in the small sample of tagged neutrons). This uncertainty is quantified by comparing the results for \emax\ of 80, 100, 120, and 150~MeV (\autoref{fig:fastn_scaling_factor}) \cite{fastn} , resulting in an estimated systematic uncertainty given by the half-range divided by the mean, as listed in \autoref{tab:bkgFastnUnc}. In addition, for a \emph{fixed} \emax, there is a purely statistical uncertainty\footnote{As noted previously, the tagged and untagged samples are statisically independent.},
+\begin{equation}
+  \sigma_F(\emax) = F \cdot \sqrt{\nuntag^{-1}[12, \emax] + \ntag^{-1}[12,
+      \emax]},
+\end{equation}
 which also contributes to the final uncertainty.
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Backgrounds/FastN/scaling_factor.png}
-  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$, from \cite{fastn}. The blue squares are the results of Hu, whose IBD selection matches ours.}
+  \caption{Comparison of the scaling factor $F(E_{\mathrm{max}})$ obtained for different values of $E_{\mathrm{max}}$. The three colors correspond to different IBD selection criteria, with the blue squares representing the criteria used in this analysis. From \cite{fastn}.}
   \label{fig:fastn_scaling_factor}
 \end{figure}
 
-\def\nfn{\ensuremath{N_\mathrm{fid}}} \def\rfn{\ensuremath{R_\mathrm{FN}}}
+\def\nfn{\ensuremath{N_\mathrm{FN}}} \def\rfn{\ensuremath{R_\mathrm{FN}}}
 
 For the standard IBD selection, the number of fast neutrons within the fiducial energy range of [0.7, 12]~MeV is determined simply as
-\[ \nfn = F \cdot \ntag[0.7, 12]. \] Its statistical uncertainty, in turn, is
+\begin{equation}
+  \nfn = F \cdot \ntag[0.7, 12].
+\end{equation}
+Its statistical uncertainty, in turn, is
 \begin{equation}
   \label{eq:fastn_scal_unc}
   \sigma_\mathrm{FN} = \sqrt{\ntag^2[0.7, 12]
@@ -719,7 +727,7 @@ where $T_\mathrm{DAQ}$, $\epsilon_\mu$, and $\epsilon_m$ are the DAQ livetime, m
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Backgrounds/FastN/rate_vs_scaling.png}
-  \caption{Daily fast-neutron rate from the scaling method, as a function of $E_{\mathrm{max}}$, from \cite{fastn}. The blue squares are the results of Hu.}
+  \caption{Daily fast-neutron rate from the scaling method, as a function of $E_{\mathrm{max}}$. The blue squares correspond to the IBD selection criteria used in this analysis. From \cite{fastn}.}
   \label{fig:fastn_rate_vs_scaling}
 \end{figure}
 
@@ -731,26 +739,26 @@ Previous simulation studies have found that the fast neutron spectrum can be acc
   \label{eq:bkgFastnShape}
   f(E; E_0, a) = A \cdot \left( \frac{E}{E_0} \right)^{-a-E/E_0},  
 \end{equation}
-where $E_0$ and $a$ are fitted shape parameters, and $A(E_0, a)$ normalizes the PDF. When a measured fast-neutron spectrum is then fit to the form
+where $E_0$ and $a$ are shape parameters, and $A(E_0, a)$ normalizes the PDF. When a measured fast-neutron spectrum is then fit to the form
 \begin{equation}
   \label{eq:bkgFastnScaledPDF}
   S(E; N, E_0, a) = N \cdot f(E; E_0, a),
 \end{equation}
 the best-fit value of $N$ represents the number of events ``under the curve'' from 0 to $\infty$~MeV.
 
-In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $N_\mathrm{fid}$ events in the fiducial region of [0.7, 12]~MeV, then the full spectrum ([0, $\infty$]~MeV) should contain an event count equal to
+In turn, if we have a (hypothetical) pure fast-neutron spectrum containing $\nfn$ events in the fiducial region of [0.7, 12]~MeV, then the full spectrum ([0, $\infty$]~MeV) should contain an event count equal to
 \begin{equation}
-  N = \frac{N_\mathrm{fid}}{\int_{0.7}^{12} f(E; E_0, a)\,dE }.
+  N = \frac{\nfn}{\int_{0.7}^{12} f(E; E_0, a)\,dE }.
 \end{equation}
-Here, the denominator represents the fiducial region's fraction of the total spectrum. Substituting this form of $N$ into \autoref{eq:bkgFastnScaledPDF}, and allowing the floated parameter to be $N_{\mathrm{fid}}$ instead of $N$, we obtain the form
+Here, the denominator represents the fiducial region's fraction of the total spectrum. Substituting this form of $N$ into \autoref{eq:bkgFastnScaledPDF}, and allowing the floated parameter to be $\nfn$ instead of $N$, we obtain the form
 \begin{equation}
   \label{eq:fastn_extrap_form}
-  S(E; N_{\mathrm{fid}}, E_0, a) = \frac{N_\mathrm{fid}}%
+  S(E; \nfn, E_0, a) = \frac{\nfn}%
   {\int_{0.7}^{12} E'^{-a-E'/E_0} \, dE'} E^{-a-E/E_0}.
 \end{equation}
-When \autoref{eq:fastn_extrap_form} is then fit to the measured fast-neutron spectrum , the best fit $N_\mathrm{fid}$ indicates the number of events in the fiducial region, that is, the number of fast-neutrons which satisfy the IBD selection. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-neutron sample is uncontaminated.
+When \autoref{eq:fastn_extrap_form} is then fit to the measured fast-neutron spectrum, the best-fit $\nfn$ indicates the number of events in the fiducial region. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-neutron sample is uncontaminated.
 
-Prior to carrying out the extrapolation procedure, Hu verified the validity and robustness of \eqref{eq:fastn_extrap_form} by fitting it to her OWS-tagged samples (\autoref{fig:fastn_ows_fit_bz}). She used four fitting ranges, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. In all cases, she obtained satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). Disabling of the $a$ parameter was found to introduce negligible differences.
+The validity and robustness of \autoref{eq:fastn_extrap_form} was verified by fitting it to the OWS-tagged samples from each hall (\autoref{fig:fastn_ows_fit_bz}) \cite{fastn}. Four fitting ranges were used, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. All fits produced satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). Disabling of the $a$ parameter was found to introduce negligible differences.
 
 \begin{figure}[ht]
   \begin{minipage}{0.333\textwidth}%
@@ -762,17 +770,17 @@ Prior to carrying out the extrapolation procedure, Hu verified the validity and 
   \begin{minipage}{0.333\textwidth}%
     \includegraphics[width=\textwidth]{Backgrounds/FastN/ows_fit_eh3_bz.png}%
   \end{minipage}%
-  \caption{Hu's fits of her OWS-tagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right), from \cite{fastn}.}
+  \caption{Fits of the OWS-tagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right). From \cite{fastn}.}
   \label{fig:fastn_ows_fit_bz}
 \end{figure}
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Backgrounds/FastN/par_E0_ows.png}
-  \caption{Values of $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}, from \cite{fastn}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. The blue squares are the results of Hu.}
+  \caption{Values of $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. The blue squares correspond to the IBD selection criteria used in this analysis. From \cite{fastn}}
   \label{fig:fastn_par_E0_ows}
 \end{figure}
 
-Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fit_bz}), using the same four upper limits as before, but with the lower limit set to 12~MeV.  As with the scaling method, each value of $\nfn$ was converted to a livetime- and efficiency-normalized daily rate according to \eqref{eq:fastn_rate} (\autoref{fig:fastn_rate_vs_fit_range}). The spread between the resulting four values was incorporated into the total uncertainty, as described in the next section.
+Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fit_bz}), using the same four upper limits as before, but with the lower limit set to 12~MeV.  As with the scaling method, each value of $\nfn$ was converted to a livetime- and efficiency-normalized daily rate according to \autoref{eq:fastn_rate} (\autoref{fig:fastn_rate_vs_fit_range}). The spread between the resulting four values was incorporated into the total uncertainty, as described in the next section.
 
 \begin{figure}[ht]
   \begin{minipage}{0.333\textwidth}%
@@ -784,24 +792,24 @@ Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fi
   \begin{minipage}{0.333\textwidth}%
     \includegraphics[width=\textwidth]{Backgrounds/FastN/ibd_fit_eh3_bz.png}%
   \end{minipage}%
-  \caption{Hu's fits of her untagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right), from \cite{fastn}.}
+  \caption{Fits of the untagged fast-neutron spectra to \autoref{eq:fastn_extrap_form} for EH1 (left), EH2 (center), and EH3 (right). From \cite{fastn}.}
   \label{fig:fastn_ibd_fit_bz}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[width=\textwidth]{Backgrounds/FastN/rate_vs_fit_range.png}
-  \caption{Daily fast-neutron rates from the extrapolation method, as a function of the upper limit of the fit range, from \cite{fastn}. The blue squares are the results of Hu.}
+  \caption{Daily fast-neutron rates from the extrapolation method, as a function of the upper limit of the fit range. The blue squares correspond to the IBD selection criteria used in this analysis. From \cite{fastn}.}
   \label{fig:fastn_rate_vs_fit_range}
 \end{figure}
 
 \subsection{Final result and total uncertainty}
 \label{sec:fastn_comb}
 
-In total, Hu obtained a total of eight estimates of \rfn\ for each hall, derived from four scaling ranges in the scaling method, and four fitting ranges in the extrapolation method. She arbitrarily chose the 12-100~MeV scaling method as the source of her nominal fast neutron rates, and it is those numbers that we employ in our own analysis.
+In total, eight consistent estimates of \rfn\ were obtained for each hall, derived from four scaling ranges in the scaling method, and four fitting ranges in the extrapolation method \cite{fastn}. As in the official Daya Bay analysis, we arbitrarily choose the 12-100~MeV scaling method as the source of the daily fast neutron rates in this analysis.
 
-Six uncertainties were added in quadrature to obtain the total:
+Six uncertainties were added in quadrature to obtain the total \cite{fastn}:
 \begin{itemize}
-\item Statistical: The statistical uncertainty on the scaling factor $F$, described by \eqref{eq:fastn_scal_unc}.
+\item Statistical: The statistical uncertainty on the scaling factor $F$, described by \autoref{eq:fastn_scal_unc}.
 \item Scaling range: The uncertainty from the choice of scaling range, which was determined from the difference between the highest and lowest fast-neutron rates across the four ranges used.
 \item Fit range: The analogue for the choice of the fitting range.
 \item Fit result: The statistical uncertainty in the fitted value of $N_\mathrm{fid}$.
@@ -815,17 +823,17 @@ These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final r
     \toprule
     Uncertainty (\%)            & EH1  & EH2  & EH3 \\
     \midrule
-    Statistical & 4.56 & 5.49 & 14.65 \\
-    Scaling range & 2.41 & 0.77 & 1.21 \\
-    Fit range & 2.90 & 0.61 & 0.84 \\
-    Fit result & 1.48 & 1.81 & 3.95 \\
-    Bin width & 0.38 & 0.40 & 1.96 \\
-    Methods & 7.67 & 7.67 & 7.67 \\
+    Statistical & 4.6 & 5.5 & 14.7 \\
+    Scaling range & 2.4 & 0.8 & 1.2 \\
+    Fit range & 2.9 & 0.6 & 0.8 \\
+    Fit result & 1.5 & 1.8 & 4.0 \\
+    Bin width & 0.4 & 0.4 & 2.0 \\
+    Methods & 7.7 & 7.7 & 7.7 \\
     \midrule
-    Total & 9.81 & 9.66 & 17.18 \\
+    Total & 9.8 & 9.7 & 17.2 \\
     \bottomrule
   \end{tabular}
-  \caption{Uncertainty budget for the fast-neutron rates calculated by Hu in \cite{fastn}.}
+  \caption{Uncertainty budget for the fast-neutron rates \cite{fastn}.}
   \label{tab:bkgFastnUnc}
 \end{table}
 
@@ -837,7 +845,7 @@ These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final r
     0.843 $\pm$ 0.083 & 0.638 $\pm$ 0.062 & 0.053 $\pm$ 0.009 \\
     \bottomrule
   \end{tabular}
-  \caption{Hu's final estimated fast-neutron rates from \cite{fastn}.}
+  \caption{Final estimated fast-neutron rates (per AD per day) \cite{fastn}.}
   \label{tab:bkgFastnFinalRates}
 \end{table}
 
