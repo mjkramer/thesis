@@ -10,15 +10,20 @@
 \section{Overview}
 \label{sec:fitoverview}
 
-In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor \nuebar flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, calculating the goodness of fit (while properly accounting for systematic and statistical uncertainties), and then assigning errors to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms (a.k.a. nuisance parameters), and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in this introductory section. In the rest of this chapter, we detail the specific fitting machinery developed at LBNL by the author's colleagues.
+XXX show that we can neglect energy spread due to positron angular distribution. Where do E0 values for fastn shape come from? Add big tables of all rates and efficiencies (one per data period). Fix greek characters in Fig 8.4.
+
+In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor \nuebar flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, calculating the goodness of fit (while properly accounting for systematic and statistical uncertainties), and then assigning errors to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms (a.k.a. nuisance parameters), and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in this introductory section. In the rest of this chapter, we detail the fitting machinery developed at LBNL \cite{berkeley_shapefit,berkeley_toymc}.
 
 \subsection{Method of pull terms}
 \label{sec:pullterms}
 
 In the method using pull terms, the fitter is ``smart'' in the sense that it has knowledge of the various underlying models (reactor \nuebar flux, detector response, backgrounds, etc.) and knows how their predictions will change under changes of the systematic uncertainties. In this approach, each systematic is represented by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy scale of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
-\[ \chi^2 = \sum_i \frac{(x_i - \widebar x_i)^2}{\sigma_i^2} + \sum_j \frac{(\eta_j - \widebar \eta_j)^2}{\varsigma_j^2}, \] where $x_i$ are the measured data (e.g., AD spectra), $\widebar x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\widebar \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls.
+\begin{equation}
+  \chi^2 = \sum_i \frac{(x_i - \widebar x_i)^2}{\sigma_i^2} + \sum_j \frac{(\eta_j - \widebar \eta_j)^2}{\varsigma_j^2},
+\end{equation}
+where $x_i$ are the measured data (e.g., AD spectra), $\widebar x_i$ are the predictions (which vary as we scan the oscillation parameters and pull terms), $\sigma_i$ are the \emph{statistical} uncertainties on the data, $\eta_j$ are the pull terms, $\widebar \eta_j$ are their nominal values, and $\varsigma_j$ are the uncertainties on the pulls.
 
-Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ errors on the oscillation parameters are then based on the amount of variation required to increase the reduced\footnote{We use the term ``reduced $\chi^2$'' to refer to the $\chi^2$ divided by the number of degrees of freedom.} $\chi^2$ by 1 unit (or 2.3 for a 2D fit,\footnote{Based on the fact that $(1/2\pi)\int_{\theta=0}^{2\pi} \int_{r=0}^{r_0} e^{-r^2/2}\, r\,dr\,d\theta$ = 0.68 when $r_0 = 2.3$.} etc.), while minimizing over the pull terms at every step. Correlations between energy bins are handled implicitly; the information is encoded in the manner in which the predictions in different bins are shifted together when the pull terms are varied.
+Fitting is complete when the fitter has found the values of the oscillation parameters \emph{and pull terms} that minimize the total $\chi^2$. The 1$\sigma$ errors on the oscillation parameters are then based on the amount of variation required to increase the reduced\footnote{We use the term ``reduced $\chi^2$'' to refer to the $\chi^2$ divided by the number of degrees of freedom.} $\chi^2$ by 1 unit (or 2.3 for a 2D fit,\footnote{Based on the fact that $(1/2\pi)\int_{\theta=0}^{2\pi} \int_{r=0}^{r_0} e^{-r^2/2}\, r\,dr\,d\theta$ = 0.68 when $r_0 = 2.3$.} etc.), while minimizing over the pull terms at every step. Correlations between energy bins are handled implicitly; the information is encoded in how the predictions in different bins are shifted together when the pull terms are varied.
 
 \begin{comment}
   See doc-8774 p29 and its ref 22 regarding the amount of chi2 increase for a 2D fit.
@@ -28,8 +33,10 @@ Fitting is complete when the fitter has found the values of the oscillation para
 \label{sec:covmatapproach}
 
 As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\widebar x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
-\[ \chi^2 = (x_i - \widebar x_i) V_{ij}^{-1} (x_j - \widebar x_j). \]
-
+\begin{equation}
+  \label{eq:fitCovChiSq}
+  \chi^2 = (x_i - \widebar x_i) V_{ij}^{-1} (x_j - \widebar x_j).
+\end{equation}
 A major advantage of this approach is that it greatly reduces the dimensionality of the minimization---instead of minimizing over potentially dozens of pulls (as well as the oscillation parameters), only the two oscillation parameters must be considered. The computational cost and risk of falling into false minima are thus avoided. A disadvantage is the need to possibly take extra steps in order to ensure an invertible covariance matrix (see \autoref{sec:fitCombo}), and the need to carefully treat correlations, which are implicitly accounted for when using pull terms.
 
 In the LBNL fitter, the full NuWa-based Monte Carlo is not used for generating the covariance matrix, due to its complexity and computational cost. Instead, a ``toy'' MC, described in \autoref{sec:toymc}, was developed for this purpose.
@@ -42,7 +49,7 @@ In addition to the choice between using pull terms or a covariance matrix (or so
 \section{Toy Monte Carlo}
 \label{sec:toymc}
 
-The LBNL toy MC \cite{berkeley_toymc} essentially acts as a generator of ``fake'' experiments (or ``toys''), as represented by the prompt spectrum measured by each AD. Each toy may include fluctuations due to statistics and/or a chosen set of systematics.\footnote{In practice, statistical fluctuations are disabled, since the statistical covariance matrix is calculated analytically as described in \autoref{sec:fitStatCovMat}.} As detailed later, a given systematic is incorporated by, first, describing it (analogously to a pull term) by a parameter (such as the detection efficiency), and then fluctuating the parameter; the value of the parameter is then used by the toy MC's model for generating the prompt spectra. This basic functionality enables the production of three essential inputs used by the fitter:
+The primary purpose of the LBNL toy MC \cite{berkeley_toymc} is to enable the computation of the covariance matrix $V_{ij}$ in \autocite{eq:fitCovChiSq}. It does so by generating a large collection of simulated ``toy'' experiments, with each one represented by the prompt spectrum measured by each AD. The covariance matrix can then be derived from the variations within the collection, as detailed in \autoref{sec:fitToyOutputs}. Each toy experiment may include fluctuations due to statistics and/or a chosen set of systematics.\footnote{In practice, statistical fluctuations are disabled, since the statistical covariance matrix is calculated analytically as described in \autoref{sec:fitStatCovMat}.} As detailed later, a given systematic is incorporated by, first, describing it (analogously to a pull term) by a parameter (such as the detection efficiency), and then fluctuating the parameter; the value of the parameter is then used by the toy MC's model for generating the prompt spectra. This basic functionality enables the production of three essential inputs used by the fitter:
 
 \begin{itemize}
 \item The covariance matrices for signal and background systematics, used in calculating the $\chi^2$ during the fit. As will be explained, the signal covariance matrix is rescaled according to the signal size, and then added to the background covariance matrix to produce the full systematic matrix, which is finally added to the statistical covariance matrix (generated on the fly by the fitter).
@@ -175,7 +182,7 @@ Other values of the oscillation parameters can be used for benchmarking the fitt
 \subsection{Detector response}
 \label{sec:fitToyDetResponse}
 
-Once the toy MC has determined each AD's IBD spectrum (in terms of the antineutrino energy), the next step is to convert it into a prompt energy spectrum. This entails four steps:
+Once the toy MC has determined each AD's IBD spectrum (in terms of the antineutrino energy), the next step is to convert it into a prompt-energy spectrum. This entails four steps:
 
 \begin{enumerate}
 \item Converting antineutrino energy into positron energy
@@ -215,7 +222,7 @@ For IBDs that occur near the edge of the inner acrylic vessel, some of the posit
   \label{eq:Miav}
   \Eels{,i} = \Miav_{ij} \Eetrue{,j}
 \end{equation}
-where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the conversion preserves the total neutrino count, as it should). Each axis of $\Miav$ contains 240 bins of width 50~keV ranging from 0 to 12~MeV.
+where $i$ and $j$ are bin indices, and $\Miav$ is subject to the normalization condition $\sum_i\Miav_{ij} = 1$ for all true energy bins $j$ (i.e., the conversion preserves the total antineutrino count, as it should). Each axis of $\Miav$ contains 240 bins of width 50~keV ranging from 0 to 12~MeV.
 
 The uncertainty of the IAV wall thickness is assigned a conservative 4\%, which is assumed to translate to a 4\% uncertainty on the elements of $\Miav$. As implemented, the matrix is fluctuated by applying an independent 4\% Gaussian variation to each off-diagonal element, and then setting the diagonal elements so as to restore the normalization condition.
 
@@ -223,7 +230,7 @@ The uncertainty of the IAV wall thickness is assigned a conservative 4\%, which 
 
 As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affected by nonlinearity in the scintillator (quenching, Cerenkov radiation) and in the electronics. Our analysis makes use of the ``unified'' nonlinearity model described in \cite{EnergyModelUpdateYongbo}.
 % Within the Daya Bay collaboration, a great deal of widespread effort went toward characterizing this behavior, as described in \cite{NonlinearityPaper}. The sum of this work was distilled in April 2018 by Yongbo Huang \cite{EnergyModelUpdateYongbo} to produce a ``unified'' nonlinearity model for use in analysis. This model is used in the toy MC.
-The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The nominal curve and the $\pm68\%$ CI bands were shown in \autoref{fig:reconPositronNominal}. All curves (nominal and pulls) were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis. \autoref{fig:nonlinPullCurves} shows the nominal curve along with the four pulls. The model parameters for these five curves were never published, and cannot easily be recovered from a fit (since the Cerenkov nonlinearity function $f_c$ was tabulated numerically and was also never published). Instead, the author and other Daya Bay analyzers were simply provided with tabulated values of the five curves for use in analysis.
+The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The nominal curve and the $\pm68\%$ CL bands were shown in \autoref{fig:reconPositronNominal}. All curves (nominal and pulls) were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis. \autoref{fig:nonlinPullCurves} shows the nominal curve along with the four pulls. The model parameters for these five curves were never published, and cannot easily be recovered from a fit (since the Cerenkov nonlinearity function $f_c$ was tabulated numerically and was also never published). Instead, the author and other Daya Bay analyzers were simply provided with tabulated values of the five curves for use in analysis.
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth]{Fitting/eplusNLpulls.pdf}
@@ -265,7 +272,7 @@ As described in \cite{An_2017}, the Daya Bay detector resolution has been charac
   \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E_{\mathrm{rec}}}
     + \frac{(2.6\%)^2}{E_{\mathrm{rec}}^2}},
 \end{equation}
-where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. The coefficients were determined by performing a fit the to peaks from various calibration sources, neutron captures, and $\alpha$ radioactivity, as shown in \autoref{fig:resolutionFit}. In official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in energy reconstruction nonuniformity \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
+where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. The coefficients were determined by performing a fit to the gamma-ray peaks from various calibration sources and neutron captures, as well as to the alpha-particle peaks from radioactivity, as shown in \autoref{fig:resolutionFit}. In the official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of the (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in the reconstructed energy \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
 \begin{equation}
   \frac{\sigma_{\mathrm{ran},d}(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
 \end{equation}
@@ -285,34 +292,34 @@ The toy MC's treatment of backgrounds is based on the discussion in \autoref{cha
 
 \subsubsection{Accidentals}
 
-The accidental background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. The statistical uncertainty of the accidentals rate is dominated by the $\sim$0.2\% ($\sim$0.4\%) near (far) uncertainty in the delayed-like singles rate. (In \autoref{sec:accStatUnc}, we obtain a consistent total uncertainty in the accidentals rate using a simple Monte Carlo). However, the calculated accidentals rate could be systematically biased by low-energy correlated processes (e.g. $\alpha$-$\alpha$). To study this possibility, studies within the collaboration cross-checked the accidental rate measurement using samples of artificial accidentals obtained by requiring an additional time offset between the prompt and delayed triggers \cite{An_2017}. These gave rates that were consistent with the standard calculation, up to the 1\% statistical uncertainty of the cross checks. This 1\% is thus conservatively defined to be the uncertainty of the accidentals rate.
+The accidental-background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. The statistical uncertainty of the accidentals rate is dominated by the $\sim$0.2\% ($\sim$0.4\%) near (far) uncertainty in the delayed-like singles rate. (In \autoref{sec:accStatUnc}, we obtain a consistent total uncertainty in the accidentals rate using a simple Monte Carlo). However, the calculated accidentals rate could be systematically biased by low-energy correlated processes (e.g. $\alpha$-$\alpha$). To study this possibility, studies within the collaboration cross-checked the accidental-rate measurement using samples of artificial accidentals obtained by requiring an additional time offset between the prompt and delayed triggers \cite{An_2017}. These gave rates that were consistent with the standard calculation, up to the 1\% statistical uncertainty of the cross checks. This 1\% is thus conservatively defined to be the uncertainty of the accidentals rate.
 
 Rate fluctuations are applied independently for each AD. No shape uncertainty is assigned, given the substantial statistics of the background sample and the fact that the uncertainty in each energy bin is more than covered by the overall rate uncertainty.
 % (XXX should show that the shape doesn't vary much for different isolation cuts.)
 
 \subsubsection{\LiHe}
 
-The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Given the limited statistics of the $^9$Li selection, it is not possible to measure statistically significant differences in the $^9$Li rate within a given hall. Accordingly, all ADs in a hall are treated identically. Rate fluctuations are thus applied to each \emph{hall} independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching.) For each fluctuated toy, a spectrum is chosen at random from this set. The same random spectrum is used among all ADs.
+The calculation of the \LiHe\ rate is described in \autoref{sec:bkgCosmo}, as is the prediction of the spectrum, which assumes a 5.5\% proportion of $^8$He. Given the limited statistics of the $^9$Li sample, it is not possible to measure statistically significant differences in the $^9$Li rate within a given hall. Accordingly, all ADs in a hall are treated identically. Rate fluctuations are thus applied to each \emph{hall} independently. In order to enable fluctuation of the shape, a sample of 250 random \LiHe\ spectra were produced under 100\% variations of the alpha-particle and neutron quenching factors. (The $^8$He proportion was not varied during this process, since its impact is small compared to that of the quenching factors.) For each fluctuated toy sample, a spectrum is chosen at random from this set. The same random spectrum is used among all ADs.
 
 \subsubsection{Fast neutrons}
 
-The fast neutron rate and shape were estimated using a number of techniques, as described in \autoref{sec:bkgFastn}. As with \LiHe, rate fluctuations are applied on a per-hall basis. The nominal shapes take the form of \autoref{eq:bkgFastnShape}, with separate parameters $E_0$ and $a$ specified for each hall,\footnote{As currently implemented, $a$ is set to zero.} based on fits to data samples enriched in fast neutrons. For shape fluctuations, the key consideration is the fact that most of the shape uncertainty lies at low energies. Accordingly, for each toy, we first generate a Gaussian random variable $a$:
+The fast neutron rate and shape were estimated using a number of techniques, as described in \autoref{sec:bkgFastn}. As with \LiHe, rate fluctuations are applied on a per-hall basis. The nominal shapes take the form of \autoref{eq:bkgFastnShape}, with the parameter $E_0$ specified for each hall, and $a$ fixed to be zero.\footnote{As noted in \autoref{sec:fastn_extrap}, it has been shown that there is no significant effect from allowing a nonzero $a$ when fitting \autoref{eq:bkgFastnShape} to the fast-neutron spectrum \cite{fastn}.} based on fits to data samples enriched in fast neutrons. For shape fluctuations, the key consideration is the fact that most of the shape uncertainty lies at low energies. Accordingly, for each toy sample, we first generate a Gaussian random variable $k$:
 \begin{equation}
-  a = \Gaus(0,1),
+  k = \Gaus(0,1),
 \end{equation}
 and then an empirical distortion factor is generated:
 \begin{equation}
-  y(E) = a \cdot E^{-0.1} + c,
+  y(E) = k \cdot E^{-0.1} + c,
 \end{equation}
 where $c$ is determined such that that $y = 1$ (i.e. no distortion) at 12~MeV:
 \begin{equation}
-  c = 1 - a \cdot E^{-0.1}.
+  c = 1 - k \cdot E^{-0.1}.
 \end{equation}
-When the $a = \pm1$, the size of this distortion is 25\% at 0.7~MeV. The distorted shape is obtained by multiplying the nominal spectrum by $y(E)$. The same distorted spectrum is used for all ADs.
+When $k = \pm1$, the size of this distortion is 25\% at 0.7~MeV. The distorted shape is obtained by multiplying the nominal spectrum by $y(E)$. The same distorted spectrum is used for all ADs.
 
 \subsubsection{AmC}
 
-As described in \autoref{sec:bkgAmC}, the AmC rates and a nominal measured spectrum from the high-activity AmC source (HAS) were obtained from studies within the collaboration \cite{AmC_paper}. The ensuing uncertainty was deemed to be dominated by potential biases in the procedure itself (i.e. MC simulations and measurement of a high-activity source), rather than by statistics or AD-to-AD variations. As such, both rate and shape fluctuations are applied consistently among all ADs. The nominal spectrum was obtained by fitting the HAS spectrum to an exponential. Shape fluctuations are then implemented by varying the exponential's slope by $\pm$0.15\%, based on the recommendation of studies internal to the collaboration.
+As described in \autoref{sec:bkgAmC}, the AmC rates and a nominal measured spectrum from the high-activity AmC source (HAS) were obtained from studies within the collaboration \cite{AmC_paper}. The ensuing uncertainty was deemed to be dominated by potential biases in the procedure itself (i.e. MC simulations and measurement of a high-activity source), rather than by statistics or AD-to-AD variations. As such, both rate and shape fluctuations are applied consistently among all ADs. The nominal spectrum was obtained by fitting the HAS spectrum to an exponential according to \autoref{eq:amc_fit_func}. Shape fluctuations are then implemented by varying the exponential's slope by $\pm$0.15\%, based on the recommendation of studies internal to the collaboration.
 
 \subsubsection{$\CanO$}
 
@@ -331,7 +338,7 @@ The calculation of the cross section $\sigma(E_\nu)$ is described in \autoref{se
 
 \subsubsection{Reverse response matrix}
 
-In the fitter (\autoref{sec:fitFitter}), we require a ``reverse response'' matrix $\mathbf{M}$ to convert the prompt energy to the antineutrino energy for extrapolation to the far site. This matrix is generated as a two-dimensional ROOT histogram, in which the $x$ axis represents neutrino energy in 240 bins from 0 to 12~MeV, and the $y$ axis represents prompt energy (in either the LBNL or BCW binning).\footnote{In our mathematical treatment here, we ``flip'' the axes in accordance with the normal convention for matrices: For an element $\mathbf{M}_{ij}$, the ``vertical'' index $i$ refers to a particular antineutrino energy (the ``output''), and the ``horizontal'' index $j$ refers to a particular reconstructed energy (the ``input''). It is merely a historical implementation detail that the ROOT histogram uses the opposite convention.}
+In the fitter (\autoref{sec:fitFitter}), we require a ``reverse response'' matrix $\mathbf{M}$ to convert the prompt energy to the antineutrino energy for extrapolation to the far site. This matrix is generated as a two-dimensional ROOT histogram, in which the $x$ axis represents antineutrino energy in 240 bins from 0 to 12~MeV, and the $y$ axis represents prompt energy (in either the LBNL or BCW binning).\footnote{In our mathematical treatment here, we ``flip'' the axes in accordance with the normal convention for matrices: For an element $\mathbf{M}_{ij}$, the ``vertical'' index $i$ refers to a particular antineutrino energy (the ``output''), and the ``horizontal'' index $j$ refers to a particular reconstructed energy (the ``input''). It is merely a historical implementation detail that the ROOT histogram uses the opposite convention.}
 
 \begin{comment}
   I don't see any reason to mention the fact that a finer binning (2880 instead of 240) is used internally by the toy MC when generating this matrix. With the standard 240 bins, the edges line up with both the LBNL and BCW edges, so there shouldn't be any benefit from using a finer binning.
@@ -362,7 +369,7 @@ Each \emph{row} of this $\mathbf{M_{fwd}^{reweight}}$ (corresponding to an $\Ere
   We should fix genEvisToEnuMatrix.C to turn off the theta13 oscillation, and then note below that oscillations are disabled.
 \end{comment}
 
-Accordingly, to construct the reverse response matrix, the toy MC first generates a nominal antineutrino energy spectrum $\mathbf{S^{nom}_\nu}$ (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 antineutrino energy bins.\footnote{Of course, there will be no antineutrinos below $\sim$1.8~MeV, but this is how the code was written.} For each antineutrino energy bin $i$ (centered about $E_{\nu,i}$), it produces the corresponding PDF $f(\Erec; E_{\nu,i})$ of reconstructed energy (assuming a flat distribution of antineutrino energies within bin $i$), then scales it by the value of $\mathbf{S}^{\mathbf{nom}}_{\mathbf{\nu},i}$; the result is then assigned to the $i$th row of the matrix. Finally, each column of the matrix is normalized to unity:
+Accordingly, to construct the reverse response matrix, the toy MC first generates a nominal antineutrino energy spectrum $\mathbf{S^{nom}_\nu}$ (for the arbitrary case of AD1). Backgrounds are not included, since the fitter subtracts them before converting $\Erec$ to $E_\nu$. The toy MC then loops over the 240 antineutrino energy bins. For each antineutrino energy bin $i$ (centered about $E_{\nu,i}$), it produces the corresponding PDF $f(\Erec; E_{\nu,i})$ of reconstructed energy (assuming a flat distribution of antineutrino energies within bin $i$), then scales it by the value of $\mathbf{S}^{\mathbf{nom}}_{\mathbf{\nu},i}$; the result is then assigned to the $i$th row of the matrix. Finally, each column of the matrix is normalized to unity:
 \begin{align}
   \label{eq:revRespMtxUnNorm}
   \mathbf{M}^{\textbf{un-norm}}_{ij} &= \mathbf{S}^{\mathbf{nom}}_{\mathbf{\nu},i} \; f(E_{\mathrm{rec},j}; E_{\nu,i}), \\
@@ -372,11 +379,11 @@ Accordingly, to construct the reverse response matrix, the toy MC first generate
 
 \subsubsection{Covariance matrices}
 
-The covariance matrix, which encodes the scale of fluctuations between the far site data and the prediction from the near sites (including correlations between ADs and energy bins), can be decomposed as the sum of three components, corresponding to signal (antineutrino) systematics, background systematics, and statistics. The statistical covariance matrix is calculated analytically by the fitter, as described in \autoref{sec:fitStatCovMat}. The two matrices for the systematics are generated by the toy MC, as detailed here.
+The covariance matrix, which encodes the scale of fluctuations between the far-site data and the prediction from the near sites (including correlations between ADs and energy bins), can be decomposed as the sum of three components, corresponding to signal (antineutrino) systematics, background systematics, and statistics. The statistical covariance matrix is calculated analytically by the fitter, as described in \autoref{sec:fitStatCovMat}. The two matrices for the systematics are generated by the toy MC, as detailed here.
 
 Although the toy MC is capable of simultaneously varying the signal and background systematics, the two categories are treated separately due to differences in their scaling behaviors: The signal uncertainties scale with the size of the signal (which depends on the oscillation parameters), while the background uncertainties are constant.
 
-To generate the covariance matrix for signal systematics, a sample of $M =$~1,000 toy experiments is generated, using the nominal values of $\SinSq$ and $\Dmsqee$ from \autoref{tab:toyNomOscPars}, subject to the following fluctuations:
+To generate the covariance matrix for the signal systematics, a sample of $M =$~1,000 toy experiments is generated, using the nominal values of $\SinSq$ and $\Dmsqee$ from \autoref{tab:toyNomOscPars}, subject to the following fluctuations:
 
 \begin{itemize}
 \item Solar oscillation parameters (fluctuated according to the uncertainties listed in \autoref{tab:toyNomOscPars})
@@ -388,7 +395,7 @@ To generate the covariance matrix for signal systematics, a sample of $M =$~1,00
 \item Energy resolution (0.2\%, correlated $\oplus$ 0.2\%, uncorrelated). The two parts are treated as \emph{absolute} shifts to the (relative) resolution, and combined additively: $\sigma/E = \sigma_{\mathrm{nominal}}/E + \Gaus_1(0, 0.002) + \Gaus_2(0, 0.002)$.
 \end{itemize}
 
-From this sample of $M$ toys, a ``normalized'' signal covariance matrix is constructed according to
+From this sample of $M$ toy experiments, a ``normalized'' signal covariance matrix is constructed according to
 \begin{equation}
   \label{eq:covmatSigNorm}
   (V^{\mathrm{norm}}_{\mathrm{sig}})_{ij} = \frac{1}{M} \sum_t^{M}
@@ -402,7 +409,7 @@ Here, $F^{\mathrm{obs}}$ is the observed far-site data (after background subtrac
 \end{equation}
 This uniform scaling procedure does not account for second-order variations in the ``shape'' of the covariance matrix as the oscillation parameters vary, but this simplification was found to have a negligible affect on the fit, so long as the assumed nominal parameters are reasonable.
 
-For the background systematics, another set of $M = $ 1,000 toys is generated (again with nominal oscillation parameters), subject to the rate and shape fluctuations described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance matrix is calculated as
+For the background systematics, another set of $M = $ 1,000 toy experiments is generated (again with nominal oscillation parameters), subject to the rate and shape fluctuations described in \autoref{sec:fitToyBackgrounds}. From this sample the covariance matrix is calculated as
 \begin{equation}
   \label{eq:covmatBG}
   (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{M}
@@ -413,7 +420,7 @@ Note that this matrix is not ``normalized'' (i.e., there is no denominator, unli
 \subsection{Handling of multiple data periods}
 \label{sec:fitToyPeriods}
 
-Some additional complexity arises from the fact that Daya Bay has operated under three different detector configurations: First with 6 ADs (missing EH2-AD2 and EH3-AD4), then with all 8, and finally with 7 (after the repurposing of EH1-AD1 for JUNO experiment R\&D). In principle, the data from the three periods could simply be merged together. However, as explained in \autoref{sec:fitCombo}, obtaining an invertible covariance matrix requires combining data from ADs in the same sites, and this procedure is simplest to implement when the (active) ADs have the same livetime, since they can be weighted equally. For this reason, the LBNL toy MC and fitter treat the three data periods as separate experiments (thus increasing the dimensionality of the prediction/observation vectors and the covariance matrix). However, some systematic fluctuations must be correlated among the periods, given that the overall experimental setup was the same (aside from some missing ADs). These correlations are summarized in \autoref{tab:fitToyPeriodCorr}.
+Some additional complexity arises from the fact that Daya Bay has operated under three different detector configurations: First with 6 ADs (missing EH2-AD2 and EH3-AD4), then with all 8, and finally with 7 (after the repurposing of EH1-AD1 for the JUNO experiment R\&D). In principle, the data from the three periods could simply be merged together. However, as explained in \autoref{sec:fitCombo}, obtaining an invertible covariance matrix requires combining data from ADs in the same sites, and this procedure is the simplest to implement when the (active) ADs have the same livetime, since they can be weighted equally. For this reason, the LBNL toy MC and fitter treat the three data periods as separate experiments (thus increasing the dimensionality of the prediction/observation vectors and the covariance matrix). However, some systematic fluctuations must be correlated among the periods, given that the overall experimental setup was the same (aside from some missing ADs). These correlations are summarized in \autoref{tab:fitToyPeriodCorr}.
 
 \begin{table}[h]
   \centering
@@ -426,7 +433,7 @@ Some additional complexity arises from the fact that Daya Bay has operated under
     Solar parameters, nonlinearity & \checkmark & \checkmark \\
     Correlated background shapes & \checkmark & \checkmark \\
     Accidentals rates & & \\
-    Fast neutron and \LiHe\ rates & \checkmark (same hall) & \checkmark \\
+    Fast-neutron and \LiHe\ rates & \checkmark (same hall) & \checkmark \\
     AmC rates & & \checkmark \\
     $\CanO$ rates & & \\
     \bottomrule
@@ -446,7 +453,7 @@ with the total covariance matrix $V$ defined as
 \begin{equation}
   V = V_{\mathrm{sig}} + V_{\mathrm{bkg}} + V_{\mathrm{stat}}.
 \end{equation}
-$V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near and far site data directly, the near site data is used to generate a far site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency. Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
+$V_{\mathrm{sig}}$ and $V_{\mathrm{bkg}}$ were described in \autoref{sec:fitToyOutputs}, while $V_{\mathrm{stat}}$ is described below in \autoref{sec:fitStatCovMat}. The indices $i$ and $j$ can run over detectors (or halls), energy bins, and data periods (6, 8, 7AD), depending on how the data (and covariance matrix) is merged across detectors, as described later. The main distinguishing characteristic of the LBNL fitter is that it takes a \emph{relative} approach: Rather than simultaneously fitting the near-site and far-site data directly, the near-site data is used to generate a far-site prediction, which is then compared to the data. The chief advantage of such an approach is that the absolute detection efficiency, shared among all ADs, cancels automatically, and therefore the covariance matrix can be generated without considering fluctuations in the absolute efficiency. Indeed, we could even ignore reactor uncertainties that are correlated among all cores, but because the reactor covariance matrix was designed to be useful for both relative and absolute fitters, they are accounted for anyway, unnecessarily but harmlessly.
 
 The bulk of the fitter's complexity lies in the determination of the far-site prediction $\Fpred$ based on the near-site data, as well as in the aforementioned merging of data and the corresponding reduction of the covariance matrix.\footnote{This merging is necessary in order to obtain an invertible covariance matrix, given the high degree of correlation in the full covariance matrix.} In what follows we detail the steps taken by the fitter to ultimately determine the $\chi^2$ for a given set of oscillation parameters. Given the ability to calculate this $\chi^2$, finding the best fit can be done using standard minimization techniques, and a map of the $\chi^2$ across parameter space can be used to generate two-dimensional contours at any desired confidence level.
 
@@ -461,7 +468,7 @@ It also produces a map of chi2 in parameter space for derivation of contours.
 \subsection{Far-site prediction from near sites}
 \label{sec:fitNearToFarPred}
 
-As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, making for a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
+As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, resulting in a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
 
 \begin{enumerate}
 \item The reverse response matrix $\mathbf{M}$ from \autoref{eq:revRespMtx} is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
@@ -471,7 +478,7 @@ As was mentioned, the far-site data is predicted based on the measurements at th
 \item The $\Enu$ spectrum is integrated back into the original $\Erec$ bin.
 \end{enumerate}
 
-This process is illustrated by the cartoon in \autoref{fig:fitExtrapCartoon}, and further details are given in the next section. After repeating this procedure for each $\Erec$ bin, a predicted prompt spectrum is thereby obtained at the far AD. Given that there are four near ADs and four far ADs (when all 8 ADs are operating), this results in a total of 16 predictions for each $\Erec$ bin. The 6AD and 7AD periods are essentially considered separate experiments (whose correlations due to systematics are encoded in the covariance matrix, as described in \autoref{sec:fitToyPeriods}), with 9 and 12 predictions for each $\Erec$ bin, respectively.
+This process is illustrated by \autoref{fig:fitExtrapCartoon}, and further details are given in the next section. After repeating this procedure for each $\Erec$ bin, a predicted prompt spectrum is thereby obtained at the far AD. Given that there are four near ADs and four far ADs (when all 8 ADs are operating), this results in a total of 16 predictions for each $\Erec$ bin. The 6AD and 7AD periods are essentially considered separate experiments (whose correlations due to systematics are encoded in the covariance matrix, as described in \autoref{sec:fitToyPeriods}), with 9 and 12 predictions for each $\Erec$ bin, respectively.
 
 \begin{figure}[ht]
   \centering
@@ -490,7 +497,7 @@ For a near AD $i$ and a given antineutrino energy $\Enu$, the fraction of the fl
 \end{equation}
 where $F_c(\Enu)$ is the antineutrino flux from core $c$, given by \autoref{eq:reacToyFinalPred}, and $L_{ic}$ is the baseline from core $c$ to AD $i$.
 
-The observation at near AD $i$, attributable to core $k$, in true energy bin $\Enu$, for the extrapolation of reconstructed energy bin $\Erec$, is then simply
+The observation at near AD $i$, attributable to core $k$, in true-energy bin $\Enu$, for the extrapolation of reconstructed-energy bin $\Erec$, is then simply
 \begin{equation}
   N_{ik}(\Enu; \Erec) = f_{ik}(\Enu) \times N_i(\Enu; \Erec)
 \end{equation}
@@ -498,7 +505,7 @@ where $N_i(\Enu; \Erec)$ is the background-subtracted count in the $\Enu$ bin:
 \begin{equation}
   N_i(\Enu; \Erec) = \mathbf{M}(\Erec, \Enu) \times N_i(\Erec),
 \end{equation}
-and $N_i(\Erec)$ is the (background-subtracted) number of observed events in reconstructed energy bin $\Erec$. For clarity, here we express the reverse response matrix $\mathbf{M}$ (from \autoref{eq:revRespMtx}) as a function of $\Erec$ and $\Enu$ rather than of bin indices.
+and $N_i(\Erec)$ is the (background-subtracted) number of observed events in reconstructed-energy bin $\Erec$. For clarity, here we express the reverse response matrix $\mathbf{M}$ (from \autoref{eq:revRespMtx}) as a function of $\Erec$ and $\Enu$ rather than of bin indices.
 
 In order to take near AD $i$'s observation of core $k$ and calculate the predicted observation at far AD $j$, we use the extrapolation factor
 \begin{equation}
@@ -542,7 +549,7 @@ The near-to-far extrapolation produces multiple predictions for each far AD, one
 
 Technically speaking, fluctuations in the near-site data will produce fluctuations in $\Fpred$, while fluctuations in the far-site data will produce fluctuations in $\Fobs$. However, for the sake of simplicity, we choose to ``transfer'' the uncertainty on $\Fobs$ over to $\Fpred$, essentially leaving $\Fobs$ without any error bar. This simplifies the conceptual description of the covariance matrix (in the context of calculating $\chi^2$): It encodes fluctuations in $\Fpred$ around the ``fixed'' $\Fobs$. Of course, in reality, both quantities will fluctuate, but since it is only the \emph{difference} between the two that enters the $\chi^2$ calculation, we are free to divide the uncertainty between them as we please.
 
-Given this convention, the statistical uncertainty on $\Fpred$ that arises from near site fluctuations is
+Given this convention, the statistical uncertainty on $\Fpred$ that arises from the near-site fluctuations is
 \begin{equation}
   \snear(\Fpred) = \frac{\Fpred}{N^{\mathrm{obs}}} \sqrt{N^{\mathrm{obs}} + N^{\mathrm{bkg}}},
 \end{equation}
@@ -556,7 +563,7 @@ where $F^{\mathrm{bkg}}$ is the predicted background at the far AD. The total un
 
 As was noted, statistical correlations exist between pairs of predictions that share a near or far AD. It can be shown
 % (XXX how???)
-that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. The tedious details depend on the way that the data is merged between ADs and on the technical definition of the indices $i$ and $j$; the code can be seen at \cite[ShapeFit/Predictor.C, Calculate(NearSite)StatError]{DybBerkFit}. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in parameter space.
+that, for two predictions (in the same $\Erec$ bin and data period) that arise from the same near AD, the covariance is the product of the two values of $\snear$. Similarly, for two predictions at the same far AD, the covariance is the product of the $\sfar$ values. And, of course, there is no covariance between different energy bins, data periods, or predictions that don't share a common AD. Based on the discussion thus far, it is then a simple matter to fill in the statistical covariance matrix. The tedious details depend on the way that the data is merged between ADs and on the technical definition of the indices $i$ and $j$; the code can be seen at \cite[ShapeFit/Predictor.C, Calculate(NearSite)StatError]{DybBerkFit}. Unlike the systematic components of the covariance matrix (which are fixed throughout the fit procedure, aside from rescaling), the statistical component is recalculated at each point in the parameter space.
 
 \begin{comment}
 In the fit, we compare the far site measurement to the far site prediction as obtained from the near sites. Statistical uncertainty arises from both the near sites (in the form of fluctuations in the far site prediction) and from the far site data itself. We have the two expressions for each component.
@@ -652,11 +659,11 @@ Generate map of chi2 in oscillation parameter space. Take the 1sigma contour bas
   \SinSq = 0.0849 \pm 0.00287 \qquad \Dmsqee = 2.47\times10^{-3} \pm 7.15\times10^{-5}
   \label{eq:fitResults}
 \end{equation}
-These values are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of the same IBD selection criteria as Selection B in that publication. In \ref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
+These values are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of the same IBD selection criteria as Selection B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Fitting/contour_Matt.pdf}
-  \caption{68\%, 95\%, and 99\% C.L\@. contours obtained from running the fitter on our IBD sample.}
+  \caption{68\%, 95\%, and 99\% C.L\@. contours obtained from running the fitter on our IBD sample. The black cross is the best-fit point.}
   \label{fig:fitContours}
 \end{figure}
 
