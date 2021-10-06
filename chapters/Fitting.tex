@@ -10,7 +10,7 @@
 \section{Overview}
 \label{sec:fitoverview}
 
-XXX show that we can neglect energy spread due to positron angular distribution. Where do E0 values for fastn shape come from? Add big tables of all rates and efficiencies (one per data period). Fix greek characters in Fig 8.4.
+XXX show that we can neglect energy spread due to positron angular distribution. Where do E0 values for fastn shape come from? Add big tables of all rates and efficiencies (one per data period). Fix greek characters in Fig 8.4. Plot resolution function.
 
 In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor \nuebar flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, calculating the goodness of fit (while properly accounting for systematic and statistical uncertainties), and then assigning errors to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms (a.k.a. nuisance parameters), and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in this introductory section. In the rest of this chapter, we detail the fitting machinery developed at LBNL \cite{berkeley_shapefit,berkeley_toymc}.
 
@@ -208,7 +208,7 @@ Since $E_e^{(1)}$ is a linear function of $\cos\theta$, the mean positron energy
 \end{equation}
 where $E_e^{(0)}$, $M$, etc.\@ were defined in \autoref{sec:fitToyFluxPred}.
 
-It is safe to neglect the energy spread caused by the angular distribution, as it is negligible in comparison to the dominant factors in the energy resolution (primarily photon statistics, as well as detector nonuniformity and noise). Likewise, there is no need to extend the calculation to higher order, given that the neutron carries away only $\mathcal{O}$(10~keV) of kinetic energy.
+Later, in \autoref{sec:fitResolution}, we show that it is safe to neglect the energy spread caused by the angular distribution, as it is negligible in comparison to the dominant factors in the energy resolution (primarily photon statistics, as well as detector nonuniformity and noise). Likewise, there is no need to extend the calculation to higher order, given that the neutron carries away only $\mathcal{O}$(10~keV) of kinetic energy.
 
 \subsubsection{IAV effect}
 \label{sec:fitIavEffect}
@@ -265,6 +265,7 @@ where the index $j$ is such that
 and the $\Delta$ are the bin widths.
 
 \subsubsection{Detector resolution}
+\label{sec:fitResolution}
 
 As described in \cite{An_2017}, the Daya Bay detector resolution has been characterized as taking the form
 \begin{equation}
@@ -272,7 +273,30 @@ As described in \cite{An_2017}, the Daya Bay detector resolution has been charac
   \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E_{\mathrm{rec}}}
     + \frac{(2.6\%)^2}{E_{\mathrm{rec}}^2}},
 \end{equation}
-where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. The coefficients were determined by performing a fit to the gamma-ray peaks from various calibration sources and neutron captures, as well as to the alpha-particle peaks from radioactivity, as shown in \autoref{fig:resolutionFit}. In the official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of the (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in the reconstructed energy \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
+where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. The coefficients were determined by performing a fit to the gamma-ray peaks from various calibration sources and neutron captures, as well as to the alpha-particle peaks from radioactivity, as shown in \autoref{fig:resolutionFit}. This model does not account for the intrinsic energy spread of the IBD positron due to its angular distribution. We proceed to justify this omission, first heuristically and then quantitatively.
+
+From \autoref{eq:firstOrderEnergy}, it can be seen that the first-order angular dependence of the positron energy takes the form
+\begin{equation}
+  \delta E = E_e^{(0)} \frac{E_\nu}{M}v_e^{(0)}\cos\theta.
+\end{equation}
+We aim to determine the worst-case energy spread, so we may conservatively let $v_e^{(0)} = 1$. Now, for the highest antineutrino energy observed at Daya Bay, around 9~MeV, we have $E_\nu/M \approx 1\%$. Then, since $\cos\theta$ ranges from -1 to 1, we have
+\begin{equation}
+  \frac{\max(\delta E) - \min(\delta E)}{E_e^{(0)}} \approx 2\% \left( \frac{E_\nu}{\SI{9}{MeV}} \right).
+\end{equation}
+That is, the \emph{total spread} of the positron energies is, in the worst case ($E_\nu = \SI{9}{MeV}$), 2\%, and gets linearly smaller for lower antineutrino energies. Translating this 2\% total spread into a standard deviation, for comparison with the resolution model, requires knowledge of the shape of the energy distribution. As we show later, however, this distribution is reasonably flat, so for the sake of this qualitative argument, we will assume a uniform energy distribution. For a uniform distribution of total spread $S$, the standard deviation $\sigma$ is given by
+\begin{equation}
+  \sigma = \frac{S}{2\sqrt{3}}.
+\end{equation}
+For the positron energy distribution, this gives
+\begin{equation}
+  \begin{aligned}
+    \sigma & \approx \frac{2\%}{2\sqrt{3}} \left( \frac{E_\nu}{\SI{9}{MeV}} \right) \\
+    & = 0.6\% \left( \frac{E_\nu}{\SI{9}{MeV}} \right).
+  \end{aligned}
+\end{equation}
+The question now is whether this kinematic energy spread is significant in comparison to the modeled energy resolution in \autoref{eq:resolution}. From \autoref{fig:XXX} it is clear that we need only consider the highest-energy case, since at lower energies, the fractional kinematic spread gets smaller while the modeled resolution gets larger. According to \autoref{fig:XXX}, the modeled resolution levels off at around 4\%. Adding the 0.6\% kinematic spread in quadrature then increases the total resolution to 4.05\%. Thus, heuristically, the effect is negligible.
+
+In the official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of the (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in the reconstructed energy \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
 \begin{equation}
   \frac{\sigma_{\mathrm{ran},d}(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
 \end{equation}
