@@ -555,13 +555,28 @@ where $\epsilon_\mu$ is the efficiency of the muon veto (without the shower-muon
 
 When we experiment with modifying the charge threshold and veto time of the shower muon veto, as described in \autoref{chap:cutVary}, the $^9$Li rate must be recalculated using \autoref{eq:bkgLi9DailyRate} for each case. Although the modified value of $\tau$ can simply be inserted into the equation, there is also an implicit dependence on the charge threshold, which determines the division of muons between the mid- and high-energy bins. Although it would be possible to repeat the $^9$Li selection for each value of the threshold, this would be a rigid and time-consuming approach. Instead, we perform the selection at 44 evenly-spaced values of the mid/high dividing line, ranging from $1.7\times10^5$ to $6.0\times10^5$ PE\@. When our threshold lies in between these grid points, we must interpolate.
 
-Our initial approach was to simply perform a linear interpolation between the two points on each side of the threshold. This would be done once for the mid-energy bin, and again for the high-energy bin. However, the results of the $^9$Li selection/fit demonstrate a fair amount of random jitter between adjacent values of the mid/high threshold, as shown in \autoref{fig:bkgLi9Linreg} Although this variation is well below the systematic uncertainty on the $^9$Li rate, it does introduce artificial structure to the results of the shower-muon veto variation. Fortunately, the $^9$Li rates show a fairly linear dependence on the threshold, as illustrated in \autoref{fig:bkgLi9Linreg}. Therefore, our approach is to calculate the $^9$Li rate using \autoref{eq:bkgLi9DailyRate} at each of the 44 grid points for the charge threshold (using the same modified veto time in each case), fit the results to a line, and then evaluate this line at the desired value for the threshold. As is shown, we also vary the assumptions on the $^8$He fraction and the presence of $^{12}$B; all four sets of results are used in the linear regression. This procedure produces the final $^9$Li rate that is used in the oscillation fit for arbitrary shower-muon veto parameters in \autoref{chap:cutVary}.
+Our initial approach was to simply perform a linear interpolation between the two points on each side of the threshold. This would be done once for the mid-energy bin, and again for the high-energy bin. However, the results of the $^9$Li selection/fit demonstrate a fair amount of random jitter between adjacent values of the mid/high threshold, as shown in Figures~\ref{fig:li9_linreg_eh1}--\ref{fig:li9_lireg_eh3}. Although this variation is well below the systematic uncertainty on the $^9$Li rate, it does introduce artificial structure to the results of the shower-muon veto variation. Fortunately, the $^9$Li rates show a fairly linear dependence on the threshold, as shown in the same plots. Therefore, our approach is to calculate the $^9$Li rate using \autoref{eq:bkgLi9DailyRate} at each of the 44 grid points for the charge threshold (using the same modified veto time in each case), fit the results to a line, and then evaluate this line at the desired value for the threshold.
+% As is shown, we also vary the assumptions on the $^8$He fraction and the presence of $^{12}$B; all four sets of results are used in the linear regression.
+This procedure produces the $^9$Li rate that is used in the oscillation fit for arbitrary shower-muon veto parameters in \autoref{chap:cutVary}.
 
-\begin{figure}[h]
-  \includegraphics[scale=0.6]{Backgrounds/li9_linreg.pdf}
-  \caption{Dependence of the measured $^9$Li rate (for the nominal shower-muon veto time of 0.4004~s) on the shower-muon threshold and the assumptions on the $^8$He fraction. The line-of-best-fit is used in determining the $^9$Li rate for arbitrary shower-muon tresholds in \autoref{chap:cutVary}.}
-  \label{fig:bkgLi9Linreg}
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Backgrounds/Li9/linreg/li9_linreg_eh1.pdf}
+  \caption{Dependence of the measured $^9$Li rate (for the nominal shower-muon veto time of 400.4~ms) on the shower-muon threshold in EH1. The line-of-best-fit is used in determining the $^9$Li rate for arbitrary shower-muon tresholds in \autoref{chap:cutVary}.}
+  \label{fig:li9_linreg_eh1}
 \end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Backgrounds/Li9/linreg/li9_linreg_eh2.pdf}
+  \caption{Dependence of the measured $^9$Li rate (for the nominal shower-muon veto time of 400.4~ms) on the shower-muon threshold in EH2. The line-of-best-fit is used in determining the $^9$Li rate for arbitrary shower-muon tresholds in \autoref{chap:cutVary}.}
+  \label{fig:li9_linreg_eh2}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Backgrounds/Li9/linreg/li9_linreg_eh3.pdf}
+  \caption{Dependence of the measured $^9$Li rate (for the nominal shower-muon veto time of 400.4~ms) on the shower-muon threshold in EH3. The line-of-best-fit is used in determining the $^9$Li rate for arbitrary shower-muon tresholds in \autoref{chap:cutVary}.}
+  \label{fig:li9_linreg_eh3}
+\end{figure}
+
 
 \begin{comment}
 - forming and fitting the histogram %
