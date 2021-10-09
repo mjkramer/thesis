@@ -10,7 +10,7 @@
 \section{Overview}
 \label{sec:fitoverview}
 
-XXX show that we can neglect energy spread due to positron angular distribution. Where do E0 values for fastn shape come from? Add big tables of all rates and efficiencies (one per data period). Fix greek characters in Fig 8.4. Plot resolution function.
+% XXX show that we can neglect energy spread due to positron angular distribution. Where do E0 values for fastn shape come from? Add big tables of all rates and efficiencies (one per data period). Fix greek characters in Fig 8.4. Plot resolution function.
 
 In order to extract neutrino oscillation parameters, Daya Bay data is compared to the predictions associated with different parameter values, and the extracted parameters are then those that give the best fit to the data. Given knowledge of the reactor \nuebar flux, detector response, and expected backgrounds, it is conceptually straightforward to generate a set of predictions. However, calculating the goodness of fit (while properly accounting for systematic and statistical uncertainties), and then assigning errors to the extracted parameters, is where the procedure becomes more subtle and complex. In Daya Bay, separate analysis groups have historically employed two different approaches, theoretically equivalent but implemented very differently. These are the method of pull terms (a.k.a. nuisance parameters), and the covariance matrix approach. In this analysis, we use the latter, but both will be briefly described in this introductory section. In the rest of this chapter, we detail the fitting machinery developed at LBNL \cite{berkeley_shapefit,berkeley_toymc}.
 
@@ -273,7 +273,13 @@ As described in \cite{An_2017}, the Daya Bay detector resolution has been charac
   \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \sqrt{(1.6\%)^2 + \frac{(8.1\%)^2}{E_{\mathrm{rec}}}
     + \frac{(2.6\%)^2}{E_{\mathrm{rec}}^2}},
 \end{equation}
-where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. In fig XXX we plot this function, along with its uncertainty bands (discussed later). The coefficients were determined by performing a fit to the gamma-ray peaks from various calibration sources and neutron captures, as well as to the alpha-particle peaks from radioactivity, as shown in \autoref{fig:resolutionFit}. This model does not account for the intrinsic energy spread of the IBD positron due to its angular distribution. We proceed to justify this omission, first heuristically and then quantitatively.
+where the three terms correspond to detector nonuniformity, photoelectron statistics, and noise, respectively. In \autoref{fig:energyReso} we plot this function, along with its uncertainty bands (discussed later). The coefficients were determined by performing a fit to the gamma-ray peaks from various calibration sources and neutron captures, as well as to the alpha-particle peaks from radioactivity \cite{An_2017}. This model does not account for the intrinsic energy spread of the IBD positron due to its angular distribution. We proceed to justify this omission, first heuristically and then quantitatively.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/energyReso.pdf}
+  \caption{The energy resolution model (\autoref{eq:resolution}) and its uncertainty bands (AD-correlated and total).}
+  \label{fig:energyReso}
+\end{figure}
 
 From \autoref{eq:firstOrderEnergy}, it can be seen that the first-order angular dependence of the positron energy takes the form
 \begin{equation}
@@ -294,28 +300,46 @@ For the positron energy distribution, this gives
     & = 0.6\% \left( \frac{E_\nu}{\SI{9}{MeV}} \right).
   \end{aligned}
 \end{equation}
-The question now is whether this kinematic energy spread is significant in comparison to the modeled energy resolution in \autoref{eq:resolution}. From \autoref{fig:XXX} it is clear that we need only consider the highest-energy case, since at lower energies, the fractional kinematic spread gets smaller while the modeled resolution gets larger. According to \autoref{fig:XXX}, the modeled resolution levels off at around 4\%. Adding the 0.6\% kinematic spread in quadrature then increases the total resolution to 4.05\%. Thus, heuristically, the effect is negligible.
+The question now is whether this kinematic energy spread is significant in comparison to the modeled energy resolution in \autoref{eq:resolution}. From \autoref{fig:energyReso} it is clear that we need only consider the highest-energy case, since at lower energies, the fractional kinematic spread gets smaller while the modeled resolution gets larger. According to \autoref{fig:energyReso}, the modeled resolution levels off at around 4\%. Adding the 0.6\% kinematic spread in quadrature then increases the total resolution to 4.05\%. Thus, heuristically, the effect is negligible.
 
-To address the issue more rigorously, we can directly calculate the standard deviation of the positron energy by using the differential cross-section (\autoref{eq:ibdXsec}) and the relation between the first-order energy $E_e^{(1)}$ and the scattering angle (\autoref{eq:firstOrderEnergy}). In fig XXX, we normalize $d\sigma/d\cos\theta$ to obtain the probability distribution function (PDF) of $\cos\theta$, plotted for various values of the antineutrino energy $E_\nu$. The PDFs are relatively flat, as was claimed earlier, with a modest bias toward backscattering. In order to visualize the energy spread that arises from the angular distribution, in fig XXX we plot the \emph{positron energy deficit} $E_\nu - E_e^{(1)}$ (i.e., the amount of energy transferred to the hadronic system) as a function of $\cos\theta$ for various values of $E_\nu$. All of the curves approximately intersect in the forward-scattering limit, where the neutron kinetic energy is minimal and the deficit is approximately the neutron-proton mass difference of 1.29~MeV. As expected, the deficit increases for harder scattering angles and higher $E_\nu$ as more kinetic energy is transferred to the neutron. For the case of $E_\nu = \SI{9}{MeV}$, the difference between the maximum and minimum $E_e^{(1)}$ is 0.15~MeV. Relative to $E_e^{(1)}$ ($\approx E_\nu - 1.3 = \SI{7.7}{MeV}$), the size of this spread is 1.9\%, consistent with the 2\% we estimated earlier.
+To address the issue more rigorously, we can directly calculate the standard deviation of the positron energy by using the differential cross-section (\autoref{eq:ibdXsec}) and the relation between the first-order energy $E_e^{(1)}$ and the scattering angle (\autoref{eq:firstOrderEnergy}). In \autoref{fig:positronAnglePDF}, we normalize $d\sigma/d\cos\theta$ to obtain the probability distribution function (PDF) of $\cos\theta$, plotted for various values of the antineutrino energy $E_\nu$. The PDFs are relatively flat, as was claimed earlier, with a modest bias toward backscattering. In order to visualize the energy spread that arises from the angular distribution, in \autoref{fig:positronDEvsAngle} we plot the \emph{positron energy deficit} $E_\nu - E_e^{(1)}$ (i.e., the amount of energy transferred to the hadronic system) as a function of $\cos\theta$ for various values of $E_\nu$. All of the curves approximately intersect in the forward-scattering limit, where the neutron kinetic energy is minimal and the deficit is approximately the neutron-proton mass difference of 1.29~MeV. As expected, the deficit increases for harder scattering angles and higher $E_\nu$ as more kinetic energy is transferred to the neutron. For the case of $E_\nu = \SI{9}{MeV}$, the difference between the maximum and minimum $E_e^{(1)}$ is 0.15~MeV. Relative to $E_e^{(1)}$ ($\approx E_\nu - 1.3 = \SI{7.7}{MeV}$), the size of this spread is 1.9\%, consistent with the 2\% we estimated earlier.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/positron_angle_pdf.pdf}
+  \caption{Probability distribution functions of the scattering angle for IBD positrons.}
+  \label{fig:positronAnglePDF}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/positron_energyDiff_vs_angle.pdf}
+  \caption{Dependence of the positron energy deficit (i.e. the amount of energy transferred to the hadronic system) on the scattering angle.}
+  \label{fig:positronDEvsAngle}
+\end{figure}
 
 To go further and directly calculate the standard deviation of the positron energy, we require the PDF of the latter, which can be obtained by normalizing the energy-differential cross-section
 \begin{equation}
   \frac{d\sigma}{dE_e^{(1)}} = \frac{d\sigma}{d\cos\theta} \left( \frac{dE_e^{(1)}}{d\cos\theta} \right)^{-1},
 \end{equation}
-where the derivative $dE_e^{(1)}/d\cos\theta$ is evaluated at the angle $\theta'$ corresponding to energy $E_e^{(1)}$. Operationally, we determine $\theta'$ by numerically inverting \autoref{eq:firstOrderEnergy}. In fig XXX we plot the PDFs (for various values of $E_\nu$) as a function of the \emph{percent deviation of the positron energy from the mean} (where the mean is individually computed for each value of $E_\nu$). As was claimed earlier, these distributions are relatively flat. As expected, they are broader for higher values of $E_\nu$, and there is a slight bias toward lower energies (i.e. backscattering).
+where the derivative $dE_e^{(1)}/d\cos\theta$ is evaluated at the angle $\theta'$ corresponding to energy $E_e^{(1)}$. Operationally, we determine $\theta'$ by numerically inverting \autoref{eq:firstOrderEnergy}. In \autoref{fig:positronEnergyDiffPDF} we plot the PDFs (for various values of $E_\nu$) as a function of the \emph{percent deviation of the positron energy from the mean} (where the mean is individually computed for each value of $E_\nu$). As was claimed earlier, these distributions are relatively flat. As expected, they are broader for higher values of $E_\nu$, and there is a slight bias toward lower energies (i.e.\  backscattering).
 
-At this point, all that remains is to take the standard deviations $\sigma$ of these energy PDFs. The resulting values are in percentage terms, which can be directly compared to the modeled resolution (\autoref{eq:resolution} and fig XXX) in order to determine the significance of this energy spread. In fig XXX, we plot this $\sigma$ as a function of $E_\nu$. The results are in excellent agreement with our previous estimate: In the worst case (at 9~MeV), $\sigma$ is only about 0.6\%. As was argued earlier, this is insignificant relative to the energy resolution model.\footnote{Since some of the reconstructed energy comes from the annihilation electron, which is not subject to this spread, this analysis overestimates the size of the effect, further highlighting its insignificance.}
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/positron_relEnergy_pdf.pdf}
+  \caption{Probability distribution functions of the positron energy (expressed as percentage deviations from the mean energy for fixed $E_\nu$).}
+  \label{fig:positronEnergyDiffPDF}
+\end{figure}
+
+At this point, all that remains is to take the standard deviations $\sigma$ of these energy PDFs. The resulting values are in percentage terms, which can be directly compared to the modeled resolution (\autoref{eq:resolution} and \autoref{fig:energyReso}) in order to determine the significance of this energy spread. In fig \autoref{fig:positronSpreadPct}, we plot this $\sigma$ as a function of $E_\nu$. The results are in excellent agreement with our previous estimate: In the worst case (at 9~MeV), $\sigma$ is only about 0.6\%. As was argued earlier, this is insignificant relative to the energy resolution model.\footnote{Since some of the reconstructed energy comes from the annihilation electron, which is not subject to this spread, this analysis overestimates the size of the effect, further highlighting its insignificance.}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Fitting/positron_spread_pct.pdf}
+  \caption{Standard deviation of the positron energy (due to its angular distribution) as a function of antineutrino energy.}
+  \label{fig:positronSpreadPct}
+\end{figure}
 
 In the official Daya Bay publications (e.g., \cite{An_2017}), the uncertainty of the resolution has been declared to be negligible. However, we apply the conservative uncertainties originally employed by the LBNL analysis: 0.2\% correlated and 0.2\% uncorrelated. The correlated component is due to the statistical uncertainty of the (old) resolution fits (with limited statistics), while the uncorrelated part is attributed to the observed 0.2\% AD-to-AD differences in the reconstructed energy \cite{berkeley_toymc}. Resolution fluctuations are applied as a constant shift to the fractional uncertainty. As such, for detector $d$, $\sigma/E_{\mathrm{rec}}$ is fluctuated according to
 \begin{equation}
   \frac{\sigma_{\mathrm{ran},d}(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} = \frac{\sigma(E_{\mathrm{rec}})}{E_{\mathrm{rec}}} + (0.2\% \times a_{\mathrm{corr}})  + (0.2\% \times a_d).
 \end{equation}
-
-\begin{figure}[ht]
-  \includegraphics[width=0.7\textwidth]{Fitting/energyReso.pdf}
-  \caption{Results of fitting a large collection of energy peaks in order to obtain the resolution curve \autoref{eq:resolution}. From \cite{An_2017}.}
-  \label{fig:resolutionFit}
-\end{figure}
 
 Application of the detector resolution begins with the ``source'' $\Erec$ histogram produced according to \autoref{eq:fitNrec}. An identically-shaped (but empty) ``destination'' histogram is then constructed, and for each destination bin centered at $E_{\mathrm{rec},i}$, we loop over the ``source'' bins that span $E_{\mathrm{rec}i} \pm 8\,\sigma(E_{\mathrm{rec},i})$,\footnote{8 standard deviations was chosen in order to ensure ``almost all'' relevant events would be included. In practice, 4 or 5 standard deviations would have been more than sufficient.} and increase the count in the destination bin by the contents of the source bin, times the appropriate Gaussian factor. This produces the final, smeared, IBD spectrum.
 
