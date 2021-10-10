@@ -50,3 +50,8 @@
 % % We add the \unskip since we don't prepend e.g. "Equation"
 % \def\theequation{\unskip(\orgtheequation)}
 % \makeatother
+
+% italicize "et al."
+\DefineBibliographyStrings{english}{
+  andothers = {\mkbibemph{et\addabbrvspace al\adddot}}
+}
