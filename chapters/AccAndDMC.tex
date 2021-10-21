@@ -254,6 +254,9 @@ where $\tau$ = 200~$\mu$s.
 \section{Accidentals rate}
 \label{sec:accratecalc}
 
+\subsection{Rate calculation}
+\label{sec:accRateCalc}
+
 An accidental event, in order to enter the IBD selection, must pass the DMC, as
 with any other IBD candidate. Since the DMC is ``centered'' on the delayed event
 of the pair, it is simplest to calculate the accidentals rate by similarly
@@ -311,7 +314,13 @@ To recap, only three inputs are required to calculate the accidentals rate:
 \end{itemize}
 In turn, to study the statistical uncertainty $\sigma$ of the calculation, we can apply statistical fluctuations to the energy histogram. These fluctuations will automatically propagate to the event counts $N_p$, etc., and then to the final result. Repeating this procedure will produce a sample of accidentals rates, from which $\sigma$ can be determined by taking the standard deviation or by fitting a Gaussian function.
 
-For each bin $i$ of the singles' energy histogram, with measured count $N_i$, let $N'_i$ denote corresponding the random variable describing a hypothetical ensemble of experiments.
+For each bin $i$ of the singles' energy histogram, with measured count $\overline{N}_i$, let $N_i$ denote corresponding the random variable describing a hypothetical ensemble of experiments. The PDF $f(N_i)$ is then given by the Poisson distribution:
+\begin{equation}
+  f(N_i) = \frac{\overline{N}_i^{N_i}e^{-\overline{N}_i}}{N_i!}.
+\end{equation}
+This distribution is sampled for each bin, resulting in a fluctuated singles histogram, which is then used as the input for the calculation of the accidentals rate described in \autoref{sec:accRateCalc}. We repeat this procedure 10,000 times for each AD (and data period) in order to obtain a sample of accidentals rates that approximates their statistical distribution, as illustrated in \autoref{fig:acc_stat_unc_hist}. Finally, the statistical uncertainty is determined from this distribution in two ways: First, by directly calculating the standard deviation, and second, by performing a fit to a Gaussian function. Both methods produce consistent results.
+
+As shown in Figures~\ref{fig:acc_stat_unc_prd6}--\ref{fig:acc_stat_unc_prd0}, the statistical uncertainty of the accidentals rate is relatively small, remaining below the 1\% level even in the lowest-statistics case (EH3 in the 7AD period). Rather than using these uncertainties directly, we absorb them into a conservative 2\% total uncertainty in order to account for possible systematic effects, as discussed in \autoref{sec:accSystUnc}.
 
 \begin{figure}[ht]
   \includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_hist_eh1ad2_all.pdf}
@@ -343,10 +352,16 @@ For each bin $i$ of the singles' energy histogram, with measured count $N_i$, le
   \label{fig:acc_stat_unc_prd0}
 \end{figure}
 
-\subsection{Systematic uncertainty}
+\subsection{Systematic and total uncertainty}
 \label{sec:accSystUnc}
 
+The systematic uncertainty on the accidentals rate can be estimated by comparing our method to an independent technique. Rather than carrying this out ourselves, we refer to previous studies that performed such comparisons \cite{An_2017}. In those studies, the alternative calculations used the so-called \emph{offset-window} method, in which the IBD selection is repeated with the requirement of a time offset (ranging from 1 to 20~ms) between the prompt and delayed triggers. This offset has the effect of largely eliminating correlated events, producing a sample enriched in accidentals. From this sample, one can obtain the distribution of the spatial separations between the prompt and delayed triggers in each pair. Finally, for the true IBD sample, the prompt-delayed distribution can be plotted, and the distribution for the accidental sample can be normalized to fit it, giving an estimate of the total number of accidentals in the true sample (\autoref{fig:accOffsetWindow}). This method was shown to give consistent results with methods based on measuring the singles rates (such as our method), with a slightly higher statistical uncertainty of about 1\%. To obtain our own final uncertainty on the accidentals rate, we take this 1\% and conservatively add it linearly to our own 1\% worst-case statistical uncertainty, giving 2\%. There is no need to be more precise in our error assignment, given that this uncertainty is negligible in comparison to that of the $^9$Li/$^8$He and fast-neutron backgrounsd.
 
+\begin{figure}[ht]
+  
+  \caption{Distribution of prompt-delayed distances for a true IBD sample and for an accidentals-enriched sample, as obtained when using the offset-window method of measuring the accidentals rate. The particular AD shown is unspecified. From \cite{An_2017.}}
+    \label{fig:accOffsetWindow}
+\end{figure}
 
 % \section{Conclusions}
 % \label{sec:accdmcconcl}
