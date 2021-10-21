@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\chapter{Accidentals rate and DMC efficiency}
+\chapter{Accidental background rate and multiplicity cut efficiency}
 \label{chap:accDMC}
 % \chapter*{Accidentals rate and DMC efficiency}
 % \stepcounter{chapter}
@@ -19,14 +19,7 @@
 \def\etot{\ensuremath{\epsilon_\mathrm{tot}}}
 \def\Racc{\ensuremath{R_\mathrm{acc}}}
 
-These two quantities depend on the rate of uncorrelated physics events, or
-\emph{singles.} The accidentals rate is determined by the probability of two
-singles occurring in the same coincidence window, while the efficiency of the
-decoupled multiplicy cut (DMC) is similarly based on the chance of one or more
-singles occurring within a certain distance in time from the delayed
-event.\footnote{IBDs and correlated backgrounds also contribute to the
-  inefficiency of the DMC, but the effect is negligible given the vast disparity
-  in rates between singles and correlated events.}
+These two quantities depend on the rate of uncorrelated physics events, or \emph{singles.} The accidental background rate (``accidentals rate'') is determined by the probability of two singles occurring in the same coincidence window, while the efficiency of the decoupled multiplicy cut (DMC) is similarly based on the chance of one or more singles occurring within a certain distance in time from the delayed event.\footnote{IBDs and correlated backgrounds also contribute to the inefficiency of the DMC, but the effect is negligible given the vast disparity in rates between singles and correlated events.}
 
 Let $\Rs(\Emin, \Emax)$ be the rate of singles whose reconstructed energy lies
 between \Emin\ and \Emax. To be precise, \Rs\ is the \emph{true physical rate}
@@ -45,14 +38,9 @@ Poisson statistics. We now describe the calculation from end to end.
 \section{Event classes}
 \label{sec:accdmcevtcls}
 
-Let us define a \emph{muon-like} event as an AD trigger with charge of at least
-3,000 p.e. (about 18~MeV).\footnote{It would be simpler to define a muon-like
-  event directly in terms of energy instead of charge, but presently we use
-  3,000 p.e. for consistency with the historical LBNL analysis. This may change.
-  Also, we don't call these events ``muons'', as 3,000 p.e. is not necessarily
-  the definition of an AD muon used in the IBD selection.} Then a
-\emph{sub-muon} event is one with reconstructed energy of at least 12~MeV, but
-not enough charge to be muon-like. A \emph{prompt-like} event has energy of
+Let us define a \emph{muon-like} event as an AD trigger with charge of at least 3,000 p.e. (about 18~MeV), corresponding to the charge threshold of the AD-muon veto in our IBD selection (\autoref{sec:selMuonVeto})
+% \footnote{It would be simpler to define a muon-like event directly in terms of energy instead of charge, but we use 3,000 p.e. for consistency with the historical LBNL analysis. Also, we don't call these events ``muons'', as 3,000 p.e. is not necessarily the definition of an AD muon used in the IBD selection.}
+Then a \emph{sub-muon} event is one with reconstructed energy of at least 12~MeV, but not enough charge to be muon-like. A \emph{prompt-like} event has energy of
 0.7--12~MeV, a \emph{delayed-like} event 6--12~MeV, and, finally, a
 \emph{prompt-plus} event is one that is either prompt-like or a sub-muon. The
 sample described in \autoref{sec:singsel} consists of prompt-plus events.
@@ -60,7 +48,7 @@ sample described in \autoref{sec:singsel} consists of prompt-plus events.
 Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the
 \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon
   rate}\footnote{$\lambda$ precedes $\mu$ in the Greek alphabet... I think.}
-\Rsub\ as $\Rs(12, \mu)$ (i.e., up to the muon-like charge threshold), and the
+\Rsub\ as $\Rs(12, \infty)$,\footnote{Note that muon-like events are not included in the $R_s$ integral (and hence $R_\lambda$)} and the
 \emph{prompt-plus rate} \Rplu\ as $\Rpro + \Rsub$. Likewise, the raw event
 counts in our sample are \Npro, etc. To complete this round of definitions, let
 \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the
@@ -307,7 +295,58 @@ The accidentals rate, as calculated using \autoref{eq:accRate}, carries a statis
 
 In spite of these complications, it is still possible to undertake a theoretical calculation of the statistical uncertainty on the accidentals rate. This would involve expanding \autoref{eq:accRate} in terms of the various event counts $N_{\mathrm{p}}$, $N_{\mathrm{d}}$, etc., and then reexpressing the event counts (such as the prompt-like and delayed-like counts) as sums of counts of \emph{disjoint} event classes $N_1$, $N_2$, etc. (e.g., an 0.7--6 MeV class and a 6--12 MeV class). This complicated function $R_{\mathrm{acc}}(N_1, N_2, \ldots)$ could then be expanded in a power series using computer algebra. From that, an expression for the variance $\braket{R_{\mathrm{acc}}^2} - \braket{R_{\mathrm{acc}}}^2$ could be obtained up to any desired order, and evaluated using the known cumulants of the Poisson distribution.
 
-Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance, particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate. For this reason, a simple Monte Carlo was developed for calculating this uncertainty. It gave results consistent with the uncertainty published in \cite{An_2017}. (TODO: Include details; show my histogram of accidentals rates under random variations of the prompt/delayed-like rates.)
+Given the complexities of this procedure, and the fact that previous studies have established this statistical uncertainty to be significantly smaller than the systematic uncertainty, the author has no desire to pioneer such an undertaking. Nevertheless, it remains desirable to have some way of evaluating the statisical uncertainty in order to verify its relative insignificance.
+% , particularly when the prompt and/or delayed energy cuts are loosened enough to significantly increase the accidentals rate.
+For this reason, a simple Monte Carlo procedure was developed for calculating this uncertainty. We proceed to discuss its implementation and results.
+% It gave results consistent with the uncertainty published in \cite{An_2017}. (TODO: Include details; show my histogram of accidentals rates under random variations of the prompt/delayed-like rates.)
+
+\subsubsection{Procedure}
+\label{sec:accStatUncProc}
+
+To recap, only three inputs are required to calculate the accidentals rate:
+\begin{itemize}
+\item The livetime.
+\item The muon veto efficiency (for correcting the livetime).
+\item The energy histogram of all events selected by the singles selection.
+\end{itemize}
+In turn, to study the statistical uncertainty $\sigma$ of the calculation, we can apply statistical fluctuations to the energy histogram. These fluctuations will automatically propagate to the event counts $N_p$, etc., and then to the final result. Repeating this procedure will produce a sample of accidentals rates, from which $\sigma$ can be determined by taking the standard deviation or by fitting a Gaussian function.
+
+For each bin $i$ of the singles' energy histogram, with measured count $N_i$, let $N'_i$ denote corresponding the random variable describing a hypothetical ensemble of experiments.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_hist_eh1ad2_all.pdf}
+  \caption{Distribution of full-dataset accidentals rates in EH1-AD2 calculated under statistical fluctuations of the singles rate and spectrum. Consistent estimates of the spread are obtained from directly calculating the standard deviation and from performing a fit to a Gaussian function.}
+  \label{fig:acc_stat_unc_hist}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_prd6.pdf}
+\caption{Statistical uncertainty of the accidentals rates in each AD for the 6AD period. ``Samples $\sigma$'' refers to the directly-calculated standard deviation, while ``Fit $\sigma$'' refers to the results of fitting to a Gaussian function.}
+\label{fig:acc_stat_unc_prd6}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_prd8.pdf}
+\caption{Statistical uncertainty of the accidentals rates in each AD for the 8AD period. ``Samples $\sigma$'' refers to the directly-calculated standard deviation, while ``Fit $\sigma$'' refers to the results of fitting to a Gaussian function.}
+\label{fig:acc_stat_unc_prd8}
+\end{figure}
+
+\begin{figure}[ht]
+\includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_prd7.pdf}
+\caption{Statistical uncertainty of the accidentals rates in each AD for the 7AD period. ``Samples $\sigma$'' refers to the directly-calculated standard deviation, while ``Fit $\sigma$'' refers to the results of fitting to a Gaussian function.}
+\label{fig:acc_stat_unc_prd7}
+\end{figure}
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{AccAndDMC/acc_stat_unc_prd0.pdf}
+  \caption{Statistical uncertainty of the accidentals rates in each AD for the full dataset. ``Samples $\sigma$'' refers to the directly-calculated standard deviation, while ``Fit $\sigma$'' refers to the results of fitting to a Gaussian function.}
+  \label{fig:acc_stat_unc_prd0}
+\end{figure}
+
+\subsection{Systematic uncertainty}
+\label{sec:accSystUnc}
+
+
 
 % \section{Conclusions}
 % \label{sec:accdmcconcl}
