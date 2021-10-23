@@ -380,52 +380,54 @@ We end this section by showing the fitter's reported uncertainty under variation
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
 
-Unlike the delayed spectrum, the prompt spectrum of IBDs does not contain a long tail, so that varying the prompt cut is likely to have a smaller effect on the analysis, with minimal potential statistical gain. Although the minimum IBD energy deposition is 1.0~MeV (from positron annihilation), the finite detector resolution leads to the reconstruction of some events below this minimum energy. Since we can see that the prompt spectrum doesn't fall to zero at 0.7~MeV (\autoref{fig:cutVaryPromptCutExampleSpectrum}), it is clear that events will be lost or gained upon variation of the cut. It is therefore worth verifying that the analysis is stable under such circumstances.
+Unlike the delayed-energy spectrum, the prompt-energy spectrum of the IBDs does not contain a long tail, so that varying the prompt-energy cut is likely to have a smaller effect on the analysis, with minimal potential statistical gain. Although the minimum IBD energy deposition is 1.0~MeV (from positron annihilation), the finite detector resolution leads to the reconstruction of some events below this minimum energy. Since we can see that the prompt-energy spectrum doesn't fall to zero at 0.7~MeV (\autoref{fig:cutVaryPromptCutExampleSpectrum}), it is clear that events will be lost or gained upon variation of the cut. It is therefore worth verifying that the analysis is stable under such circumstances.
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/promptSpecExample.pdf}
-  \caption{Example prompt spectrum of IBD candidates (including backgrounds), showing the nonzero event count at the 0.7~MeV threshold.}
+  \caption{Prompt-energy spectrum of IBD candidates (including backgrounds), showing the nonzero event count at the 0.7~MeV threshold.}
   \label{fig:cutVaryPromptCutExampleSpectrum}
 \end{figure}
 
-\emph{A priori,} there is no reason to assume that the prompt cut has the same efficiency (and $d\epsilon/dE_{\mathrm{cut}}$) across all ADs. Just as with the delayed cut, it is possible that we may need to apply corrections for the AD-dependent prompt efficiency. In that case, we could extract the prompt spectrum analogously to the case of the delayed spectrum, and then integrate it using either the \texttt{absolute} or \texttt{relative} methods.
-
-Compared to the delayed spectrum, it may be possible to more accurately measure the absolute efficiency, given the lack of a long tail. Even though the rate of prompt-like singles rises very steeply around 0.7~MeV, the accidentals rate is bottlenecked by the rate of delayed-like singles, so the accidentals subtraction can still be performed accurately. However, the \emph{correlated} backgrounds each have their own externally supplied prompt spectra, which (as described in \autoref{sec:cutVaryPromptCutBkg}) must be individually integrated (to scale the rate) and subtracted. Hence, the measured prompt spectrum could be skewed by any errors in the rates and spectra of the correlated backgrounds. Fortunately, the total rate of the correlated backgrounds is quite low.
+\emph{A priori,} there is no reason to assume that the prompt-energy cut has the same efficiency (and $d\epsilon/dE_{\mathrm{cut}}$) across all ADs. Just as with the delayed-energy cut, it is possible that we may need to apply corrections for the AD-dependent prompt-energy cut efficiency. In that case, we could extract the prompt-energy spectrum analogously to the case of the delayed-energy spectrum, and then integrate it using either the \texttt{absolute} or \texttt{relative} methods.
+%
+\begin{comment}
+Compared to the delayed-energy spectrum, it may be possible to more accurately measure the absolute efficiency, given the lack of a long tail. Even though the rate of prompt-like singles rises very steeply around 0.7~MeV, the accidentals rate is bottlenecked by the rate of delayed-like singles, so the accidentals subtraction can still be performed accurately. However, the \emph{correlated} backgrounds each have their own externally supplied prompt-energy spectra, which (as described in \autoref{sec:cutVaryPromptCutBkg}) must be individually integrated (to scale the rate) and subtracted. Hence, the measured prompt-energy spectrum could be skewed by any errors in the rates and spectra of the correlated backgrounds. Fortunately, the total rate of the correlated backgrounds is quite low.
 % , and in the case of the dominant one ($^9$Li), 0.7~MeV lies below its lower endpoint (XXX check and revise).
-We therefore don't expect the correlated backgrounds to pose a major difficulty in the prompt spectrum extraction.
-
-The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
+We therefore don't expect the correlated backgrounds to pose a major difficulty in the prompt-energy spectrum extraction.
+The above discussion is irrelevant, however, because as we shall see, the \texttt{flat} method (in which we make no attempt to correct for the prompt-energy cut efficiency) produces remarkably stable results. There is therefore no need to extract the prompt spectrum, so we will leave it at that.
+\end{comment}
+However, as shown later in \autoref{sec:cutVaryPromptCutResults}, the \texttt{flat} method (in which we make no attempt to correct for the prompt-energy cut efficiency) produces remarkably stable results. There is therefore no need to extract the prompt-energy spectrum. We thus proceed directly to discussing the necessary corrections to the background rates for this study.
 
 \subsection{Background rate correction}
 \label{sec:cutVaryPromptCutBkg}
 
-When varying the prompt cut, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of predicted prompt spectra $S_b(E)$ that extend down to 0~MeV for each correlated background $b$ (\Autoref{fig:bkgspec_Li9,fig:bkgspec_fn,fig:bkgspec_AmC,fig:bkgspec_alphaN}), we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
-\[
-  \frac{\int_{E_{\mathrm{cut}}}^{12} S_b(E)}{\int_{0.7}^{12} S_b(E)}.
-\]
-The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{\mathrm{cut}}$, normalizes it to the specified rate, and subtracts it from the raw prompt spectrum. This adjustment of the correlated backgrounds is applied for both the cases of fitting data and toy samples. There are no further subtleties related to the variation of the prompt cut.
+When varying the prompt-energy cut, the only adjustment we must make to the \texttt{Theta13} file is to correct the rates of the correlated backgrounds. Since we are in the possession of the predicted prompt-energy spectra $S_b(E)$ for each correlated background $b$ (Figures~\ref{fig:bkgspec_Li9}--\ref{fig:bkgspec_alphaN}), and since these spectra extend down to 0~MeV, we have all of the information needed. We simply take the nominal background rate (and uncertainty) and scale it according to the factor
+\begin{equation}
+  F_b = \frac{\int_{E_{\mathrm{cut}}}^{12} S_b(E)}{\int_{0.7}^{12} S_b(E)}.
+\end{equation}
+The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at $E_{\mathrm{cut}}$, normalizes it to the specified rate, and subtracts it from the raw prompt-energy spectrum. This adjustment of the correlated backgrounds is applied to both the cases of fitting data and toy MC samples. There are no further subtleties related to the variation of the prompt-energy cut.
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_Li9.png}
-  \caption{Prompt spectrum of the $^9$Li background. Generated from the input file used by the fitter.}
+  \caption{Prompt-energy spectrum of the $^9$Li background. Generated from the input file used by the fitter.}
   \label{fig:bkgspec_Li9}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_fn.png}
-  \caption{Prompt spectrum of the fast neutron background. Generated from the input file used by the fitter.}
+  \caption{Prompt-energy spectrum of the fast neutron background. Generated from the input file used by the fitter.}
   \label{fig:bkgspec_fn}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_AmC.png}
-  \caption{Prompt spectrum of the AmC background. Generated from the input file used by the fitter.}
+  \caption{Prompt-energy spectrum of the AmC background. Generated from the input file used by the fitter.}
   \label{fig:bkgspec_AmC}
 \end{figure}
 
 \begin{figure}[h]
   \includegraphics[scale=0.6]{CutVary/PromptCut/BkgSpec/bkgspec_alphaN.png}
-  \caption{Prompt spectrum of the $\alpha$-$n$ background. Generated from the input file used by the fitter.}
+  \caption{Prompt-energy spectrum of the $\alpha$-$n$ background. Generated from the input file used by the fitter.}
   \label{fig:bkgspec_alphaN}
 \end{figure}
 
@@ -435,7 +437,7 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
 % As shown in Fig.~XXX, the toy MC predicts no shift in the best-fit oscillation parameters, as expected. Furthermore, there is no significant change in the total uncertainty, indicating that there is no obvious ``optimum'' prompt cut to use.
 
 % Meanwhile,
-\autoref{fig:cutVaryPromptCutResultsData} shows the results of varying the prompt cut. Happily, there is no significant variation in the best-fit values of $\SinSq$ and $\Dmsqee$. Likewise, the uncertainty remains stable, as shown in \autoref{fig:cutVaryPromptCutUncData}. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
+\autoref{fig:cutVaryPromptCutResultsData} shows the results of varying the prompt-energy cut. Happily, there is no significant variation in the best-fit values of $\SinSq$ and $\Dmsqee$. Likewise, the uncertainty remains stable, as shown in \autoref{fig:cutVaryPromptCutUncData}. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt-energy cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
