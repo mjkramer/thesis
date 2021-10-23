@@ -446,7 +446,7 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
   \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/dm2_mid.pdf}%
   \end{minipage}%
-  \caption{Results of oscillation fits to data under variations of the prompt energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
+  \caption{Results of oscillation fits to data under variations of the prompt-energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
   \label{fig:cutVaryPromptCutResultsData}
 \end{figure}
 
@@ -457,7 +457,7 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
   \begin{minipage}{0.47\linewidth}%
     \includegraphics[scale=0.48]{CutVary/PromptCut/unc_dm2.pdf}%
   \end{minipage}%
-  \caption{Uncertainty on the oscillation parameters from fits to data under variations of the prompt energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$. Note the scales on the vertical axes; the variation in the uncertainty is minuscule.}
+  \caption{Uncertainty on the oscillation parameters from fits to data under variations of the prompt-energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$. Note the scales on the vertical axes; the variation in the uncertainty is minuscule.}
   \label{fig:cutVaryPromptCutUncData}
 \end{figure}
 
@@ -472,23 +472,23 @@ Li9, fast-n, alpha-n: Only in GdLS, ???
 AmC: Both. R distribution unknown but probably ``lumpy''. Z probably like what we did.
 \end{comment}
 
-Since our analysis is based on nGd IBDs, the delayed events of the IBDs will all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the prompt events will likewise occur in the GdLS.
+Since our analysis is based on nGd-capture IBDs, the neutron captures (i.e.\ the delayed triggers of the IBD pairs) all take place within the GdLS volume. Given the small (cm-scale) neutron diffusion distance, most of the IBD interactions themselves (i.e.\ the prompt triggers, containing the positron energy) likewise occur in the GdLS.
 % XXX \footnote{Those that don't are accounted for in the spill-in efficiency.}
 The situation is the same for the three correlated backgrounds ($^9$Li, fast neutrons, and $\alpha$-n) that involve nGd captures.
 %
 Meanwhile, for accidental backgrounds, there is no correlation between the prompt and delayed vertices.
 % XXX XXX most (but not all) of the delayed triggers will come from nGd captures (and thus lie within the GdLS), while there will be many prompt-like triggers in the LS as well as the GdLS.
-And finally, the AmC backgrounds will show a tight prompt-delayed correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
+And finally, the AmC backgrounds have a tight prompt-delayed vertex correlation, but with a unique vertex distribution localized toward the top of the AD near the three ACUs.
 
-Based on these facts, it is obvious why the official nGd analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
+Based on these facts, it is obvious why the official nGd-based analysis does not employ any cuts on the event vertices. Although there is nothing preventing us from requiring reconstructed vertices to lie within the GdLS volume (or any other fiducial volume), such a cut will gain only a small reduction of the accidental and AmC backgrounds. This small gain is outweighed by the risk of introducing an AD-dependent efficiency of the vertex cut, which can bias $\SinSq$ if it is not carefully measured and corrected for.
 
-Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis and the reliability of the vertex reconstruction. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in \autoref{fig:cutVaryDelCutDataResults}, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed cut below 5~MeV. In \autoref{sec:cutVaryDelCutResults}, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downward trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
+Nevertheless, it is worthwhile to explore the results of applying an arbitrary vertex cut \emph{(with an efficiency correction)}, if only as a demonstration of the robustness of our analysis and the reliability of the vertex reconstruction. Going beyond this motivation, a vertex cut can be useful in exploring the behavior of \emph{other} cuts. In particular, we recall that, as shown in \autoref{fig:cutVaryDelCutDataResults}, the best-fit value of $\Dmsqee$ trends downward as we reduce the delayed-energy cut below 5~MeV. In \autoref{sec:cutVaryDelCutResults}, we hypothesized that an unaccounted-for correlated background, potentially originating from the AmC sources, may be responsible for this behavior. Given that the AmC-associated events occur closer to the top of the AD, the application of (vertical) vertex cuts can provide a means of testing this hypothesis: If the AmC sources are indeed responsible, then the downward trend in $\Dmsqee$ should be lessened when we select events closer to the bottom of the AD\@.
 
-For these reasons, we choose to go beyond the official analysis and explore the use of vertex cuts. When applying a vertex cut, care must be taken in two areas: the detection efficiencies and the background rates. As was mentioned, a vertex cut may not have the same efficiency among all ADs, so this efficiency must be measured and corrected for. The accidental background rate calculation, being based on the singles selection (to which we apply the same vertex cut), accounts for the vertex cut automatically. As for the correlated backgrounds, we must assume a particular vertex distribution for each background, and then calculate the percentage of the distribution that lies within our fiducial volume.
+For these reasons, we choose to go beyond the official analysis and explore the use of vertex cuts. When applying a vertex cut, care must be taken in two areas: the detection efficiencies and the background rates. As was mentioned, a vertex cut may not have the same efficiency among all ADs, so this efficiency must be measured and corrected for. The accidental-background rate calculation, being based on the singles selection (to which we apply the same vertex cut), accounts for the vertex cut automatically. As for the correlated backgrounds, we must assume a particular vertex distribution for each background, and then calculate the percentage of the distribution that lies within the fiducial volume.
 
-Throughout this study, we apply a given vertex cut to both the prompt and delayed vertex. This is to be distinguished from, say, the muon veto, which considers only the delayed trigger. We choose to cut on both triggers because it avoids the need to make an arbitrary choice between prompt and delayed, and it avoids the need to perform two separate singles selections with two different vertex cuts.
+Throughout this study, we apply a given vertex cut to both the prompt (positron) and the delayed (neutron) vertex. This is to be distinguished from, say, the muon veto, which considers only the time of the \emph{delayed} trigger. We choose to cut on both vertices because it avoids the need to make an arbitrary choice between cutting on the prompt or on the delayed vertex, and it avoids the need to perform two separate singles selections with two different vertex cuts.
 
-In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts.
+In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed-energy cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts.
 %, and whether the observed variations are consistent with our statistical uncertainty.
 
 \subsection{Implementation details}
@@ -504,7 +504,7 @@ Before going into the details of the efficiency calculation, it is worthwhile to
 (XXX note we haven't actually plotted the results of applying no efficiency correction. The scatter might be well above 1sigma in which case we need to reword the above.)
 \end{comment}
 
-\subsection{Vertex cuts investigated}
+\subsection{Definitions of vertex cuts}
 \label{sec:cutVaryVtxCutDescOfCuts}
 
 For this study, five different vertex cuts were investigated: Three ``vertical'' cuts, and two ``cylindrical'' cuts. Their details are listed in \autoref{tab:cutVaryVtxCutCutsTbl}, along with the names used in referring to them. It is worth noting that these cuts do \emph{not} produce five statistically independent subsamples of the data. In particular, there is an overlap between each vertical sample and each cylindrical sample. However, the three vertical samples are independent from each other, as are the two cylindrical samples.
@@ -521,7 +521,7 @@ For this study, five different vertex cuts were investigated: Three ``vertical''
     \texttt{rOutside1000} & $r > 1\,\mathrm{m}$ \\
     \bottomrule
   \end{tabular}
-  \caption{The five vertex cuts under investigation.}
+  \caption{The vertex cuts under investigation.}
   \label{tab:cutVaryVtxCutCutsTbl}
 \end{table}
 
@@ -532,18 +532,22 @@ For this study, five different vertex cuts were investigated: Three ``vertical''
 \subsection{Efficiency calculation}
 \label{sec:cutVaryVtxCutEffCalc}
 
-The vertex cut efficiency is determined by taking the ``corrected'' IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed cut) while applying the vertex cut, we must perform a reference IBD selection with those same modifications (minus the vertex cut). This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
+The vertex-cut efficiency is determined by taking the corrected IBD rate obtained with the vertex cut, and comparing it to the corrected rate obtained from an IBD selection (the ``reference'' cut) which has no vertex cut but otherwise identical cuts. The meaning of ``corrected'' will be explained shortly. If the vertex cut is the only modification made to the nominal IBD selection, then we simply use the nominal selection as a reference; however, if we modify any other cuts (such as the delayed-energy cut) while applying the vertex cut, we must perform a reference IBD selection with those same modifications (minus the vertex cut). This ensures that the measurement is not biased by any efficiency variation caused by the other modified cuts, which could occur if we simply used the nominal selection as the reference in all cases.
 
 The corrected IBD rate $R_{\mathrm{corr}}$ is calculated straightforwardly: We simply take the total number of IBD candidates $N_{\mathrm{raw}}$, subtract the total predicted number of backgrounds, and divide by the livetime, the veto efficiency, and the multiplicity efficiency.
 % Ideally, we should also correct for the delayed cut efficiency, which may change when a vertex cut is applied.
 Since the IBD selection's convention is to output the background prediction $R_{\mathrm{bkg}}$ as an efficiency- and livetime-corrected daily rate, we must undo these corrections before performing the subtraction. In summary:
-\begin{align*}
+\begin{equation}
+  \begin{aligned}
   N_{\mathrm{bkg}} &= R_{\mathrm{bkg}} \cdot T \cdot \epsilon_\mu \cdot \epsilon_m\\
   R_{\mathrm{corr}} &= (N_{\mathrm{raw}} - N_{\mathrm{bkg}}) \;/\; (T \cdot \epsilon_\mu \cdot \epsilon_m)
-\end{align*}
+\end{aligned}
+\end{equation}
 
 The efficiency of the vertex cut is then obtained by simply taking the ratio with respect to the reference selection:
-$$ \epsilon_{\mathrm{vtx}} = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}. $$
+\begin{equation}
+  \epsilon_{\mathrm{vtx}} = R_{\mathrm{corr}}^{\mathrm{cut}} \;/\; R_{\mathrm{corr}}^{\mathrm{ref}}.
+\end{equation}
 
 \subsection{Background rate adjustment}
 \label{sec:cutVaryVtxCutBkgRate}
@@ -556,7 +560,11 @@ The accidental background is calculated, as usual, directly from the prompt- and
 
 \subsubsection{$^9$Li, fast neutrons, and $\alpha$-$n$}
 
-These ``neutronic'' backgrounds are assumed to be uniformly distributed throughout the GdLS. Since fast neutrons arrive from above and stop inside the AD, some bias toward the top is known to exist (\cite{jianrunHERA}, p.\@ 9), but for our present purposes, we make no attempt to model this effect. Meanwhile, since $^9$Li-producing shower muons pass through the AD, no such bias is expected. Likewise, $\alpha$ activity is uniformly distributed throughout the AD.
+These backgrounds are assumed to be uniformly distributed throughout the GdLS. However, the fast neutrons have a slight preference to arrive from above and stop inside the AD; accordingly, some bias toward the top is known to exist (\cite{jianrunHERA}, p.\ 9), but for our present purposes, we make no attempt to model this effect.
+%
+Meanwhile, for $^9$Li/$^8$He, we know (using EH1 as an example) that the production rate of O(1) event/day is far lower than the shower-muon rate of O(0.1~Hz), implying that the interaction length for $^9$Li/$^8$He production is much longer than the height of the ADs; as such, no vertical bias is expected for $^9$Li/$^8$He.
+%
+Likewise, $\alpha$ activity is uniformly distributed throughout the AD.
 
 Based on this uniformity assumption, we define a ``radial'' factor $f_r$ to account for the minimum and maximum radii accepted in the cut, and likewise a ``vertical'' factor $f_z$ corresponding to the minimum and maximum acceptable vertical coordinates. In order to account for the finite resolution of the vertex reconstruction, we ``extend'' the dimensions of the IAV by 200~mm in every direction, leading to the following definitions of the nominal minimum and maximum coordinates:
 \begin{align*}
