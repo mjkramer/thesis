@@ -323,17 +323,17 @@ In most of the results that follow, we show the outcome of using the \texttt{ori
   \label{fig:cutVaryDelCutToyResults}
 \end{figure}
 
-As a sanity check, we begin by fitting toy samples. The toy MC does not simulate the delayed spectrum, but we can still adjust the efficiencies and background rates in the \texttt{Theta13} file to verify that the oscillation fit remains stable. In particular, for the results shown in \autoref{fig:cutVaryDelCutToyResults}, we inserted the delayed efficiencies calculated using the neutron capture spectra obtained from the nominal IBD selection (i.e., the \texttt{original} implementation), integrated according to the \texttt{relative} approach described previously.
+As a sanity check, we begin by fitting the toy MC samples. The toy MC does not simulate the delayed-energy spectrum, but we can still adjust the efficiencies and background rates in the \texttt{Theta13} file to verify that the oscillation fit remains stable. In particular, for the results shown in \autoref{fig:cutVaryDelCutToyResults}, we inserted the delayed-energy efficiencies calculated using the neutron capture-spectra obtained from the nominal IBD selection (i.e., the \texttt{original} implementation), integrated according to the \texttt{relative} approach described previously.
 % (TODO: Show results for flat/absolute. New impl???)
 The background rates were scaled as described in \autoref{eq:cutVaryDelCutCorrBkgScale}.
 
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{CutVary/DelayedCut/acc_bkg.png}
-  \caption{Accidental background rates as a function of the delayed cut. The full singles spectrum (from 0.7 to 12~MeV), taken from the nominal IBD selection, was used for the calculation.}
+  \caption{Accidental background rates as a function of the delayed-energy cut. The full singles spectrum (from 0.7 to 12~MeV), taken from the nominal IBD selection, was used for the calculation.}
   \label{fig:cutVaryDelCutAccBkg}
 \end{figure}
 
-The toy MC results are shown in \autoref{fig:cutVaryDelCutToyResults}. They demonstrate the desired level of internal consistency, as both $\SinSq$ and $\Dmsqee$ are practically constant as the delayed cut is varied, with only a negligible increase in $\SinSq$ for the extreme case of a delayed cut near 4~MeV. We observe a $\sim$20\% increase in the uncertainty of both parameters near a delayed cut of 4~MeV, which can be attributed to the steep increase in accidental backgrounds, as shown in \autoref{fig:cutVaryDelCutAccBkg}.
+The toy MC results are shown in \autoref{fig:cutVaryDelCutToyResults}. They demonstrate the desired level of internal consistency, as both $\SinSq$ and $\Dmsqee$ are practically constant as the delayed-energy cut is varied, with only a negligible increase in $\SinSq$ for the extreme case of a delayed-energy cut near 4~MeV. We observe a $\sim$20\% increase in the uncertainty of both parameters near a delayed-energy cut of 4~MeV, which can be attributed to the steep increase in the accidental background, as shown in \autoref{fig:cutVaryDelCutAccBkg}.
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
@@ -346,12 +346,12 @@ The toy MC results are shown in \autoref{fig:cutVaryDelCutToyResults}. They demo
   \label{fig:cutVaryDelCutDataResults}
 \end{figure}
 
-In \autoref{fig:cutVaryDelCutDataResults} we show the results of varying the delayed cut for the P17B data sample. In the legend, \texttt{old} refers to the \texttt{original} method of measuring the nGd spectrum, while \texttt{new} refers to the \texttt{add-then-calc} method, as described previously. Meanwhile, \texttt{flat}, \texttt{rel} and \texttt{abs} refer, unsurprisingly, to the \texttt{flat}, \texttt{relative} and \texttt{absolute} approaches for integrating the nGd spectrum.
+In \autoref{fig:cutVaryDelCutDataResults} we show the results of varying the delayed-energy cut for the P17B data sample. In the legend, \texttt{old} refers to the \texttt{original} method of measuring the nGd spectrum, while \texttt{new} refers to the \texttt{add-then-calc} method, as described previously. Meanwhile, \texttt{flat}, \texttt{rel} and \texttt{abs} refer, unsurprisingly, to the \texttt{flat}, \texttt{relative} and \texttt{absolute} approaches for integrating the nGd spectrum.
 
-The first thing to note is that there is almost no appreciable difference between \texttt{old} and \texttt{new}\footnote{This will not be the case when we apply a vertex cut, as shown in \autoref{sec:cutVaryVtxCutResults}.}. Thus we focus on the differences between \texttt{flat}, \texttt{relative}, and \texttt{absolute}. In this discussion, we focus on $\SinSq$, since all five methods give essentially the same results for $\Dmsqee$. The \texttt{flat} approach shows by far the most variation in $\SinSq$, affirming the value of attempting to correct for AD-dependent variations in the delayed cut efficiency. Both the \texttt{relative} and \texttt{absolute} approaches are generally fairly stable; although some unexpected behavior is observed below 5~MeV, this amounts to only 10-20\% of the uncertainty. Unsurprisingly, an offset exists between the two approaches, as expected given that the \texttt{absolute} approach abandons the (arbitrary and unfounded) assumption that the ADs all have the same delayed efficiency at 6~MeV. We regard this $\sim0.2\sigma$ offset as an additional systematic uncertainty on the fit result.%
+The first thing to note is that there is almost no appreciable difference between \texttt{old} and \texttt{new}\footnote{This will not be the case when we apply a vertex cut, as shown in \autoref{sec:cutVaryVtxCutResults}.}. Thus we focus on the differences between \texttt{flat}, \texttt{relative}, and \texttt{absolute}. In this discussion, we focus on $\SinSq$, since all five methods give essentially the same results for $\Dmsqee$. The \texttt{flat} approach shows by far the most variation in $\SinSq$, affirming the value of attempting to correct for AD-dependent variations in the delayed-energy cut efficiency. Both the \texttt{relative} and \texttt{absolute} approaches are generally fairly stable; although some unexpected behavior is observed below 5~MeV, this amounts to only 10-20\% of the uncertainty. Unsurprisingly, an offset exists between the two approaches, as expected given that the \texttt{absolute} approach abandons the (arbitrary and unfounded) assumption that the ADs all have the same delayed-energy cut efficiency at 6~MeV. We regard this $\sim0.2\sigma$ offset as an additional systematic uncertainty on the fit result.%
 %\footnote{A worthwhile crosscheck would be to enhance the toy MC with the ability to fluctuate the absolute detection efficiency at this scale, to see whether the shift in the best-fit oscillation parameters is consistent with the results shown here.}
 
-The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant downtrend, culminating at approximately a third of the uncertainty. Moreover, two ``bumps'' are visible. These results suggest an unaccounted-for shape distortion for delayed cuts below 5~MeV. The most likely explanation is that this comes from backgrounds. Although the total background \emph{rate} calculation appears to remain generally correct, given the stability of $\SinSq$, the background shape is apparently being treated incorrectly. We further explore possible explanations of this effect in \autoref{sec:cutVaryVertexCut}. For the time being, we simply note that $\Dmsqee$ remains extremely stable between 5 and 7~MeV. Below 5~MeV, we are entering ``dangerous'' territory, where there was never any intention for the nGd analysis to tread, so anomalous behavior here is both unsurprising and unconcerning.
+The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant downtrend, culminating at approximately a third of the uncertainty. Moreover, two ``bumps'' are visible. These results suggest an unaccounted-for shape distortion for delayed-energy cuts below 5~MeV. The most likely explanation is that this comes from background. Although the total background \emph{rate} calculation appears to remain generally correct, given the stability of $\SinSq$, the background shape is apparently being treated incorrectly. We further explore possible explanations of this effect in \autoref{sec:cutVaryVertexCut}. For the time being, we simply note that $\Dmsqee$ remains extremely stable between 5 and 7~MeV. Below 5~MeV, we are entering ``dangerous'' territory, where there was never any intention for the nGd analysis to tread, so anomalous behavior here is both unsurprising and unconcerning.
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
@@ -360,7 +360,7 @@ The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant down
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[scale=0.48]{CutVary/DelayedCut/unc_dm2_toyVsData.png}%
   \end{minipage}%
-  \caption{Uncertainty as reported by the fitter under variations of the delayed cut for both the toy MC and P17B data.}
+  \caption{Uncertainties in $\SinSq$ and $\Dmsqee$ under variations of the delayed-energy cut for both the toy MC and P17B data.}
   \label{fig:cutVaryDelCutFitUnc}
 \end{figure}
 
@@ -371,11 +371,11 @@ The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant down
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[scale=0.48]{CutVary/DelayedCut/BCW/dm2_mid.png}%
   \end{minipage}%
-  \caption{Comparison of delayed cut variation (when fitting for data) between LBNL and BCW binning.}
+  \caption{Comparison of delayed-energy cut variation (when fitting P17B data) between LBNL and BCW binning.}
   \label{fig:cutVaryDelCutDataResultsBCW}
 \end{figure}
 
-We end this section by showing the fitter's reported uncertainty under variations of the delayed cut (\autoref{fig:cutVaryDelCutFitUnc}). We do not expect perfect agreement here between the toy and the data, as the latter includes statistical fluctuations and systematic deviations, while the former uses the ``Asimov'' sample in which there are no statistical fluctuations and nominal assumptions are used for all systematics. Nevertheless, the overall scale of the uncertainty is in general agreement, as is the general form of a lopsided ``U'' shape. From these plots we can conclude that there is essentially no advantage, in terms of the fit uncertainty, to varying the standard 6~MeV.
+We end this section by showing the fitter's reported uncertainty under variations of the delayed-energy cut (\autoref{fig:cutVaryDelCutFitUnc}). We do not expect perfect agreement here between the toy MC and the data, as the latter includes statistical fluctuations and systematic deviations, while the former uses the ``Asimov'' sample in which there is no statistical fluctuation and nominal assumptions are used for all systematics. Nevertheless, the overall scale of the uncertainty is in general agreement, as is the general form of a lopsided ``U'' shape. From these plots we can conclude that there is essentially no advantage, in terms of the fit uncertainty, to varying the standard 6~MeV.
 
 \section{Minimum prompt energy}
 \label{sec:cutVaryMinPrompt}
