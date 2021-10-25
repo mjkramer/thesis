@@ -645,8 +645,15 @@ As for the radial distribution, even though the AmC sources are located at three
 
 \autoref{fig:cutVaryVtxCutJustVertex} shows the results obtained when a vertex cut is applied on top of the nominal IBD selection. For the most part, each cut produces a result that lies less than $1\sigma$ from the full-AD result. This is encouraging, especially given the simplifications employed in correcting the background rates (particularly for the fast-neutron background). Moreover, statistically independent subsamples are not overly biased toward either side of the nominal result, providing a reassuring sign of internal consistency. The deviations are not entirely symmetric about the nominal result, suggesting (unsurpsingly) the introduction of new systematics, likely from the efficiency measurement or background corrections.\footnote{Although, due to the complex nature of the fitter, it is not obvious that two statistically independent subsamples, even generated using identical IBD cuts, will necessarily give results symmetrically distributed around the nominal one.}
 
+% from plots_20210305 import *
+% plot_labeled_fits_all("test_newVtxEff_cleanLabels", suffix=" vs. vertex cut", xlabel="Vertex cut")
 \begin{figure}[ht]
-  \includegraphics[scale=0.35]{CutVary/VertexCut/both_labeled.png}%
+  \begin{minipage}{0.47\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_mid_labeled.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.47\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_mid_labeled.pdf}%
+  \end{minipage}%
   \caption{Variations in $\SinSq$ and $\Dmsqee$ when applying a vertex cut to the otherwise-nominal selection.}
   \label{fig:cutVaryVtxCutJustVertex}
 \end{figure}
