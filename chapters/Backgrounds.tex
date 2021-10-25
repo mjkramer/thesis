@@ -775,7 +775,7 @@ Here, the denominator represents the fiducial region's fraction of the total spe
 \end{equation}
 When \autoref{eq:fastn_extrap_form} is then fit to the measured fast-neutron spectrum, the best-fit $\nfn$ indicates the number of events in the fiducial region. The key to the extrapolation method is that this fit is performed outside the fidicial region, where the fast-neutron sample is uncontaminated.
 
-The validity and robustness of \autoref{eq:fastn_extrap_form} was verified by fitting it to the OWS-tagged samples from each hall (\autoref{fig:fastn_ows_fit_bz}) \cite{fastn}. Four fitting ranges were used, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. All fits produced satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). Disabling of the $a$ parameter was found to introduce negligible differences.
+The validity and robustness of \autoref{eq:fastn_extrap_form} was verified by fitting it to the OWS-tagged samples from each hall (\autoref{fig:fastn_ows_fit_bz}) \cite{fastn}. Four fitting ranges were used, all starting at 0.7~MeV, and ending at 80, 100, 120, and 150~MeV. All fits produced satisfactory goodness-of-fit and consistent values of $E_0$ (\autoref{fig:fastn_par_E0_ows}). Disabling of the $a$ parameter was found to introduce negligible differences. As summarized in \autoref{tab:fastnShapePars}, we define the nominal value of $E_0$ to be the average from the eight fits in each hall (four fitting ranges, with and without $a$). This value is then inserted into \autoref{eq:bkgFastnShape} (with $a = 0$) to generate the spectral shape of the fast-neutron background. Normalizing this shape to the predicted fast-neutron rate then gives the prompt spectrum that we subtract from that of the IBD candidates.
 
 \begin{figure}[ht]
   \begin{minipage}{0.333\textwidth}%
@@ -792,10 +792,24 @@ The validity and robustness of \autoref{eq:fastn_extrap_form} was verified by fi
 \end{figure}
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{Backgrounds/FastN/par_E0_ows.png}
-  \caption{Values of $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. The blue squares correspond to the IBD selection criteria used in this analysis. From \cite{fastn}}
+  \includegraphics[scale=0.65]{Backgrounds/FastN/par_E0_ows.png}
+  \caption{Values of the shape parameter $E_0$ obtained from fitting the OWS-tagged fast-neutron samples to \autoref{eq:fastn_extrap_form}. The parameter $a$ was fixed to zero for the plots on the left, while it was allowed to float for the plots on the right. The blue squares correspond to the IBD selection criteria used in this analysis; the average of the eight values for each hall, as reproduced in \autoref{tab:fastnShapePars}, is used when subtracting the fast-neutron background in our analysis. From \cite{fastn}.}
   \label{fig:fastn_par_E0_ows}
 \end{figure}
+
+\begin{table}[ht]
+  \begin{tabular}{lc}
+    \toprule
+    Hall & $E_0$ (MeV) \\
+    \midrule
+    EH1 & 68.68 \\
+    EH2 & 59.16 \\
+    EH3 & 67.91 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Fast-neutron shape parameters $E_0$ (inserted into \autoref{eq:bkgFastnShape}) used for subtracting this background in each hall \cite{fastn}.}
+    \label{tab:fastnShapePars}
+\end{table}
 
 Finally, the fit was performed on the untagged sample (\autoref{fig:fastn_ibd_fit_bz}), using the same four upper limits as before, but with the lower limit set to 12~MeV.  As with the scaling method, each value of $\nfn$ was converted to a livetime- and efficiency-normalized daily rate according to \autoref{eq:fastn_rate} (\autoref{fig:fastn_rate_vs_fit_range}). The spread between the resulting four values was incorporated into the total uncertainty, as described in the next section.
 
