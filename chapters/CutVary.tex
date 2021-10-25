@@ -449,23 +449,27 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
 % Meanwhile,
 \autoref{fig:cutVaryPromptCutResultsData} shows the results of varying the prompt-energy cut. Happily, there is no significant variation in the best-fit values of $\SinSq$ and $\Dmsqee$. Likewise, the uncertainty remains stable, as shown in \autoref{fig:cutVaryPromptCutUncData}. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt-energy cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
+% from plot_fit_results import *
+% plot_fit_all()
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/PromptCut/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/s2t_mid.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/PromptCut/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/dm2_mid.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fits to data under variations of the prompt-energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
   \label{fig:cutVaryPromptCutResultsData}
 \end{figure}
 
+% from plot_fit_results import *
+% plot_fit_unc_all("procut_first")
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/PromptCut/unc_s2t.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/unc_s2t.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/PromptCut/unc_dm2.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/unc_dm2.pdf}%
   \end{minipage}%
   \caption{Uncertainty on the oscillation parameters from fits to data under variations of the prompt-energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$. Note the scales on the vertical axes; the variation in the uncertainty is minuscule.}
   \label{fig:cutVaryPromptCutUncData}
