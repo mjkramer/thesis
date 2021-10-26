@@ -695,9 +695,22 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
   \label{tab:cutVaryJointVaryGaussTbl}
 \end{table}
 
+% from plot_super import *
+% plot_cuts("super_test100")
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{CutVary/JointVary/cut_hists.png}
-  \caption{Histograms of random cut values used in the joint variation study. The shower-muon threshold (in PE) is in the top left, the shower-muon veto time (in seconds) is in the top right, the minimum delayed energy (in MeV) is shown in the bottom left, and the minimum prompt energy (in MeV) is shown in the bottom right. XXX move these labels to the plots!}
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/shower_pe.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/shower_sec.pdf}%
+  \end{minipage}\\%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/delayed_emin_mev.pdf}%
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/prompt_emin_mev.pdf}%
+  \end{minipage}%
+  \caption{Marginal histograms of the 100 random cuts used in the joint variation study. Each cut (consisting of four parameters sampled from uncorrelated truncated-Gaussian distributions) is represent once in each of these histograms.}
   \label{fig:cutVaryJointVaryCutHists}
 \end{figure}
 
