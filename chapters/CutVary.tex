@@ -646,7 +646,7 @@ As for the radial distribution, even though the AmC sources are located at three
 \autoref{fig:cutVaryVtxCutJustVertex} shows the results obtained when a vertex cut is applied on top of the nominal IBD selection. For the most part, each cut produces a result that lies less than $1\sigma$ from the full-AD result. This is encouraging, especially given the simplifications employed in correcting the background rates (particularly for the fast-neutron background). Moreover, statistically independent subsamples are not overly biased toward either side of the nominal result, providing a reassuring sign of internal consistency. The deviations are not entirely symmetric about the nominal result, suggesting (unsurpsingly) the introduction of new systematics, likely from the efficiency measurement or background corrections.\footnote{Although, due to the complex nature of the fitter, it is not obvious that two statistically independent subsamples, even generated using identical IBD cuts, will necessarily give results symmetrically distributed around the nominal one.}
 
 % from plots_20210305 import *
-% plot_labeled_fits_all("test_newVtxEff_cleanLabels", suffix=" vs. vertex cut", xlabel="Vertex cut")
+% plot_labeled_fits_all("test_newVtxEff2_cleanLabels", suffix=" vs. vertex cut", xlabel="Vertex cut")
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_mid_labeled.pdf}%
@@ -660,12 +660,14 @@ As for the radial distribution, even though the AmC sources are located at three
 
 In \autoref{fig:cutVaryVtxCutWithDelayed}, we show the results of applying these five vertex cuts in tandem with modifications of the delayed-energy cuts. One of the main goals of this study is to investigate possible explanations (particularly, localized correlated backgrounds) for the behavior of $\Dmsqee$ shown in \autoref{fig:cutVaryDelCutDataResults} for delayed-energy cuts below 5~MeV. Indeed, we observe that the \texttt{rInside1000} and \texttt{zMidThird} cuts produce remarkably flat behavior for both $\SinSq$ and $\Dmsqee$. (\texttt{zTopThird} is also flat for $\Dmsqee$, but shows a trend for $\SinSq$.) One possible conclusion is that the sub-5~MeV behavior of $\Dmsqee$ (for the full-AD sample) is simply a statistical fluke which goes away when fitting particular subsamples. However, based on these results, it is also quite possible that the behavior is caused by events localized near the edge and/or the bottom of the AD. We therefore conclude that it is unwise to apply a delayed-energy cut below 5~MeV due to the possibility of introducing uncharacterized backgrounds to the IBD sample; if, for some reason, such a low delayed-energy cut is ever warranted in a particular analysis, then it may be prudent to apply a vertex cut to only select events near the centers of the ADs.
 
+% from plot_fit_results import *
+% plot_vtxcomp_thesis()
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/VertexCut/s2t_best.png}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_mid.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/VertexCut/dm2_best.png}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_mid.pdf}%
   \end{minipage}%
   \caption{Variations in $\SinSq$ and $\Dmsqee$ when applying a vertex cut in tandem with a modified delayed-energy cut.}
   \label{fig:cutVaryVtxCutWithDelayed}
