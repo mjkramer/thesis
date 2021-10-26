@@ -696,7 +696,7 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
 \end{table}
 
 % from plot_super import *
-% plot_cuts("super_test100")
+% plot_cut_hists("super_test100")
 \begin{figure}[h]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/JointVary/shower_pe.pdf}%
@@ -714,10 +714,10 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
   \label{fig:cutVaryJointVaryCutHists}
 \end{figure}
 
-\autoref{fig:cutVaryJointVaryResults} shows the histograms of the best-fit values of $\SinSq$ and $\Dmsqee$ for these 100 sets of cuts. From visual inspection, the spread of $\SinSq$ is $\sim0.0005$, significantly smaller than the error on $\SinSq$ of $\sim0.004$. Similarly, the spread of $\Dmsqee$ is $\sim2\times10^{-5}$, again a fraction of the uncertainty of $\sim9\times10^{-5}$. In \Autoref{fig:cutVaryJointVaryS2tScatter,fig:cutVaryJointVaryDm2Scatter}, we simultaneously plot each best-fit oscillation parameter along with the corresponding cut values, illustrating again that the scale of variation is much smaller than the error on each oscillation parameter, and that there are no obvious correlations between the cut values and the best-fit parameters. From these results, we conclude that our analysis is stable against variations in the IBD selection cuts, even when multiple cuts are varied at the same time.
+\autoref{fig:cutVaryJointVaryResults} shows the histograms of the best-fit values of $\SinSq$ and $\Dmsqee$ for these 100 sets of cuts. From visual inspection, the spread of $\SinSq$ is $\sim0.0005$, significantly smaller than the error on $\SinSq$ of $\sim0.004$. Similarly, the spread of $\Dmsqee$ is $\sim2\times10^{-5}$, again a fraction of the uncertainty of $\sim9\times10^{-5}$. In \autoref{fig:cutVaryJointVaryScatter}, we simultaneously plot each best-fit oscillation parameter along with the corresponding cut values, illustrating again that the scale of variation is much smaller than the error on each oscillation parameter, and that there are no obvious correlations between the cut values and the best-fit parameters. From these results, we conclude that our analysis is stable against variations in the IBD selection cuts, even when multiple cuts are varied at the same time.
 
 % from plot_super import *
-% hist_super("super_test100")
+% plot_qty_hists("super_test100")
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/JointVary/s2t_mid.pdf}%
@@ -729,16 +729,18 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
   \label{fig:cutVaryJointVaryResults}
 \end{figure}
 
+% from plot_super import *
+% plot_scatter_both("super_test100")
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{CutVary/JointVary/s2t_best_scatter.png}
-  \caption{Best-fit $\SinSq$ (top panel) versus cut parameters (bottom four panels). The horizontal axis runs over the sets of random cut parameters.}
-  \label{fig:cutVaryJointVaryS2tScatter}
+  \includegraphics[scale=0.5]{CutVary/JointVary/scatter_both.pdf}
+  \caption{Best-fit $\SinSq$ (top panel) and $\Delta m^2_{ee}$ (second panel from top) versus the four cut parameters (bottom four panels) for the 100 random cuts in the joint variation study. The horizontal axis runs over the 100 cuts, so that each vertical column (of five points) corresponds to one cut.}
+  \label{fig:cutVaryJointVaryScatter}
 \end{figure}
 
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{CutVary/JointVary/dm2_best_scatter.png}
-  \caption{Best-fit $\Dmsqee$ (top panel) versus cut parameters (bottom four panels). The horizontal axis runs over the sets of random cut parameters.}
-  \label{fig:cutVaryJointVaryDm2Scatter}
-\end{figure}
+% \begin{figure}[h]
+%   \includegraphics[scale=0.5]{CutVary/JointVary/dm2_best_scatter.png}
+%   \caption{Best-fit $\Delta m^2_{ee}$ (top panel) versus the cut parameters (bottom four panels) for the 100 random cuts in the joint variation study. The horizontal axis runs over the 100 cuts, so that each vertical column (of five points) corresponds to one cut.}
+%   \label{fig:cutVaryJointVaryDm2Scatter}
+% \end{figure}
 
 \end{document}
