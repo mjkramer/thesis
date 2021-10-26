@@ -710,20 +710,22 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/JointVary/prompt_emin_mev.pdf}%
   \end{minipage}%
-  \caption{Marginal histograms of the 100 random cuts used in the joint variation study. Each cut (consisting of four parameters sampled from uncorrelated truncated-Gaussian distributions) is represent once in each of these histograms.}
+  \caption{Projection histograms of the 100 random cuts used in the joint variation study. Each histogram corresponds to one of the four cut parameters. Each cut (consisting of four parameters sampled from uncorrelated truncated-Gaussian distributions) is represented once in each histogram.}
   \label{fig:cutVaryJointVaryCutHists}
 \end{figure}
 
 \autoref{fig:cutVaryJointVaryResults} shows the histograms of the best-fit values of $\SinSq$ and $\Dmsqee$ for these 100 sets of cuts. From visual inspection, the spread of $\SinSq$ is $\sim0.0005$, significantly smaller than the error on $\SinSq$ of $\sim0.004$. Similarly, the spread of $\Dmsqee$ is $\sim2\times10^{-5}$, again a fraction of the uncertainty of $\sim9\times10^{-5}$. In \Autoref{fig:cutVaryJointVaryS2tScatter,fig:cutVaryJointVaryDm2Scatter}, we simultaneously plot each best-fit oscillation parameter along with the corresponding cut values, illustrating again that the scale of variation is much smaller than the error on each oscillation parameter, and that there are no obvious correlations between the cut values and the best-fit parameters. From these results, we conclude that our analysis is stable against variations in the IBD selection cuts, even when multiple cuts are varied at the same time.
 
+% from plot_super import *
+% hist_super("super_test100")
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/JointVary/s2t_best.png}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/s2t_mid.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.48]{CutVary/JointVary/dm2_best.png}
+    \includegraphics[width=\linewidth]{CutVary/JointVary/dm2_mid.pdf}%
   \end{minipage}%
-  \caption{Histograms of oscillation fit results under joint variations of the cuts. $\SinSq$ is on the left, and $\Dmsqee$ is on the right.}
+  \caption{Projection histograms of the best-fit oscillation parameters for the 100 random cuts used in the joint variation study.}
   \label{fig:cutVaryJointVaryResults}
 \end{figure}
 
