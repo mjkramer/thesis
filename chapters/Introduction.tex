@@ -53,6 +53,44 @@ where \(c_{12} \equiv \cos\theta_{12}\) and \(s_{12} \equiv \sin\theta_{12}\), e
 
 Physically speaking, neutrinos are produced in processes that are localized in space and time. A fully microscopic treatment of neutrino oscillation would therefore involve modeling each neutrino as a wave packet of definite initial flavor. However, given a bulk flux of neutrinos from a spatially extensive source, the oscillation probability for neutrinos of energy $E$ can be calculated by simply considering a spacetime-filling plane wave. This approach ignores effects caused by decoherence of wave packet components; however, these effects were shown to be completely insignificant under the experimental conditions at Daya Bay \cite{DayaBayWavePacket}.
 
+To calculate the oscillation probability over baseline $L$ for a neutrino of energy $E$ and initial flavor $\alpha$, we roughly follow\footnote{The derivation in \cite{Giunti_2007} begins with a neutrino of well-defined \emph{momentum} rather than energy. To leading order, the results are the same whether we fix the energy, momentum, or even the velocity. This author finds the discussion easiest to follow when the energy is the fixed quantity.} \cite{Giunti_2007} and consider a neutrino state $\ket{\nu(x,t)}$ defined such that:\footnote{In what follows, flavor indices are represented by Greek letters, while mass indices use Roman letters. Also, without loss of generality, we consider only one spatial dimension in this treatment.}
+\begin{equation}
+  \ket{\nu(0,0)} = \ket{\nu_\alpha}.
+\end{equation}
+That is, at the origin (in space and time), $\ket{\nu}$ is a flavor eigenstate, consisting of a mixture of mass eigenstates:
+\begin{equation}
+  \ket{\nu(0,0)} = U^*_{\alpha i}\ket{\nu_i}.
+\end{equation}
+The spatial and time-dependence of $\ket{\nu(x,t)}$ is determined by the fact that the state has a fixed energy $E$. Each mass-eigenstate component $i$ of $\ket{\nu(x,t)}$ is then a plane wave with momentum
+\begin{equation}
+  \label{eq:nuStateMomentum}
+  p_i = \sqrt{E^2 - m_i^2} = E - \frac{m_i^2}{2E} - \mathcal{O}\left( \frac{m_i^4}{E^3} \right).
+\end{equation}
+Here, we assume that the masses are very small, below an eV$^2$, which at the $\mathcal{O}$(MeV) energy scales we consider, implies that the higher-order terms in \autoref{eq:nuStateMomentum} are negligible.\footnote{In the case of the electron neutrino, this smallness was obvious from the earliest observations of beta decay kinematics. For the muon neutrino, direct measurements of pion decay \cite{BOOTH196739} provided a less-stringent upper limit on the mass of $\mathcal{O}$(1~MeV), but later oscillation measurements of the mass-squared splittings showed that all three eigenstates indeed possess similarly tiny masses.} We then have
+\begin{equation}
+  \begin{aligned}
+    \label{eq:nuStateSpacetimeDep}
+    \ket{\nu(x, t)} &= \exp \left( -iEt + ip_ix \right) U^*_{\alpha i}\ket{\nu_i} \\
+    &\approx \exp \left( -iEt + i(E - \frac{m_i^2}{2E}x ) \right) U^*_{\alpha i}\ket{\nu_i} \\
+    &= \exp \left( -iE(t - x) + i\frac{m_i^2}{2E}x \right) U^*_{\alpha i}\ket{\nu_i}.
+  \end{aligned}
+\end{equation}
+We are interested in oscillations over a distance $L$, so we must take $\ket{\nu(L, t)}$. But what is $t$? The answer is that it doesn't matter: $\exp(-iEt)$ is a common phase factor for all three plane-wave components, so it will have no effect on the oscillation probability. We are thus free to choose
+\begin{equation}
+  t = L.
+\end{equation}
+With this choice of $t$, and letting
+\begin{equation}
+  \ket{\nu(x)} \equiv \ket{\nu(x, x)},
+\end{equation}
+\autoref{eq:nuStateSpacetimeDep} simplifies to
+\begin{equation}
+  \ket{\nu(L)} \approx \exp \left( i \frac{m_i^2 L}{2E} \right) U^*_{\alpha i} \ket{\nu_i}.
+\end{equation}
+
+% This is the point where the limitations of the plane-wave approach become apparent. In reality, neutrinos are not plane waves; they are produced from physically-localized interactions. We have not proven that this model accurately represents the case of a physically-localized state (which would consist of a superposition of plane waves). A wave-packet treatment would allow for a more rigorous physical definition of a propagating neutrino state, but at the expense of requiring assumptions to be made about the initial spatial wavefunction. In any case, it can be shown that, for all reasonable definitions of this initial wavefunction, the oscillation probability very closely agrees with that of the plane-wave approximation \cite{DayaBayWavePacket}
+
+\begin{comment}
 To calculate the oscillation probability over baseline $L$ for a neutrino of energy $E$ and initial flavor $\alpha$, we first redefine the problem slightly and consider a neutrino plane wave $\ket{\nu(t)}$ of initial flavor $\alpha$ and well-defined \emph{momentum} $\vec{p}$, such that \(E = |\vec{p}|\).\footnote{One could instead assume a well-defined \emph{energy}, or even \emph{velocity}, and the end result would be the same to leading order. The advantage of fixing the momentum is that it provides a spatially uniform flavor composition at all times, so we need only worry about the time dependence.} This state contains components of three different energies, one for each mass eigenstate. For clarity, flavor and mass eigenstates will be labeled with the superscripts F and M, respectively. Following \cite{Giunti_2007}, we have
 \begin{equation}
   \ket{\nu(0)} = \ket{\nuF_\alpha} = U^*_{\alpha i} \ket{\nuM_i}. 
@@ -66,25 +104,26 @@ Given that we've fixed the momentum $\vec{p}$, the energy $E_i$ of the $i$th mas
   E_i = \sqrt{p^2 + m_i^2} \approx p + \frac{m_i^2}{2p} \equiv E +
   \frac{m_i^2}{2E}.
 \end{equation}
-Here, we assume that the masses are very small, below an eV$^2$, which at the O(MeV) energy scales we consider, allows for the use of the Taylor expansion.\footnote{In the case of the electron neutrino, this smallness was obvious from the earliest observations of beta decay kinematics. For the muon neutrino, direct measurements of pion decay \cite{BOOTH196739} provided a less-stringent upper limit on the mass of O(1~MeV), but later oscillation measurements of the mass-squared splittings showed that all three eigenstates indeed possess similarly tiny masses.} This gives, after we discard the global phase evolution $e^{-iEt}$,
-\begin{align*}
-  \ket{\nu(t)} &= \exp\left(-i\frac{m_i^2t}{2E}\right) U^*_{\alpha i} \ket{\nuM_i} \\
-             &\approx \exp\left(-i\frac{m_i^2L}{2E}\right) U^*_{\alpha i} \ket{\nuM_i},
-\end{align*}
-since, for a relativistic neutrino, \(t \approx L\). The probability of measuring this state to be of flavor $\beta$ is then
+\end{comment}
+
+The probability of measuring $\ket{\nu(L)}$ to be of flavor $\beta$ is then
 \begin{align*}
   P(\alpha \rightarrow \beta)
-  &= \left|\Braket{\nuF_\beta|\nu(t)}\right|^2
-    = \left| \Bra{\nuM_j} U_{\beta j} \exp\left( -i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nuM_i}\right|^2 \\
-  &=  \left| U^*_{\alpha i} U_{\beta i} \exp\left( -i \frac{m_i^2L}{2E} \right)\right|^2 \\
-  &= U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i} \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
+  &= \left|\Braket{\nu_\beta|\nu(L)}\right|^2
+    = \left| \Bra{\nu_j} U_{\beta j} \exp\left( i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nu_i}\right|^2 \\
+  &=  \left| U^*_{\alpha i} U_{\beta i} \exp\left( i \frac{m_i^2L}{2E} \right)\right|^2 \\
+  &= U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i} \exp\left( i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{align*}
-where \(\Delta m^2_{ji} \equiv m^2_j - m^2_i\). This can be rewritten by separating the terms for \(i = j\) and \(i \neq j\), giving
+where
+\begin{equation}
+  \Delta m^2_{ji} \equiv m^2_j - m^2_i.
+\end{equation}
+This can be rewritten by separating the terms for \(i = j\) and \(i \neq j\), giving
 \begin{equation}
   \label{eq:oscSepSums}
   P(\alpha \rightarrow \beta) = \sum_{j} |U_{\alpha j}|^2 |U_{\beta j}|^2
   + 2 \Re \sum_{j>i} U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}
-  \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
+  \exp\left( i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{equation}
 where, for clarity, we are explicitly indicating the summations. Going further, we can employ the unitarity relation
 \begin{equation}
