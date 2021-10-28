@@ -56,14 +56,13 @@ maxnames=10,eprint=true
 \input{front/copyright.tex}
 \input{front/abstract.tex}
 \input{front/dedication.tex}
-\input{front/acknowledgments.tex}
 
 \pagestyle{headings}
 
 \frontmatter
 \SingleSpacing
 
-\tableofcontents*{}
+\tableofcontents{}
 \clearpage
 \listoffigures
 \clearpage
@@ -71,6 +70,9 @@ maxnames=10,eprint=true
 
 \mainmatter
 \MyDoubleSpacing
+
+\input{front/acknowledgments.tex}
+\input{front/preface.tex}
 
 \subfile{chapters/Introduction.tex}
 \subfile{chapters/Experiment.tex}
