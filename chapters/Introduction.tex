@@ -28,7 +28,7 @@ Since neutrinos have only ever been observed via their weak interactions, which 
 
 Neutrino oscillations are the consequence of two facts: First, that the flavor eigenstates are not the same as the mass eigenstates (\emph{mixing}), and second, that the mass eigenvalues aren't fully degenerate (implying that at least one is nonzero). As a result, a flavor eigenstate is a superposition of mass eigenstates which each undergo phase rotation at their own rates; the mass components thus interfere to produce different flavor compositions over time, leading to the observation of oscillations.
 
-The neutrino fields in the flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) matrix, $\upmns$ (or simply $U$):
+The neutrino fields in the flavor and mass bases are related by the Pontecorvo-Maki-Nakagawa-Sakata (PMNS) mixing matrix, $\upmns$ (or simply $U$):
 \begin{equation}
   \nu_\alpha = U_{\alpha i} \nu_i,
 \end{equation}
@@ -41,7 +41,7 @@ It can then be shown that the \emph{states} (as opposed to the fields) are relat
   \label{eq:nuStateRel}
   \ket{\nu_\alpha} = U^*_{\alpha i}\ket{\nu_i}.
 \end{equation}
-$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, in this case five of them can be absorbed into the definitions of the neutrino and charged lepton fields, leaving only one remaining. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \eqref{eq:upmnsParam} is what is used.}
+$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, most of the phases in a 3x3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \eqref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
 \begin{align}
   \label{eq:upmnsParam}
   \begin{split}
@@ -51,17 +51,20 @@ $\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC
 \end{align}
 where \(c_{12} \equiv \cos\theta_{12}\) and \(s_{12} \equiv \sin\theta_{12}\), etc. It is these mixing angles (or trigonometric functions thereof), and not the matrix elements themselves, that are directly measured by experiments.
 
-Physically speaking, neutrinos are produced in processes that are localized in space and time. A fully microscopic treatment of neutrino oscillation would therefore involve modeling each neutrino as a wave packet of definite initial flavor. However, given a bulk flux of neutrinos from a spatially extensive source, the oscillation probability for neutrinos of energy $E$ can be calculated by simply considering a spacetime-filling plane wave. This approach ignores effects caused by decoherence of wave packet components; however, these effects were shown to be completely insignificant under the experimental conditions at Daya Bay \cite{DayaBayWavePacket}.
+Physically speaking, neutrinos are produced in local processes that conserve energy and momentum. A fully microscopic treatment of neutrino oscillation would therefore require accounting for the neutrino's energy-momentum spread and its entanglement with the other interaction products (as required for energy-momentum conservation). However, for a bulk flux of neutrinos from a known source, the oscillation probability can be derived by simply considering a spacetime-filling plane wave of well-defined energy \emph{or} momentum (but not both). For the physical systems of interest in neutrino oscillation experiments, this approach gives results that agree (for all intents and purposes) with those of a fully self-consistent theoretical treatment \cite{Ligeti}. Indeed, when Daya Bay's data is fit to models that treat the neutrino as a wave packet, the results are completely consistent with the plane-wave approach \cite{DayaBayWavePacket}. As such, for the purposes of this illustrative derivation, we proceed with the plane-wave model.
 
-To calculate the oscillation probability over baseline $L$ for a neutrino of energy $E$ and initial flavor $\alpha$, we roughly follow\footnote{The derivation in \cite{Giunti_2007} begins with a neutrino of well-defined \emph{momentum} rather than energy. To leading order, the results are the same whether we fix the energy, momentum, or even the velocity. This author finds the discussion easiest to follow when the energy is the fixed quantity.} \cite{Giunti_2007} and consider a neutrino state $\ket{\nu(x,t)}$ defined such that:\footnote{In what follows, flavor indices are represented by Greek letters, while mass indices use Roman letters. Also, without loss of generality, we consider only one spatial dimension in this treatment.}
+To calculate the oscillation probability over baseline $L$ for a neutrino of energy
+%\footnote{Again, neutrinos are never produced with a well-defined energy, but we ignore this subtlety in what follows, given that the final result remains correct for experiments like Daya Bay.}
+% \footnote{In reality, neutrinos are never produced with a well-defined energy, both due to the localization of the production process, and the entanglement of the neutrino with the other products of the interaction (in order to satisfy energy-momentum conservation). A fully self-consistent treatment can be found in \cite{Ligeti}, which confirms that the approximations here nevertheless produce the correct answer, to leading-order, for realistic neutrino oscillation experiments.}
+$E$ and initial flavor $\alpha$, we roughly follow\footnote{The derivation in \cite{Giunti_2007} begins with a neutrino of well-defined \emph{momentum} rather than energy. To leading order, the results are the same whether we fix the energy, momentum, or even the velocity. Throughout this work, energy is the variable of interest, so for clarity we choose it to be the fixed quantity here.} \cite{Giunti_2007} and consider a neutrino state $\ket{\nu(x)}$ defined such that:\footnote{In what follows, flavor indices are represented by Greek letters, while mass indices use Roman letters. Also, without loss of generality, we consider only one spatial dimension in this treatment. Time-dependence is ignored, since we are working with an energy eigenstate.}
 \begin{equation}
-  \ket{\nu(0,0)} = \ket{\nu_\alpha}.
+  \ket{\nu(0)} = \ket{\nu_\alpha}.
 \end{equation}
-That is, at the origin (in space and time), $\ket{\nu}$ is a flavor eigenstate, consisting of a mixture of mass eigenstates:
+That is, at the origin, $\ket{\nu}$ is a flavor eigenstate, consisting of a mixture of mass eigenstates:
 \begin{equation}
-  \ket{\nu(0,0)} = U^*_{\alpha i}\ket{\nu_i}.
+  \ket{\nu(0)} = U^*_{\alpha i}\ket{\nu_i}.
 \end{equation}
-The spatial and time-dependence of $\ket{\nu(x,t)}$ is determined by the fact that the state has a fixed energy $E$. Each mass-eigenstate component $i$ of $\ket{\nu(x,t)}$ is then a plane wave with momentum
+The spatial dependence of $\ket{\nu(x)}$ is determined by the fact that the state has a fixed energy $E$. Each mass-eigenstate component $i$ of $\ket{\nu(x)}$ is then a plane wave with momentum
 \begin{equation}
   \label{eq:nuStateMomentum}
   p_i = \sqrt{E^2 - m_i^2} = E - \frac{m_i^2}{2E} - \mathcal{O}\left( \frac{m_i^4}{E^3} \right).
@@ -70,22 +73,14 @@ Here, we assume that the masses are very small, below an eV$^2$, which at the $\
 \begin{equation}
   \begin{aligned}
     \label{eq:nuStateSpacetimeDep}
-    \ket{\nu(x, t)} &= \exp \left( -iEt + ip_ix \right) U^*_{\alpha i}\ket{\nu_i} \\
-    &\approx \exp \left( -iEt + i(E - \frac{m_i^2}{2E}x ) \right) U^*_{\alpha i}\ket{\nu_i} \\
-    &= \exp \left( -iE(t - x) + i\frac{m_i^2}{2E}x \right) U^*_{\alpha i}\ket{\nu_i}.
+    \ket{\nu(x)} &= e^{ipx} U^*_{\alpha i}\ket{\nu_i} \\
+    &\approx \exp \left( i\left[E - \frac{m_i^2}{2E} \right] x \right) U^*_{\alpha i}\ket{\nu_i} \\
+    &= \exp \left( iEx - i\frac{m_i^2}{2E}x \right) U^*_{\alpha i}\ket{\nu_i}.
   \end{aligned}
 \end{equation}
-We are interested in oscillations over a distance $L$, so we must take $\ket{\nu(L, t)}$. But what is $t$? The answer is that it doesn't matter: $\exp(-iEt)$ is a common phase factor for all three plane-wave components, so it will have no effect on the oscillation probability. We are thus free to choose
+The common phase factor $e^{iEx}$ has no bearing on the flavor composition of the state, so we drop it, after which \autoref{eq:nuStateSpacetimeDep} simplifies to
 \begin{equation}
-  t = L.
-\end{equation}
-With this choice of $t$, and letting
-\begin{equation}
-  \ket{\nu(x)} \equiv \ket{\nu(x, x)},
-\end{equation}
-\autoref{eq:nuStateSpacetimeDep} simplifies to
-\begin{equation}
-  \ket{\nu(L)} \approx \exp \left( i \frac{m_i^2 L}{2E} \right) U^*_{\alpha i} \ket{\nu_i}.
+  \ket{\nu(x)} \approx \exp \left( - i \frac{m_i^2 x}{2E} \right) U^*_{\alpha i} \ket{\nu_i}.
 \end{equation}
 
 % This is the point where the limitations of the plane-wave approach become apparent. In reality, neutrinos are not plane waves; they are produced from physically-localized interactions. We have not proven that this model accurately represents the case of a physically-localized state (which would consist of a superposition of plane waves). A wave-packet treatment would allow for a more rigorous physical definition of a propagating neutrino state, but at the expense of requiring assumptions to be made about the initial spatial wavefunction. In any case, it can be shown that, for all reasonable definitions of this initial wavefunction, the oscillation probability very closely agrees with that of the plane-wave approximation \cite{DayaBayWavePacket}
@@ -110,9 +105,9 @@ The probability of measuring $\ket{\nu(L)}$ to be of flavor $\beta$ is then
 \begin{align*}
   P(\alpha \rightarrow \beta)
   &= \left|\Braket{\nu_\beta|\nu(L)}\right|^2
-    = \left| \Bra{\nu_j} U_{\beta j} \exp\left( i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nu_i}\right|^2 \\
-  &=  \left| U^*_{\alpha i} U_{\beta i} \exp\left( i \frac{m_i^2L}{2E} \right)\right|^2 \\
-  &= U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i} \exp\left( i \frac{\Delta m^2_{ji}L}{2E} \right),
+    = \left| \Bra{\nu_j} U_{\beta j} \exp\left( -i\frac{m_i^2L}{2E} \right) U^*_{\alpha i}\Ket{\nu_i}\right|^2 \\
+  &=  \left| U^*_{\alpha i} U_{\beta i} \exp\left( -i \frac{m_i^2L}{2E} \right)\right|^2 \\
+  &= U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i} \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{align*}
 where
 \begin{equation}
@@ -123,7 +118,7 @@ This can be rewritten by separating the terms for \(i = j\) and \(i \neq j\), gi
   \label{eq:oscSepSums}
   P(\alpha \rightarrow \beta) = \sum_{j} |U_{\alpha j}|^2 |U_{\beta j}|^2
   + 2 \Re \sum_{j>i} U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}
-  \exp\left( i \frac{\Delta m^2_{ji}L}{2E} \right),
+  \exp\left( -i \frac{\Delta m^2_{ji}L}{2E} \right),
 \end{equation}
 where, for clarity, we are explicitly indicating the summations. Going further, we can employ the unitarity relation
 \begin{equation}
