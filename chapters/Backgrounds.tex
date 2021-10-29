@@ -7,7 +7,7 @@
 
 While Daya Bay's design ensures a very pure sample of antineutrino events, a small contamination of backgrounds (at the percent level) is unavoidable. These backgrounds can be subdivided into \emph{correlated} and \emph{uncorrelated} backgrounds. The uncorrelated backgrounds consist entirely of accidental coincidences between singles events, and the rate and spectrum can be easily estimated from that of the singles (see \autoref{sec:accratecalc}). On the other hand, the correlated backgrounds are so named because the prompt and delayed pulses are correlated in time and space, as they both originate from a single underlying process. The correlated background in Daya Bay consists of four distinct processes, and each one requires its own technique for determining the rate and energy spectrum.
 
-In this chapter, we discuss the measurement of each of these backgrounds. Once they have been measured, their scaled prompt spectra can be subtracted from that of the IBD candidates, allowing the oscillation fit to proceed with a purer prompt spectrum, albeit one with an additional uncertainty stemming from the background measurements. We carry out our own prediction of the rates of accidental and $^9$Li/$^8$He backgrounds. For the three other backgrounds, we use the results of the detailed studies that were carried out by members of the collaboration.
+In this chapter, we discuss the measurement of each of these backgrounds. Once they have been measured, their scaled prompt spectra can be subtracted from that of the IBD candidates, allowing the oscillation fit to proceed with a purer prompt spectrum, albeit one with an additional uncertainty stemming from the background measurements. We carry out our own prediction of the rates of the two dominant backgrounds: accidental coincidences and $^9$Li/$^8$He decays. For the three other backgrounds (fast neutrons, AmC events, and $\CanO$), we use the results of the detailed studies that were carried out by members of the collaboration. Those background studies were considerably complex and carefully validated analyses in their own right, and we make no attempt to improve upon them.
 
 Before considering these double-coincidence backgrounds, we begin by discussing a background defined at the level of \emph{individual} triggers, namely, the so-called ``flashing'' of PMTs. Reduction of these ``flashers'' is necessary in order to minimize the rate of the uncorrelated backgrounds. This reduction occurs at an early stage in the analysis (the ``pre-selection'', as described in \autoref{sec:selPreSel}), eliminating flashers entirely from further consideration.
 
@@ -37,7 +37,7 @@ Like $\fmax$, $\fquad$ alone is not a good discriminator, due to overlap between
 \begin{equation}
   \fID = \log_{10} \left[ \fquad^2 + \left( \frac{\fmax}{0.45} \right)^2 \right]
 \end{equation}
-turns out to be an excellent discriminator. Indeed, as shown by \autoref{fig:fID_dist}, requiring
+turns out to be an excellent discriminator. Indeed, as shown by \Autoref{fig:fID_dist,fig:bkgFlasherEllipse2D}, requiring
 \begin{equation}
   \label{eq:ellipseCut}
   \fID < 0
@@ -54,6 +54,12 @@ reduces the flasher rate to a negligible level, and many analyses have relied on
   \includegraphics[scale=0.5]{Backgrounds/evt_flasherFID_Delayed.pdf}
   \caption{Distribution of the flasher discriminator $\fID$ for the delayed triggers of IBD candidates. The tagged flashers ($\fID > 0$) are cleanly separated from physics signals, with the exception of a single flasher in AD5 which leaked into the signal region (leading to a slight increase in the singles rate). In all ADs, there is essentially no signal lost. From \cite{An_2017}.}
   \label{fig:fID_dist}
+\end{figure}
+
+\begin{figure}[ht!]
+  \includegraphics[width=0.5\textwidth]{Backgrounds/Flasher/ellipse_2d.png}
+  \caption{Two-dimensional distribution of $\fmax$ (``MaxQ'') and $\fquad$ (``Quadrant'') for physical triggers in EH1-AD2. The black ``ellipse'' corresponds to $\fID = 0$; events outside the ellipse are identified as flashers. High flasher rejection and negligible signal inefficiency are apparent. From \cite{flasherControl}.}
+  \label{fig:bkgFlasherEllipse2D}
 \end{figure}
 
 Even further flasher reduction can be achieved by incorporating timing information. To capture the broadening of the time distribution shown by flashers, we use the variable(s) $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$), defined as the ratio of the number of hits in the first 200 (150)~ns of the signal, over the number of hits in the first 400~ns. The discriminator $\fPSD$ is then defined as
@@ -101,8 +107,6 @@ The inefficiency was estimated \cite{patrickFlashers} using a $\sim$600-day samp
 
 
 % We use both cuts in our analysis. Given that the two cuts are based on different information (charge and time), we assume that our estimated inefficiency is 0.04\%, with an uncertainty of 0.02\% correlated and 0.02\% uncorrelated.
-
-% YYY show 2D plot of ellipse cut from doc-7143.
 
 \section{Accidental coincidences}
 \label{sec:accbkg}
@@ -998,7 +1002,7 @@ and for the uranium chain's Po cascade, contamination with nH IBDs was not an is
 At the point in time when Daya Bay began taking data, this procedure determined average (across ADs) rates of 0.009, 0.2, and 0.02~Bq for U, Th, and Ac, respectively \cite{lianghongBkg}. Since the U chain is initiated by $^{238}$U in the AD, its rate is essentially constant, given the $^{238}$U half-life of 4.5~Gyr. On the other hand, the Th and Ac rates do decrease over time, since the parent half-lives (i.e. those of $^{228}$Th and $^{227}$Ac) are 1.9 and 21.8~yr, respectiely. To determine the average Th and Ac rates for the P17B dataset used in this analysis, the Bi-Po cascade selection was repeated, and AD-averaged rates of 0.136 and 0.0178~Bq for $^{228}$Th and $^{227}$Ac, respectively, were obtained \cite{lianghongBkg}.
 % \footnote{Given the difference in half-lives between the two isotopes, one would expect a greater difference in the rate decrease than that measured by Wei. However, this discrepancy is encompassed by the uncertainty of the rate measurement procedure.}
 
-For $^{210}$Po, a single decay instead of a chain, time correlations could not be exploited. Instead, the 5.3~MeV alpha particle produced by this isotope was, after quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting this peak gave rates ranging from 4--10~Hz for each AD \cite{zeyuanAln}. Although the $^{210}$Po half-life is only 138 days, its parent, $^{210}$Pb (which determines the $^{210}$Po rate decrease over time), has a 22.3-year half-life. Within the precision of the measurement procedure, the decrease of the $^{210}$Po rate was unobservable.
+For $^{210}$Po, a single decay instead of a chain, time correlations could not be exploited. Instead, the 5.3~MeV alpha particle produced by this isotope was, after quenching, visible as a peak around 0.5~MeV in the singles spectrum. Fitting this peak gave rates ranging from 4--10~Hz for each AD \cite{zeyuanAln}. Although the $^{210}$Po half-life is only 138 days, its parent, $^{210}$Pb (which determines the $^{210}$Po rate decrease over time), has a 22.3-year half-life. Within the precision of the measurement procedure, the decrease of the $^{210}$Po rate is effectively unobservable.
 
 For a given decay chain (or $^{210}$Po decay), the set of emitted alpha particles is known (\autoref{fig:aln_alpha_energy_dist}). For each of these alpha particles, in turn, simulations (using Geant4 \cite{Geant4} and SRIM \cite{SRIM}) can be used to determine the rate and prompt spectrum of the $\CanO$ events. At each step in the simulation, the alpha particle loses some energy and travels some distance according to its $dE/dx$ profile in the LS. With some probability (i.e. cross section), during this step the alpha particle may be captured, producing one of the excited states of $^{17}$O. If this happens, the $^{17}$O will emit a neutron, whose energy depends on both the initial excited state of $^{17}$O and the final (excited or ground) state of $^{16}$O. The neutron produces prompt energy through proton recoils and, if it is sufficiently energetic, may scatter inelastically on $^{12}$C to produce a $\sim$5~MeV gamma ray. Additional prompt energy will come from deexcitation gamma rays if the $^{16}$O had been produced in an excited state.
 
