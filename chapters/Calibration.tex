@@ -7,7 +7,7 @@
 
 \section{Overview}
 
-For the antineutrino detectors and the water pools' Cerenkov detectors, the Daya Bay DAQ system outputs timestamped PMT hits, grouped into readout windows and tagged with trigger information. As discussed in \autoref{sec:expADs}, these hits take the form of ADC readings from the peak-finding electronics, along with the TDC count at the time that each PMT waveform crossed the disciminator threshold. In order to carry out any sort of physics analysis, it is necessary to first convert this raw ADC and TDC data into the higher-level quantities of photoelectron count and photon arrival time, and then to combine individual channels into overall event parameters such as energy and position.
+For the antineutrino detectors and the water pools' Cherenkov detectors, the Daya Bay DAQ system outputs timestamped PMT hits, grouped into readout windows and tagged with trigger information. As discussed in \autoref{sec:expADs}, these hits take the form of ADC readings from the peak-finding electronics, along with the TDC count at the time that each PMT waveform crossed the disciminator threshold. In order to carry out any sort of physics analysis, it is necessary to first convert this raw ADC and TDC data into the higher-level quantities of photoelectron count and photon arrival time, and then to combine individual channels into overall event parameters such as energy and position.
 
 This chapter describes the first half of that process; namely, the detector calibration and data processing involved in the channel-by-channel calculation of hit time and charge. (The second half is discussed in \autoref{chap:recon}.) These calibrated quantities are fundamental in that they are used in all further analysis stages and by all reconstruction algorithms. Accuracy is vital, as any bias in the channel charge will be reflected in the total event energy and in any (charge-based) reconstructed vertex; likewise, accurate times are important for time-based vertex reconstructions. Furthermore, it is necessary to identify, exclude, and compensate for any misbehaving channels, a process that will also be discussed here.
 
@@ -49,7 +49,7 @@ Due to this last property, the expected time for a ``large'' pulse (for which th
 
 \begin{figure}
   \includegraphics[scale=0.7]{fit_eh1_ad1_r7c10_labeled.png}
-  \caption{An example of a timewalk fit. The time axis is defined relative to the trigger. Since all hits occur before a trigger is issued, the time values are negative; the more negative, the earlier.}
+  \caption{An example of a timewalk fit. The time axis is defined relative to the trigger. Since all hits occur before a trigger is issued, the time values are negative; the more negative, the earlier. The large gap around 4000~ADC counts is due to the nonlinear behavior of the calibration LED. That is, the LED voltage increment was not small enough to cover this region.}
   \label{fig:timewalk}
 \end{figure}
 
@@ -87,9 +87,16 @@ Within a single event, there will be a spread of a few dozen nanoseconds between
 
 Once the dark noise histogram has accumulated sufficient statistics (six hours' worth) to provide a stable fit, it is fit to a model that includes the total gain as one of the parameters. Thermal emission is modeled as a Poisson process (in terms of the number of photoelectrons), and, in turn, the collected charge per photoelectron is modeled as a Gaussian distribution. Convolving the two then gives the probability density function used in the fit:
 \begin{equation}
-  P(Q) = \sum_{n^=1}^{\infty} \frac{\mu^n e^{-\mu}}{n!} \frac{1}{\sigma_{\mathrm{SPE}}\sqrt{2n\pi}} \exp\left(-\frac{(Q - n\overline Q^{\mathrm{SPE}})^2}{2n\sigma_{\mathrm{SPE}}^2}\right)
+  \label{eq:calDarkFunc}
+  P(Q) = \sum_{n^=1}^{\infty} \frac{\mu^n e^{-\mu}}{n!} \frac{1}{\sigma_{\mathrm{SPE}}\sqrt{2n\pi}} \exp\left(-\frac{(Q - n\overline Q_{\mathrm{SPE}})^2}{2n\sigma_{\mathrm{SPE}}^2}\right)
 \end{equation}
-where $Q$ is the observed ADC count, $\mu$ (always close to 1) is the mean number of photoelectrons per thermal emission event, $\overline Q^{\mathrm{SPE}}$ is the gain of a given channel, and $\sigma_{\mathrm{SPE}}$ is the width of the Gaussian peak. Due to the extremely low probability of observing multiple thermal electrons in a single hit, the sum was restricted to $n \le 2$ in practice, with negligible effect. This model was found to fit the data stably and precisely as long the fit region was restricted to lie above 10~ADC, below which noise fluctuations had the ability to destabilize the fit.
+where $Q$ is the observed ADC count, $\mu$ (always close to 1) is the mean number of photoelectrons per thermal emission event, $\overline Q_{\mathrm{SPE}}$ is the gain of a given channel, and $\sigma_{\mathrm{SPE}}$ is the width of the Gaussian peak. Due to the extremely low probability of observing multiple thermal electrons in a single hit, the sum was restricted to $n \le 2$ in practice, with negligible effect. This model was found to fit the data stably and precisely (e.g., \autoref{fig:calDarkFit}) as long the fit region was restricted to lie above 10~ADC, below which noise fluctuations had the ability to destabilize the fit.
+
+\begin{figure}[ht]
+  \includegraphics[width=0.7\textwidth]{Calibration/cal_spe_fit_example.pdf}
+  \caption{Example of fitting \autoref{eq:calDarkFunc} to a histogram of ADC counts for dark-noise hits in a single channel. From \cite{An_2017}.}
+  \label{fig:calDarkFit}
+\end{figure}
 
 The results of this fitting procedure were stored in the offline database for use during data production, In cases where a poor fit quality was obtained, a ``default'' value of 19 ADC/SPE was stored in the database, making it possible to flag problematic channels by scanning for those that have exactly this value in the database. Similarly, excessively small or large fit gains are used in the determination of channel quality, as discussed in \autoref{sec:calibCQ}.
 
