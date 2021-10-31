@@ -645,7 +645,7 @@ From this we can straightforwardly generalize to the full statistical covariance
 
 As was noted, the extrapolation process produces multiple predictions, many of which are highly correlated by virtue of sharing a near or far AD. For the basic case of a single 8AD data period, we are essentially turning four observations (one from each far AD) into 16 variables (one per prediction). Due to this correlation, the full covariance matrix is non-invertible. In order to obtain an invertible matrix, the dimensionality must be reduced down to the level of the original input data (or smaller). This is done by combining data between ADs.
 
-There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2.\footnote{Consider an extreme case: Two distant nuclear reactors, each with a nearby experimental hall. Treating the two halls separately, one can measure the antineutrino flux from each reactor independently. When data from the two halls is combined, a degeneracy is introduced: There is a continuum of solutions, in terms of the two reactor fluxes, that can produce the combined antineutrino rate. This illustrates how combining the near halls can produce a loss of information, in the statistical sense.}
+There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no significant loss of information from combining data at a given near site, but there could be from combining EH1 and EH2.\footnote{Consider an extreme case: Two distant nuclear reactors, each with a nearby experimental hall. Treating the two halls separately, one can measure the antineutrino flux from each reactor independently. When data from the two halls is combined, a degeneracy is introduced: There is a continuum of solutions, in terms of the two reactor fluxes, that can produce the combined antineutrino rate. This illustrates how combining the near halls can produce a loss of information, in the statistical sense.}
 % (XXX is this really true and if so, why?)
 
 By convention, the far ADs are added, while the ADs of each near hall are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
@@ -727,14 +727,14 @@ Generate map of chi2 in oscillation parameter space. Take the 1sigma contour bas
     \SinSq = 0.0853 \pm 0.0029 \qquad \Dmsqee = 2.47\times10^{-3} \pm 7.2\times10^{-5},
   \label{eq:fitResults}
 \end{equation}
-where the goodness-of-fit $\chi^2/\nu$ is given by
+where the minimum $\chi^2$ is given by
 \begin{equation}
-  \chi^2 / \nu = 216.0 / 220 = 0.9818 \qquad (P = 0.564).
+  \chi^2 / \nu = 216.0 / 220 = 0.9818 \qquad (p = 0.564).
 \end{equation}
 Here, the number $\nu$ of degrees of freedom is\footnote{Recall, as discussed in \autoref{sec:fitCombo}, that we have two predictions per data period and energy bin: One prediction of EH3 from EH1, and one of EH3 from EH2, where all ADs within a given hall are combined.}
 \begin{equation}
   \begin{aligned}
-    \nu &= N_{\mathrm{periods}} \times N_{\mathrm{predictions}} \times N_{E\;\mathrm{bins}} - N_{\mathrm{osc-pars}} \\
+    \nu &= N_{\mathrm{periods}} \times N_{\mathrm{predictions}} \times N_{E\;\mathrm{bins}} - N_{\mathrm{osc pars}} \\
     &= 3 \times 2 \times 37 - 2 \\
     &= 220.
   \end{aligned}
