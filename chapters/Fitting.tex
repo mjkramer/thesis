@@ -164,7 +164,7 @@ The various constants that enter this cross section are taken from \cite{pdg2011
 Returning to \autoref{eq:fitTrueIbdSpec}, $\Posc$ is calculated according to \autoref{eq:survProbDybFull}, which of course depends on the oscillation parameters.\footnote{By default, the toy MC assumes the normal hierarchy when using \autoref{eq:hierarchy} to convert $\Dmsqee$ into $\Delta m^2_{32}$ and $\Delta m^2_{31}$ for insertion into \autoref{eq:survProbDybFull}.} \autoref{tab:toyNomOscPars} summarizes the nominal oscillation parameters used in generating the covariance and response matrices.
 % \footnote{In princple, full self-consistency would require regenerating the matrices after a fit (using the best-fit oscillation parameters), repeating the fit, and iterating this sequence until the results converge. However, in practice, the matrices do not vary significantly in the vicinity of the $\chi^2$ minimum, so this complication is unnecessary as long as the nominal parameters are reasonably close to the minimum.%
   % XXX is the matrix stable even out to the 3$\sigma$ contours?
-}
+%}
 Other values of the oscillation parameters can be used for benchmarking the fitter, e.g., verifying that it recovers the parameters used by the toy MC.
 
 \begin{table}[ht]
@@ -231,9 +231,9 @@ The uncertainty of the IAV wall thickness is assigned a conservative 4\%, which 
 
 \subsubsection{Positron to mean reconstructed energy}
 
-As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affected by nonlinearity in the scintillator (quenching, Cerenkov radiation) and in the electronics. Our analysis makes use of the ``unified'' nonlinearity model described in \cite{EnergyModelUpdateYongbo}.
+As discussed in \autoref{sec:reconEnergyNL}, the reconstructed energy is affected by nonlinearity in the scintillator (quenching, Cherenkov radiation) and in the electronics. Our analysis makes use of the ``unified'' nonlinearity model described in \cite{EnergyModelUpdateYongbo}.
 % Within the Daya Bay collaboration, a great deal of widespread effort went toward characterizing this behavior, as described in \cite{NonlinearityPaper}. The sum of this work was distilled in April 2018 by Yongbo Huang \cite{EnergyModelUpdateYongbo} to produce a ``unified'' nonlinearity model for use in analysis. This model is used in the toy MC.
-The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The nominal curve and the $\pm68\%$ CL bands were shown in \autoref{fig:reconPositronNominal}. All curves (nominal and pulls) were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cerenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis. \autoref{fig:nonlinPullCurves} shows the nominal curve along with the four pulls. The model parameters for these five curves were never published, and cannot easily be recovered from a fit (since the Cerenkov nonlinearity function $f_c$ was tabulated numerically and was also never published). Instead, the author and other Daya Bay analyzers were simply provided with tabulated values of the five curves for use in analysis.
+The unified nonlinearity model takes the form of a nominal curve (tabulating the ratio of reconstructed to positron energy, as a function of positron energy), along with four pull curves (\cite{EnergyModelUpdateSoeren}, p10) that express the uncertainty in the model. The nominal curve and the $\pm68\%$ CL bands were shown in \autoref{fig:reconPositronNominal}. All curves (nominal and pulls) were generating using the full Daya Bay MC, as controlled by five parameters (absolute energy scale, Birks/Cherenkov constants, electronics parameters). The curve that best fit a collection of source/$^{12}$B data was designated the nominal curve. Meanwhile, among 250 random curves within 68\% CL, the pull curves were taken as the four that best spanned the remaining 246. The four pulls thus account for the correlations inherent in the shape uncertainty, without requiring the use of a full covariance matrix during analysis. \autoref{fig:nonlinPullCurves} shows the nominal curve along with the four pulls. The model parameters for these five curves were never published, and cannot easily be recovered from a fit (since the Cherenkov nonlinearity function $f_c$ was tabulated numerically and was also never published). Instead, the author and other Daya Bay analyzers were simply provided with tabulated values of the five curves for use in analysis.
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth]{Fitting/eplusNLpulls.pdf}
@@ -353,7 +353,7 @@ The toy MC's treatment of backgrounds is based on the discussion in \autoref{cha
 
 \subsubsection{Accidentals}
 
-The accidental-background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. The statistical uncertainty of the accidentals rate is dominated by the $\sim$0.2\% ($\sim$0.4\%) near (far) uncertainty in the delayed-like singles rate. (In \autoref{sec:accStatUnc}, we obtain a consistent total uncertainty in the accidentals rate using a simple Monte Carlo). However, the calculated accidentals rate could be systematically biased by low-energy correlated processes (e.g. $\alpha$-$\alpha$). To study this possibility, studies within the collaboration cross-checked the accidental-rate measurement using samples of artificial accidentals obtained by requiring an additional time offset between the prompt and delayed triggers \cite{An_2017}. These gave rates that were consistent with the standard calculation, up to the 1\% statistical uncertainty of the cross checks. This 1\% is thus conservatively defined to be the uncertainty of the accidentals rate.
+The accidental-background rate is calculated from data per \autoref{sec:accratecalc}, and the shape is likewise extracted from data as described in \autoref{sec:selSingles} and \autoref{sec:singsel}. The uncertainty assessment is described in \autoref{sec:accStatUnc} (statistical) and \autoref{sec:accSystUnc} (systematic); in total, a practically negligible (yet conservative) 2\% total uncertainty is assigned to the rate, the same as for the accidentals rate in data.
 
 Rate fluctuations are applied independently for each AD. No shape uncertainty is assigned, given the substantial statistics of the background sample and the fact that the uncertainty in each energy bin is more than covered by the overall rate uncertainty.
 % (XXX should show that the shape doesn't vary much for different isolation cuts.)
@@ -645,7 +645,7 @@ From this we can straightforwardly generalize to the full statistical covariance
 
 As was noted, the extrapolation process produces multiple predictions, many of which are highly correlated by virtue of sharing a near or far AD. For the basic case of a single 8AD data period, we are essentially turning four observations (one from each far AD) into 16 variables (one per prediction). Due to this correlation, the full covariance matrix is non-invertible. In order to obtain an invertible matrix, the dimensionality must be reduced down to the level of the original input data (or smaller). This is done by combining data between ADs.
 
-There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2.
+There are multiple ways this combination could be carried out. Due to the limited statistics at the far site, it is reasonable in all cases to combine the four far ADs. As for the near ADs, they could be kept distinct, resulting in four predictions, matching the underlying dimensionality of the data. Or, the four near ADs could be fully combined, producing a single prediction. As another alternative, near ADs could only be combined within the same near site, giving two predictions. The fitter supports all three of these ``combination modes'', and they all give similar results. In practice, we use the last of these modes, with two predictions, since there should be no loss of information from combining data at a given near site, but there could be from combining EH1 and EH2.\footnote{Consider an extreme case: Two distant nuclear reactors, each with a nearby experimental hall. Treating the two halls separately, one can measure the antineutrino flux from each reactor independently. When data from the two halls is combined, a degeneracy is introduced: There is a continuum of solutions, in terms of the two reactor fluxes, that can produce the combined antineutrino rate. This illustrates how combining the near halls can produce a loss of information, in the statistical sense.}
 % (XXX is this really true and if so, why?)
 
 By convention, the far ADs are added, while the ADs of each near hall are averaged. Ultimately this convention is irrelevant as long as it is consistently applied between the observations, the predictions, and the covariance matrix. For the 8AD case, we then have the combined far-site observation
@@ -716,13 +716,32 @@ Generate map of chi2 in oscillation parameter space. Take the 1sigma contour bas
 \label{sec:fitResults}
 
 \autoref{fig:fitContours} shows the results of applying the fitter to our sample of IBD candidates. For this sample, AD-specific quantities (signal and background rates, efficiencies, etc.) are summarized in Tables~\ref{tab:fitting_inputs_6ad}--\ref{tab:fitting_inputs_7ad}. We obtain the following best-fit oscillation parameters:
+% From 2021_02_03@delcut_third_6.000MeV@newAcc
+% Previously was using 2020_01_26@yolo2? (doc-12115)
+% fit_shape_2d:
+% Event: 0; --> best fit: 0.0853245,0.00246905; minchi2=216.034
+% plot_contours:
+% sin^2(2theta_13) = 0.0853245 - 0.00287582 + 0.00286401
+% delta m^2_ee or delta m^2_32 check carefully! = 0.00246905 - 7.22585e-05 + 7.06787e-05
 \begin{equation}
-  \SinSq = 0.0849 \pm 0.00287 \qquad \Dmsqee = 2.47\times10^{-3} \pm 7.15\times10^{-5}
+    \SinSq = 0.0853 \pm 0.0029 \qquad \Dmsqee = 2.47\times10^{-3} \pm 7.2\times10^{-5},
   \label{eq:fitResults}
 \end{equation}
-These values are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of the same IBD selection criteria as Selection B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
+where the goodness-of-fit $\chi^2/\nu$ is given by
+\begin{equation}
+  \chi^2 / \nu = 216.0 / 220 = 0.9818 \qquad (P = 0.564).
+\end{equation}
+Here, the number $\nu$ of degrees of freedom is\footnote{Recall, as discussed in \autoref{sec:fitCombo}, that we have two predictions per data period and energy bin: One prediction of EH3 from EH1, and one of EH3 from EH2, where all ADs within a given hall are combined.}
+\begin{equation}
+  \begin{aligned}
+    \nu &= N_{\mathrm{periods}} \times N_{\mathrm{predictions}} \times N_{E\;\mathrm{bins}} - N_{\mathrm{osc-pars}} \\
+    &= 3 \times 2 \times 37 - 2 \\
+    &= 220.
+  \end{aligned}
+\end{equation}
+These oscillation parameters are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of practically the same IBD selection criteria as Selection B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
 
-% Ran dumpBigTable.jl on 2021_02_03@delcut_third_6.000MeV@ForThesis
+% Ran dumpBigTable.jl on 2021_02_03@delcut_third_6.000MeV@newAcc
 
 \begin{table}[ht]
   \resizebox{\textwidth}{!}{%
@@ -802,9 +821,11 @@ These values are consistent with those published in \cite{An_2017}. This is part
   \label{tab:fitting_inputs_7ad}
 \end{table}
 
+% Ran plot_contours.C on 2021_02_03@delcut_third_6.000MeV@newAcc
+% Previously was using 2020_01_26@yolo2? (doc-12115)
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{Fitting/contour_Matt.pdf}
-  \caption{68\%, 95\%, and 99\% C.L\@. contours obtained from running the fitter on our IBD sample. The black cross is the best-fit point.}
+  \caption{68\%, 95\%, and 99\% C.L.\@ contours obtained from running the fitter on our IBD sample. The black cross is the best-fit point.}
   \label{fig:fitContours}
 \end{figure}
 
