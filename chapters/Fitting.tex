@@ -662,6 +662,7 @@ where the index $b$ runs over the far ADs. Likewise, we have the two near-site p
 \end{equation}
 Here, the index $a$ runs over the $n_i$ ADs in the near site $i$. Finally, the combined covariance matrix is given by
 \begin{equation}
+  \label{eq:fitCovmatSum}
   V^{\mathrm{comb}}_{ij} = \frac{1}{n_i} \frac{1}{n_j} \sum_{i',j'} (V_{\mathrm{sig}} + V_{\mathrm{bkg}} + V_{\mathrm{stat}})_{i'j'},
 \end{equation}
 where the indices $i'$ and $j'$ run over all predictions from the $i$th near site to all far ADs.
@@ -731,7 +732,7 @@ Generate map of chi2 in oscillation parameter space. Take the 1sigma contour bas
     \SinSq = 0.0853 \pm 0.0029 \qquad \Dmsqee = 2.47\times10^{-3} \pm 7.2\times10^{-5},
   \label{eq:fitResults}
 \end{equation}
-where the minimum $\chi^2$ is given by
+where the errors include both statistical and systematic uncertainties (as encoded and combined in the covariance matrix, \autoref{eq:fitCovmatSum}). The minimum $\chi^2$ is given by
 \begin{equation}
   \chi^2 / \nu = 216.0 / 220 = 0.9818 \qquad (p = 0.564).
 \end{equation}
