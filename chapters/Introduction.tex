@@ -36,11 +36,19 @@ that is, for three generations,
 \begin{equation}
   \flavcol = \underbrace{\upmnsSimple}_{\upmns} \masscol.
 \end{equation}
-It can then be shown that the \emph{states} (as opposed to the fields) are related by the complex conjugate of $U$:
+
+To determine the relationships among the neutrino \emph{states,} as opposed to the fields, we first note that the field operator $\nu$ has the effect of annihilating a neutrino state. Conversely, its adjoint $\nu^\dagger$ can be used to create a neutrino state $\ket{\nu}$ out of the vaccuum $\ket{0}$. Considering the case of creating a flavor eigenstate $\ket{\nu_\alpha}$, we have:
 \begin{equation}
   \label{eq:nuStateRel}
-  \ket{\nu_\alpha} = U^*_{\alpha i}\ket{\nu_i}.
+  \begin{aligned}
+    \ket{\nu_\alpha} &= \nu_\alpha^\dagger \ket{0} \\
+    &= (U_{\alpha i} \nu_i)^\dagger \ket{0} \\
+    &= U_{\alpha i}^* \nu_i^\dagger \ket{0} \\
+    &= U_{\alpha i}^* \ket{\nu_i}.
+  \end{aligned}
 \end{equation}
+That is, the \emph{states} (as opposed to the fields) are related by the complex conjugate of $U$.
+
 $\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, most of the phases in a 3x3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \eqref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
 \begin{align}
   \label{eq:upmnsParam}
