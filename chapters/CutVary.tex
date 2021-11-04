@@ -45,7 +45,7 @@ In what follows, we will be referring to two nominal sets of shower-muon veto pa
 \item LBNL veto: Shower muon threshold of $3\times10^5$ p.e.; veto window of 0.4004~s.
 \item IHEP veto: Shower muon threshold of 2.5~GeV ($\sim4\times10^5$ p.e.); veto window of 1~s.
 \end{itemize}
-A particular goal, then, of this study is to confirm that the LBNL and IHEP vetoes both lie within a region of veto parameter space in which the best-fit oscillation parameters remain stable.
+A particular goal, then, of this study is to confirm that the LBNL and IHEP vetoes both lie within a region of veto parameter space in which the best-fit oscillation parameters remain stable.\footnote{In the grid of cut parameters used in this study, the LBNL veto's closest approximation has a veto time of 0.375~s, rather than 0.4004~s. In what follows, then, whenever this grid is under consideration, ``nominal'' (or ``LBNL'') will refer to this grid point. Given the small difference between it and the true nominal cut, we will mix the two meanings of ``nominal'' (or ``LBNL'') freely. An analogous situation exists for the IHEP veto, which is nominally defined in terms of energy, rather than photoelectrons.}
 
 As described in \autoref{sec:bkgLi9LinReg}, our $^9$Li calculation correctly captures the dependence of the rate upon the veto parameters. Likewise, the veto efficiency calculation simply sums up the unvetoed time windows, and is thus valid for any set of veto parameters. Both of these calculations are performed by the IBD selector. No additional steps need to be taken when reprocessing the data.
 
@@ -53,14 +53,20 @@ On the other hand, when we investigate the toy MC's predictions of the effects o
 
 An additional input from the IBD selection is the singles spectrum (which gives the spectral shape of the accidental background). The AD-muon veto window of O(1~ms) (to say nothing of the O(1~s) shower window) is more than long enough to remove all prompt, isolated, muon-induced triggers, so we expect no variation in the shape of the singles spectrum as we vary the shower veto.
 
+\newcommand\marknom{The LBNL and IHEP parameters are indicated by the red ``$+$'' and orange ``$\times$'', respectively.}
+
+% from muVetoEff import *
+% plot_li9_linreg(1)
+% plot_li9_linreg(3)
+% We use muVetoEff instead of plot_fit_results because the former recalculates using Li9Calc rather than using the Theta13 files from a particular study
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/li9_bkg.eh1_ad1.8ad.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/li9_linreg_eh1.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/li9_bkg.eh3_ad1.8ad.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/li9_linreg_eh3.pdf}%
   \end{minipage}%
-  \caption{$^9$Li rate as a function of the shower veto parameters, for a near hall AD (left) and a far hall AD (right).}
+  \caption{$^9$Li rate as a function of the shower veto parameters, for EH1 (left) and EH3 (right). \marknom}
   \label{fig:cutVaryVetoEffLi9Rates}
 \end{figure}
 
@@ -113,30 +119,36 @@ The final step is to calculate the veto efficiency from the three rates. Althoug
 \end{itemize}
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{CutVary/ShowerVeto/vetoEffCompare.png}
+  \includegraphics[scale=0.4]{CutVary/ShowerVeto/vetoEffCompare.png}
   \caption{Daily muon veto efficiency in EH1-AD1, both as reported by the IBD selection (by summing veto windows) and as calculated using the measured rates in the toy simulation.}
   \label{fig:cutVaryVetoEffCompare}
 \end{figure}
 
+% from plot_fit_results import *
+% plot_veto_eff("super_shower_grid", 1, 1, True, 8)
+% plot_veto_eff("fine_toymc", 1, 1, False, 8)
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-  \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/veto_eff.eh1_ad1.8ad_toymc.pdf}%
   \end{minipage}%
-  \caption{Veto efficiency as a function of shower-muon veto parameters in EH1-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right).}
+  \caption{Veto efficiency as a function of shower-muon veto parameters in EH1-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right). \marknom}
   \label{fig:cutVaryVetoEff2dNear}
 \end{figure}
 
+% from plot_fit_results import *
+% plot_veto_eff("super_shower_grid", 3, 1, True, 8)
+% plot_veto_eff("fine_toymc", 3, 1, False, 8)
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/veto_eff.eh3_ad1.8ad_toymc.pdf}%
   \end{minipage}%
-  \caption{Veto efficiency as a function of shower-muon veto parameters in EH3-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right).}
+  \caption{Veto efficiency as a function of shower-muon veto parameters in EH3-AD1 as determined by the IBD selection (left) and the rate measurement and simulation (right). \marknom}
   \label{fig:cutVaryVetoEff2dFar}
 \end{figure}
 
@@ -153,10 +165,10 @@ Regarding results: Don't comment on ``structure'' until we've regenerated the 2D
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_mid_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_mid_toymc.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_mid_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_mid_toymc.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fit to toy samples as a function of the shower-muon veto parameters. On the left is $\SinSq$ and on the right is $\Dmsqee$.}
   \label{fig:cutVaryVetoEffToyResults}
@@ -164,12 +176,13 @@ Regarding results: Don't comment on ``structure'' until we've regenerated the 2D
 
 Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto parameters, with the charge threshold ranging from $1.8\times10^5$ to $4.4\times10^5$ photoelectrons, and the veto time ranging from 0.25 to 1.875 seconds. \autoref{fig:cutVaryVetoEffToyResults} shows the results of the fits. The variation is on the order of 0.01\%, which is far below the scale of the analysis's uncertainty, and is likely attributable to rounding error of some kind. Thus, as expected, the toy MC predicts essentially no variation in the results of the oscillation analysis when the shower-muon veto is varied.
 
+% plot_all("super_shower_grid")
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_mid.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_mid.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fit to P17B data as a function of the shower-muon veto parameters. Note different scale compared to \autoref{fig:cutVaryVetoEffToyResults}. On the left is $\SinSq$ and on the right is $\Dmsqee$.}
   \label{fig:cutVaryVetoEffDataResults}
@@ -179,10 +192,10 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_unc_toymc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc_toymc.pdf}%
   \end{minipage}%
   \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to toy MC samples.}
   \label{fig:cutVaryVetoEffToyUnc}
@@ -190,10 +203,10 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/s2t_unc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[scale=0.5]{CutVary/ShowerVeto/dm2_unc.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc.pdf}%
   \end{minipage}%
   \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to P17B data.}
   \label{fig:cutVaryVetoEffDataUnc}
