@@ -193,14 +193,25 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 
 \autoref{fig:cutVaryVetoEffDataResults} shows the results of running the IBD selection and fitter on the P17B dataset, on the same grid of veto parameters as used in the toy MC study. In this case we see a greater degree of variation, which is unsurprising given that, in data, modifying the shower-muon veto will produce statistical fluctuations, while this effect is absent for the toy MC. Nonetheless, in a large region of the parameter space, including both the LBNL and IHEP vetoes, the fit is acceptably stable. Significant deviations are observed only on the left edge, where the loose definition of a shower muon results in an unreasonably low veto efficiency.
 
+\newcommand\fourShowerNote{The optimal (lowest) uncertainty is marked with a white star. \marknom\ The bottom plots use alternative color scales chosen to highlight details near the nominal and optimum cuts.}
+
+% from plot_fit_results import *
+% plot_unc_all("fine_toymc", is_data=False)
+% plot_unc_all("fine_toymc", is_data=False, vmax=[3.55-3, 0.94e-4])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc_toymc.pdf}%
+  \end{minipage}\\
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_toymc_detail.pdf}%
   \end{minipage}%
-  \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to toy MC samples.}
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc_toymc_detail.pdf}%
+  \end{minipage}%
+  \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to toy MC samples. \fourShowerNote}
   \label{fig:cutVaryVetoEffToyUnc}
 \end{figure}
 
