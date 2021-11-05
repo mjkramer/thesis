@@ -197,7 +197,7 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 
 % from plot_fit_results import *
 % plot_unc_all("fine_toymc", is_data=False)
-% plot_unc_all("fine_toymc", is_data=False, vmax=[3.55-3, 0.94e-4])
+% plot_unc_all("fine_toymc", is_data=False, vmax=[3.55e-3, 0.94e-4])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
@@ -215,14 +215,23 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
   \label{fig:cutVaryVetoEffToyUnc}
 \end{figure}
 
+% from plot_fit_results import *
+% plot_unc_all("super_shower_grid", is_data=True)
+% plot_unc_all("super_shower_grid", is_data=True, vmax=[3.725e-3, 1.01e-4])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc.pdf}%
+  \end{minipage}\\
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_detail.pdf}%
   \end{minipage}%
-  \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to P17B data.}
+  \begin{minipage}{0.5\linewidth}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_unc_detail.pdf}%
+  \end{minipage}%
+  \caption{Uncertainty on $\SinSq$ (left) and $\Dmsqee$ (right) for fits to P17B data. \fourShowerNote}
   \label{fig:cutVaryVetoEffDataUnc}
 \end{figure}
 
