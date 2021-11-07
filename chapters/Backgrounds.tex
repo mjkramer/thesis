@@ -678,6 +678,27 @@ In this analysis, we use the AmC background rates from the analysis in \cite{lia
 \section{$\CanO$}
 \label{sec:bkgCanOOverview}
 
-XXX see \autoref{sec:bkgCanO}.
+A final and relatively minor ($\lesssim$ 0.01\%/0.07\% near/far\footnote{As with the AmC background, the choice of denominator here (between signal and signal+background) makes no difference at the level of one significant figure.}) correlated background arises from $\alphN$ reactions initiated by natural radioactivity within the detector. In these reactions, an alpha particle from natural radioactivity is captured by a nucleus, which then emits a neutron. A prompt signal arises from a number of sources of energy deposition, including the kinetic energy of the alpha particle, gamma rays from nuclear deexcitation (including potentially those from inelastic scattering of the neutron), and proton recoils caused by the neutron. This prompt signal is then followed by capture of the neutron, mimicking the signature of an IBD.
+
+This background can be estimated based on the techniques described in \cite{Zhao_2014} and \cite{An_2017}. The first step in this estimation is to measure the rates of the decay chains responsible for the alpha-particle emission; namely, the uranium, thorium, and actinium decay chains, as well as the decay of $^{210}$Po. With the exception of $^{210}$Po, this can be done by searching for the double-coincidence signature of the Bi-Po decay cascade within each chain. The decay rate of $^{210}$Po, meanwhile, can be measured via the 5.3~MeV alpha particles produced by the decay, visible (after quenching) as a peak around 0.5~MeV in the singles spectrum.
+
+Along with the rates and energies of these alpha-particle decays, there is another ingredient needed to estimate the $\CanO$ background rate, namely, probabilities and spectra (of reaction products) of $\CanO$ reactions for each individual alpha-particle peak. This can be determined from Monte Carlo. Combining the measured alpha-decay rates with the simulated reaction probabilities (and spectra) then gives the $\CanO$ background prediction. In this analysis, we use the updated estimates from \cite{lianghongBkg}, which employ the alpha-decay rates measured from the entire P17B dataset. These rates are listed in \autoref{tab:bkgAlnDailyRatesOverview}. A more detailed review is provided in \autoref{sec:bkgCanO}.
+
+\begin{table}[ht]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lcccccccccc}
+      \toprule
+      & \multicolumn{2}{c}{EH1} & & \multicolumn{2}{c}{EH2} & & \multicolumn{4}{c}{EH3} \\
+      \cmidrule{2-3} \cmidrule{5-6} \cmidrule{8-11}
+      Period & AD1 & AD2 & & AD1 & AD2 & & AD1 & AD2 & AD3 & AD4 \\
+      \midrule
+      6AD & 0.09 $\pm$ 0.04 & 0.07 $\pm$ 0.04 & & 0.05 $\pm$ 0.02 & & & 0.05 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & \\
+      8AD & 0.08 $\pm$ 0.04 & 0.06 $\pm$ 0.03 & & 0.04 $\pm$ 0.02 & 0.06 $\pm$ 0.03 & & 0.04 $\pm$ 0.02 & 0.04 $\pm$ 0.02 & 0.03 $\pm$ 0.02 &  0.04 $\pm$ 0.02 \\
+      7AD & & 0.05 $\pm$ 0.03 & & 0.03 $\pm$ 0.02 & 0.06 $\pm$ 0.03 & & 0.03 $\pm$ 0.02 & 0.03 $\pm$ 0.02 & 0.03 $\pm$ 0.01 & 0.03 $\pm$ 0.02 \\
+      \bottomrule
+    \end{tabular}}
+  \caption{$\CanO$ background rates for the P17B data set \cite{lianghongBkg}.}
+  \label{tab:bkgAlnDailyRatesOverview}
+\end{table}
 
 \end{document}
