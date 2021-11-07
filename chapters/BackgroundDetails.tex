@@ -10,14 +10,6 @@ For the interested reader, we provide here a review of the studies undertaken wi
 \section{Cosmogenic fast neutrons}
 \label{sec:bkgFastn}
 
-As cosmic muons travel through the rock and other materials surrounding the ADs, they can eject energetic neutrons from the medium. If a fast neutron of the appropriate energy thermalizes and stops inside the AD, it will produce an IBD-like coincidence pair, in which the prompt signal consists largely of scintillation from the recoiled protons, and the delayed signal results from n-Gd capture. This process leads to a significant correlated background, amounting to some 20-30\% of that produced by cosmogenic isotopes. Two methods have been developed for estimating this background, the so-called \emph{extrapolation} and \emph{scaling} methods.
-
-In the extrapolation method, the prompt-energy cut of the IBD selection is extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent and the (largely flat) spectrum consists almost entirely of fast-neutrons events. This spectrum is then extrapolated below 12~MeV to estimate the fast-neutron component of the IBD sample, using a fit to a well-motivated model of the fast-neutron spectrum.
-
-In the scaling method, a search is performed for the ``muon-tagged'' IBD-like events in the immediate aftermath of ``peripheral'' muons that only trigger the outer water pool. As with the extrapolation method, the prompt-energy cut is significantly extended. In the region above 12~MeV, where true IBDs are absent, a scaling factor can be determined from the ratio of muon-tagged to untagged events. Then, below 12~MeV, the tagged spectrum (which contains very few true IBDs due to the short post-muon time searched) is rescaled according to the scaling factor, yielding an estimate of the fast-neutron spectrum in the sub-12~MeV region.
-
-The two methods are consistent to within 1--3\% (an order of magnitude smaller than the estimated uncertainty of each method), providing a high level of confidence in the estimation of the fast-neutron background. In the following sections, we describe these methods and their results, as obtained in \cite{fastn}.
-
 \subsection{Event selection}
 \label{sec:fastn_sel}
 
@@ -225,14 +217,9 @@ These uncertainties are summarized in \autoref{tab:bkgFastnUnc}, and the final r
   \label{tab:bkgFastnFinalRates}
 \end{table}
 
-\newcommand\AmC{$^{241}$Am-$^{13}$C}
 
 \section{AmC source}
 \label{sec:bkgAmC}
-
-To study the response of the detectors to neutrons, each AD was initially configured with a low-intensity ($\sim$0.7~Hz) \AmC\ neutron source in each of the three automated calibration units (ACUs) housed on the detector's lid. When not in use, the location and shielding of the sources ensures that neutrons do not infiltrate the GdLS region, protecting against correlated backgrounds from proton recoils followed by neutron capture.
-
-In spite of these precautions, a rare mechanism can still produce correlated backgrounds: A neutron may scatter inelastically against Fe, Cr, Mn, or Ni in the stainless steel, producing prompt gamma rays (generally totalling less than 3~MeV of reconstructed energy), before thermalizing and being captured either by one of these four elements or by Gd in the GdLS overflow tank (producing a signal between 6 and 12~MeV). A few of these gamma rays reach the scintillator. When this happens for both the prompt and delayed gamma rays, the resulting pair can sometimes pass the IBD selection criteria.
 
 The first experimental suggestion of this background came from an observed excess of neutron-like (i.e. 6--12 MeV) \emph{uncorrelated} events in the top half of the detector (\autoref{fig:amc_z_dist}). Subsequent MC simulations showed that these uncorrelated events (from neutron capture in the stainless steel or the GdLS overflow tank) are associated with a correlated background. Further MC studies were then used to characterize the relationship between the rate of uncorrelated events and the rate of the correlated background.
 
@@ -294,7 +281,7 @@ The fit gave $p_1 = \SI{0.783}{MeV}$ with a 10\% statistical uncertainty, compar
 
 After the determination of $\xi$, the prompt spectrum (i.e. $p_1$), and the uncertainty, evaluation of each AD's AmC background then amounted to the simple task of measuring $R_{\mathrm{uncorr}}$ (after correcting for the muon veto efficiency) and multiplying it by $\xi$ according to \autoref{eq:bkgAmcFundamental}, resulting in the final values used in this analysis. It should be noted that the ACU-B and ACU-C AmC sources were removed from the EH3 ADs in 2012, during installation of EH2-AD2 and EH3-AD4.\footnote{In principle, the effective value of $\xi$ could vary between the three-sources and one-source scenarios, but this subtlety is not discussed in \cite{Gu_2016}. Presumably, any such effects fall within the 45\% uncertainty.} This significantly reduced the AmC background at the far site from 0.3\% to 0.1\% of the IBD rate. Furthermore, over the first two years of data, a 50\% decline was observed in the rate from each AmC source, in all three halls, likely due to accumulation of scintillator into the source enclosures from the weekly calibration. This led to an ultimate background rate of only 0.03\% and 0.05\%\footnote{Within the single-digit precision of these percentages, the same value is obtained regardless of whether the denominator is chosen to be the signal rate or signal+background.}, near and far, respectively (although the mean rate over the entire data sample is higher, due to the fact that earlier rates were higher---0.05\% and 0.3\%, near and far, respectively.)
 
-For the P17B data set used in this analysis, the AmC background rates were re-estimated in \cite{lianghongBkg} using updated measurements of the uncorrelated event rates from the AmC sources. The values are listed in \autoref{tab:bkgAmcDailyRates}.
+For the P17B data set used in this analysis, the AmC background rates were re-estimated in \cite{lianghongBkg} using updated measurements of the uncorrelated event rates from the AmC sources. The values are listed in \autoref{tab:bkgAmcDailyRatesDetails}.
 
 \begin{table}[ht]
   \resizebox{\textwidth}{!}{%
@@ -310,7 +297,7 @@ For the P17B data set used in this analysis, the AmC background rates were re-es
     \bottomrule
   \end{tabular}}
   \caption{AmC background rates for the P17B data set \cite{lianghongBkg}.}
-  \label{tab:bkgAmcDailyRates}
+  \label{tab:bkgAmcDailyRatesDetails}
 \end{table}
 
 \section{$\CanO$}

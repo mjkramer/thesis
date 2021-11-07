@@ -614,13 +614,65 @@ Finally, to obtain the predicted spectrum in terms of prompt energy (i.e. recons
 \section{Cosmogenic fast neutrons}
 \label{sec:bkgFastnOverview}
 
-XXX see \autoref{sec:bkgFastn}.
+As cosmic muons travel through the rock and other materials surrounding the ADs, they can eject energetic neutrons from the medium. If a fast neutron of the appropriate energy thermalizes and stops inside the AD, it will produce an IBD-like coincidence pair, in which the prompt signal consists largely of scintillation from the recoiled protons, and the delayed signal results from n-Gd capture. This process leads to a background amounting to some 20-30\% of that produced by $^9$Li/$^8$He. This background can be estimated by two complimentary methods, the so-called \emph{extrapolation} and \emph{scaling} methods.
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{Backgrounds/FastN/prompt_energy_both_bz.png}
+  \caption{Prompt spectra of the muon-tagged (blue) and untagged (black) samples obtained using an IBD selection with an extended prompt-energy cut (so as to include fast neutrons). The tagged spectrum has been rescaled to match the normalization of the untagged spectrum above 12~MeV. From \cite{fastn}.}
+  \label{fig:fastn_prompt_energy_both_bzOverview}
+\end{figure}
+
+In the extrapolation method, the prompt-energy cut of the IBD selection is extended past 12 MeV to 100~MeV or beyond, where true IBDs are completely absent and the spectrum consists almost entirely of fast-neutrons events (\autoref{fig:fastn_prompt_energy_both_bzOverview}, black). The high-energy part of the spectrum (above 12~MeV) is then extrapolated below 12~MeV to estimate the fast-neutron component of the IBD sample, using a fit to a well-motivated model of the fast-neutron spectrum.
+
+In the scaling method, a search is performed for the ``muon-tagged'' IBD-like events in the immediate aftermath of ``peripheral'' muons that only trigger the outer water pool (\autoref{fig:fastn_prompt_energy_both_bzOverview}, blue). As with the extrapolation method, the prompt-energy cut is significantly extended. In the region above 12~MeV, where true IBDs are absent, a scaling factor can be determined from the ratio of muon-tagged to untagged events. Then, below 12~MeV, the tagged spectrum (which contains very few true IBDs due to the short post-muon time searched) is rescaled according to the scaling factor, yielding an estimate of the fast-neutron spectrum in the sub-12~MeV region.
+
+The two methods are consistent to within 1--3\% (an order of magnitude smaller than the estimated uncertainty of each method), providing a high level of confidence in the estimation of the fast-neutron background. This analysis makes use of the fast-neutron rates and shapes determined in \cite{fastn} and reproduced in \autoref{tab:bkgFastnFinalRatesOverview}. In \autoref{sec:bkgFastn} we provide a more detailed review of the rate estimation, the spectral shape, and their uncertainties.
+
+\begin{table}[ht]
+  \begin{tabular}{lccc}
+    \toprule
+    EH1 & EH2 & EH3 \\
+    \midrule
+    0.843 $\pm$ 0.083 & 0.638 $\pm$ 0.062 & 0.053 $\pm$ 0.009 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Final estimated fast-neutron rates (per AD per day) \cite{fastn}.}
+  \label{tab:bkgFastnFinalRatesOverview}
+\end{table}
 
 
 \section{AmC source}
 \label{sec:bkgAmCOverview}
 
-XXX see \autoref{sec:bkgAmC}.
+To study the response of the detectors to neutrons, each AD was initially configured with a low-intensity ($\sim$0.7~Hz) \AmC\ neutron source in each of the three automated calibration units (ACUs) housed on the detector's lid. When not in use, the location and shielding of the sources ensures that neutrons do not infiltrate the GdLS region, protecting against correlated backgrounds from proton recoils followed by neutron capture.
+
+In spite of these precautions, a rare mechanism can still produce correlated backgrounds: A neutron may scatter inelastically against Fe, Cr, Mn, or Ni in the stainless steel, producing prompt gamma rays (generally totalling less than 3~MeV of reconstructed energy), before thermalizing and being captured either by one of these four elements or by Gd in the GdLS overflow tank (producing a signal between 6 and 12~MeV). A few of these gamma rays reach the scintillator. When this happens for both the prompt and delayed gamma rays, the resulting pair can sometimes pass the IBD selection criteria.
+
+The measurements of this background's rate and shape were published in \cite{Gu_2016}. The key to the measurement is the fact that the rate of AmC correlated backgrounds is proportional to the rate of delayed-like \emph{uncorrelated} events originating from the AmC source:
+\begin{equation}
+  R_{\mathrm{corr}} = R_{\mathrm{uncorr}} \times \xi
+  \label{eq:bkgAmcFundamentalOverview}
+\end{equation}
+The rate $R_{\mathrm{uncorr}}$ can be measured, with high statistics, from the top/bottom asymmetry in the rate of delayed-like singles. Meanwhile, the proportionality constant $\xi$ can be determined from MC simulations. As described in \cite{Gu_2016}, the simulations were benchmarked using a high-activity AmC source (HAS) placed on top of EH3-AD4. For the HAS, $\xi$ could be directly measured (as well as the prompt spectrum of the correlated events); comparison to the MC's predicted HAS $\xi$ then produced a correction for the MC-derived $\xi$ of the ordinary AmC source. Insertion of this corrected $\xi$, together with the measured $R_{\mathrm{uncorr}}$, then gives the rate of the background.
+
+In this analysis, we use the AmC background rates from the analysis in \cite{lianghongBkg}, where the methods of \cite{Gu_2016} were repeated using the full P17B dataset. The rates and their uncetainties are summarized in \autoref{tab:bkgAmcDailyRates}. A more detailed review of this background can be found in \autoref{sec:bkgAmC}.
+
+\begin{table}[ht]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lcccccccccc}
+      \toprule
+      & \multicolumn{2}{c}{EH1} & & \multicolumn{2}{c}{EH2} & & \multicolumn{4}{c}{EH3} \\
+      \cmidrule{2-3} \cmidrule{5-6} \cmidrule{8-11}
+      Period & AD1 & AD2 & & AD1 & AD2 & & AD1 & AD2 & AD3 & AD4 \\
+      \midrule
+      6AD & 0.29 $\pm$ 0.13 & 0.27 $\pm$ 0.12 & & 0.30 $\pm$ 0.14 & & & 0.24 $\pm$ 0.11 & 0.23 $\pm$ 0.10 & 0.23 $\pm$ 0.10 & \\
+      8AD & 0.15 $\pm$ 0.07 & 0.15 $\pm$ 0.07 & & 0.12 $\pm$ 0.06 & 0.14 $\pm$ 0.06 & & 0.04 $\pm$ 0.02 & 0.03 $\pm$ 0.01 & 0.03 $\pm$ 0.02 & 0.04 $\pm$ 0.02 \\
+      7AD & & 0.11 $\pm$ 0.05 & & 0.09 $\pm$ 0.04 & 0.08 $\pm$ 0.04 & & 0.02 $\pm$ 0.01 & 0.02 $\pm$ 0.01 & 0.03 $\pm$ 0.01 & 0.02 $\pm$ 0.01 \\ 
+      \bottomrule
+    \end{tabular}}
+  \caption{AmC background rates for the P17B data set \cite{lianghongBkg}.}
+  \label{tab:bkgAmcDailyRates}
+\end{table}
 
 
 \section{$\CanO$}
