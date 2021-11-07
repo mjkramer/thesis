@@ -198,6 +198,7 @@ At this point, the final, fully-corrected reactor prediction can be written simp
 \end{equation}
 It is this $F_c(E)$ that is fed into the fitter (for extrapolation) and the toy MC. The spectra are specified in 220 bins (50-keV wide) of $E_\nu$ from 1.85 to 12.8~MeV, in units of 10$^{18}$~$\widebar\nu_e$~MeV$^{-1}$~s$^{-1}$, with one such spectrum per core per data period (6AD, 8AD, or 7AD). The livetime weighting uses the average weekly livetime across the three halls, rather than treating each hall individually; this is valid, since the data sample only includes periods where all three halls were running.
 
+\begin{comment}
 \subsection{Fluctuated spectra}
 \label{sec:reactoyFluct}
 
@@ -205,6 +206,6 @@ Use the Cholesky decomposition of Lewis's covariance matrix \cite{Lewis}. Genera
 % (XXX What about SNF uncertainty? Check \cite{Lewis}.)
 
 The actual generation of the covariance matrix is discussed in \autoref{sec:reacunccorr}, with the full details available in \cite{Lewis}.
-
+\end{comment}
 
 \end{document}
