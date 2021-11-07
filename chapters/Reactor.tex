@@ -153,11 +153,11 @@ The fission fractions of a core can be expressed as a function of \emph{burnup} 
 Putting it all together, the predicted IBD spectrum at a given detector, from a single core, is
 \begin{equation}
   S_{\mathrm{ibd}}(E, t) = \frac{N_p(t)}{4\pi L^2} \, \epsilon(E, t) \,
-    \sigma(E) \left( \sum_i \left( \frac{W(t) \, f_i(t)}{\sum_i f_i(t) \, e_i}
-        S_i(E) \, c_{\mathrm{ne},i}(E, t) \right) + S_{\mathrm{snf}}(E, t)
+    \sigma(E) \left( \sum_k \left( \frac{W(t) \, f_k(t)}{\sum_k f_k(t) \, e_k}
+        S_k(E) \, c^{\mathrm{ne}}_k(E, t) \right) + S_{\mathrm{snf}}(E, t)
     \right).
 \end{equation}
-Here, $E$ is the \nubar energy, not the IBD prompt energy; $N_p(t)$ is the number of target protons; $L$ is the baseline; $\epsilon(E, t)$ is the detection efficiency; $\sigma(E)$ is the IBD cross section; $W(t)$ is the thermal power; $f_i(t)$ is the fission fraction of isotope $i$, $e_i$ is its energy per fission (\autoref{tab:reacEnergyPerFission}), $S_i(E)$ is its per-fission spectrum, and $c_{\mathrm{ne},i}(E, t)$ is its non-equilibrium correction; and finally, $S_\mathrm{snf}(E, t)$ is the spectrum from spent fuel. The full prediction at each detector is obtained by adding the contributions from each core.
+Here, $E$ is the \nubar energy, not the IBD prompt energy; $N_p(t)$ is the number of target protons; $L$ is the baseline; $\epsilon(E, t)$ is the detection efficiency; $\sigma(E)$ is the IBD cross section; $W(t)$ is the thermal power; $f_k(t)$ is the fission fraction of isotope $k$, $e_k$ is its energy per fission (\autoref{tab:reacEnergyPerFission}), $S_k(E)$ is its per-fission spectrum, and $c_{\mathrm{ne},k}(E, t)$ is its non-equilibrium correction; and finally, $S_\mathrm{snf}(E, t)$ is the spectrum from spent fuel. The full prediction at each detector is obtained by adding the contributions from each core.
 
 \begin{table}[ht]
   \begin{tabular}{lcccc}
@@ -190,8 +190,8 @@ The uncertainties of the reactor antineutrino spectra exhibit significant correl
 
 A large sample of $M$ simulated total reactor antineutrino spectra was simulated\footnote{The exact value of $M$ is unspecified in \cite{Lewis} or in the associated code, but presumably it was large enough for convergence of the covariance matrix.}, with random fluctuations applied according to the uncertainties listed above \cite{Lewis}. The covariance matrix was then calculated according to
 \begin{equation}
-  V_{ij} = \frac{1}{M} \sum_{n=1}^M(S^n_{i} - S^0_{i})(S^n_{j} - S^0_{j}),
+  V_{ab} = \frac{1}{M} \sum_{n=1}^M(S^n_{a} - S^0_{a})(S^n_{b} - S^0_{b}),
 \end{equation}
-where the indices $i$ and $j$ run over the energy bins (each of 50~keV) and cores, the index $n$ runs over the simulated spectra, $S^n$ is the $n$th simulated spectrum, and $S^0$ is the nominal spectrum. The covariance matrix $V_{ij}$ is then used in this analysis's toy Monte Carlo in order to fluctuate the toy reactor $\nuebar$ spectra used in generating the signal systematic covariance matrix, as discussed in \autoref{sec:fitToyOutputs}.
+where the indices $a$ and $b$ run over the energy bins (each of 50~keV) and cores, the index $n$ runs over the simulated spectra, $S^n$ is the $n$th simulated spectrum, and $S^0$ is the nominal spectrum. The covariance matrix $V_{ab}$ is then used in this analysis's toy Monte Carlo in order to fluctuate the toy reactor $\nuebar$ spectra used in generating the signal systematic covariance matrix, as discussed in \autoref{sec:fitToyOutputs}.
 
 \end{document}

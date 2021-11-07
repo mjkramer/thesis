@@ -35,8 +35,85 @@ In the remainder of this chapter, we provide basic overviews of the reactor mode
 
 Although the details of the reactor model have minimal bearing on the final result, a model must still be chosen in order to decompose each near AD's spectra into individual reactor contributions, for extrapolation to the far hall. In keeping with the official practice of the Collaboration, we use the results of Huber \cite{PhysRevC.84.024617} and Mueller \cite{PhysRevC.83.054615}. In particular, for fissions of $^{235}$U, $^{239}$Pu, and $^{241}$Pu, we use Huber's conversions of the total $\beta$ spectra measured at Institut Laue-Langevin (ILL), while for $^{238}$U, we use Mueller's \emph{ab initio} calculations based on nuclear data. These predictions include time-dependent corrections for each reactor's departure from equilibrium, as well as additional contributions from the spent nuclear fuel (SNF) pools near each core.
 
-The four individual isotope spectra must then be appropriately scaled and combined to obtain the total prediction for each core. This is accomplished using data provided by the power plant on each core's weekly average power and fission fractions. This allows the total spectrum at each core to be determined on a weekly basis. Livetime-weighted summing of these spectra then gives the predictions for the entire data period. The toy MC can then feed these spectra into its model of propagation/oscillation, the IBD cross-section, and the detector response, producing a toy sample of the predicted prompt spectrum at each AD.
+The four individual isotope spectra must then be appropriately scaled and combined to obtain the total prediction for each core. This is accomplished using data provided by the power plant on each core's weekly average power and fission fractions. This allows the total nominal spectrum $F^0_{c,t}(E_\nu)$ (per unit time) at each core $c$ to be determined, for week $t$, as:
+\begin{equation}
+  F^0_{c,t}(E_\nu) = \sum_k \left( \frac{W_{c,t}) \, f_{k,t}}{\sum_k f_{k,t} \, e_k}
+    S_k(E) \, c^{\mathrm{ne}}_{k,t}(E) \right) + S^{\mathrm{snf}}_t(E),
+\end{equation}
+where the index $k$ runs over the four fission isotopes, $W_t$ is the average thermal power, the $f_{k,t}$ are the fission fractions, the $e_k$ are the average energy released per fission, the $S_k(E)$ are the Huber-Mueller isotope spectra, the $c^{\mathrm{ne}}_{k,t}(E)$ are the off-equilibrium corrections, and $S^{\mathrm{snf}}_t(E)$ is the SNF contribution.
 
-Aside from the predicted core spectra, the reactor model is also responsible for producing the reactor-related covariance matrix. This is done by quantifying all systematic uncertainties, include those on the weekly power, the fission fractions, the isotope spectra, and the off-equilibrium and SNF corrections. The model is then used to generate samples of core spectra under variations of these systematics. These core spectra are fed to the LBNL toy MC to produce the AD prompt spectra, from which the covariance matrix is then calculated. This is only performed once, given the fixed nature of the reactor prediction. In contrast, the detector, background, and statistical covariance matrices are recalculated by the toy MC for each fit, as discussed next.
+Livetime-weighted summing of these weekly spectra then gives the predictions for the entire data period:
+\begin{equation}
+  F^0_c(E_\nu) = \frac{\sum_t T_t F^0_{c,t}(E_\nu)}{\sum_t T_t},
+\end{equation}
+where the $T_t$ are the weekly livetimes. The toy MC can then feed these spectra into its model of propagation/oscillation, the IBD cross-section, and the detector response, producing a toy sample of the predicted prompt spectrum at each AD.
+
+Aside from the predicted core spectra, the reactor model is also responsible for producing the reactor-related covariance matrix. This is done by quantifying all systematic uncertainties, include those on the weekly power, the fission fractions, the isotope spectra, and the off-equilibrium correction \cite{Lewis}. The model is then used to generate samples of core spectra under variations of these systematics, producing a covariance matrix
+\begin{equation}
+  V^{\mathrm{reac}}_{ab} = \frac{1}{M} \sum_{n=1}^M(S^n_{a} - S^0_{a})(S^n_{b} - S^0_{b}),
+\end{equation}
+where the indices $a$ and $b$ run over energy bins (each of 50~keV) and cores, the index $n$ runs over the simulated spectra, $M$ is the number of simulations, $S^n$ is the $n$th simulated spectrum, and $S^0$ is the nominal spectrum. The Cholesky decomposition $U$ of $V^{\mathrm{reac}}$, where
+\begin{equation}
+  V^{\mathrm{reac}} = U^TU,
+\end{equation}
+is later used by the LBNL toy MC to generate a fluctuated core spectrum for each toy sample:
+\begin{equation}
+  \label{eq:fitCholeskyUsage}
+  F_c(E_\nu) = F^0_c(E_\nu) + \sum_b U_{ab} y_b,
+\end{equation}
+where $a$ is the core/energy bin corresponding to $F_c(E_\nu)$, $b$ runs over all bins, and $y_b$ is a vector of standard normal random variables.
+
+\section{Toy Monte Carlo}
+\label{sec:fittingToyMC}
+
+Given the livetime-normalized antineutrino spectrum $F_c(E_\nu)$ at each core $c$ (including any random fluctuations applied using $V^{\mathrm{reac}}$), the LBNL toy MC begins by calculating the antineutrino spectrum $R_i(E_\nu)$ at each AD $i$:
+\begin{equation}
+  \label{eq:fitTrueIbdSpecOverview}
+  R_i(E_\nu) = T_i\,N_i\,\epsilon_i\,\sigma(E_\nu) \sum_c F_c(E_\nu) \frac{1}{4\pi L_{ci}^2}
+  \Posc(E_\nu, L_{ci}),
+\end{equation}
+where $T_i$ is the livetime, $N_i$ is the number of target protons, $L_{ci}$ is the baseline, $\epsilon_i$ is the detection efficiency (comprising the muon-veto and multiplicity-cut efficiencies), and $\sigma(E_\nu)$ is the IBD cross-section (\autoref{eq:ibdXsec}). $\Posc$ depends on the assumption of nominal oscillation parameters; however, the final result is stable against reasonable variations in these assumptions. The $R_i$ may be freely multiplied by a common constant factor without affecting the oscillation fit; as such, the efficiency $\epsilon_i$ does not account for factors that are equal among all ADs. Similarly, there is no impact from any constant error in the absolute normalization of the core spectra. It is only necessary that the $R_i$ correctly capture the \emph{relative} rates and shapes between the ADs.
+
+The antineutrino spectra $R_i(E_\nu)$ must be converted by the toy MC into reconstructed prompt spectra $x_i(E_{\mathrm{rec}})$. The first step in this process is to convert antineutrino energy $E_\nu$ into positron energy (including rest mass) $E_e$ using \autoref{eq:firstOrderEnergyMean}. Next, a detector response matrix (\autoref{sec:fitIavEffect}) is used to convert $E_e$ into the total \emph{scintillator-deposited} energy $E_{\mathrm{dep}}$, which accounts for energy loss in the acrylic. $E_{\mathrm{dep}}$ is then converted to the average corresponding reconstructed energy using the detector nonlinearity model (\autoref{sec:fitEeToMeanErec}). Finally, the reconstructed energy spectrum is smeared using the detector resolution model (\autoref{sec:fitResolution}). These various aspects of the detector response model can be randomly fluctuated during the generation of each toy sample.
+
+The final step in generating each toy sample is to add backgrounds to the prompt spectra. This is accomplished trivially, by taking the nominal shape of each background, scaling it according to the predicted rate, and adding it to the IBD prompt spectrum. Both the rate and the shape can be fluctuated in accordance with the background uncertainties (\autoref{sec:fitToyBackgrounds}).
+
+In practice, we generate two sets of toy samples, corresponding to signal-related (i.e., reactor and detector) and background-related fluctuations, respectively. The former matrix is proportional to the toy MC's assumptions on the absolute normalization (reactor flux and detection efficiency); it should thus be rescaled according to the measured normalization (\autoref{sec:fitToyCovMatDetails}). Meanwhile, the backgrounds are insensitive to the flux normalization, and their data-driven estimations already account for the detection efficiency, so no rescaling is necessary for the background matrix. Since the two are treated differently, they must be generated separately, from separate sets of toy samples.
+
+Before presenting the calculation of the covariance matrices, we must pause to discuss the binning scheme employed. As was explained, the LBNL fitter compares the far-site data to the far-site predictions obtained from the near-site data. In practice, as discussed in \autoref{sec:fitCombo}, we combine the data from all the ADs in a given hall, and we consider \emph{two} predictions for EH3: one from EH1, and one from EH2. These predictions are further divided among 37 energy bins (\autoref{sec:binning}) and three time bins (the 6, 8, and 7-AD periods), giving a total of
+\begin{equation}
+  2 \times 37 \times 3 = 222
+\end{equation}
+predictions, which we represent by the vector $F^{\mathrm{pred}}_i$, where the index $i$ runs over the 222 individual predictions. Meanwhile, the number of \emph{observations} is equal to 111, half of the number of predictions, since we have separate predictions from EH1 and EH2. We represent the observations in the vector $F^{\mathrm{obs}}_i$, in which each observation is repeated twice, in alignment with $F^{\mathrm{pred}}_i$. 
+
+Given $M$ toy samples, indexed by the variable $t$, the background covariance matrix $V_{\mathrm{bkg}}$ is calculated according to
+\begin{equation}
+  (V_{\mathrm{bkg}})_{ij} = \frac{1}{M} \sum_t^{M}
+  (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j).
+\end{equation}
+The signal covariance matrix $V_{\mathrm{sig}}$, on the other hand, must be rescaled to account for the measured absolute normalization:
+\begin{equation}
+  (V_{\mathrm{sig}})_{ij} = \frac{1}{M} \sum_t^M
+  \frac{F_i^{\mathrm{obs}} \cdot F_j^{\mathrm{obs}}}{F_i^{\mathrm{pred},t} \cdot F_j^{\mathrm{pred},t}} (F^{\mathrm{obs},t}_i - F^{\mathrm{pred},t}_i)(F^{\mathrm{obs},t}_j - F^{\mathrm{pred},t}_j)}.
+\end{equation}
+
+The statistical covariance matrix $V_{\mathrm{stat}}$ is not calculated from the toy samples, but rather from the measured data. As discussed in \autoref{sec:fitStatCovMat}, for a given prediction-bin $i$, the corresponding diagonal element of $V_{\mathrm{stat}}$ is
+\begin{equation}
+  (V_{\mathrm{stat}})_{ii} = (\sigma_{\mathrm{near}})_{i}^2 + (\sigma_{\mathrm{far}})_{i}^2,
+\end{equation}
+where
+\begin{equation}
+  \begin{aligned}
+    (\sigma_{\mathrm{near}})_i &= \frac{F_i^{\mathrm{pred}}}{N_i^{\mathrm{obs}}} \sqrt{N_i^{\mathrm{obs}} + N_i^{\mathrm{bkg}}}\\
+    (\sigma_{\mathrm{far}})_i &= \sqrt{F_i^{\mathrm{pred}} + F_i^{\mathrm{bkg}}}.
+  \end{aligned}
+\end{equation}
+Here, $N^{\mathrm{obs}}$ is the (background-subtracted) near-site observation, and $N^{\mathrm{bkg}}$ is the expected near-site background. Given our method of binning and combining the data, an off-diagonal element $(V_{\mathrm{stat}})_{ij}$ is nonzero only when $i$ and $j$ correspond to the same far-site energy bin and data period, differing only when it comes to the near-site used for the prediction. More precisely,
+\begin{equation}
+  \left. (V_{\mathrm{stat}})_{ij} \right|_{i \ne j} = K_{ij} (\sigma_{\mathrm{far}})_i (\sigma_{\mathrm{far}})_j,
+\end{equation}
+where $K_{ij} = 1$ if prediction-bins $i$ and $j$ correspond to the same far-site observations, and zero otherwise.
+
+
 
 \end{document}
