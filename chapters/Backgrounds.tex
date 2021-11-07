@@ -15,7 +15,43 @@ Before considering these double-coincidence backgrounds, we begin by discussing 
 \section{PMT light emission (``flashers'')}
 \label{sec:bkgFlashersOverview}
 
-XXX see \autoref{sec:bkgFlashers}.
+The PMTs used at Daya Bay have the tendency to occasionally ``flash'', emitting light due to arcing in their bases. The rate and intensity of this ``flashing'' would change over time for each PMT. At any given moment, some 5\% of the PMTs in each AD will have the tendency to flash brightly enough to trigger the detector \cite{SideBySide}, in some cases producing as much as 100~MeV of reconstructed energy. Within the delayed energy region of 6-12~MeV, the flasher rate has averaged at around 0.7~Hz for each AD. These ``delayed-like'' flashers, if included in the analysis, would significantly increase the rate of backgrounds caused by the accidental coincidence of two uncorrelated signals. As discussed in \autoref{sec:accbkg} and \autoref{chap:accDMC}, the rate of such ``accidentals'' is proportional to the rate of delayed-like signals, and this rate (excluding flashers) ranges from around 0.05~Hz at EH3 to 1~Hz at EH1. While the flashers would merely (roughly) double the 1\% accidental background in the near halls, in the far hall they would increase this background by an order of magnitude to the 10\% level, counter to Daya Bay's goal of perecent-level background contamination.
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{Backgrounds/Flasher/example_event.png}
+  \caption{PMT charge distribution of a flasher candidate, illustrating the division of the AD into four azimuthal quadrants, with Quadrant 1 being centered around the PMT with the highest charge. From \cite{An_2017}.}
+  \label{fig:flasher_exampleOverview}
+\end{figure}
+
+Fortunately, flashers are easily distinguished from ``physical'' singles due to their unique conical pattern of light emission (\autoref{fig:flasher_exampleOverview}), enabling them to be removed from the analysis with high efficiency while minimally affecting true IBDs. This light pattern is characterized by two ``hot spots'' on opposite sides of the AD. As described in \autoref{sec:bkgFlashers}, a highly effective discriminator can be used to reject flashers based on their charge and time patterns, respectively. This discriminator, denoted by $\fID$, is based on two variables. The first, $\fmax$, is the ratio of $Q_{\mathrm{max}}$ (the maximum individual PMT charge across all PMTs) over the total charge $Q_{\mathrm{tot}}$:
+\begin{equation}
+  \fmax = \frac{Q_{\mathrm{max}}}{Q_{\mathrm{tot}}}.
+\end{equation}
+The second, $\fquad$, is based on dividing the AD into four quadrants (\autoref{fig:flasher_example}): ``Quadrant 1'' (q1) is the one that is centered on the highest-charge PMT, q3 is the one across from q1, and q2 and q4 are the two ``to the side.'' Then, $\fquad$ captures the conical nature of the light emission:
+\begin{equation}
+  \fquad = \frac{Q_{\mathrm{q3}}}{Q_{\mathrm{q2}} + Q_{\mathrm{q4}}}.
+\end{equation}
+Individually, $\fmax$ and $\fquad$ do not cleanly distinguish flashers from physical events. Their combination, however, does, leading to the definition of $\fID$:
+\begin{equation}
+  \fID = \log_{10} \left[ \fquad^2 + \left( \frac{\fmax}{0.45} \right)^2 \right].
+\end{equation}
+Flashers can then be identified as those events having $\fID > 0$. As shown in \autoref{fig:bkgFlasherEllipse2DOverview}, this discriminator effectively eliminates flashers from the analysis. Complete elimination is unnecessary; all that matters is that the residual flashers do not significantly increase the rate of delayed-like singles (and hence accidentals). This is easily the case for the $\fID$ discriminator.
+
+Although $\fID$ alone provides sufficient flasher rejection, even further rejection can be achieved by taking advantage of the characteristic time distribution of flashers. Since flashers involve the propagation of light between opposite walls of the AD, the time distribution is broadened in comparison to typical physical events. As such, we can use the discriminator
+\begin{equation}
+  \fPSD = \log_{10} [4 \cdot (1 - f_{\mathrm{t}1})^2 + 1.8 \cdot (1 - f_{\mathrm{t}2})^2]
+\end{equation}
+to identify flashers. Here, $f_{\mathrm{t}1}$ ($f_{\mathrm{t}2}$) is defined as the ratio of the number of hits in the first 200 (150)~ns of the signal, over the number of hits in the first 400~ns.
+
+Finally, a third discriminator can be used to reject flashers from the 2" calibration PMTs located at the top and bottom of the AD. These events are identified as those in which any 2" PMT records more than 100 photoelectrons. Together, these three methods all but eliminate flashers from the data.
+
+The exact rejection factor for flashers is unimportant, as long as it is high enough to avoid a significant rate of flasher-associated accidentals. Any residual flashers will automatically be counted in the singles rate, and thus so will their contribution to the accidental background rate. However, it \emph{is} important to study the \emph{signal inefficiency} of the flasher rejection, that is, the proportion of non-flashers that incorrectly get identified as flashers. As discussed in \autoref{sec:bkgFlasherEffs}, this inefficiency has been found to be $0.039\% \pm 0.006\%$, with no significant AD-to-AD variation. This 0.006\% uncertainty is rounded up to 0.01\% and included in the detection efficiency uncertainty (\autoref{tab:detEff}).
+
+\begin{figure}[ht!]
+  \includegraphics[width=0.5\textwidth]{Backgrounds/Flasher/ellipse_2d.png}
+  \caption{Two-dimensional distribution of $\fmax$ (``MaxQ'') and $\fquad$ (``Quadrant'') for physical triggers in EH1-AD2. The black ``ellipse'' corresponds to $\fID = 0$; events outside the ellipse are identified as flashers. High flasher rejection and negligible signal inefficiency are apparent. From \cite{flasherControl}.}
+  \label{fig:bkgFlasherEllipse2DOverview}
+\end{figure}
 
 \section{Accidental coincidences}
 \label{sec:accbkg}

@@ -424,11 +424,6 @@ Fortunately, flashers are easily distinguished from ``physical'' singles due to 
 
 The flasher identification criteria were developed in a somewhat ad-hoc fashion, by defining quantities that could conceivably serve as discriminators, and then further defining combinations of these quantities, and finally plotting the distributions of these (combined) quantities until a clean separation between flashers and non-flashers was apparent. It is far more important to minimize (IBD) signal inefficiency instead of maximizing flasher rejection, because a small amount of unrejected flashers will simply slightly increase the rate of accidental backgrounds (which can be easily quantified), whereas a signal inefficiency could vary among the ADs and thereby bias the oscillation fit.
 
-\newcommand\fmax{f_{\mathrm{max}}}
-\newcommand\fquad{f_{\mathrm{quad}}}
-\newcommand\fID{f_{\mathrm{ID}}}
-\newcommand\fPSD{f_{\mathrm{PSD}}}
-
 Early in the experiment, this prolonged and interative process eventually gave rise to the \emph{ellipse cut} (based on the charge distribution) and the \emph{PSD cut} (based on the time distribution), which demonstrated excellent performance, and these cuts continue to be used in this analysis. The ellipse cut is based on two quantities, termed $\fmax$ and $\fquad$. The first, $\fmax$, is simply the ratio of $Q_{\mathrm{max}}$ (the maximum individual PMT charge across all PMTs) over the total charge $Q_{\mathrm{tot}}$:
 \begin{equation}
   \fmax = \frac{Q_{\mathrm{max}}}{Q_{\mathrm{tot}}}.
@@ -473,6 +468,9 @@ Even further flasher reduction can be achieved by incorporating timing informati
 By requiring both $\fID < 0$ and $\fPSD < 0$, we eliminate virtually all 8" PMT flashers from the analysis.
 
 However, in addition to the 192 8" PMTs, there are six 2" PMTs located at the top and bottom of each AD along the calibration axes, and these can also flash. Such events were easily identified as those in which any 2" PMT saw an extreme amount of charge, with a cut of 100 PE providing essentially perfect separation between 2" PMT flashers and other events.
+
+\subsection{Efficiencies}
+\label{sec:bkgFlasherEffs}
 
 The exact efficiency of these cuts (i.e., the rejection factor for flashers), is unimportant, as long as it is high enough.\footnote{According to \cite{SideBySide}, the efficiency is greater than $99.99\%$.} Any residual flashers will automatically be counted in the singles rate, and thus so will their contribution to the accidental background rate.\footnote{There is a small second-order correction due to the fact that an accidental cannot be formed by two flashers in the same PMT, given that it takes on the order of a second for a PMT to ``recharge'' after flashing. However, this correction is negigible given the extremely low rate of residual flashers.} As shown in \autoref{fig:fID_dist}, the rejection factor (and hence the purity of the IBD sample, with respect to flashers) is very nearly 100\% in all ADs, with the minor exception of AD5, where the small contribution of unrejected flashers will, in any case, be removed during the subtraction of the accidental background spectrum.
 
