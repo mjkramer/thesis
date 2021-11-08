@@ -94,7 +94,7 @@ During application of the muon veto, the total amount of vetoed time is tracked,
 
 \begin{figure}[h!]
   \includegraphics[width=0.8\textwidth]{Selection/veto_diagram_new.pdf}
-  \caption{Illustration of the muon veto scheme. The blue (red) shaded region is the vetoed time after (before) the muon. Not to scale.}
+  \caption{Illustration of the muon veto scheme. The purple (pink) shaded region is the vetoed time after (before) the muon. Not to scale.}
   \label{fig:veto_diagram_rM}
 \end{figure}
 
@@ -110,8 +110,8 @@ A potential IBD candidate may be lurking whenever there is a non-vetoed delayed-
 \end{enumerate}
 
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{Selection/dmc_diagram_rM.png}
-  \caption{Illustration of the decoupled multipicity cut. The shaded region indicates where the prompt event may occur.}
+  \includegraphics[width=0.7\textwidth]{Selection/dmc_diagram_new.pdf}
+  \caption{Illustration of the decoupled multipicity cut. The blue region must contain exactly one prompt-like event, the pink regions must contain no prompt-like events, and the purple region must contain no delayed-like events. Not to scale.}
   \label{fig:dmc_diagram_rM}
 \end{figure}
 
@@ -155,7 +155,13 @@ The DQ metrics are calculated and recorded at IHEP during Keep Up Production (KU
 
 For each detector, the KUP software calculates the rates of various event classes (overall triggers, prompt-like events, $^{40}$K events, etc.), the energies of various peaks ($^{40}$K, n-Gd capture, etc.), and the rate of infrequent blocked triggers (caused by excessive pileup, typically by noise in the electronics). These quantities are then uploaded to the DQDB for use by external tools employed by DQ shifters and the DQWG.
 
-The review of these metrics is the responsibility of the DQ shifter, Daya Bay's second line of defense. The DQ shifter uses the DQ shift website to view time series plots of one or more selected metrics. All metrics, and all detectors in a given hall, are shown on the same page. Under general circumstances, the DQ shifter typically looks at the prompt-like rate, the $^{40}$K peak energy, and the AD and WP blocked trigger rates, since the vast majority of data quality issues will manifest themselves in at least one of these plots.
+The review of these metrics is the responsibility of the DQ shifter, Daya Bay's second line of defense. The DQ shifter uses the DQ shift website to view time series plots of one or more selected metrics (\autoref{fig:selDybvdqShot}). All metrics, and all detectors in a given hall, are shown on the same page. Under general circumstances, the DQ shifter typically looks at the prompt-like rate, the $^{40}$K peak energy, and the AD and WP blocked trigger rates, since the vast majority of data quality issues will manifest themselves in at least one of these plots.
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{Selection/dybvdq_shot.png}
+  \caption[Screenshot of Daya Bay data quality website.]{Screenshot of the Daya Bay data quality shift website, developed by the author \cite{dybvdq}. Each point represents a data file; each plot represents a quantity of interest. Blue points are good (untagged) files; red points are files tagged as bad; orange points are files proposed for tagging as bad; green points are tagged files proposed for untagging.}
+  \label{fig:selDybvdqShot}
+\end{figure}
 
 Any abnormal data points (i.e. files) can be clicked on by the DQ shifter; this will ``locally'' tag the file as bad (or vice versa, if the file was previously tagged) in the personal ``session'' of the DQ shifter. A comment is also recorded, indicating which metric the shifter clicked on, and whether the tagged file was above or below the local average. Locally tagged files are shown in a different color from the rest of the files. There are also specific colors for ``officially'' tagged files (i.e. those marked as bad in the DQDB), and for officially tagged files that the shifter has clicked on (to indicate that the official tagging should be reversed). Since the colors are synchronized between all metrics and halls, the shifter is able to view possible correlations. It is also possible to draw a rectangle around a collection of points, which can be used both for viewing correlations (since the selected files are highlighted in all plots) and for (un)tagging files in bulk. 
 
