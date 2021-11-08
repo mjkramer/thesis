@@ -5,7 +5,7 @@
 \chapter{Event selection}
 \label{chap:selection}
 
-XXX See Kam-Biu's initial comment. Need plots/tables showing the effect of each cut. Also add a plot/flowchart for DQ shift process. Maybe a screenshot?
+% XXX See Kam-Biu's initial comment. Need plots/tables showing the effect of each cut. Also add a plot/flowchart for DQ shift process. Maybe a screenshot?
 
 From the sequence of reconstructed triggers in the ADs, we are primarily interested in extracting IBD candidates, in order to obtain the antineutrino rate and spectrum. The tight time correlation of the prompt and delayed triggers, as well as the relatively high 8~MeV energy released from the nGd capture, enable the extraction of a $\sim$98\% pure sample of IBDs, from which the independently estimated backgrounds can then be subtracted.
 
@@ -92,9 +92,9 @@ An additional veto window is applied, spanning 2~\us\ \emph{before} each muon, c
 
 During application of the muon veto, the total amount of vetoed time is tracked, accounting for overlaps. This value is used in order to calculate the muon veto efficiency, determined (on a daily basis) simply as the ratio of unvetoed DAQ livetime to total DAQ livetime. It should be noted that the muon veto is only applied to the \emph{delayed} trigger of a coincidence pair, and this is what enables the efficiency to be calculated so simply. Otherwise, we would require a complex calculation involving the prompt-delayed time distribution and the muon rate. Given (as described below) that the maximum time difference between the prompt and delayed event is 200~\us, it is possible for the prompt trigger to lie 200~\us\ before the end of the veto window. The windows are thus made large enough to ensure that this time period is free of muon-correlated activity. An illustration of the three muon vetoes is provided in \autoref{fig:veto_diagram_rM}.
 
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Selection/veto_diagram_rM.png}
-  \caption{Illustration of the muon veto scheme. Not to scale.}
+\begin{figure}[h!]
+  \includegraphics[width=0.8\textwidth]{Selection/veto_diagram_new.pdf}
+  \caption{Illustration of the muon veto scheme. The blue (red) shaded region is the vetoed time after (before) the muon. Not to scale.}
   \label{fig:veto_diagram_rM}
 \end{figure}
 
