@@ -128,7 +128,7 @@ In detailing the nonlinearity correction, we begin by discussing the AD's respon
 \end{equation}
 where $Q$ is the amount of emitted light, $dE/dx$ is the linear density of \emph{ionization} energy deposition, and the scintillator-specific value $k_B$ is known as Birks' constant.
 
-If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \eqref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
+If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \autoref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
 \begin{equation}
   f_q(\Edepelec,k_B) = \int_0^{\Edepelec} \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}.
   \label{eq:reconBirksInt}
@@ -162,7 +162,7 @@ Thus far we have only discussed the response of the scintillator to electrons. T
   E_{\mathrm{vis},e^+}(E_{\mathrm{kin}}) = E_{\mathrm{vis},e^-}(E_{\mathrm{kin}}) + 2 \times E_{\mathrm{vis},\gamma}(\SI{0.511}{MeV}).
 \end{equation}
 
-Gamma rays, in turn, do not themselves ionize, but they do produce and scatter electrons and positrons. The total response to gamma rays is, accordingly, rather complex, given the need to account for annihilation and pair production \emph{ad nauseam}. As such, Geant4 simulation were used to determine the response of the scintillator to gamma rays, as a function of $k_B$ and $k_c$. The (ionization) energy deposited by each simulated electron and positron (\autoref{fig:reconGammaElectrons}) was converted into visible energy according to \eqref{eq:reconScintNonlin}, and the sum gave the visible energy from each gamma ray. With the response to gamma rays thus determined, it could be plugged into \eqref{eq:reconScintPositron} to give the response to positrons.
+Gamma rays, in turn, do not themselves ionize, but they do produce and scatter electrons and positrons. The total response to gamma rays is, accordingly, rather complex, given the need to account for annihilation and pair production \emph{ad nauseam}. As such, Geant4 simulation were used to determine the response of the scintillator to gamma rays, as a function of $k_B$ and $k_c$. The (ionization) energy deposited by each simulated electron and positron (\autoref{fig:reconGammaElectrons}) was converted into visible energy according to \autoref{eq:reconScintNonlin}, and the sum gave the visible energy from each gamma ray. With the response to gamma rays thus determined, it could be plugged into \autoref{eq:reconScintPositron} to give the response to positrons.
 
 \begin{figure}[h]
   \includegraphics[scale=0.5]{Reconstruction/s04_Gamma_electron.pdf}

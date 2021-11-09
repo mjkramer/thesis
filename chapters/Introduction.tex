@@ -56,7 +56,7 @@ That is, the \emph{states} (as opposed to the fields) are related by the complex
   \end{aligned}
 \end{equation}
 
-$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, most of the phases in a 3x3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \eqref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
+$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, most of the phases in a 3x3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \autoref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
 \begin{align}
   \label{eq:upmnsParam}
   \begin{split}
@@ -145,7 +145,7 @@ which, upon squaring, gives
   \sum_j |U_{\alpha j}|^2 |U_{\beta j}|^2 = \delta_{\alpha \beta}
   - 2 \sum_{j > i} \Re(U^*_{\alpha j} U_{\beta j} U_{\alpha i} U^*_{\beta i}).
 \end{equation}
-Substituting this into \eqref{eq:oscSepSums}, and using Euler's identity, along with the trigonometric identity \(1 - \cos 2\varphi = 2\sin^2 \varphi\), we finally get
+Substituting this into \autoref{eq:oscSepSums}, and using Euler's identity, along with the trigonometric identity \(1 - \cos 2\varphi = 2\sin^2 \varphi\), we finally get
 \begin{align}
   \label{eq:oscReIm}
   \begin{split}
@@ -159,7 +159,7 @@ Note that this result applies to \emph{neutrinos,} not antineutrinos. For the la
 \begin{equation}
   \ket{\nubar_\alpha(0)} = U_{\alpha i}\ket{\nubar_i}
 \end{equation}
-(compare to \autoref{eq:introOscInitialState}, and note the lack of complex conjugation on the matrix element). The preceding derivation then produces \eqref{eq:oscReIm} with the complex conjugations swapped.
+(compare to \autoref{eq:introOscInitialState}, and note the lack of complex conjugation on the matrix element). The preceding derivation then produces \autoref{eq:oscReIm} with the complex conjugations swapped.
 
 Now that we have defined the mixing angles and mass-squared splittings, it is worthwhile to enumerate the global best-fit values of these parameters, since the values will be alluded to in subsequent discussions. \autoref{tab:pdgOscPars} lists the values as compiled by the Particle Data Group \cite{PDG}. Currently, it is unknown whether the neutrino mass spectrum consists of two ``light'' states and one ``heavy'' state, or vice versa. This issue is discussed further in \autoref{sec:majorana}. The two possible \emph{orderings} (or \emph{hierarchies}) are labeled ``normal'' and ``inverted'', respectively, as illustrated in \autoref{fig:massOrdering}. Since the ordering affects the existing measurements of $\theta_{23}$ and $\Delta m^2_{23}$, \autoref{tab:pdgOscPars} gives values for both cases.
 
@@ -188,12 +188,12 @@ Now that we have defined the mixing angles and mass-squared splittings, it is wo
   \label{fig:massOrdering}
 \end{figure}
 
-In an experiment like Daya Bay, where we are looking for the \emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and antineutrinos is the same, and \eqref{eq:oscReIm} simplifies to
+In an experiment like Daya Bay, where we are looking for the \emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and antineutrinos is the same, and \autoref{eq:oscReIm} simplifies to
 \begin{equation}
   P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
     i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). 
 \end{equation}
-The matrix elements from \eqref{eq:upmnsParam} can then be inserted in order to derive the disappearance probability for a particular flavor. For electron antineutrinos, as at Daya Bay, the survival probability is
+The matrix elements from \autoref{eq:upmnsParam} can then be inserted in order to derive the disappearance probability for a particular flavor. For electron antineutrinos, as at Daya Bay, the survival probability is
 \begin{align}
   \label{eq:survProbDybFull}
   \begin{split}
@@ -219,9 +219,9 @@ Based on the value of $\Delta m^2_{21}$ given in \autoref{tab:pdgOscPars}, at th
     \abs{\Delta m^2_{32}} - \Delta m^2_{21}, & inverted hierarchy ($\Delta m^2_{32} < 0$), \\
   \end{cases*}
 \end{equation}
-Thus, by using this relation to eliminate one parameter, it is possible to perform a two-parameter fit of \eqref{eq:survProbDybFull} directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported; furthermore, they are subject to change if an improved determination of \(\Delta m^2_{21}\) is ever published.
+Thus, by using this relation to eliminate one parameter, it is possible to perform a two-parameter fit of \autoref{eq:survProbDybFull} directly, \emph{provided that the mass hierarchy is specified}. Since the mass hierarchy is currently unknown, two sets of results must be reported; furthermore, they are subject to change if an improved determination of \(\Delta m^2_{21}\) is ever published.
 
-Alternatively, we can recast \eqref{eq:survProbDybFull} in a form that refers only to an empirical \emph{effective} mass splitting \(\Delta m^2_{ee}\):
+Alternatively, we can recast \autoref{eq:survProbDybFull} in a form that refers only to an empirical \emph{effective} mass splitting \(\Delta m^2_{ee}\):
 \begin{equation}
   \label{eq:survProbDybEE}
   P(\nubar_e \rightarrow \nubar_e) \approx 1 - \cos^4\theta_{13}\sin^2 2\theta_{12} \sin^2 \Delta_{21}
@@ -231,15 +231,15 @@ where
 \begin{equation}
   \Delta_{ee} \equiv \frac{\Delta m^2_{ee}L}{4E}. 
 \end{equation}
-It must be noted that \eqref{eq:survProbDybEE} is not an exact re-parameterization of \eqref{eq:survProbDybFull}, since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve between $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to \(\Delta m^2_{21}\).
+It must be noted that \autoref{eq:survProbDybEE} is not an exact re-parameterization of \autoref{eq:survProbDybFull}, since the former contains only two frequencies rather than three. Again, however, Daya Bay cannot resolve between $\Delta_{31}$ and $\Delta_{32}$, so there is no practical loss in sensitivity with this approach. The advantage of it is that it produces a single value that is independent of the mass hierarchy and immune to changes wrought by updates to \(\Delta m^2_{21}\).
 
-\(\Delta m^2_{ee}\), as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into \eqref{eq:survProbDybEE}, gives the best fit to the data.
+\(\Delta m^2_{ee}\), as used here, has an \emph{operational,} rather than a physical, definition: It is simply the value that, when inserted into \autoref{eq:survProbDybEE}, gives the best fit to the data.
 %
 \begin{comment}
   Note that, if Daya Bay only measured antineutrinos at a single $L/E$, we could instead have made a truly physical definition of $\Delta m^2_{ee}$ by declaring that \[ \sin^2 \Delta_{ee} \equiv \cos^2\theta_{12} \sin^2 \Delta_{31} + \sin^2\theta_{12} \sin^2 \Delta_{32}. \] However, the righthand side of this definition depends on $L/E$, so unless this dependence is shown to be negligible, it cannot be used in broadband analyses such as Daya Bay's.
 \end{comment}
 %
-In Daya Bay's case, however, \(\Delta m^2_{ee}\) can be related to physical quantities to a very good degree of approximation. Returning to \eqref{eq:survProbDybFull}, it can be shown \cite{DocDbDm2ee} that, in Daya Bay's range of $L/E$,
+In Daya Bay's case, however, \(\Delta m^2_{ee}\) can be related to physical quantities to a very good degree of approximation. Returning to \autoref{eq:survProbDybFull}, it can be shown \cite{DocDbDm2ee} that, in Daya Bay's range of $L/E$,
 \begin{equation}
   \label{eq:dmPhi}
   \cos^2\theta_{12} \sin^2\Delta_{31} + \sin^2\theta_{12}\sin^2\Delta_{32}
@@ -250,7 +250,7 @@ where
   \phi \equiv \arctan\left( \frac{\sin2\Delta_{21}}{\cos2\Delta_{21}+ \tan^2
       \theta_{12}} \right),
 \end{equation}
-and ``+'' (``--'') corresponds to the normal (inverted) hierarchy. Inserting \eqref{eq:dmPhi} into \eqref{eq:survProbDybFull} and comparing to \eqref{eq:survProbDybEE} gives the approximate relation
+and ``+'' (``--'') corresponds to the normal (inverted) hierarchy. Inserting \autoref{eq:dmPhi} into \autoref{eq:survProbDybFull} and comparing to \autoref{eq:survProbDybEE} gives the approximate relation
 \begin{equation}
   \label{eq:dmPhiApprox}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{32}} \pm \Delta m^2_\phi/2,
@@ -259,12 +259,12 @@ where
 \begin{equation}
   \Delta m^2_\phi = \frac{4\phi E}{L}.
 \end{equation}
-Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to \(\cos^2\theta_{12}\Delta m^2_{21}\). Inserting that into \eqref{eq:dmPhiApprox}, we find that, for both mass hierarchies,
+Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially constant and equal to \(\cos^2\theta_{12}\Delta m^2_{21}\). Inserting that into \autoref{eq:dmPhiApprox}, we find that, for both mass hierarchies,
 \begin{equation}
   \label{eq:dmPhysical}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{31}\cos^2\theta_{12}} + \abs{\Delta m^2_{32}\sin^2\theta_{12}}.
 \end{equation}
-For all intents and purposes, this approximation is exact at Daya Bay. Hence Eqs. \eqref{eq:dmPhysical} and \eqref{eq:hierarchy} can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by \eqref{eq:survProbDybEE}, to the physical mass splittings:
+For all intents and purposes, this approximation is exact at Daya Bay. Hence Eqs. \autoref{eq:dmPhysical} and \autoref{eq:hierarchy} can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by \autoref{eq:survProbDybEE}, to the physical mass splittings:
 \begin{align*}
   \abs{\Delta m^2_{31}} = \Delta m^2_{ee} + \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
   & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} - \cos^2 \theta_{12} \Delta m^2_{21} \qquad
@@ -274,7 +274,7 @@ For all intents and purposes, this approximation is exact at Daya Bay. Hence Eqs
   & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} + \cos^2 \theta_{12} \Delta m^2_{21} \qquad
   & \text{(IH)}
 \end{align*}
-Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting \eqref{eq:survProbDybFull} and \eqref{eq:survProbDybEE}, finding that, in the end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this analysis will use \eqref{eq:survProbDybEE} and fit \(\Delta m^2_{ee}\).
+Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting \autoref{eq:survProbDybFull} and \autoref{eq:survProbDybEE}, finding that, in the end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this analysis will use \autoref{eq:survProbDybEE} and fit \(\Delta m^2_{ee}\).
 
 \section{Further reading}
 \label{sec:introFurther}

@@ -118,12 +118,12 @@ When hits are more closely spaced in time, however, the calculation is made more
   \label{fig:closeHitsExamples}
 \end{figure}
 
-Simply using \eqref{eq:corrChg} for all hits will result in over or underestimating the total charge, depending on the time separation between hits, as illustrated by the green/gray dots in \autoref{fig:closeHits}. For separations of less than $\sim$100~ns, the peak finder will approximately report the correct \emph{total} charge, but this charge will be assigned to two hits and will thus be double counted. This is shown in the first two columns of \autoref{fig:closeHitsExamples}. For separations of $\sim$100--250~ns, the samples will not reach baseline and thus a single peak value will still be reported twice, but in this case the peak's amplitude is low enough that double-counting it will more closely approximate the total charge than single-counting it. However, the pre-ADC for the second hit is biased by the samples from the first hit, and so this pre-ADC should be discarded in favor of the one from the first hit. Finally, for separations greater than $\sim$250~ns, the samples will hit the baseline in between the peaks, so two different peak values will be reported, and both should be used, but once again, the pre-ADC for the second hit may be biased by the first hit (whose shaped pulse includes an undershoot that extends for several hundred ns beyond the positive pulse).
+Simply using \autoref{eq:corrChg} for all hits will result in over or underestimating the total charge, depending on the time separation between hits, as illustrated by the green/gray dots in \autoref{fig:closeHits}. For separations of less than $\sim$100~ns, the peak finder will approximately report the correct \emph{total} charge, but this charge will be assigned to two hits and will thus be double counted. This is shown in the first two columns of \autoref{fig:closeHitsExamples}. For separations of $\sim$100--250~ns, the samples will not reach baseline and thus a single peak value will still be reported twice, but in this case the peak's amplitude is low enough that double-counting it will more closely approximate the total charge than single-counting it. However, the pre-ADC for the second hit is biased by the samples from the first hit, and so this pre-ADC should be discarded in favor of the one from the first hit. Finally, for separations greater than $\sim$250~ns, the samples will hit the baseline in between the peaks, so two different peak values will be reported, and both should be used, but once again, the pre-ADC for the second hit may be biased by the first hit (whose shaped pulse includes an undershoot that extends for several hundred ns beyond the positive pulse).
 
 On account of this behavior, an algorithm was designed with the goal of minimizing the overall bias in the total charge (as studied under the scenario of two SPE hits) \cite{closeHits}. In what follows, $\Delta t$ is the time since the previous hit in the same readout:
 
 \begin{enumerate}
-\item If the hit is the first one in the readout, treat it simply using \eqref{eq:corrChg}.
+\item If the hit is the first one in the readout, treat it simply using \autoref{eq:corrChg}.
 \item If $\Delta t < \SI{100}{ns}$, set the hit's calibrated charge to zero. In this case the aim is to avoid double-counting the total charge, as illustrated in the first two columns of \autoref{fig:closeHitsExamples}.
 \item If $\Delta t \ge \SI{100}{ns}$, and the peak value is the same as that of the previous hit, use the pre-ADC of the \emph{previous} hit. This avoids the bias on the second pre-ADC value, as shown in the third column of \autoref{fig:closeHitsExamples}.
 \item If $\Delta t \ge \SI{100}{ns}$ and a \emph{different} peak values is reported, ignore the hit's pre-ADC, and instead subtract the parameterized tail shape of the previous pulse (as this tail is essentially the ``true'' pedestal of the hit). This method, dubbed \emph{charge correction}, was developed by the author.
@@ -132,10 +132,10 @@ On account of this behavior, an algorithm was designed with the goal of minimizi
 However, studies showed that the overall effect (on resolution and bias of reconstructed energy) of the undershoot correction was negligible, at the cost of considerable operational complexity (in maintaining the parameterization of the pulse shapes). In the end, the algorithm as implemented goes:
 
 \begin{enumerate}
-\item If the hit is the first one in the readout, again treat it simply using \eqref{eq:corrChg}.
+\item If the hit is the first one in the readout, again treat it simply using \autoref{eq:corrChg}.
 \item If $\Delta t < \SI{100}{ns}$, \emph{and the peak value is the same as that of the previous hit}, set the hit's calibrated charge to zero.
 \item If $\Delta t \ge \SI{100}{ns}$, \emph{whether the peak value is the same as or diffrent from the previous one}, use the pre-ADC from the \emph{previous} hit.
-\item \emph{(Special case)} If $\Delta t < \SI{100}{ns}$, and the peak value is \emph{different}, treat the hit simply using \eqref{eq:corrChg}. The reasoning for this special case does not seem to be documented, and it likely only applies to the (rare) scenario of two closely spaced sub-SPE hits, for which it may be possible for the ADC to hit baseline in between the two peaks. In this scenario, keeping both hits may produce a more accurate charge measurement.
+\item \emph{(Special case)} If $\Delta t < \SI{100}{ns}$, and the peak value is \emph{different}, treat the hit simply using \autoref{eq:corrChg}. The reasoning for this special case does not seem to be documented, and it likely only applies to the (rare) scenario of two closely spaced sub-SPE hits, for which it may be possible for the ADC to hit baseline in between the two peaks. In this scenario, keeping both hits may produce a more accurate charge measurement.
 \end{enumerate}
 
 \begin{figure}[ht]
@@ -144,7 +144,7 @@ However, studies showed that the overall effect (on resolution and bias of recon
   \label{fig:closeHits}
 \end{figure}
 
-This algorithm is illustrated in \autoref{fig:closeHits}, which shows how this ``piecewise'' calculation reduces the overall bias compared to the naive application of \eqref{eq:corrChg} to all hits. In practice, however, only the \emph{first} hit (within a specified time window) is used in reconstructing the energy of an event. The reasons for this, and the details of the reconstruction, are discussed in \autoref{sec:reconEnergyCharge}.
+This algorithm is illustrated in \autoref{fig:closeHits}, which shows how this ``piecewise'' calculation reduces the overall bias compared to the naive application of \autoref{eq:corrChg} to all hits. In practice, however, only the \emph{first} hit (within a specified time window) is used in reconstructing the energy of an event. The reasons for this, and the details of the reconstruction, are discussed in \autoref{sec:reconEnergyCharge}.
 
 % \subsubsection{Single-channel electronics nonlinearity correction}
 % \label{sec:calibSCNL}
