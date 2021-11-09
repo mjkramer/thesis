@@ -229,104 +229,12 @@ Meanwhile, the production of Cherenkov light is a complicated and nonlinear func
 \end{equation}
 The Daya Bay scintillator has an index of refraction of approximately 1.5 \cite{Band:2012dh}, giving, for positrons, a threshold of 0.7~MeV; adding the additional $\sim$0.5~MeV from the annihilated electron, this implies that Cherenkov light becomes relevant for reconstructed energies above $\sim$ 1.2~MeV, i.e., the vast majority of the IBD positron spectrum.
 
-As for the electronics, the nonlinearity arises largely from the fact that only the \emph{first} hit is used from each PMT in the charge calculation, leading to the potential exclusion of delayed light from the scintillator. All three of these effects (quenching, Cherenkov emission, and electronics nonlinearity) are detailed later in this section.
-
-An additional complication originates from the dependence of the AD's response on the type of particle in question. By construction, AdSimple's $\Erec$ will report the correct deposited energy for the $\sim$8~MeV gamma-ray peak produced by nGd capture. However, due to the nonlinearities just described, $\Erec$ will report a different value for a \emph{positron} that deposits 8~MeV. As described below, this effect must be considered when constructing the conversion between $E_{\mathrm{rec}}$ and $E_{\mathrm{dep}}$ for positrons.\footnote{Given that, for the purpose of oscillation physics, the IBD positron spectrum is the only one whose shape carries any significance, there is no need in this analysis to apply separate corrections for purported gamma ray, electron, or alpha particle events. Indeed, the delayed (i.e. nGd gamma ray) spectrum does not undergo any nonlinearity correction here.}) All in all, the ratio of $E_{\mathrm{rec}}$ to $E_{\mathrm{dep}} $varies by some 10\% across the range of energies used in the analysis (0.7--12~MeV). If this nonlinearity is not corrected for,\footnote{The nonlinearity correction is not actually performed during reconstruction. Instead, the correction is applied by the fitter (\autoref{chap:fitting}), which takes AdSimple's $\Erec$ and converts it into $\Enu$. However, as this is merely an implementation detail, we discuss the conversion in this chapter, along with the other preceding steps of the energy reconstruction.} then the resulting distortion in the IBD positron spectrum will potentially bias the extraction of $\Dmsqee$.
-
-The nonlinearity correction thus converts $E_{\mathrm{rec}}$ into $E_{\mathrm{dep}},$ which can then be trivially converted to the true neutrino energy, $\Enu$, using \autoref{eq:enuToEdep}:
-\begin{equation}
-  \Enu \simeq \Edep + \SI{0.80}{MeV} 
-\end{equation}.
-In what follows, the phrase ``positron energy'' refers to $E_{\mathrm{dep}}$, which can be trivially related to the kinetic energy $E_{\mathrm{kin}}$ and the relativistic energy $E_{\mathrm{rel}}$ via
-\begin{equation}
-  \Edep = E_{\mathrm{kin}} + 2m_e = E_{\mathrm{rel}} + m_e.
-\end{equation}
-
-The scintillator (quenching + Cherenkov)  and electronics nonlinearities are both on the scale of 10\%, and work in opposite directions: The scintillator response is suppressed for low-energy events, while the electronics show a reduced response for high-energy events. Nevertheless, they do not cancel each other very effectively, so each must be treated separately and carefully. We begin with the scintillator. In terms of physical processes, the scintillator nonlinearity determines $\Evis$ from $\Edep$, and then the electronics nonlinearity determines $\Erec$ from $\Evis$. In analysis, this logic is reversed in order to determine $\Edep$ given $\Erec$\footnote{Recall that any effects from geometric nonuniformity have already been removed in the computation of $\Erec$.}.
-
-In detailing the nonlinearity correction, we begin by discussing the AD's response to electrons, rather than positrons. For organic scintillators such as the Daya Bay LS, quenching is quantitatively well described by \emph{Birks' law} \cite{Birks_1951},
-\begin{equation}
-  \frac{dQ}{dx} \propto \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}
-  \label{eq:reconBirks}
-\end{equation}
-where $Q$ is the amount of emitted light, $dE/dx$ is the linear density of \emph{ionization} energy deposition, and the scintillator-specific value $k_B$ is known as Birks' constant.
-
-If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \eqref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
-\begin{equation}
-  f_q(\Edepelec,k_B) = \int_0^{\Edepelec} \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}.
-  \label{eq:reconBirksInt}
-\end{equation}
-Plots of $f_q$ for different values of $k_B$ are shown in \autoref{fig:reconBirksInt}.
-
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Reconstruction/s04_Quench_kb.pdf}
-  \caption{Dependence of the scintillation energy on the deposited energy of electrons, for various values of Birks' constant $k_B$. From \cite{NonlinearityPaper}.}
-  \label{fig:reconBirksInt}
-\end{figure}
-
-Although Cherenkov emission is the sole source of light in the Daya Bay water pools, it plays a subpercent role in the ADs. The energy dependence of Cherenkov emission was determined from Geant4 simulations (and independently confirmed by an analytic calculation), giving the tabulated function $f_c(\Edepelec)$ (\autoref{fig:cerenkovShape}), which was arbitrarily assigned a ($k_B$-dependent) normalization such that $f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$. 
-
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Reconstruction/s04_CerenkonContribution.pdf}
-  \caption{Energy dependence of the Cherenkov contribution to light emission by electrons in the LS (here, arbitrarily normalized at 1~MeV), from \cite{NonlinearityPaper}. The actual normalization of this function was determined by a fit to measurements of the nonlinearity, as described in \cite{NonlinearityPaper}.}
-  \label{fig:cerenkovShape}
-\end{figure}
-
-Altogether, the combined effects on electrons of quenching and Cherenkov emission are therfore described by the relation
-\begin{equation}
-  \label{eq:reconScintNonlin}
-  \frac{E_{\mathrm{vis},e^-}}{\Edepelec} = \beta_{\mathrm{vis}}[f_q(\Edepelec, k_B) + k_c f_c(\Edepelec)],
-\end{equation}
-where $f_q$ is given by \autoref{eq:reconBirksInt}, and $f_c$ (which, being tabulated from simulation data, cannot be expressed as an equation) is, again, shown in \autoref{fig:cerenkovShape}. Here, we have introduced the constant $k_c$, which describes the ratio of the amount of Cherenkov emission to scintillation. $\beta_{\mathrm{vis}}$ is an arbitrary normalization. The parameters $k_B$ and $k_c$ are determined from data, as will be described shortly.
-
-Thus far we have only discussed the response of the scintillator to electrons. The end goal, however, is to characterize the response to \emph{positrons,} since that is what will allow the measurement of the antineutrino spectrum. Before the positron annihilates, it effectively ionizes the medium in the same manner as an electron would. Following ionization, we measure the response of the scintillator to two 511~keV gamma rays. Accordingly,
-\begin{equation}
-  \label{eq:reconScintPositron}
-  E_{\mathrm{vis},e^+}(E_{\mathrm{kin}}) = E_{\mathrm{vis},e^-}(E_{\mathrm{kin}}) + 2 \times E_{\mathrm{vis},\gamma}(\SI{0.511}{MeV}).
-\end{equation}
-
-Gamma rays, in turn, do not themselves ionize, but they do produce and scatter electrons and positrons. The total response to gamma rays is, accordingly, rather complex, given the need to account for annihilation and pair production \emph{ad nauseam}. As such, Geant4 simulation were used to determine the response of the scintillator to gamma rays, as a function of $k_B$ and $k_c$. The (ionization) energy deposited by each simulated electron and positron (\autoref{fig:reconGammaElectrons}) was converted into visible energy according to \eqref{eq:reconScintNonlin}, and the sum gave the visible energy from each gamma ray. With the response to gamma rays thus determined, it could be plugged into \eqref{eq:reconScintPositron} to give the response to positrons.
-
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Reconstruction/s04_Gamma_electron.pdf}
-  \caption{Distribution of kinetic energies of electrons produced by gamma rays of a variety of initial energies. From \cite{NonlinearityPaper}.}
-  \label{fig:reconGammaElectrons}
-\end{figure}
-
-In addition to the nonlinear light \emph{emission} of the scintillator, there is also nonlinear light \emph{measurement} caused by the design of the electronics. As was described in \autoref{sec:reconHitSelection}, the charge (i.e. light) in each channel is determined by taking the \emph{first} hit within the nominal time window. And as was described in \autoref{sec:calibHitCharge}, the first hit will tend to accurately measure the light observed by the PMT, \emph{provided that all of the photons arrived within 100~ns of each other.} However, some 5\% of the light is from the slow component, and will therefore arrive too late to be captured by the hit that corresponds to the fast/medium light. Thus, high-energy events, in which every channel ``sees'' some fast/medium light, will fail to record any of the slow light. Conversely, in a lower-energy event, some of the slow light \emph{will} be recorded, since there is not enough fast/medium light to hit every channel. This means that the electronics response is slightly suppressed for high-energy events and slightly enhanced for low-energy ones.
-
-Based on a combination of measurements and simulations, this behavior was found to be adequately described by the relation
-\begin{equation}
-  \frac{\Erec}{\Evis} = \beta_{\mathrm{rec}}\left[ 1 + \alpha \left( - \frac{\Evis}{\tau} \right) \right],
-  \label{eq:reconScintElec}
-\end{equation}
-where $\alpha$ and $\tau$ are, like $k_B$ and $k_c$, constrained by measurements, and $\beta_{\mathrm{rec}}$ is, like $\beta_{\mathrm{vis}}$, merely an arbitrary normalization. The product $\beta_{\mathrm{vis}}\beta_{\mathrm{rec}}$, by convention, is chosen to ensure that $\Erec = \Edep$ for 8~MeV electrons.
-
-In order to determine the four parameters $k_B$, $k_c$, $\alpha$, and $\tau$ of the nonlinearity model, a fit was performed to a dataset consisting of the peaks from twelve gamma rays (from deployed sources and natural radioactivity) as well as the electron spectrum from decays of cosmogenic $^{12}$B \cite{NonlinearityPaper}, as shown in \Autoref{fig:reconGammaLines,fig:reconB12}. The measured values of $\Erec$ were compared to those predicted by simulation (for a given set of the parameters), and the best-fit parameters were determined as those that minimized the $\chi^2$ between measurement and prediction. As no significant differences in nonlinearity were observed between ADs, a single nonlinearity model is used for all eight. The best-fit parameters were found to be $k_B = 15 \times 10^{-3}\;\mathrm{cm\, MeV^{-1}}$, $k_c = 0.5\%$, $\alpha = 0.078$, and $\tau = \SI{2.55}{MeV}$. However, these values depend on the assumed shapes $f_q$ and $f_c$, which in turn depend on the configuration of Geant4. Accordingly, our analysis does not make direct use of these four parameters; instead we use the digitized nonlinearity curve published in \cite{NonlinearityPaper}, as shown in \autoref{fig:reconPositronNominal}, which includes a 68\% uncertainty band (derived from the $\chi^2$ fit), corresponding to a precision of about 1\%.
-
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Reconstruction/s06_LSNL_bestfit.pdf}
-  \caption{Measured LS nonlinearity for various energies of gamma-rays. From \cite{NonlinearityPaper}.}
-  \label{fig:reconGammaLines}
-\end{figure}
-
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{Reconstruction/s06_B12_bestfit.pdf}
-  \caption{The reconstructed energy spectrum from $^{12}$B (with a minor contribution from $^{12}$N). Also shown is the prediction obtained from the best-fit nonlinearity model (equations \autoref{eq:reconScintNonlin} $\times$ \autoref{eq:reconScintElec}). From \cite{NonlinearityPaper}.}
-  \label{fig:reconB12}
-\end{figure}
+As for the electronics, the nonlinearity arises largely from the fact that only the \emph{first} hit is used from each PMT in the charge calculation, leading to the potential exclusion of delayed light from the scintillator. All three of these effects (quenching, Cherenkov emission, and electronics nonlinearity) are detailed in \autoref{sec:reconEnergyNLDetails}. Here we simply present the total nonlinearity model used in this analysis, as illustrated in \autoref{fig:reconPositronNominal}. For each IBD event, this curve is used to convert the prompt reconstructed energy into the corresponding antineutrino energy during the oscillation fit (see \autoref{fig:fitExtrapCartoonOverview} and \autoref{sec:fitNearToFarPred}).
 
 \begin{figure}[h]
   \includegraphics[scale=0.5]{Reconstruction/s06_PositronNominal.pdf}
   \caption{Best-fit nonlinearity model for positrons. From \cite{NonlinearityPaper}.}
   \label{fig:reconPositronNominal}
 \end{figure}
-
-The scintillator nonlinearity was cross-checked using the 53-MeV Michel electron from muon decay as well as the $\beta+\gamma$ spectra from $^{212}$Bi, $^{214}$Bi, and $^{208}$Tl decays, while the electronics nonlinearity was validated using data from a fast ADC system that directly recorded the PMT waveforms in one AD \cite{HUANG201848}. Further validation involved verifying that the best-fit model remained stable under removal of any single calibration point. The results of these studies were consistent with the uncertainty band of the nonlinearity model.
-
-\section{Vertex reconstruction}
-\label{sec:reconVertexOverview}
-
-XXX see \autoref{chap:vertexReconDetails}.
 
 \end{document}
