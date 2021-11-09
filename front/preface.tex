@@ -19,29 +19,29 @@ Working on Daya Bay has given this author the opportunity to contribute to a bro
 \item Involvement in generation of calibration constants for the energy reconstruction (\autoref{sec:reconEnergyScale}), and in the automation of this system.
 \item Original development of the LBNL $^9$Li analysis (\autoref{sec:bkgCosmo}), which was further extended by Marshall \cite{ChrisLi9} to support spectrum extraction and improved calculations of efficiencies and uncertainties. This work forms, together with other independent evaluations, the basis of the $^9$Li/$^8$He rates used in official Daya Bay results.
 \item Development of Monte Carlo methods for predicting the muon veto efficiency from the rates of different classes of muons (\autoref{sec:cutVaryMuVetoEff}).
-\item A novel method for analytically calculating the singles rate (and, by extension, the accidentals rate and multiplicity cut efficiency) using the Lambert W function (\autoref{sec:singratescalc}).
+\item Development of techniques to correct background rates for changes in IBD selection criteria, without rerunning the original background analyses (\autoref{chap:cutVary}).
+\item Development of a novel method for analytically calculating the singles rate (and, by extension, the accidentals rate and multiplicity cut efficiency) using the Lambert W function (\autoref{sec:singratescalc}).
 \item A Monte Carlo method for computing the statistical uncertainty of the accidentals rate (\autoref{sec:accStatUnc}).
 % \item Detailed studies of the differences between the IBD selections of different analysis groups.
+\item Development of methods of measuring the neutron-capture spectra and calculating the efficiency of the delayed-energy cut (\autoref{sec:cutVaryDelCutEff}).
+\item An implementation of vertex cuts for the n-Gd oscillation analysis (\autoref{sec:cutVaryVertexCut}), an analysis in which such cuts have previously been minimally investigated (in contrast to the n-H analysis.)
 \item A modular and extensible C++ framework for high-performance processing of event streams in ROOT format, allowing for filtering events, transforming them, collecting statistics, and searching for time-correlated event clusters, such as IBD double coincidences \cite{SelectorFramework}. Arbitrarily complex event selections can be rapidly implemented on top of this framework. A suite of scripts and tools enable deployment on Slurm-compatible high-performance computing systems for processing petabyte-scale datasets.
 \item An IBD (and singles) selection \cite{IbdSel} built on the aforementioned framework (\autoref{chap:selection}). The performance and flexibility of this implementation makes possible the rapid and systematic exploration of changes to the IBD selection criteria (\autoref{chap:cutVary}).
-\item Documentation
-\item Parallelization and reorganization of the fitter.
-\item Studies of nonuniformity in EH3-AD4 etc.
-\item Technical implementation of AdSimpleNL.
-\item Running production.
-\item Maintenance and debugging of NuWa.
-\item Convening DQWG. Development of scripts, procedures, docs.
-\item Development of DQ website.
-\item Maintenance of CQ DB. Scripts, procedures, docs.
-\item Cut variation.
-\item Remote DAQ for the tabletop NL measurement.
-\item Muon track reconstruction?
-\item Detective work, e.g. NominalCharge bug.
-\item Techniques to correct background rates for changes in cuts, without rerunning the original background analysis.
-\item Calibration automation (spallation neutrons).
-\item Integration of all the pieces of the chain, consistency of inputs etc.
-\item Methods of measuring the neutron capture spectra and calculating delayed efficiency.
-\item DQ shift procedures.
+\item Various contributions to (but not the original development of) the LBNL toy Monte Carlo and oscillation fitter (\Autoref{chap:fitting,chap:fittingDetails}), including reorganization of the code, documentation of internals, updates for new datasets, and, most notably, significant performance improvements. Using aggressive multithreading and process-based concurrency, runtime was reduced by an order of magnitude (\autoref{sec:cutVaryTechReq}), making possible our cut-variation study.
+\item Extensive involvement in the migration of Daya Bay's data production process from NERSC's legacy PDSF computing cluster to the Cori high-performance computing system, requiring a bottom-up redesign of the production system. The $\sim$500~TB of data in the P17B dataset was sucessfully processed on Cori, with an order-of-magnitude improvement in production time.
+% \item Studies of nonuniformity in EH3-AD4 etc.
+% \item Technical implementation of AdSimpleNL.
+\item Contributions to and maintenance of various components of \texttt{NuWa}, Daya Bay's offline analysis framework (\autoref{sec:selProd}), particularly the components related to time, charge, and energy calibration and reconstruction.
+\item Co-convenorship of the Daya Bay Data Quality Working Group, responsible for data quality for Daya Bay publications since 2017 (\autoref{sec:selDataQuality}). Development of various data quality procedures, tools, and documentation. Maintenance and repair of data quality database.
+\item Development of a website for data quality activities, enabling exploration of data quality via various metrics, interactive (un)tagging of bad data, and reviews of the tagging decisions made by data quality shifters. This website made it much easier to carry out a data quality shift, increasing participation in this important role by members of the Collaboration.
+  % \item Maintenance of CQ DB. Scripts, procedures, docs.
+\item Cross-checks of the consistency of IBD candidate samples between different analysis groups, prior to publication of official oscillation results.
+% \item Remote DAQ for the tabletop NL measurement.
+% \item Muon track reconstruction?
+% \item Detective work, e.g. NominalCharge bug.
+% \item Calibration automation (spallation neutrons).
+% \item Integration of all the pieces of the chain, consistency of inputs etc.
+% \item DQ shift procedures.
 \end{itemize}
 
 A note on terminology: Throughout this work, the term ``spectrum'' will typically be used to refer to both the \emph{rate} and the \emph{spectral shape} (e.g., in terms of reconstructed energy) of some process. More concretely, a spectrum can be thought of as an energy histogram. When it is clear from the context, ``spectrum'' may occassionally refer to only the spectral shape; when we need to be more explicit, ``shape'' will be used in situations where the rate is irrelevent.
