@@ -56,3 +56,9 @@
 \DefineBibliographyStrings{english}{
   andothers = {\mkbibemph{et\addabbrvspace al\adddot}}
 }
+
+% https://tex.stackexchange.com/questions/6456/set-a-global-policy-for-floats-positioning
+\makeatletter
+\renewcommand{\fps@figure}{!ht}
+\renewcommand{\fps@table}{!ht}
+\makeatother
