@@ -7,7 +7,7 @@
 
 % XXX See Kam-Biu's initial comment. Need plots/tables showing the effect of each cut. Also add a plot/flowchart for DQ shift process. Maybe a screenshot?
 
-From the sequence of reconstructed triggers in the ADs, we are primarily interested in extracting IBD candidates, in order to obtain the antineutrino rate and spectrum. The tight time correlation of the prompt and delayed triggers, as well as the relatively high 8~MeV energy released from the nGd capture, enable the extraction of a $\sim$98\% pure sample of IBDs, from which the independently estimated backgrounds can then be subtracted.
+From the sequence of reconstructed triggers in the ADs, we are primarily interested in extracting IBD candidates, in order to obtain the antineutrino rate and spectrum. The tight time correlation of the prompt and delayed triggers, as well as the relatively high 8~MeV energy released from the neutron capture on gadolinium (nGd capture), enable the extraction of a $\sim$98\% pure sample of IBDs, from which the independently estimated backgrounds can then be subtracted.
 
 Aside from the IBD selection, this analysis also employs an extraction of \emph{singles,} that is, those events that produce only a single trigger, uncorrelated in time with any others. The purpose of the singles sample is to enable determination, firstly, the rate and spectrum of backgrounds produced by accidental coincidences, and secondly, the efficiency of the multiplicity cut (discussed in \autoref{sec:pairSel}).
 
@@ -153,7 +153,7 @@ Data quality records, such as the aforementioned reports from shifters, are main
 
 The DQ metrics are calculated and recorded at IHEP during Keep Up Production (KUP), in which Daya Bay's data production software (which carries out calibration, reconstruction, tagging, etc.) is automatically run on each new raw data file received from onsite. During KUP, calibration is performed using the ``old'' constants from the end of the previous data production, so the results are not suitable for precise analysis, but they suffice for monitoring detector stability and sanity.
 
-For each detector, the KUP software calculates the rates of various event classes (overall triggers, prompt-like events, $^{40}$K events, etc.), the energies of various peaks ($^{40}$K, n-Gd capture, etc.), and the rate of infrequent blocked triggers (caused by excessive pileup, typically by noise in the electronics). These quantities are then uploaded to the DQDB for use by external tools employed by DQ shifters and the DQWG.
+For each detector, the KUP software calculates the rates of various event classes (overall triggers, prompt-like events, $^{40}$K events, etc.), the energies of various peaks ($^{40}$K, nGd capture, etc.), and the rate of infrequent blocked triggers (caused by excessive pileup, typically by noise in the electronics). These quantities are then uploaded to the DQDB for use by external tools employed by DQ shifters and the DQWG.
 
 The review of these metrics is the responsibility of the DQ shifter, Daya Bay's second line of defense. The DQ shifter uses the DQ shift website to view time series plots of one or more selected metrics (\autoref{fig:selDybvdqShot}). All metrics, and all detectors in a given hall, are shown on the same page. Under general circumstances, the DQ shifter typically looks at the prompt-like rate, the $^{40}$K peak energy, and the AD and WP blocked trigger rates, since the vast majority of data quality issues will manifest themselves in at least one of these plots.
 
