@@ -12,18 +12,19 @@ In order to provide the reader with a reasonably clear understanding of the comp
 Working on Daya Bay has given this author the opportunity to contribute to a broad range of the pieces that together form our final results. As a summary of this work, we proceed to list a number of our main contributions, along with references to corresponding sections of the text.\footnote{The order of this list roughly follows that of the text.}
 
 \begin{itemize}
-\item Onsite participation in PMT testing and installation, AD assembly, detector commissioning, and data-taking.
-\item Assistance in development of the algorithm for calculating the amount of calibrated charge for each PMT hit, particularly by studying the response of the electronics to multiple hits spaced closely in time.
-\item Implementation of the algorithm for calculating the calibrated time of each PMT hit, and preparation of the calibration constants.
-\item Implementation and validation (but not the original development) of the time-dependent nonuniformity correction for the energy reconstruction.
-\item Assistance in generation of calibration constants for the energy reconstruction.
-\item A novel derivation of the time-to-last-muon distribution for $^9$Li/$^8$He backgrounds, as well as early studies of the rate of this background (the code from which was extended and used for Daya Bay's official results), and later reevaluations and generalizations of the rate measurement.
-\item Development of Monte Carlo methods for predicting the muon veto efficiency from the rates of different classes of muons.
-\item A novel method for analytically calculating the singles rate (and, by extension, the accidentals rate and multiplicity cut efficiency) using the Lambert W function.
-\item A Monte Carlo method for computing the statistical uncertainty of the accidentals rate.
-\item Detailed studies of the differences between the IBD selections of different analysis groups.
-\item The IBD selection.
-\item Selector framework.
+\item Onsite involvement in PMT testing and installation, AD assembly, detector commissioning, and data-taking.
+\item Involvement in development of the algorithm for calculating the amount of calibrated charge for each PMT hit, particularly by studying the response of the electronics to multiple hits spaced closely in time (\autoref{sec:calibHitCharge}).
+\item Implementation of the algorithm for calculating the calibrated time of each PMT hit, and preparation of the calibration constants (\autoref{sec:calibTiming}).
+\item Implementation and validation (but not the original R\&D) of the time-dependent nonuniformity correction for the energy reconstruction (\autoref{sec:reconEnergyNU}).
+\item Involvement in generation of calibration constants for the energy reconstruction (\autoref{sec:reconEnergyScale}), and in the automation of this system.
+\item Original development of the LBNL $^9$Li analysis (\autoref{sec:bkgCosmo}), which was further extended by Marshall \cite{ChrisLi9} to support spectrum extraction and improved calculations of efficiencies and uncertainties. This work forms, together with other independent evaluations, the basis of the $^9$Li/$^8$He rates used in official Daya Bay results.
+\item Development of Monte Carlo methods for predicting the muon veto efficiency from the rates of different classes of muons (\autoref{sec:cutVaryMuVetoEff}).
+\item A novel method for analytically calculating the singles rate (and, by extension, the accidentals rate and multiplicity cut efficiency) using the Lambert W function (\autoref{sec:singratescalc}).
+\item A Monte Carlo method for computing the statistical uncertainty of the accidentals rate (\autoref{sec:accStatUnc}).
+% \item Detailed studies of the differences between the IBD selections of different analysis groups.
+\item A modular and extensible C++ framework for high-performance processing of event streams in ROOT format, allowing for filtering events, transforming them, collecting statistics, and searching for time-correlated event clusters, such as IBD double coincidences \cite{SelectorFramework}. Arbitrarily complex event selections can be rapidly implemented on top of this framework. A suite of scripts and tools enable deployment on Slurm-compatible high-performance computing systems for processing petabyte-scale datasets.
+\item An IBD (and singles) selection \cite{IbdSel} built on the aforementioned framework (\autoref{chap:selection}). The performance and flexibility of this implementation makes possible the rapid and systematic exploration of changes to the IBD selection criteria (\autoref{chap:cutVary}).
+\item Documentation
 \item Parallelization and reorganization of the fitter.
 \item Studies of nonuniformity in EH3-AD4 etc.
 \item Technical implementation of AdSimpleNL.
