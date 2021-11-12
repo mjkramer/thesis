@@ -169,8 +169,9 @@ Regarding results: Don't comment on ``structure'' until we've regenerated the 2D
 \subsection{Fit results}%
 \label{sec:cutVaryMuVetoDataResults}
 
+% XXX
 % from plot_fit_results import *
-% plot_all("fine_toymc", is_data=False, offset_decimals=[1, 3])
+% plot_all("fine_toymc@bcw@@redo", is_data=False, offset_decimals=[1, 3])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_mid_toymc.pdf}%
@@ -185,13 +186,13 @@ Regarding results: Don't comment on ``structure'' until we've regenerated the 2D
 Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto parameters, with the charge threshold ranging from $1.8\times10^5$ to $4.4\times10^5$ photoelectrons, and the veto time ranging from 0.25 to 1.875 seconds. \autoref{fig:cutVaryVetoEffToyResults} shows the results of the fits. The variation is on the order of 0.01\%, which is far below the scale of the analysis's uncertainty, and is likely attributable to rounding error of some kind. Thus, as expected, the toy MC predicts essentially no variation in the results of the oscillation analysis when the shower-muon veto is varied.
 
 % from plot_fit_results import *
-% plot_all("super_shower_grid", is_data=True)
+% plot_all("super_shower_grid@bcw@@redo", is_data=True)
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_best.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/ShowerVeto/dm2_best.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fit to P17B data as a function of the shower-muon veto parameters. Note different scale compared to \autoref{fig:cutVaryVetoEffToyResults}. On the left is $\SinSq$ and on the right is $\Dmsqee$. \marknom}
   \label{fig:cutVaryVetoEffDataResults}
@@ -201,9 +202,10 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 
 \newcommand\fourShowerNote{The optimal (lowest) uncertainty is marked with a white star. \marknom\ The bottom plots use alternative color scales chosen to highlight details near the nominal and optimum cuts.}
 
+% XXX
 % from plot_fit_results import *
-% plot_unc_all("fine_toymc", is_data=False)
-% plot_unc_all("fine_toymc", is_data=False, vmax=[3.55e-3, 0.94e-4])
+% plot_unc_all("fine_toymc@bcw@@redo", is_data=False)
+% plot_unc_all("fine_toymc@bcw@@redo", is_data=False, vmax=[3.55e-3, 0.94e-4])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc_toymc.pdf}%
@@ -222,8 +224,8 @@ Toy samples were produced and fit in a uniform 14$\times$14 grid of shower veto 
 \end{figure}
 
 % from plot_fit_results import *
-% plot_unc_all("super_shower_grid", is_data=True)
-% plot_unc_all("super_shower_grid", is_data=True, vmax=[3.725e-3, 1.01e-4])
+% plot_unc_all("super_shower_grid@bcw@@redo", is_data=True)
+% plot_unc_all("super_shower_grid@bcw@@redo", is_data=True, vmax=[3.725e-3, 1.01e-4])
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/ShowerVeto/s2t_unc.pdf}%
@@ -354,8 +356,9 @@ In most of the results that follow, we show the outcome of using the \texttt{ori
 \subsection{Results}
 \label{sec:cutVaryDelCutResults}
 
+% XXX
 % from plot_fit_results import *
-% plot_fit_all("delcut_second_toymc_v2_fit@a3c4_ana@85a6")
+% plot_fit_all("delcut_fourth_toymc@bcw@@redo")
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/DelayedCut/s2t_mid_toymc.pdf}%
@@ -372,7 +375,7 @@ As a sanity check, we begin by fitting the toy MC samples. The toy MC does not s
 The background rates were scaled as described in \autoref{eq:cutVaryDelCutCorrBkgScale}.
 
 % from plots_20210129 import *
-% plot_input(["delcut_second_toymc_v2_fit@a3c4_ana@85a6"], "acc_bkg", "acc_bkg_unc")
+% plot_input(["delcut_fourth@bcw@rel@new@@redo"], "acc_bkg", "acc_bkg_unc")
 \begin{figure}[ht]
   \includegraphics[scale=0.5]{CutVary/DelayedCut/acc_bkg.pdf}
   \caption{Accidental background rates (livetime-averaged across ADs in each hall) as a function of the delayed-energy cut. The full singles spectrum (from 0.7 to 12~MeV), taken from the nominal IBD selection, was used for the calculation.}
@@ -405,6 +408,7 @@ As a sanity check, suppose that the far hall has a detection efficiency that is 
 
 The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant downtrend, culminating at approximately a third of the uncertainty. Moreover, two ``bumps'' are visible. These results suggest an unaccounted-for shape distortion for delayed-energy cuts below 5~MeV. The most likely explanation is that this comes from background. Although the total background \emph{rate} calculation appears to remain generally correct, given the stability of $\SinSq$, the background shape is apparently being treated incorrectly. We further explore possible explanations of this effect in \autoref{sec:cutVaryVertexCut}. For the time being, we simply note that $\Dmsqee$ remains extremely stable between 5 and 7~MeV. Below 5~MeV, we are entering ``dangerous'' territory, where there was never any intention for the nGd analysis to tread, so anomalous behavior here is both unsurprising and unconcerning.
 
+% XXX
 % from plot_fit_results import *
 % plot_fit_unc_thesis()
 \begin{figure}[ht]
@@ -422,10 +426,10 @@ The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant down
 % plot_bincomp()
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/DelayedCut/BCW/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/DelayedCut/s2t_best_bincomp.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/DelayedCut/BCW/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/DelayedCut/dm2_best_bincomp.pdf}%
   \end{minipage}%
   \caption{Comparison of delayed-energy cut variation (when fitting P17B data) between LBNL and BCW binning.}
   \label{fig:cutVaryDelCutDataResultsBCW}
@@ -496,20 +500,20 @@ The fitter, when subtracting the background, then takes $S_b(E)$, cuts it off at
 \autoref{fig:cutVaryPromptCutResultsData} shows the results of varying the prompt-energy cut. Happily, there is no significant variation in the best-fit values of $\SinSq$ and $\Dmsqee$. Likewise, the uncertainty remains stable, as shown in \autoref{fig:cutVaryPromptCutUncData}. Although an ``optimal'' uncertainty would be achieved with a prompt-energy cut of 0.85~MeV (presumably by optimizing the balance between statistics and the IAV uncertainty), the gain would amount to only a $\sim$1\% reduction in the final uncertainty on the oscillation parameters. Thus, with minimal effort, we have demonstrated that our analysis is stable against changes in the prompt-energy cut, and that there is nothing suboptimal about the nominal cut of 0.7~MeV.
 
 % from plot_fit_results import *
-% plot_fit_all()
+% plot_fit_all("procut_first@bcw@@redo")
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/PromptCut/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/s2t_best.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/PromptCut/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/PromptCut/dm2_best.pdf}%
   \end{minipage}%
   \caption{Results of oscillation fits to data under variations of the prompt-energy cut. On the left is $\SinSq$, and on the right is $\Dmsqee$.}
   \label{fig:cutVaryPromptCutResultsData}
 \end{figure}
 
 % from plot_fit_results import *
-% plot_fit_unc_all("procut_first")
+% plot_fit_unc_all("procut_first@bcw@@redo")
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/PromptCut/unc_s2t.pdf}%
@@ -692,13 +696,13 @@ As for the radial distribution, even though the AmC sources are located at three
 \autoref{fig:cutVaryVtxCutJustVertex} shows the results obtained when a vertex cut is applied on top of the nominal IBD selection. For the most part, each cut produces a result that lies less than $1\sigma$ from the full-AD result. This is encouraging, especially given the simplifications employed in correcting the background rates (particularly for the fast-neutron background). Moreover, statistically independent subsamples are not overly biased toward either side of the nominal result, providing a reassuring sign of internal consistency. The deviations are not entirely symmetric about the nominal result, suggesting (unsurprisingly) the introduction of new systematics, likely from the efficiency measurement or background corrections.\footnote{Although, due to the complex nature of the fitter, it is not obvious that two statistically independent subsamples, even generated using identical IBD cuts, will necessarily give results symmetrically distributed around the nominal one.}
 
 % from plots_20210305 import *
-% plot_labeled_fits_all("test_newVtxEff2_cleanLabels", suffix=" vs. vertex cut", xlabel="Vertex cut")
+% plot_labeled_fits_all("test_newVtxEff2@bcw@@redo_cleanLabels", suffix=" vs. vertex cut", xlabel="Vertex cut")
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_mid_labeled.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_best_labeled.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_mid_labeled.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_best_labeled.pdf}%
   \end{minipage}%
   \caption{Variations in $\SinSq$ and $\Dmsqee$ when applying a vertex cut to the otherwise-nominal selection.}
   \label{fig:cutVaryVtxCutJustVertex}
@@ -710,10 +714,10 @@ In \autoref{fig:cutVaryVtxCutWithDelayed}, we show the results of applying these
 % plot_vtxcomp_thesis()
 \begin{figure}[ht]
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/s2t_best.pdf}%
   \end{minipage}%
   \begin{minipage}{0.47\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/VertexCut/dm2_best.pdf}%
   \end{minipage}%
   \caption{Variations in $\SinSq$ and $\Dmsqee$ when applying a vertex cut in tandem with a modified delayed-energy cut.}
   \label{fig:cutVaryVtxCutWithDelayed}
@@ -742,7 +746,7 @@ To carry out this study, 100 sets of cut values were randomly generated from Gau
 \end{table}
 
 % from plot_super import *
-% plot_cut_hists("super_test100")
+% plot_cut_hists("super_test100@bcw@@redo")
 \begin{figure}[h]
   \begin{minipage}{0.5\linewidth}%
     \includegraphics[width=\linewidth]{CutVary/JointVary/shower_pe.pdf}%
@@ -770,20 +774,20 @@ to be the expected statistical spread (of the fit results for a particular oscil
 In \autoref{fig:cutVaryJointVaryScatter}, we simultaneously plot each best-fit oscillation parameter along with the corresponding cut values, illustrating again that the scale of variation is much smaller than the error on each oscillation parameter, and that there are no obvious correlations between the cut values and the best-fit parameters. There are no new quantitative conclusions to be drawn from this plot, but the lack of pathological behavior\footnote{Aside from a handful of truncated error bars, which we speculate to arise from the MINUIT fitter's occasional temperamentality.} is reassuring, suggesting that we can conclude this study here, having succeeded in our goal of (conservatively) quantifying the systematic uncertainty associated with the freedom to vary the IBD selection criteria.
 
 % from plot_super import *
-% plot_qty_hists("super_test100")
+% plot_qty_hists("super_test100@bcw@@redo")
 \begin{figure}[ht]
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/JointVary/s2t_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/s2t_best.pdf}%
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}%
-    \includegraphics[width=\linewidth]{CutVary/JointVary/dm2_mid.pdf}%
+    \includegraphics[width=\linewidth]{CutVary/JointVary/dm2_best.pdf}%
   \end{minipage}%
   \caption{Projection histograms of the best-fit oscillation parameters for the 100 random cuts used in the joint variation study.}
   \label{fig:cutVaryJointVaryResults}
 \end{figure}
 
 % from plot_super import *
-% plot_scatter_both("super_test100")
+% plot_scatter_both("super_test100@bcw@@redo")
 \begin{figure}[h]
   \includegraphics[scale=0.5]{CutVary/JointVary/scatter_both.pdf}
   \caption{Best-fit $\SinSq$ (top panel) and $\Delta m^2_{ee}$ (second panel from top) versus the four cut parameters (bottom four panels) for the 100 random cuts in the joint variation study. The horizontal axis runs over the 100 cuts, so that each vertical column (of five points) corresponds to one cut.}
