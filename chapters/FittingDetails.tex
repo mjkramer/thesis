@@ -15,7 +15,7 @@ In order to extract neutrino oscillation parameters, Daya Bay data is compared t
 \subsection{Method of pull terms}
 \label{sec:pullterms}
 
-In the method using pull terms, the fitter is ``smart'' in the sense that it has knowledge of the various underlying models (reactor \nuebar flux, detector response, backgrounds, etc.) and knows how their predictions will change under changes of the systematic uncertainties. In this approach, each systematic is represented by a \emph{pull term} (or \emph{nuissance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy scale of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
+In the method using pull terms, the fitter is ``smart'' in the sense that it has knowledge of the various underlying models (reactor \nuebar flux, detector response, backgrounds, etc.) and knows how their predictions will change under changes of the systematic uncertainties. In this approach, each systematic is represented by a \emph{pull term} (or \emph{nuisance parameter}), which is in turn assigned an uncertainty of its own. An example of such a pull term might be the relative energy scale of a given AD. Each pull term is assigned a nominal value, corresponding to our best estimate given available knowledge. Then, during the fit, not only are the oscillation parameters varied, but so are the pull terms, and the predictions are transformed accordingly. The total $\chi^2$ then takes a form similar to
 \begin{equation}
   \chi^2 = \sum_i \frac{(x_i - \widebar x_i)^2}{\sigma_i^2} + \sum_j \frac{(\eta_j - \widebar \eta_j)^2}{\varsigma_j^2},
 \end{equation}
@@ -30,7 +30,7 @@ Fitting is complete when the fitter has found the values of the oscillation para
 \subsection{Covariance matrix approach}
 \label{sec:covmatapproach}
 
-As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowedge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\widebar x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
+As an alternative to using pull terms, uncertainties and correlations can be encoded in a single covariance matrix generated using Monte Carlo techniques. In this approach, the fitter is relatively ``dumb'': It knows only how to generate a prediction using a \emph{nominal} model (of, again, reactors, backgrounds, detectors, etc.) and how to vary the prediction for different values of the oscillation parameters. It has no idea how the prediction will transform under varying assumptions with respect to systematic uncertainties. (This knowledge belongs to the Monte Carlo.) The fitter's job is simply to take the measurements $x_i$, the predictions $\widebar x_i$ (which vary according to the oscillation parameters), and the covariance matrix $V_{ij}$, and then to find the oscillation parameters which minimize the $\chi^2$,
 \begin{equation}
   \label{eq:fitCovChiSq}
   \chi^2 = (x_i - \widebar x_i) V_{ij}^{-1} (x_j - \widebar x_j).
@@ -57,7 +57,7 @@ The primary purpose of the LBNL toy MC \cite{berkeley_toymc} is to enable the co
 
 \begin{itemize}
 \item The covariance matrices for signal and background systematics, used in calculating the $\chi^2$ during the fit. As will be explained, the signal covariance matrix is rescaled according to the signal size, and then added to the background covariance matrix to produce the full systematic matrix, which is finally added to the statistical covariance matrix (generated on the fly by the fitter).
-\item The ``super histograms'': The nominal (i.e. unfluctuated) predicted cross section-weighted antineutrino spectrum produced by each core. This is used when breaking down the near-site spectra into reactor contributions for extrapolation to the far site.
+\item The ``super histograms'': The nominal (i.e. non-fluctuated) predicted cross section-weighted antineutrino spectrum produced by each core. This is used when breaking down the near-site spectra into reactor contributions for extrapolation to the far site.
 \item The conversion matrix between prompt energy $\Erec$ and true antineutrino energy $\Enu$; this is also used in the extrapolation.
 \end{itemize}
 
@@ -536,7 +536,7 @@ It also produces a map of chi2 in parameter space for derivation of contours.
 \subsection{Far-site prediction from near sites}
 \label{sec:fitNearToFarPred}
 
-As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, resulting in a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate subexperiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
+As was mentioned, the far-site data is predicted based on the measurements at the near sites. If Daya Bay were measuring antineutrinos from a single reactor, then this prediction could take place without any reference to reactor power and fission fraction data, resulting in a truly pure relative measurement. In reality, however, each near AD samples the flux from multiple reactors at different locations, which must each be treated individually when extrapolating to the far site. As such, reactor operational information must be used to decompose each near-site measurement into the components from each core. This process of near-to-far extrapolation, as implemented, essentially treats each bin of $\Erec$ as a separate sub-experiment. For a single near AD, a single far AD, and a single $\Erec$ bin, the extrapolation proceeds as follows:
 
 \begin{enumerate}
 \item The reverse response matrix $\mathbf{M}$ from \autoref{eq:revRespMtx} is used to generate a distribution of $\Enu$, by taking the row corresponding to the $\Erec$ bin being extrapolated.
