@@ -99,7 +99,7 @@ Therefore,
   \delta_{\epsilon_d} = 0.36 \times \delta_E.
 \end{equation}
 
-In the toy MC, after a fractional energy scale fluctuation $\delta_E$ is generated via $\Gaus(0, 0.0020)$, the nominal\footnote{And arbitrary, since we are performing a relative measurement.} detection efficiency is first multiplied by $1 + 0.36 \times \delta_E$. The result is then multipled by an additional factor of $1 + \Gaus(0, 0.0011)$ to account for the detection efficiency variance that is uncorrelated with the energy scale. That is,
+In the toy MC, after a fractional energy scale fluctuation $\delta_E$ is generated via $\Gaus(0, 0.0020)$, the nominal\footnote{And arbitrary, since we are performing a relative measurement.} detection efficiency is first multiplied by $1 + 0.36 \times \delta_E$. The result is then multiplied by an additional factor of $1 + \Gaus(0, 0.0011)$ to account for the detection efficiency variance that is uncorrelated with the energy scale. That is,
 \begin{equation}
   \epsilon_d = \epsilon_{d,\mathrm{nom}} \cdot (1 + 0.36 \times \Gaus(0, 0.0020)) \cdot (1 + \Gaus(0, 0.0011)),
 \end{equation}
@@ -128,7 +128,7 @@ In detailing the nonlinearity correction, we begin by discussing the AD's respon
 \end{equation}
 where $Q$ is the amount of emitted light, $dE/dx$ is the linear density of \emph{ionization} energy deposition, and the scintillator-specific value $k_B$ is known as Birks' constant.
 
-If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \autoref{eq:reconBirks}. Such a ``semi-empircal'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
+If the $dE/dx$ profile is known across a particle's range, then it can be used to integrate \autoref{eq:reconBirks}. Such a ``semi-empirical'' analytic approach was used to compute the shape of the quenching curve for electrons in the Daya Bay LS \cite{NonlinearityPaper}. This relationship was encoded in a function denoted $f_q(\Edepelec, k_B)$, where $k_B$ remained to be determined from data:
 \begin{equation}
   f_q(\Edepelec,k_B) = \int_0^{\Edepelec} \frac{\frac{dE}{dx}}{1 + k_B \frac{dE}{dx}}.
   \label{eq:reconBirksInt}
@@ -141,7 +141,7 @@ Plots of $f_q$ for different values of $k_B$ are shown in \autoref{fig:reconBirk
   \label{fig:reconBirksInt}
 \end{figure}
 
-Although Cherenkov emission is the sole source of light in the Daya Bay water pools, it plays a subpercent role in the ADs. The energy dependence of Cherenkov emission was determined from Geant4 simulations (and independently confirmed by an analytic calculation), giving the tabulated function $f_c(\Edepelec)$ (\autoref{fig:cerenkovShape}), which was arbitrarily assigned a ($k_B$-dependent) normalization such that $f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$. 
+Although Cherenkov emission is the sole source of light in the Daya Bay water pools, it plays a sub-percent role in the ADs. The energy dependence of Cherenkov emission was determined from Geant4 simulations (and independently confirmed by an analytic calculation), giving the tabulated function $f_c(\Edepelec)$ (\autoref{fig:cerenkovShape}), which was arbitrarily assigned a ($k_B$-dependent) normalization such that $f_c(\SI{1}{MeV}) = f_q(\SI{1}{MeV}, k_B)$. 
 
 \begin{figure}[h]
   \includegraphics[scale=0.5]{Reconstruction/s04_CerenkonContribution.pdf}
@@ -149,7 +149,7 @@ Although Cherenkov emission is the sole source of light in the Daya Bay water po
   \label{fig:cerenkovShape}
 \end{figure}
 
-Altogether, the combined effects on electrons of quenching and Cherenkov emission are therfore described by the relation
+Altogether, the combined effects on electrons of quenching and Cherenkov emission are therefore described by the relation
 \begin{equation}
   \label{eq:reconScintNonlin}
   \frac{E_{\mathrm{vis},e^-}}{\Edepelec} = \beta_{\mathrm{vis}}[f_q(\Edepelec, k_B) + k_c f_c(\Edepelec)],
@@ -249,7 +249,7 @@ For each MC event, the COC vertex is calculated, and two corrections, a ``radial
 \begin{equation}
   \Delta z = z_{\mathrm{true}} - z_{\mathrm{COC}},
 \end{equation}
-Events are divided into 20 bins for $\SI{0}{m} < r_{\mathrm{COC}} < \SI{2}{m}$ and 40 bins for $\SI{-2}{m} < z_{\mathrm{COC}} < \SI{2}{m}$. For each bin, the mean $\Delta z$ is computed, while the mean $\Delta r$ is computed over (and assigned to) all $z{_\mathrm{COC}}$ bins for a given $r_{\mathrm{COC}}$, since there is very little $z$ dependence on $\Delta r$. The $\Delta r$ and $\Delta z$ correction tables are ``pre-interpolated'' with a spline function\footnote{Unfortunately, it was not possible to find a record of the exact spline function used. Presumably, it was a quadratic or cubic function. In any case, since the MCC-COC is ultimately only used as a ``pre-fit'' starting point for the template-based reconstruction, its precise details are not extremely important.} to give a $\times$10-finer grid, which is then stored for use by AdSimple. During reconstruction, linear interpolation is applied to this fine-binned grid to look up the corrections for arbitary ($r_{\mathrm{COC}}$, $z_{\mathrm{COC}}$). Application of the correction is trivial: $r \mapsto r + \Delta r$ and $z \mapsto z + \Delta z$. This gives the MCC-COC vertex.
+Events are divided into 20 bins for $\SI{0}{m} < r_{\mathrm{COC}} < \SI{2}{m}$ and 40 bins for $\SI{-2}{m} < z_{\mathrm{COC}} < \SI{2}{m}$. For each bin, the mean $\Delta z$ is computed, while the mean $\Delta r$ is computed over (and assigned to) all $z{_\mathrm{COC}}$ bins for a given $r_{\mathrm{COC}}$, since there is very little $z$ dependence on $\Delta r$. The $\Delta r$ and $\Delta z$ correction tables are ``pre-interpolated'' with a spline function\footnote{Unfortunately, it was not possible to find a record of the exact spline function used. Presumably, it was a quadratic or cubic function. In any case, since the MCC-COC is ultimately only used as a ``pre-fit'' starting point for the template-based reconstruction, its precise details are not extremely important.} to give a $\times$10-finer grid, which is then stored for use by AdSimple. During reconstruction, linear interpolation is applied to this fine-binned grid to look up the corrections for arbitrary ($r_{\mathrm{COC}}$, $z_{\mathrm{COC}}$). Application of the correction is trivial: $r \mapsto r + \Delta r$ and $z \mapsto z + \Delta z$. This gives the MCC-COC vertex.
 
 The final stage of the AdSimple vertex reconstruction relies on a library of 9,600 charge templates (i.e. distributions of charge across the PMTs), with each template corresponding to a voxel of the detector. These voxels (i.e. bins) are defined as the product of 20 bins in $\SI{0}{\square m} < r^2 < 2^2\;\mathrm{m}^2$, 20 bins in $\SI{-2}{m} < z < \SI{2}{m}$, and 24 bins in $0 < \phi < 2\pi$. The charge template for each voxel is taken from the mean of the charge distributions (each normalized by total charge) of all MC events whose true position lay within the voxel. The MC sample, in turn, is of the same nature as the one used for the COC correction: IBD positrons lying within the OAV. Taking advantage of the azimuthal symmetry of the detector response, each event was rotated in angular steps of $\pi/12$ to produce 23 ``clones'', which were added to the sample, thereby providing a ``free'' boost in statistics without the need to generate additional MC events.\footnote{In principle, the detector response is not completely azimuthally symmetric, due to the Earth's magnetic field. However, such effects are largely canceled by the conical magnetic shields around each PMT. Furthermore, the MC does not take this factor into account; thus, azimuthal symmetry is a valid assumption for the MC sample.}
 
