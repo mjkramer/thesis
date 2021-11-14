@@ -1,5 +1,3 @@
-% XXX discuss the spill-in efficiency etc.
-
 \documentclass[../thesis.tex]{subfiles}
 
 \begin{document}
@@ -151,19 +149,19 @@ Given the observations $F_i$, the covariance matrix $V_{ij}$, and the ability to
 % sin^2(2theta_13) = 0.0853245 - 0.00287582 + 0.00286401
 % delta m^2_ee or delta m^2_32 check carefully! = 0.00246905 - 7.22585e-05 + 7.06787e-05
 \begin{equation}
-    \SinSq = 0.0853 \pm 0.0029 \qquad \Dmsqee = (2.47 \pm 0.0072)\times10^{-3}\;\text{eV}^2,
+    \SinSq = 0.0850 \pm 0.0029 \qquad \Dmsqee = (2.501 \pm 0.0069)\times10^{-3}\;\text{eV}^2,
   \label{eq:fitResults}
 \end{equation}
 where the errors include both statistical and systematic uncertainties (as encoded and combined in the covariance matrix, \autoref{eq:fitCovmatSum}). The minimum $\chi^2$ is given by
 \begin{equation}
-  \chi^2 / \nu = 216.0 / 220 = 0.9818 \qquad (p = 0.564).
+  \chi^2 / \nu = 150.843 / 154 = 0.9795 \qquad (p = 0.5569).
 \end{equation}
 Here, the number $\nu$ of degrees of freedom is\footnote{Recall, as discussed in \autoref{sec:fitCombo}, that we have two predictions per data period and energy bin: One prediction of EH3 from EH1, and one of EH3 from EH2, where all ADs within a given hall are combined.}
 \begin{equation}
   \begin{aligned}
     \nu &= N_{\mathrm{periods}} \times N_{\mathrm{predictions}} \times N_{E\;\mathrm{bins}} - N_{\mathrm{osc\;pars}} \\
-    &= 3 \times 2 \times 37 - 2 \\
-    &= 220.
+    &= 3 \times 2 \times 26 - 2 \\
+    &= 154.
   \end{aligned}
 \end{equation}
 These oscillation parameters are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of practically the same IBD selection criteria as Selection B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
