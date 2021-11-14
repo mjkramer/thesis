@@ -164,7 +164,15 @@ Here, the number $\nu$ of degrees of freedom is\footnote{Recall, as discussed in
     &= 154.
   \end{aligned}
 \end{equation}
-These oscillation parameters are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of practically the same IBD selection criteria as Selection B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
+These oscillation parameters are consistent with those published in \cite{An_2017}. This is particularly unsurprising in light of our use of practically the same IBD selection criteria as Selection~B in that publication. In \autoref{chap:cutVary}, we proceed to explore the effects of changing these criteria, with the aim of demonstrating that the result remains consistent.
+
+% Ran plot_contours.C on 2021_02_03@delcut_third_6.000MeV@newAcc
+% Previously was using 2020_01_26@yolo2? (doc-12115)
+\begin{figure}[ht]
+  \includegraphics[scale=0.75]{Fitting/contour_Matt.pdf}
+  \caption{68\%, 95\%, and 99\% C.L.\@ contours obtained from running the fitter on our IBD sample. The black cross is the best-fit point.}
+  \label{fig:fitContours}
+\end{figure}
 
 % Ran dumpBigTable.jl on 2021_02_03@delcut_third_6.000MeV@newAcc
 
@@ -245,14 +253,5 @@ These oscillation parameters are consistent with those published in \cite{An_201
   \caption{Summary of inputs used in the oscillation fit (7AD period).}
   \label{tab:fitting_inputs_7ad}
 \end{table}
-
-% Ran plot_contours.C on 2021_02_03@delcut_third_6.000MeV@newAcc
-% Previously was using 2020_01_26@yolo2? (doc-12115)
-\begin{figure}[ht]
-  \includegraphics[scale=0.5]{Fitting/contour_Matt.pdf}
-  \caption{68\%, 95\%, and 99\% C.L.\@ contours obtained from running the fitter on our IBD sample. The black cross is the best-fit point.}
-  \label{fig:fitContours}
-\end{figure}
-
 
 \end{document}
