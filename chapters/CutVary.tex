@@ -405,7 +405,6 @@ As a sanity check, suppose that the far hall has a detection efficiency that is 
 
 The behavior of $\Dmsqee$ below 5~MeV is surprising: There is a significant downtrend, culminating at approximately a third of the uncertainty. Moreover, two ``bumps'' are visible. These results suggest an unaccounted-for shape distortion for delayed-energy cuts below 5~MeV. The most likely explanation is that this comes from background. Although the total background \emph{rate} calculation appears to remain generally correct, given the stability of $\SinSq$, the background shape is apparently being treated incorrectly. We further explore possible explanations of this effect in \autoref{sec:cutVaryVertexCut}. For the time being, we simply note that $\Dmsqee$ remains extremely stable between 5 and 7~MeV. Below 5~MeV, we are entering ``dangerous'' territory, where there was never any intention for the nGd analysis to tread, so anomalous behavior here is both unsurprising and unconcerning.
 
-% XXX
 % from plot_fit_results import *
 % plot_fit_unc_thesis()
 \begin{figure}[ht]
@@ -784,9 +783,9 @@ In \autoref{fig:cutVaryJointVaryScatter}, we simultaneously plot each best-fit o
 \end{figure}
 
 % from plot_super import *
-% plot_scatter_both("super_test100@bcw@@redo")
+% plot_scatter_both_all("super_test100@bcw@@redo")
 \begin{figure}[h]
-  \includegraphics[scale=0.5]{CutVary/JointVary/scatter_both.pdf}
+  \includegraphics[scale=0.5]{CutVary/JointVary/scatter_both_best.pdf}
   \caption{Best-fit $\SinSq$ (top panel) and $\Delta m^2_{ee}$ (second panel from top) versus the four cut parameters (bottom four panels) for the 100 random cuts in the joint variation study. The horizontal axis runs over the 100 cuts, so that each vertical column (of five points) corresponds to one cut.}
   \label{fig:cutVaryJointVaryScatter}
 \end{figure}
