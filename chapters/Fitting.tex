@@ -83,11 +83,11 @@ In practice, we generate two sets of toy samples, corresponding to signal-relate
 
 \def\Fbar{\widebar F}
 
-Before presenting the calculation of the covariance matrices, we must pause to discuss the binning scheme employed. As was explained, the LBNL fitter compares the far-site data to the far-site predictions obtained from the near-site data. In practice, as discussed in \autoref{sec:fitCombo}, we combine the data from all the ADs in a given hall, and we consider \emph{two} predictions for EH3: one from EH1, and one from EH2. These predictions are further divided among 37 energy bins (\autoref{sec:fitBinning}) and three time bins (the 6, 8, and 7-AD periods), giving a total of
+Before presenting the calculation of the covariance matrices, we must pause to discuss the binning scheme employed. As was explained, the LBNL fitter compares the far-site data to the far-site predictions obtained from the near-site data. In practice, as discussed in \autoref{sec:fitCombo}, we combine the data from all the ADs in a given hall, and we consider \emph{two} predictions for EH3: one from EH1, and one from EH2. These predictions are further divided among 26 energy bins (\autoref{sec:fitBinning}) and three time bins (the 6, 8, and 7-AD periods), giving a total of
 \begin{equation}
-  2 \times 37 \times 3 = 222
+  2 \times 26 \times 3 = 156
 \end{equation}
-predictions, which we represent by the vector $\Fbar_i$, where the index $i$ runs over the 222 individual predictions. Meanwhile, the number of far-site \emph{observations} is equal to 111, half of the number of predictions, since we have separate predictions from EH1 and EH2. We represent the background-subtracted and efficiency-corrected observations in the vector $F_i$, in which each observation is repeated twice, in alignment with $\Fbar_i$. 
+predictions, which we represent by the vector $\Fbar_i$, where the index $i$ runs over the 156 individual predictions. Meanwhile, the number of far-site \emph{observations} is equal to 78, half of the number of predictions, since we have separate predictions from EH1 and EH2. We represent the background-subtracted and efficiency-corrected observations in the vector $F_i$, in which each observation is repeated twice, in alignment with $\Fbar_i$. 
 
 Given $M$ toy samples, indexed by the variable $t$, the background covariance matrix $V_{\mathrm{bkg}}$ is calculated according to
 \begin{equation}
@@ -149,7 +149,7 @@ Given the observations $F_i$, the covariance matrix $V_{ij}$, and the ability to
 % sin^2(2theta_13) = 0.0853245 - 0.00287582 + 0.00286401
 % delta m^2_ee or delta m^2_32 check carefully! = 0.00246905 - 7.22585e-05 + 7.06787e-05
 \begin{equation}
-    \SinSq = 0.0850 \pm 0.0029 \qquad \Dmsqee = (2.501 \pm 0.0069)\times10^{-3}\;\text{eV}^2,
+    \SinSq = 0.0850 \pm 0.0029 \qquad \Dmsqee = (2.5010 \pm 0.0069)\times10^{-3}\;\text{eV}^2,
   \label{eq:fitResults}
 \end{equation}
 where the errors include both statistical and systematic uncertainties (as encoded and combined in the covariance matrix, \autoref{eq:fitCovmatSum}). The minimum $\chi^2$ is given by
