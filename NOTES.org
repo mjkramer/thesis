@@ -52,6 +52,7 @@ XXX switch to BCW binning?
 - [[http://everythingyouforgetaboutlatex.blogspot.com/2008/10/formatting-tables.html][Basic table spacing]]
 - [[https://latex.org/forum/viewtopic.php?t=30580][Paragraphs in tabular(x)]] (google: latex paragraphs in tabular)
 - [[https://tex.stackexchange.com/questions/37581/latex-figures-side-by-side][Side-by-side figures]] (subfig, subfigure, floatrow)
+- [[https://tex.stackexchange.com/questions/17048/make-chapter-same-as-unnumbered-chapter-using-memoir][Unnumbered chapters]]
   
 * References
 - [[http://texdoc.net/texmf-dist/doc/plain/texbytopic/TeXbyTopic.pdf][TeX by Topic]]
