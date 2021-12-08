@@ -20,7 +20,7 @@ An alternative resolution, one that would avoid violations of the conservation l
 
 In 1956, antineutrinos from a nuclear reactor were detected by the Cowan-Reines experiment, marking the first direct confirmation of the neutrino's existence~\cite{Cowan103}. Over the decades that followed, it was found that neutrinos come in three distinct ``flavors''---electron, muon, and tau, corresponding to their charged lepton partners---and that neutrinos lack any discernible mass. These qualities would eventually be incorporated into the Standard Model, which crystallized in the 1970s after a period of remarkable theoretical and experimental progress in particle physics.
 
-Since neutrinos have only ever been observed via their weak interactions, which solely involve the left-handed neutrino state, there is no direct experimental evidence for a right-handed neutrino. Additionally, the observed kinematics of beta decay are, within experimental limits, consistent with the neutrino being massless. Accordingly, in the SM, the three neutrinos are massless left-handed Weyl spinors that interact via the W and Z bosons. From a theoretical standpoint, masslessness is appealing, as it avoids the need to imbue the theory with right-handed neutrinos (which have never been observed) or Majorana mass terms (which are not present for any other SM particle); in addition, since beta decay observations indicate that the neutrino mass must be \emph{very small} if it is nonzero, masslessness avoids the need to explain such unnatural smallness in comparison with the other particles of the theory. Although some puzzling neutrino observations, discussed in \autoref{sec:history}, had been known since the late 1960s, massive neutrinos were seldom given serious consideration as the explanation. But as experimental evidence continued to mount, this wall would eventually have to crumble, leading to the revolution that has transpired over the last few decades. Before detailing this history, we provide an overview of the underlying physics, the parameters of which will be referred to repeatedly in our historical discussion.
+Since neutrinos have only ever been observed via their weak interactions, which solely involve the left-handed neutrino state, there is no direct experimental evidence for a right-handed neutrino. Additionally, the observed kinematics of beta decay are, within experimental limits, consistent with the neutrino being massless. Accordingly, in the SM, the three neutrinos are massless left-handed Weyl spinors that interact via the W and Z bosons. From a theoretical standpoint, masslessness is appealing, as it avoids the need to imbue the theory with right-handed neutrinos (which have never been observed) or Majorana mass terms (which are not present for any other SM particle). Although some puzzling neutrino observations, discussed in \autoref{sec:history}, had been known since the late 1960s, massive neutrinos were seldom given serious consideration as the explanation. But as experimental evidence continued to mount, this wall would eventually have to crumble, leading to the revolution that has transpired over the last few decades. Before detailing this history, we provide an overview of the underlying physics, the parameters of which will be referred to repeatedly in our historical discussion.
 
 
 \section{Neutrino oscillation physics}
@@ -56,7 +56,7 @@ That is, the \emph{states} (as opposed to the fields) are related by the complex
   \end{aligned}
 \end{equation}
 
-$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3x3 unitary matrix includes six complex phases, most of the phases in a 3x3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \autoref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
+$\upmns$ can be parameterized in terms of the three mixing angles, $\tAB$, $\tBC$, and $\tAC$, along with a CP-violating complex phase $\dcp$:\footnote{Although a general 3$\times$3 unitary matrix includes six complex phases, most of the phases in a 3$\times$3 \emph{mixing} matrix are physically meaningless. If the neutrinos are Dirac particles, with distinct particle and antiparticle fields, then five of the phases can be absorbed into the definitions of the fields, leaving only one physical phase. It could be inserted anywhere in the factorization of $U$ as long as unitary is preserved, but by convention the definition in \autoref{eq:upmnsParam} is what is used. Conversely, if the neutrinos are Majorana particles, where $\nu = \nubar$ (as discussed in \autoref{sec:majorana}), only three phases can be absorbed, leaving two physical \emph{Majorana phases} in addition to $\dcp$.}
 \begin{align}
   \label{eq:upmnsParam}
   \begin{split}
@@ -89,15 +89,14 @@ Here, we assume that the masses are very small, below an eV$^2$, which at the $\
 \begin{equation}
   \begin{aligned}
     \label{eq:nuStateSpacetimeDep}
-    \ket{\nu(x)} &= e^{ipx} U^*_{\alpha i}\ket{\nu_i} \\
-    &\approx \exp \left( i\left[E - \frac{m_i^2}{2E} \right] x \right) U^*_{\alpha i}\ket{\nu_i} \\
-    &= \exp \left( iEx - i\frac{m_i^2}{2E}x \right) U^*_{\alpha i}\ket{\nu_i}.
+    \ket{\nu(x)} &= e^{ip_i x} U^*_{\alpha i}\ket{\nu_i} \\
+    &\approx \exp \left( iEx - i\frac{m_i^2}{2E}x \right) U^*_{\alpha i}\ket{\nu_i}.
   \end{aligned}
 \end{equation}
-The common phase factor $e^{iEx}$ has no bearing on the flavor composition of the state, so we drop it, after which \autoref{eq:nuStateSpacetimeDep} simplifies to
-\begin{equation}
-  \ket{\nu(x)} \approx \exp \left( - i \frac{m_i^2 x}{2E} \right) U^*_{\alpha i} \ket{\nu_i}.
-\end{equation}
+% The common phase factor $e^{iEx}$ has no bearing on the flavor composition of the state, so we drop it, after which \autoref{eq:nuStateSpacetimeDep} simplifies to
+% \begin{equation}
+%   \ket{\nu(x)} \approx \exp \left( - i \frac{m_i^2 x}{2E} \right) U^*_{\alpha i} \ket{\nu_i}.
+% \end{equation}
 
 % This is the point where the limitations of the plane-wave approach become apparent. In reality, neutrinos are not plane waves; they are produced from physically-localized interactions. We have not proven that this model accurately represents the case of a physically-localized state (which would consist of a superposition of plane waves). A wave-packet treatment would allow for a more rigorous physical definition of a propagating neutrino state, but at the expense of requiring assumptions to be made about the initial spatial wavefunction. In any case, it can be shown that, for all reasonable definitions of this initial wavefunction, the oscillation probability very closely agrees with that of the plane-wave approximation \cite{DayaBayWavePacket}
 
@@ -188,7 +187,7 @@ Now that we have defined the mixing angles and mass-squared splittings, it is wo
   \label{fig:massOrdering}
 \end{figure}
 
-In an experiment like Daya Bay, where we are looking for the \emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and antineutrinos is the same, and \autoref{eq:oscReIm} simplifies to
+In an experiment where we are looking for the \emph{disappearance} of (anti)\-neu\-trinos of a given flavor, our interest is in \(P(\alpha \rightarrow \alpha)\). In this case, the behavior of neutrinos and antineutrinos is the same, and \autoref{eq:oscReIm} simplifies to
 \begin{equation}
   P(\alpha \rightarrow \alpha) = 1 - 4 \sum_{j>i} |U_{\alpha j}|^2 |U_{\alpha
     i}|^2 \sin^2\left( \frac{\Delta m^2_{ji} L}{4E} \right). 
@@ -210,7 +209,7 @@ where we've introduced the notation
            L\,\mathrm{[m]}}{E\,\mathrm{[MeV]}}.
 \end{align*}
 
-Based on the value of $\Delta m^2_{21}$ given in \autoref{tab:pdgOscPars}, at the baselines of Daya Bay \(\sin^2 \Delta_{21}\) is so small that the experiment has no ability to constrain $\theta_{12}$ (nor \(\Delta m^2_{21}\) itself). In this analysis, then, $\theta_{12}$ and $\Delta m^2_{21}$ are fixed to the global values. This leaves $\theta_{13}$, \(\abs{\Delta m^2_{31}}\), and \(\abs{\Delta m^2_{32}}\). However, given that the difference between \(\abs{\Delta m^2_{31}}\) and \(|\Delta m^2_{32}|\) is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient for resolving the difference. Therefore, Daya Bay cannot measure the two splittings independently. On the other hand, since \(\Delta m^2_{21}\) is well constrained and known to be positive, we can tightly relate \(\abs{\Delta m^2_{31}}\) and \(\abs{\Delta m^2_{32}}\):
+Based on the value of $\Delta m^2_{21}$ given in \autoref{tab:pdgOscPars}, at the baselines of Daya Bay \(\sin^2 \Delta_{21}\) is so small that the experiment has no ability to constrain $\theta_{12}$ (nor \(\Delta m^2_{21}\) itself). In this analysis, then, $\theta_{12}$ and $\Delta m^2_{21}$ are fixed to the global values. This leaves $\theta_{13}$, \(\abs{\Delta m^2_{31}}\), and \(\abs{\Delta m^2_{32}}\). However, given that the difference between \(\abs{\Delta m^2_{31}}\) and \(|\Delta m^2_{32}|\) is less than one part in thirty, distinguishing between their corresponding phases would require some combination of a high-resolution detector and a baseline long enough to stretch out the phase difference. At Daya Bay, the baseline of $\sim$1~km is approximately one oscillation length, where the detector resolution is insufficient to resolve the difference. On the other hand, since \(\Delta m^2_{21}\) is well constrained and known to be positive, we can tightly relate \(\abs{\Delta m^2_{31}}\) and \(\abs{\Delta m^2_{32}}\):
 \begin{equation}
   \label{eq:hierarchy}
   \abs{\Delta m^2_{31}} =
@@ -264,16 +263,16 @@ Although $\Delta m^2_\phi$ depends on $L/E$, for Daya Bay it is essentially cons
   \label{eq:dmPhysical}
   \Delta m^2_{ee} \approx \abs{\Delta m^2_{31}\cos^2\theta_{12}} + \abs{\Delta m^2_{32}\sin^2\theta_{12}}.
 \end{equation}
-For all intents and purposes, this approximation is exact at Daya Bay. Hence Eqs. \autoref{eq:dmPhysical} and \autoref{eq:hierarchy} can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by \autoref{eq:survProbDybEE}, to the physical mass splittings:
-\begin{align*}
+For all intents and purposes, this approximation is exact at Daya Bay. Hence \Autoref{eq:dmPhysical,eq:hierarchy} can be used to relate Daya Bay's measured \(\Delta m^2_{ee}\), as operationally defined by \autoref{eq:survProbDybEE}, to the physical mass splittings for the normal and inverted hierarchies (NH and IH, respectively):
+\begin{align}
   \abs{\Delta m^2_{31}} = \Delta m^2_{ee} + \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
   & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} - \cos^2 \theta_{12} \Delta m^2_{21} \qquad
-  & \text{(NH)}\\
+  & \text{[NH]}\\
   % 
   \abs{\Delta m^2_{31}} = \Delta m^2_{ee} - \sin^2 \theta_{12} \Delta m^2_{21}, \qquad
   & \abs{\Delta m^2_{32}} = \Delta m^2_{ee} + \cos^2 \theta_{12} \Delta m^2_{21} \qquad
-  & \text{(IH)}
-\end{align*}
+  & \text{[IH]}
+\end{align}
 Of course, in doing so, one must still specify the mass hierarchy and \(\Delta m^2_{21}.\) As a sanity check, Daya Bay has compared the results of fitting \autoref{eq:survProbDybFull} and \autoref{eq:survProbDybEE}, finding that, in the end, both techniques give the same values of \(\abs{\Delta m^2_{32}}\) and \(\abs{\Delta m^2_{31}}\). For the sake of simplicity, this analysis will use \autoref{eq:survProbDybEE} and fit \(\Delta m^2_{ee}\).
 
 \section{Further reading}
