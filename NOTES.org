@@ -53,6 +53,7 @@ XXX switch to BCW binning?
 - [[https://latex.org/forum/viewtopic.php?t=30580][Paragraphs in tabular(x)]] (google: latex paragraphs in tabular)
 - [[https://tex.stackexchange.com/questions/37581/latex-figures-side-by-side][Side-by-side figures]] (subfig, subfigure, floatrow)
 - [[https://tex.stackexchange.com/questions/17048/make-chapter-same-as-unnumbered-chapter-using-memoir][Unnumbered chapters]]
+- [[https://tex.stackexchange.com/questions/74632/memoir-changes-page-number-from-bottom-to-top-right-in-pages-with-heading][Page styles]]
   
 * References
 - [[http://texdoc.net/texmf-dist/doc/plain/texbytopic/TeXbyTopic.pdf][TeX by Topic]]

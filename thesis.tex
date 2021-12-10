@@ -1,4 +1,4 @@
-\documentclass[11pt,oneside]{memoir}
+\documentclass[12pt,oneside]{memoir}
 
 \usepackage{etoolbox}
 \usepackage{microtype}
@@ -54,15 +54,17 @@ maxnames=10,eprint=true
 \pagestyle{empty}
 
 \input{front/cover.tex}
-\input{front/approval.tex}
+% \input{front/approval.tex}
 \input{front/copyright.tex}
-\input{front/abstract.tex}
-\input{front/dedication.tex}
 
 \pagestyle{headings}
+\aliaspagestyle{chapter}{headings}
+
+\mainmatter
+\input{front/abstract.tex}
 
 \frontmatter
-\SingleSpacing
+\input{front/dedication.tex}
 
 \tableofcontents{}
 \clearpage
@@ -70,11 +72,10 @@ maxnames=10,eprint=true
 \clearpage
 \listoftables
 
-\mainmatter
-\MyDoubleSpacing
-
 \subfile{front/acknowledgments.tex}
 \subfile{front/preface.tex}
+
+\mainmatter
 
 \subfile{chapters/Introduction.tex}
 \subfile{chapters/Experiment.tex}
