@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\chapter[Accidental backgrounds, multiplicity cut]{Accidental background rate and multiplicity cut efficiency}
+\chapter[Accidental backgrounds, multiplicity cut]{Accidental-background rate and multiplicity-cut efficiency}
 \label{chap:accDMC}
 % \chapter*{Accidentals rate and DMC efficiency}
 % \stepcounter{chapter}
@@ -19,9 +19,9 @@
 \def\etot{\ensuremath{\epsilon_\mathrm{tot}}}
 \def\Racc{\ensuremath{R_\mathrm{acc}}}
 
-We combine our discussion of these two quantities because they both depend on the rate of uncorrelated physics events, or \emph{singles.} The accidental background rate (``accidentals rate'') is determined by the probability of two singles occurring in the same coincidence window, while the efficiency of the decoupled multiplicity cut (DMC) is similarly based on the chance of one or more singles occurring within a certain distance in time from the delayed event.\footnote{IBDs and correlated backgrounds also contribute to the inefficiency of the DMC, but the effect is negligible given the vast disparity in rates between singles and correlated events.}
+We combine our discussion of these two quantities because they both depend on the rate of uncorrelated physics events, or \emph{singles.} The accidental-background rate (``accidentals rate'') is determined by the probability of two singles occurring in the same coincidence window, while the efficiency of the decoupled multiplicity cut (DMC) is similarly based on the chance of one or more singles occurring within a certain distance in time from the delayed event.\footnote{IBDs and correlated backgrounds also contribute to the inefficiency of the DMC, but the effect is negligible given the vast disparity in rates between singles and correlated events.}
 
-Let $\Rs(\Emin, \Emax)$ be the rate of singles whose reconstructed energy lies between \Emin\ and \Emax. To be precise, \Rs\ is the \emph{true physical rate} of all \emph{muon-uncorrelated} processes that produce such singles. Naively, one could attempt to calculate \Rs\ by counting all non-muon-vetoed triggers in $(\Emin, \Emax)$ and dividing by the veto-corrected DAQ livetime. However, the rate will then be overestimated due to the inclusion of triggers from correlated events, and, likewise, the predicted accidentals spectrum will be distorted.
+Let $\Rs(\Emin, \Emax)$ be the rate of singles whose reconstructed energy lies between \Emin\ and \Emax\ (in MeV). To be precise, \Rs\ is the \emph{true physical rate} of all \emph{muon-uncorrelated} processes that produce such singles. Naively, one could attempt to calculate \Rs\ by counting all non-muon-vetoed triggers in $(\Emin, \Emax)$ and dividing by the veto-corrected DAQ livetime. However, the rate will then be overestimated due to the inclusion of triggers from correlated events, and, likewise, the predicted accidentals spectrum will be distorted.
 
 Instead, the correct approach is to apply an isolation cut (in time) to ensure a clean sample of true singles. A correction must then be applied for the efficiency of this cut. Once \Rs\ has been obtained in this way, calculation of the accidentals rate and DMC efficiency is a straightforward application of Poisson statistics.
 
@@ -32,9 +32,7 @@ Let us define a \emph{muon-like} event as an AD trigger with charge of at least 
 % \footnote{It would be simpler to define a muon-like event directly in terms of energy instead of charge, but we use 3,000 p.e. for consistency with the historical LBNL analysis. Also, we don't call these events ``muons'', as 3,000 p.e. is not necessarily the definition of an AD muon used in the IBD selection.}
 Then a \emph{sub-muon} event is one with reconstructed energy of at least 12~MeV, but not enough charge to be muon-like. A \emph{prompt-like} event has energy of 0.7--12~MeV, a \emph{delayed-like} event 6--12~MeV, and, finally, a \emph{prompt-plus} event is one that is either prompt-like or a sub-muon. The sample described in \autoref{sec:singsel} consists of prompt-plus events.
 
-Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon
-  rate}\footnote{$\lambda$ precedes $\mu$ in the Greek alphabet. Right?}
-\Rsub\ as $\Rs(12, \sim18)$,\footnote{Technically, we define a sub-muon as an event that has a reconstructed energy above 12~MeV and that is \emph{not classified as muon-like.} Thus an event with an energy slightly above 18~MeV, but a reconstructed charge below the 3,000-PE muon threshold, will be classified as a sub-muon.} and the \emph{prompt-plus rate} \Rplu\ as $\Rpro + \Rsub$. Likewise, the raw event counts in our sample are \Npro, etc. To complete this round of definitions, let \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the singles selection), and $T$ be the raw DAQ livetime of the sample.
+Similarly, we define the \emph{prompt-like rate} \Rpro\ as $\Rs(0.7, 12)$, the \emph{delayed-like rate} \Rdel\ as $\Rs(6, 12)$, the \emph{sub-muon rate}\footnote{$\lambda$ precedes $\mu$ in the Greek alphabet. Right?} \Rsub\ as $\Rs(12, \sim18)$,\footnote{Technically, we define a sub-muon as an event that has a reconstructed energy above 12~MeV and that is \emph{not classified as muon-like.} Thus an event with an energy slightly above 18~MeV, but a reconstructed charge below the 3,000-PE muon threshold, will be classified as a sub-muon.} and the \emph{prompt-plus rate} \Rplu\ as $\Rpro + \Rsub$. Likewise, the event counts in our sample are \Npro, etc. To complete this round of definitions, let \eisol\ be the isolation cut efficiency, \emu\ the muon cut efficiency (for the singles selection), and $T$ be the raw DAQ livetime of the sample.
 
 \section{Singles selection}
 \label{sec:singsel}
@@ -94,7 +92,7 @@ In the calculations that follow, we assume that
   \label{eq:effdecoup}
   \etot = \emu \eisol,
 \end{equation}
-that is, that we can calculate the muon veto and isolation cut efficiencies independently, and get the total efficiency by multiplying the two. This assumption is valid only if the two occurrences---either a muon, or an ``extra'' single---are statistically independent. As was explained above, extra muon-correlated triggers are \emph{not} considered when applying the isolation cut. Therefore, the presence of a muon has no effect on the probability of passing the isolation cut, and, conversely, the presence of an extra uncorrelated single has no effect on the probability of being inside a muon veto window. The requirements for statistical independence are thus satisfied.
+that is, that we can calculate the muon-veto and isolation-cut efficiencies independently, and get the total efficiency by multiplying the two. This assumption is valid only if the two occurrences---either a muon, or an ``extra'' single---are statistically independent. As was explained above, extra muon-correlated triggers are \emph{not} considered when applying the isolation cut. Therefore, the presence of a muon has no effect on the probability of passing the isolation cut, and, conversely, the presence of an extra uncorrelated single has no effect on the probability of being inside a muon veto window. The requirements for statistical independence are thus satisfied.
 
 As a final verification of \autoref{eq:effdecoup}, let us divide rejected events into three non-overlapping categories: (a), events rejected only by the muon veto, (b), events rejected by the isolation cut, and (ab), events rejected by both. Since the two cuts are independent, $\Pab = \Pa\Pb$. We have:
 \begin{align*}
@@ -102,7 +100,7 @@ As a final verification of \autoref{eq:effdecoup}, let us divide rejected events
         &= 1 - (1-\emu)\,\eisol - \emu\,(1-\eisol) - (1-\emu)(1-\eisol) \\
         &= \emu \eisol
 \end{align*}
-Clearly, \autoref{eq:effdecoup} indeed applies. The muon veto efficiency is determined simply by keeping track of the total vetoed livetime, while the isolation cut efficiency is described next.
+Clearly, \autoref{eq:effdecoup} indeed applies. The muon-veto efficiency is determined simply by keeping track of the total vetoed livetime, while the isolation-cut efficiency is described next.
 
 % XXX 200 us or 400 us or...?
 
@@ -158,8 +156,7 @@ This equation takes the form $we^w = z$, which cannot be solved for $w$  using e
   % \Rplu = -\frac{1}{2t}\, W_0 \left(-\frac{2\Nplu t}{\emu T}\right).
   \RL \tL + \RR \tR = - W_0\left(-\frac{\NL \tL + \NR \tR}{\emu T}\right)
 \end{equation}
-Finally, inserting this into \autoref{eq:ident1}, we obtain the isolation cut
-efficiency:
+Finally, inserting this into \autoref{eq:ident1}, we obtain the isolation-cut efficiency:
 \begin{equation}
   \label{eq:accIsolEff}
   \eisol = \exp \, W_0 \left( -\frac{\NL \tL + \NR \tR}{\emu T} \right).
@@ -174,7 +171,7 @@ efficiency:
 \section{Singles rates}
 \label{sec:singratescalc}
 
-Once the isolation cut efficiency is known, it is trivial to calculate the prompt- and delayed-like singles rates:
+Once the isolation-cut efficiency is known, it is trivial to calculate the prompt- and delayed-like singles rates:
 \begin{equation}
   \label{eq:accSingRates}
   \Rpro = \frac{\Npro}{\eisol \emu T},\qquad
@@ -249,7 +246,7 @@ To recap, only three inputs are required to calculate the accidentals rate:
 \end{itemize}
 In turn, to study the statistical uncertainty $\sigma$ of the calculation, we can apply statistical fluctuations to the energy histogram. These fluctuations will automatically propagate to the event counts $N_p$, etc., and then to the final result. Repeating this procedure will produce a sample of accidentals rates, from which $\sigma$ can be determined by taking the standard deviation or by fitting a Gaussian function.
 
-For each bin $i$ of the singles' energy histogram, with measured count $\overline{N}_i$, let $N_i$ denote corresponding the random variable describing a hypothetical ensemble of experiments. The PDF $f(N_i)$ is then given by the Poisson distribution:
+For each bin $i$ of the singles' energy histogram, with measured count $\overline{N}_i$, let $N_i$ denote the corresponding random variable describing a hypothetical ensemble of experiments. The PDF $f(N_i)$ is then given by the Poisson distribution:
 \begin{equation}
   f(N_i) = \frac{\overline{N}_i^{N_i}e^{-\overline{N}_i}}{N_i!}.
 \end{equation}

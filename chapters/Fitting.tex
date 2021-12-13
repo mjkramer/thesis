@@ -60,7 +60,7 @@ where the index $n$ runs over the $M$ simulated spectra. The Cholesky decomposit
 is later used by the LBNL toy MC to generate a fluctuated core spectrum for each toy sample:
 \begin{equation}
   \label{eq:fitCholeskyUsage}
-  \Phi_c(E_\nu) = \Phi^0_c(E_\nu) + \sum_b U_{a_c(E_\nu)b} y_b,
+  \Phi_c(E_\nu) = \Phi^0_c(E_\nu) + \sum_b U_{[a_c(E_\nu)]b} y_b,
 \end{equation}
 where $a_c(E_\nu)$ is the index corresponding to core $c$ and energy $E_\nu$, $b$ runs over all cores and energy bins, and $y_b$ is a vector of standard normal random variables.
 
@@ -75,7 +75,7 @@ Given the livetime-normalized antineutrino spectrum $\Phi_c(E_\nu)$ at each core
 \end{equation}
 where $T_i$ is the livetime, $N_i$ is the number of target protons, $L_{ci}$ is the baseline, $\epsilon_i$ is the detection efficiency (comprising the muon-veto and multiplicity-cut efficiencies), and $\sigma(E_\nu)$ is the IBD cross-section (\autoref{eq:ibdXsec}). $\Posc$ depends on the assumption of nominal oscillation parameters; however, the final result is stable against reasonable variations in these assumptions. The $R_i$ may be freely multiplied by a common constant factor without affecting the oscillation fit; as such, the efficiency $\epsilon_i$ does not account for factors that are equal among all ADs. Similarly, there is no impact from any constant error in the absolute normalization of the core spectra. It is only necessary that the $R_i$ correctly capture the \emph{relative} rates and shapes between the ADs.
 
-The antineutrino spectra $R_i(E_\nu)$ must be converted by the toy MC into reconstructed prompt-energy spectra. The first step in this process is to convert antineutrino energy $E_\nu$ into positron energy (including rest mass) $E_e$ using \autoref{eq:firstOrderEnergyMean}. Next, a detector response matrix (\autoref{sec:fitIavEffect}) is used to convert $E_e$ into the total \emph{scintillator-deposited} energy $E_{\mathrm{dep}}$, which accounts for energy loss in the acrylic. $E_{\mathrm{dep}}$ is then converted to the average corresponding reconstructed energy using the detector nonlinearity model (\autoref{sec:fitEeToMeanErec}). Finally, the reconstructed energy is smeared using the detector resolution model (\autoref{sec:fitResolution}). These various aspects of the detector response model can be randomly fluctuated during the generation of each toy sample.
+The antineutrino spectra $R_i(E_\nu)$ must be converted by the toy MC into reconstructed prompt-energy spectra. The first step in this process is to convert antineutrino energy $E_\nu$ into positron energy $E_e$ (including rest mass) using \autoref{eq:firstOrderEnergyMean}. Next, a detector response matrix (\autoref{sec:fitIavEffect}) is used to convert $E_e$ into the total \emph{scintillator-deposited} energy $E_{\mathrm{dep}}$, which accounts for energy loss in the acrylic. $E_{\mathrm{dep}}$ is then converted to the average corresponding reconstructed energy using the detector nonlinearity model (\autoref{sec:fitEeToMeanErec}). Finally, the reconstructed energy is smeared using the detector resolution model (\autoref{sec:fitResolution}). These various aspects of the detector response model can be randomly fluctuated during the generation of each toy sample.
 
 The final step in generating each toy sample is to add backgrounds to the prompt spectra. This is accomplished trivially, by taking the nominal shape of each background, scaling it according to the predicted rate, and adding it to the IBD prompt spectrum. Both the rate and the shape can be fluctuated in accordance with the background uncertainties (\autoref{sec:fitToyBackgrounds}).
 
@@ -135,7 +135,7 @@ Compared to the toy MC, whose main purpose is to generate the covariance matrix 
   \label{fig:fitExtrapCartoonOverview} 
 \end{figure}
 
-Given the observations $F_i$, the covariance matrix $V_{ij}$, and the ability to calculate $\Fbar_i$ as a function of the oscillation parameters, the remainder of the fit procedure is straightforward. We provide the function $\chi^2(\SinSq, \Dmsqee)$ (\autoref{eq:fitChiSqOverview}) to the minimization library, which then returns the best-fit values of the oscillation parameters. Beyond reporting the best-fit parameters, the fitter also generates a grid of $\chi^2$ values in the $\SinSq$--$\Dmsqee$ parameter space, enabling the calculation of two-dimensional contours at any desired confidence level (\autoref{sec:fitContours}).
+Given the observations $F_i$, the covariance matrix $V_{ij}$, and the ability to calculate $\Fbar_i$ as a function of the oscillation parameters, the remainder of the fit procedure is straightforward. We provide the function $\chi^2(\SinSq, \Dmsqee)$ (\autoref{eq:fitChiSqOverview}) to MINUIT, which then returns the best-fit values of the oscillation parameters. Beyond reporting the best-fit parameters, the fitter also generates a grid of $\chi^2$ values in the $\SinSq$--$\Dmsqee$ parameter space, enabling the calculation of two-dimensional contours at any desired confidence level (\autoref{sec:fitContours}).
 
 \section{Results}
 \label{sec:fitResults}
