@@ -25,7 +25,7 @@ In total, there are 12 cut parameters that enter the IBD selection:
 \item Shower-muon charge threshold and veto time
 \end{itemize}
 
-We do not separately consider the parameters of the decoupled multiplicity cut (DMC), as these are fixed by the prompt/delayed energy and time-separation cuts. Among the 12 cuts listed above, most will, upon varying, have minimal impact on the analysis. The maximum prompt/delayed energy of 12~MeV is well above the endpoint of both spectra. Likewise, there are very few events at the time-separation limits of 1 and 200~\us. The shower-muon veto window is three orders of magnitude longer than that of the WP-muon and AD-muon vetoes; thus, as long as the latter two vetoes can identify muons with $\sim$100\% efficiency while vetoing sufficiently long to remove prompt cosmogenic events, they are sufficient. This leaves four cuts which may have a significant effect upon the analysis: The shower-muon threshold and window, the minimum delayed energy, and the minimum prompt energy. In subsequent sections, we discuss the reasons to expect these four cuts to be potentially impactful. Aside from these four cuts, we will also explore the effects of applying a vertex (i.e., position) cut, a nonstandard addition to the analysis which can provide a further demonstration of its overall robustness.
+We do not separately consider the parameters of the decoupled multiplicity cut, as these are fixed by the prompt/delayed energy and time-separation cuts. Among the 12 cuts listed above, most will, upon varying, have minimal impact on the analysis. The maximum prompt/delayed energy of 12~MeV is well above the endpoint of both spectra. Likewise, there are very few events at the time-separation limits of 1 and 200~\us. The shower-muon veto window is three orders of magnitude longer than that of the WP-muon and AD-muon vetoes; thus, as long as the latter two vetoes can identify muons with $\sim$100\% efficiency while vetoing sufficiently long to remove prompt cosmogenic events, they are sufficient. This leaves four cuts which may have a significant effect upon the analysis: The shower-muon threshold and window, the minimum delayed energy, and the minimum prompt energy. In subsequent sections, we discuss the reasons to expect these four cuts to be potentially impactful. Aside from these four cuts, we will also explore the effects of applying a vertex (i.e., position) cut, a nonstandard addition to the analysis which can provide a further demonstration of its overall robustness.
 
 \subsection{Technical requirements}
 \label{sec:cutVaryTechReq}
@@ -48,12 +48,12 @@ The shower-muon veto parameters are important for two reasons: They significantl
 
 In what follows, we will be referring to two nominal sets of shower-muon veto parameters, termed the ``LBNL'' and ``IHEP'' vetoes, named after the institutions from which the respective analyses originate. These two vetoes are applied in the official IBD selections used in Daya Bay's publications, e.g., Selections B and A, respectively, in \cite{An_2017}. They are defined as follows:
 \begin{itemize}
-\item LBNL veto: Shower muon threshold of $3\times10^5$ p.e.; veto window of 0.4004~s.
-\item IHEP veto: Shower muon threshold of 2.5~GeV ($\sim4\times10^5$ p.e.); veto window of 1~s.
+\item LBNL veto: Shower-muon threshold of $3\times10^5$ p.e.; veto window of 0.4004~s.
+\item IHEP veto: Shower-muon threshold of 2.5~GeV ($\sim4\times10^5$ p.e.); veto window of 1~s.
 \end{itemize}
 A particular goal, then, of this study is to confirm that the LBNL and IHEP vetoes both lie within a region of veto parameter space in which the best-fit oscillation parameters remain stable.\footnote{In the grid of cut parameters used in this study, the LBNL veto's closest approximation has a veto time of 0.375~s, rather than 0.4004~s. In what follows, then, whenever this grid is under consideration, ``nominal'' (or ``LBNL'') will refer to this grid point. Given the small difference between it and the true nominal cut, we will mix the two meanings of ``nominal'' (or ``LBNL'') freely. An analogous situation exists for the IHEP veto, which is nominally defined in terms of energy, rather than photoelectrons.}
 
-As described in \autoref{sec:bkgLi9LinReg}, our $^9$Li calculation correctly captures the dependence of the rate upon the veto parameters. Likewise, the veto efficiency calculation simply sums up the unvetoed time windows, and is thus valid for any set of veto parameters. Both of these calculations are performed by the IBD selector. No additional steps need to be taken when reprocessing the data.
+As described in \autoref{sec:bkgLi9LinReg}, our $^9$Li calculation correctly captures the dependence of the rate upon the veto parameters. Likewise, the veto-efficiency calculation simply sums up the unvetoed time windows, and is thus valid for any set of veto parameters. Both of these calculations are performed by the IBD selector. No additional steps need to be taken when reprocessing the data.
 
 On the other hand, when we investigate the toy MC's predictions of the effects of varying the cut, we are not re-running the IBD selector, so we must explicitly adjust the veto efficiency and $^9$Li rate. Even though the toy MC produces its own sample of ``data'', it does rely on an input, the so-called ``\texttt{Theta13}'' text file, which is produced by the IBD selector. This file lists, for each AD, the livetime, target mass, efficiencies (veto, multiplicity, delayed energy), and background rates and uncertainties. These values are then used by the toy MC to generate the predicted prompt spectra at each AD\@.
 
@@ -76,7 +76,7 @@ An additional input from the IBD selection is the singles spectrum (which gives 
   \label{fig:cutVaryVetoEffLi9Rates}
 \end{figure}
 
-The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, as described in \autoref{sec:bkgCosmo} and feed it the modified veto parameters, producing the $^9$Li rates exemplified in \autoref{fig:cutVaryVetoEffLi9Rates}. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
+The toy MC implementation of this study, then, requires taking the \texttt{Theta13} file produced by the nominal selection, and adjusting the veto efficiency, the $^9$Li rate, and its uncertainty. The veto-efficiency correction is described in the following section. For the $^9$Li rate and uncertainty, we simply load the \texttt{Li9Calc} class from the IBD selector, as described in \autoref{sec:bkgCosmo} and feed it the modified veto parameters, producing the $^9$Li rates exemplified in \autoref{fig:cutVaryVetoEffLi9Rates}. Once the \texttt{Theta13} file has been thus modified, the toy MC will generate toy spectra that properly account for the expected effects on the veto efficiency and $^9$Li rate.
 
 \subsection{Veto efficiency}%
 \label{sec:cutVaryMuVetoEff}
@@ -85,12 +85,12 @@ As was just mentioned, we must explicitly provide the overall muon veto efficien
 
 The veto efficiency is, naturally, a function of the muon rate. In particular, it depends on the rates of the three types of muons: water pool, AD, and shower. The first step, then, is to measure these rates, while avoiding double counting due to retriggers and multi-detector muons. For this purpose, a ``muon selector'' was written to extract all of the muon events in our dataset. This is the one place where actual data enters this process, but the code is independent of the IBD selection's second stage, where IBD cuts (including the veto) are normally applied. Once the muon sample has been obtained, the rates of the three classes can be calculated. The final step is to calculate the efficiency, which requires a proper treatment of the possible overlap of veto windows between closely spaced muons. In what follows we describe these steps in detail and demonstrate that the results agree well with the veto efficiency obtained from the IBD selection.
 
-\subsubsection{Muon rate measurement}%
+\subsubsection{Muon-rate measurement}%
 \label{sec:cutVaryMuRate}
 
-The objective of the muon rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons that produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD\@. Given that the AD/shower veto windows are longer than the WP window, any AD+WP muon should be regarded as a single AD muon. The measurement of the AD muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``shower'' and ``non-shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower-muon definition, without requiring a re-run of the muon selection.
+The objective of the muon-rate measurement is to obtain, for each AD, two results: First, the rate of \emph{water pool-only} muons (i.e., those muons that produced a ``WP muon'' trigger without an associated ``AD muon'' trigger), and second, the spectrum (in terms of charge or energy) of those muons that triggered the AD\@. Given that the AD/shower veto windows are longer than the WP window, any muon that triggers an AD \emph{as well as} one or both WPs should should be regarded as a single AD muon.\footnote{Since the muon rates are measured separately for each AD, this muon would instead be counted as a WP-only muon, rather than as an AD muon, with respect to any AD that did not record an associated AD muon event.} The measurement of the AD-muon \emph{spectrum}, rather than the total rate, is important because it enables a breakdown into ``shower'' and ``non-shower'' AD muons, which carry different veto windows, and it makes this breakdown possible while varying the shower-muon definition, without requiring a re-run of the muon selection.
 
-The muon selector runs on the output of the first stage of the IBD selection, i.e., the pre-selection, which does not depend on the IBD selection cuts. In particular, the muon selector reads the contents of the \texttt{muons} tree, which simply contains basic information (time, detector, hit multiplicity, and charge) for each WP trigger with more than 12 above-threshold PMTs, and each AD trigger with more than 3000 p.e.\ of charge. We collectively refer to these events of muon-like triggers.
+The muon selector runs on the output of the first stage of the IBD selection, i.e., the pre-selection, which does not depend on the IBD selection cuts. In particular, the muon selector reads the contents of the \texttt{muons} tree, which simply contains basic information (time, detector, hit multiplicity, and charge) for each WP trigger with more than 12 above-threshold PMTs, and each AD trigger with more than 3000~PE of charge. We collectively refer to these events as muon-like triggers.
 
 If we were to naively count the number of events of each type in the \texttt{muons} tree, we would overestimate the muon rates, for two reasons: Muons that trigger more than one detector must still be only counted once, and muon-induced retriggers must be discarded. The strategy for handling these subtleties is similar to the one described in \autoref{sec:bkgLi9MuonSel} for the muon selection used in the $^9$Li rate study:
 
@@ -160,7 +160,7 @@ The final step is to calculate the veto efficiency from the three rates. Althoug
 
 \autoref{fig:cutVaryVetoEffCompare} shows the daily efficiency of the nominal muon veto, both as reported by the IBD selection, and by performing the calculation above using the rates measured from data. As can be seen, there is a very small bias (on the order of 0.02\%) inherent in this approach. This is unsurprising, given that the IBD selection does not discard muon retriggers, which can therefore extend the veto window by O(10~\us). In any case, this bias is not large enough to meaningfully impact the toy MC study of the shower veto\footnote{And the whole purpose of the toy MC study is merely to provide a sanity check; ultimately, the results from data are of primary interest.}. \Autoref{fig:cutVaryVetoEff2dNear,fig:cutVaryVetoEff2dFar} compare (for a near and a far AD, respectively) the dependence of the efficiency upon the two shower-muon veto parameters, as determined both by running the full IBD selection, and by using the above calculation on the muon rates measured by the nominal selection. Excellent agreement can be seen.
 
-Having determined the expected veto efficiency for a modified shower veto, this value can be substituted into the \texttt{Theta13} file, along with the predicted $^9$Li rate. The toy MC are then run as usual in order to generate the covariance and detector response matrices, etc., and then the Asimov toy spectra are fed to the fitter in order to extract the oscillation parameters. Meanwhile, for fits to data, the \texttt{Theta13} file is taken directly from the output of the IBD selection, and the fitter receives the prompt spectra from the data sample. In both cases, the toy samples (and hence the covariance matrices) are generated under the assumption of ``nominal'' oscillation parameters, namely $\SinSq = 0.0850$ and $\Dmsqee = 0.002501$\footnote{As the covariance matrix has been shown to vary little under changes of the assumed oscillation parameters, we do not attempt to make the process more ``self-consistent'', such as by using an iterative procedure in which the covariance matrices are regenerated using the best-fit parameters, the fit is repeated, and so forth until convergence is reached. We have chosen the toy MC's oscillation parameters to be equal to our best-fit parameters from P17B data when the nominal IBD selection is applied.}. In the following sections we discuss the fit results for both the toy and the real data samples.
+Having determined the expected veto efficiency for a modified shower veto, this value can be substituted into the \texttt{Theta13} file, along with the predicted $^9$Li rate. The toy MC are then run as usual in order to generate the covariance and detector-response matrices, etc., and then the Asimov toy spectra are fed to the fitter in order to extract the oscillation parameters. Meanwhile, for fits to data, the \texttt{Theta13} file is taken directly from the output of the IBD selection, and the fitter receives the prompt spectra from the data sample. In both cases, the toy samples (and hence the covariance matrices) are generated under the assumption of ``nominal'' oscillation parameters, namely $\SinSq = 0.0850$ and $\Dmsqee = 0.002501$\footnote{As the covariance matrix has been shown to vary little under changes of the assumed oscillation parameters, we do not attempt to make the process more ``self-consistent'', such as by using an iterative procedure in which the covariance matrices are regenerated using the best-fit parameters, the fit is repeated, and so forth until convergence is reached. We have chosen the toy MC's oscillation parameters to be equal to our best-fit parameters from P17B data when the nominal IBD selection is applied.}. In the following sections we discuss the fit results for both the toy and the real data samples.
 
 \begin{comment}
 Regarding results: Don't comment on ``structure'' until we've regenerated the 2D plots using the fix to SinglesCalc::calcSinglesHz. (Accidentals rate might have been biased, throwing off the fit.)
@@ -257,7 +257,7 @@ XXX We'd hope that both the LBNL and IHEP points give closer results. We'll see 
   \label{fig:cutVaryDelCutDelSpec}
 \end{figure}
 
-In the reconstructed energy spectrum of neutron captures on gadolinium (nGd captures), there is a long, non-negligible tail below the nominal cut of 6~MeV (\autoref{fig:cutVaryDelCutDelSpec}). This tail is populated by events in which one or more gamma-rays ``leak'' beyond the active volume of the AD, leaving some of the initial energy unreconstructed. Fitting the delayed-energy spectrum to a double Crystal Ball function (\autoref{eq:cbfunction}) suggests that some 10\% of nGd-capture events fall below the 6~MeV cut. Due to this potential of gaining O(10\%) in signal statistics, it is worthwhile to explore the variation of the 6~MeV cut. Here we study the modified delayed-energy cuts ranging from 4 to 7~MeV.
+In the reconstructed energy spectrum of neutron captures on gadolinium (nGd captures), there is a long, non-negligible tail below the nominal cut of 6~MeV (\autoref{fig:cutVaryDelCutDelSpec}). This tail is populated by events in which one or more gamma-rays ``leak'' beyond the active volume of the AD, leaving some of the initial energy unreconstructed. Fitting the delayed-energy spectrum to a double Crystal Ball function (\autoref{eq:cbfunction}) suggests that some 10\% of nGd-capture events fall below the 6~MeV cut. Due to this potential of gaining O(10\%) in signal statistics, it is worthwhile to explore the variation of the 6-MeV cut. Here we study the modified delayed-energy cuts ranging from 4 to 7~MeV.
 
 Of course, there is a trade-off: With an increase in signal comes an increase in backgrounds. For those correlated backgrounds that involve an actual delayed nGd capture ($^9$Li, fast neutrons, and $\alpha$-$n$), the rate will increase according to the same scaling factor as the signal rate.
 
@@ -272,7 +272,7 @@ Although these correlated backgrounds do increase as the delayed-energy cut is l
 \end{align}
 that is, even though there is an increase in the absolute uncertainty on the background-subtracted rate, the \emph{relative} uncertainty actually decreases. Therefore, if these were the only backgrounds at Daya Bay, it would be advantageous to use a delayed-energy cut that is as low as possible.
 
-Unfortunately, the accidental background is not as well-behaved. As shown in \autoref{fig:cutVaryDelCutNcapExample}, the spectrum of the delayed-like singles rises much more steeply below 5~MeV compared to the neutron-capture spectrum, implying that the accidental background increases faster (percentage-wise) than the IBD rate (as confirmed in \autoref{fig:cutVaryDelCutAccBkg}). When this effect is large enough, the overall uncertainty on the background-subtracted IBD rate no longer decreases (as illustrated in \autoref{eq:cutVaryDelayedNcorrSigma}); instead, it \emph{increases}. In principle, then, it is the accidental background that serves to penalize overly loose definitions of the delayed-energy cut.\footnote{In saying this, we are ignoring the possibility of new, unaccounted-for \emph{correlated} backgrounds (or increased AmC backgrounds) appearing when we loosen the delayed-energy cut. As we discuss later, this is in fact a likely issue.}
+Unfortunately, the accidental background is not as well-behaved. As shown in \autoref{fig:cutVaryDelCutNcapExample}, the spectrum of the delayed-like singles rises much more steeply below 5~MeV compared to the neutron-capture spectrum, implying that the accidental background increases faster (percentage-wise) than the IBD rate (as confirmed in \autoref{fig:cutVaryDelCutAccBkg}). When this effect is large enough, the overall uncertainty on the background-subtracted IBD rate no longer decreases (as illustrated in \autoref{eq:cutVaryDelayedNcorrSigma}); instead, it \emph{increases}. In principle, then, it is the accidental background that serves to penalize overly loose definitions of the delayed-energy cut.\footnote{In saying this, we are ignoring the possibility of new, unaccounted-for \emph{correlated} backgrounds (or increased AmC backgrounds) appearing when we loosen the delayed-energy cut. As we discuss later, this is in fact a likely issue. Increases in the rates of the main correlated backgrounds are, however, accounted for, as discussed in \autoref{sec:cutVaryDelayedCutBkgTreatment}, but this is a minor effect compared to the increase in accidental backgrounds. It also bears mentioning that a delayed-energy cut below $\sim$5.5~MeV will accept IBDs in which the neutron was captured on carbon (``nC IBDs''), as illustrated by the small peak above 5~MeV in \autoref{fig:cutVaryDelCutNcapExample}. Since, aside from their delayed energies, these IBDs are no different from nGd IBDs, their presence should not bias the oscillation fit, provided that the ADs all possess consistent nC capture fractions (as they were designed to do).}
 
 \begin{figure}[ht]
   \includegraphics[width=0.8\textwidth]{CutVary/DelayedCut/ncap_log_8ad_eh1_ad1.pdf}
@@ -316,7 +316,7 @@ For both toy and data fits, we use the same procedure. Since $^9$Li, fast neutro
 
 As we show later (\autoref{sec:cutVaryDelCutResults}), naively varying the delayed-energy cut will cause a shift in the best-fit oscillation parameters (particularly $\SinSq$). This shift comes from the slight AD-to-AD differences in the shape of the IBD delayed spectrum. In what follows, we will refer to this spectrum as the ``neutron capture'' or ``nGd'' spectrum.\footnote{Although the bulk of delayed triggers are indeed nGd captures, there is in fact a small peak around 5~MeV (\autoref{fig:cutVaryDelCutNcapExample}) from neutron captures on carbon.} Due to these shape discrepancies, varying the delayed-energy cut will cause its efficiency to vary by different amounts between the ADs.
 
-In the published Daya Bay analyses, we have always assumed that all 8 ADs have the same delayed-energy cut efficiency, to which we assign a nominal (and irrelevant) value of 0.88 in the \texttt{Theta13} file. However, from the observed differences in the nGd shape, it is clear that this assumption is inaccurate. Obviously, the efficiency of the 6~MeV cut cannot be measured by a direct comparison of the IBD rates between ADs, since this wouldn't account for all of the other effects (e.g., oscillation!) which affect the measured rate. However, the delayed-energy cut efficiency\footnote{More accurately, the total detection efficiency, divided by those efficiencies (veto and DMC) that we treat individually.} \emph{could}, in principle, be measured by a fitter with 8 pull terms for the individual efficiencies and an additional pull term for the ``reactor antineutrino anomaly'' (the last of which already is included in the pull-based fitters used in the collaboration). Of course, including these 8 additional pulls could lead to a shift in the best-fit $\SinSq$, reflecting the fact that a particularly unfortunate combination of delayed-energy cut efficiencies could be mistaken for an oscillation signal.
+In the published Daya Bay analyses, we have always assumed that all 8 ADs have the same delayed-energy cut efficiency, to which we assign a nominal (and irrelevant) value of 0.88 in the \texttt{Theta13} file. However, from the observed differences in the nGd shape, it is clear that this assumption is inaccurate. Obviously, the efficiency of the 6~MeV cut cannot be measured by a direct comparison of the IBD rates between ADs, since this wouldn't account for all of the other effects (e.g., oscillation!) which affect the measured rate. However, the delayed-energy cut efficiency\footnote{More accurately, the total detection efficiency, divided by those efficiencies (veto and multiplicity) that we treat individually.} \emph{could}, in principle, be measured by a fitter with 8 pull terms for the individual efficiencies and an additional pull term for the ``reactor antineutrino anomaly'' (the last of which already is included in the pull-based fitters used in the collaboration). Of course, including these 8 additional pulls could lead to a shift in the best-fit $\SinSq$, reflecting the fact that a particularly unfortunate combination of delayed-energy cut efficiencies could be mistaken for an oscillation signal.
 
 Our fitter, however, does not support pull terms. Instead, we could take the measured IBD rates, correct them for baseline and oscillation effects, and then take the ratios to, say, AD1, giving the 8 \emph{relative} efficiencies, normalized to AD1. Again, though, such an approach would suffer from the ambiguity between the effects of oscillation and unequal efficiencies. Thus, we make no attempt to perform a corrected rate-based measurement of the 6~MeV cut's absolute efficiency. Instead, our approach is to measure the shape of the neutron-capture spectrum as best as possible (as described in \autoref{sec:cutVaryDelCutSpecMeas}), and use that as our sole source of information on the efficiency of the delayed-energy cut. Since our study extends down to delayed-energy cuts of 4~MeV, so does our measurement of the neutron-capture spectrum. The soft end of this spectrum includes events from the nGd tail as well as nC captures.
 
@@ -550,7 +550,7 @@ For these reasons, we choose to go beyond the official analysis and explore the 
 
 Throughout this study, we apply a given vertex cut to both the prompt (positron) and the delayed (neutron) vertex. This is to be distinguished from, say, the muon veto, which considers only the time of the \emph{delayed} trigger. We choose to cut on both vertices because it avoids the need to make an arbitrary choice between cutting on the prompt or on the delayed vertex, and it avoids the need to perform two separate singles selections with two different vertex cuts.
 
-In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed-energy cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts.
+In the sections that follow, we first describe the measurement of the vertex cut efficiency and how we correct for it, followed by our adjustments of the correlated-background rates. We then proceed to explore the effects of applying five different vertex cuts (three vertical and two cylindrical; see \autoref{tab:cutVaryVtxCutCutsTbl}) to the nominal selection, before extending to the case of modified delayed-energy cuts, with the goal of gaining insight into the trends observed in $\Dmsqee$. We end by drawing what conclusions we can regarding those trends as well as the overall robustness of our analysis to vertex cuts.
 %, and whether the observed variations are consistent with our statistical uncertainty.
 
 \subsection{Implementation details}
@@ -614,7 +614,7 @@ The efficiency of the vertex cut is then obtained by simply taking the ratio wit
 \subsection{Background rate adjustment}
 \label{sec:cutVaryVtxCutBkgRate}
 
-In the preceding discussion of the efficiency calculation, the background rate $R_{\mathrm{bkg}}$ is itself implicitly a function of the vertex cut, and is thus different between the selection in question and the reference selection. This modified value of $R_{\mathrm{bkg}}$ must also, of course, be the one we use when subtracting the backgrounds during the oscillation fit. Here we discuss how the five background rates are affected by the use of a vertex cut.
+In the preceding discussion of the efficiency calculation, the background rate $R_{\mathrm{bkg}}$ is itself implicitly a function of the vertex cut, and is thus different between the selection in question and the reference selection. This modified value of $R_{\mathrm{bkg}}$ must also, of course, be the one we use when subtracting the backgrounds during the oscillation fit. Here we discuss how the five background rates are affected by the use of a vertex cut. In what follows, the parameters of any given vertex cut will be denoted by $r_{\mathrm{min}}$, $r_{\mathrm{max}}$, $z_{\mathrm{min}}$, and $z_{\mathrm{max}}$.
 
 \subsubsection{Accidentals}
 
@@ -638,9 +638,10 @@ Based on this uniformity assumption, we define a ``radial'' factor $f_r$ to acco
 \end{aligned}
 \end{equation}
 
-Since these backgrounds are not expected to occur outside the GdLS, we clamp the vertex cut parameters at the limits defined above:
+Since these backgrounds are not expected to occur outside the GdLS, we clamp the vertex cut parameters at the limits defined above:\footnote{Note that $r'_{\mathrm{min}} = r_{\mathrm{min}}$ for any sensible (i.e.\@ nonnegative) value of $r_{\mathrm{min}}$.}
 \begin{equation}
   \begin{aligned}
+  r'_{\mathrm{min}} &= \max(r_{\mathrm{min}}, r_{\mathrm{min}}^{\mathrm{nom}})\\
   r'_{\mathrm{max}} &= \min(r_{\mathrm{max}}, r_{\mathrm{max}}^{\mathrm{nom}})\\
   z'_{\mathrm{min}} &= \max(z_{\mathrm{min}}, z_{\mathrm{min}}^{\mathrm{nom}})\\
   z'_{\mathrm{max}} &= \min(z_{\mathrm{max}}, z_{\mathrm{max}}^{\mathrm{nom}})
@@ -649,7 +650,7 @@ Since these backgrounds are not expected to occur outside the GdLS, we clamp the
 
 The radial factor is then
 \begin{equation}
-  f_r = \left(\frac{r'_{\mathrm{max}}}{r_{\mathrm{max}}^{\mathrm{nom}}}\right)^2 - \left(\frac{r_{\mathrm{min}}}{r_{\mathrm{max}}^{\mathrm{nom}}} \right)^2.
+  f_r = \left(\frac{r'_{\mathrm{max}}}{r_{\mathrm{max}}^{\mathrm{nom}}}\right)^2 - \left(\frac{r'_{\mathrm{min}}}{r_{\mathrm{max}}^{\mathrm{nom}}} \right)^2.
 \end{equation}
 Here, the first term is the fraction of the IAV we'd be using if $r_{\mathrm{min}}$ were zero. The second term then subtracts out the fraction excluded by nonzero $r_{\mathrm{min}}$.
 
@@ -665,16 +666,53 @@ where $R^{\mathrm{nom}}$ is the background rate for the nominal IBD selection (w
 
 \subsubsection{AmC background}
 
-Since the AmC background events are produced near the top of the AD, we assume a linearly rising vertical profile terminating at the center of the AD, in accordance with the results in \cite{Gu_2016}.
-% ; see Fig.~XXX.
-For the purpose of this calculation, then, we clamp $z_{\mathrm{min}}$ at the center:
+% \newcommand\zmn{z_{\mathrm{max}}^{\mathrm{nom}}}
+\newcommand\zmn{Z}
+
+Since the AmC background events are produced near the top of the AD, we assume a linearly rising vertical profile terminating at the center of the AD, in accordance with the results in \cite{Gu_2016}. For the sake of brevity, in what follows we let
 \begin{equation}
-  z''_{\mathrm{min}} = \max(z_{\mathrm{min}}, 0)
+  Z \equiv z_{\mathrm{max}}^{\mathrm{nom}}.
 \end{equation}
-We then integrate the vertical profile to derive the AmC vertical factor:
+Now letting $F(z)$ denote the fraction of events lying between the center of the AD and a vertical coordinate of $z$ (above the center), we have
 \begin{equation}
-  f_z^{\mathrm{AmC}} = \frac{(z'_{\mathrm{max}})^2 - (z''_{\mathrm{min}})^2 - z_{\mathrm{min}}^{\mathrm{nom}} (z'_{\mathrm{max}} - z''_{\mathrm{min}})} {(z_{\mathrm{max}}^{\mathrm{nom}})^2 - z_{\mathrm{min}}^{\mathrm{nom}} z_{\mathrm{max}}^{\mathrm{nom}}} 
+  \frac{dF}{dz} =
+  \begin{dcases}
+    \frac{kz}{\zmn}, & \mbox{for } 0 < z < \zmn,\\
+    0 & \mbox{otherwise,}
+  \end{dcases}
 \end{equation}
+where $k$ is a normalization constant determined by the condition
+\begin{equation}
+  \label{eq:cutVaryAmCZnorm}
+  F(\zmn) = 1.
+\end{equation}
+Integrating $dF/dz$ then gives
+\begin{equation}
+  F(z) =
+  \begin{dcases}
+    0, &\mbox{for } z < 0,\\
+    \frac{kz^2}{2\zmn}, &\mbox{for } 0 < z < \zmn,\\
+    \frac{k\zmn}{2}, &\mbox{for } z > \zmn,
+  \end{dcases}
+\end{equation}
+From \autoref{eq:cutVaryAmCZnorm} it follows that
+\begin{equation}
+  k = \frac{2}{\zmn},
+\end{equation}
+so that, finally,
+\begin{equation}
+  F(z) =
+  \begin{dcases}
+    0, &\mbox{for } z < 0,\\
+    \frac{z^2}{\zmn^2}, &\mbox{for } 0 < z < \zmn,\\
+    1 &\mbox{for } z > \zmn,
+  \end{dcases}
+\end{equation}
+The AmC vertical factor $f_z^{\mathrm{AmC}}$ is then given by
+\begin{equation}
+    f_z^{\mathrm{AmC}} = F(z'_{\mathrm{max}}) - F(z'_{\mathrm{min}}).
+\end{equation}
+
 As for the radial distribution, even though the AmC sources are located at three discrete points, we assume that the inherent resolution of the vertex reconstruction, along with the scattering of the neutrons and gamma-rays in the stainless steel lid, together produce enough smearing to result in uniformity. Therefore, we use the same $f_r$ as above. The AmC background is a small one, so any approximations here are not liable to significantly affect the overall analysis.
 
 \subsection{Results}
